@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration xmlns="http://logging.apache.org/log4php/">
+    
+    <!-- Default logger apender -->
+    <appender name="default" class="LoggerAppenderDailyFile">
+        
+        <!-- Logger layout (pattern) -->
+        <layout class="LoggerLayoutPattern">
+            
+            <param name="conversionPattern" 
+                   value="%date{Y-m-d H:i:s,u} [%5pid] [%-5level] [%-26class{0}] [%4line] - %msg%n" />
+        </layout>
+        
+        <!-- Logger file -->
+        <param name="file" value="../log/log_api-%s.log" />
+        
+        <!-- Logger file name pattern -->
+        <param name="datePattern" value="Ymd" />
+    
+    </appender>
+    
+    <root>
+        <level value="debug" />
+        <appender_ref ref="default" />
+    </root>
+    
+</configuration>
