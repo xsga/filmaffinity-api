@@ -15,7 +15,6 @@
  */
 use log4php\Logger;
 use xsgaphp\api\XsgaAPIRouter;
-use xsgaphp\exceptions\XsgaException;
 
 // Start or continue session.
 session_start();
@@ -34,7 +33,7 @@ $logger = Logger::getRootLogger();
 
 // Logger.
 $logger->debugInit('main');
-$logger->info('Request        : '.$_SERVER['REQUEST_URI']);
+$logger->info('Request URI    : '.$_SERVER['REQUEST_URI']);
 $logger->info('Request method : '.$_SERVER['REQUEST_METHOD']);
 
 // Get API router.
@@ -47,6 +46,7 @@ try {
 
 } catch (Exception $e) {
     
+    // Get error code.
     if ($e->getCode() === 0) {
         $errorCode = 500;
     } else {
@@ -59,9 +59,7 @@ try {
     
     // Dispatch error.
     $apiRouter->dispatchError($errorCode, $e->getMessage(), $e->getFile(), $e->getLine(), $e->__toString());
-        
-    throw new XsgaException();
-        
+    
 }//end try
 
 // Logger.

@@ -21,6 +21,7 @@ namespace xsgaphp\api;
 use xsgaphp\mvc\XsgaAbstractRouter;
 use xsgaphp\api\dto\OutErrorDto;
 use xsgaphp\exceptions\XsgaValidationException;
+use xsgaphp\exceptions\XsgaException;
 
 /**
  * XsgaAPIRouter class.
@@ -73,10 +74,10 @@ class XsgaAPIRouter extends XsgaAbstractRouter
         $methodArray  = array_map('ucfirst', $methodArray);
         $this->method = strtolower($method).implode('', $methodArray);
         
+        // Set parameters.
         $params = $this->requestArray;
         unset($params[0]);
         unset($params[1]);
-                        
         $this->parameters = array_values($params);
         
         // Dispatch petition.
@@ -104,6 +105,9 @@ class XsgaAPIRouter extends XsgaAbstractRouter
     public function dispatchError($code, $message, $file, $line, $trace)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         // Set out error DTO.
         $errorDto          = new OutErrorDto();
         $errorDto->code    = $code;
@@ -119,6 +123,11 @@ class XsgaAPIRouter extends XsgaAbstractRouter
         http_response_code($code);
         self::getHeaders();
         echo json_encode($errorDto);
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+        throw new XsgaException();
         
     }//end dispatchError()
     
@@ -154,6 +163,9 @@ class XsgaAPIRouter extends XsgaAbstractRouter
     private function validatesRequest()
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         $total = count($this->requestArray);
         
         if ($total < 2) {
@@ -162,11 +174,16 @@ class XsgaAPIRouter extends XsgaAbstractRouter
             $errorMsg = 'Invalid request';
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end validatesRequest()
 

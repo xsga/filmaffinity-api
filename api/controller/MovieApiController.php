@@ -40,10 +40,15 @@ class MovieApiController extends XsgaAbstractApiController
     public function getGetMovie(array $params)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         $this->getResponse($movieId);
         
+        // Logger.
+        $this->logger->debugEnd();
+        
     }//end getGetMovie()
-    
     
     
 }//end MovieApiController class

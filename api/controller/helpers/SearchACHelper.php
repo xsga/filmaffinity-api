@@ -42,17 +42,25 @@ class SearchACHelper extends XsgaAbstractClass
     public function valGenre($genreParam)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         if (!array_key_exists($genreParam, FilmAffinityResources::$genres) && $genreParam <> '') {
             
             // Error message.
             $errorMsg = 'Genre code "'.$genreParam.'" it\'s not valid';
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end valGenre()
     
@@ -69,17 +77,25 @@ class SearchACHelper extends XsgaAbstractClass
     public function valCountry($countryParam)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         if (!array_key_exists($countryParam, FilmAffinityResources::$countries) && $countryParam<> '') {
             
             // Error message.
             $errorMsg = 'Country code "'.$countryParam.'" it\'s not valid';
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end valCountry()
     

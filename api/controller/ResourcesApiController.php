@@ -39,8 +39,14 @@ class ResourcesApiController extends XsgaAbstractApiController
     public function getGetGenres()
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         // Get response.
         $this->getResponse(FilmAffinityResources::$genres);
+        
+        // Logger.
+        $this->logger->debugEnd();
         
     }//end getGetGenres()
     
@@ -55,8 +61,14 @@ class ResourcesApiController extends XsgaAbstractApiController
     public function getGetCountries()
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         // Get response.
         $this->getResponse(FilmAffinityResources::$countries);
+        
+        // Logger.
+        $this->logger->debugEnd();
         
     }//end getGetCountries()
     

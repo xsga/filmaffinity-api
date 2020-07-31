@@ -39,11 +39,17 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     public function getInputData()
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         $data = json_decode(file_get_contents('php://input'), true);
         
         if (is_null($data)) {
             $data = array();
         }//end if
+        
+        // Logger.
+        $this->logger->debugEnd();
         
         return $data;
         
@@ -90,6 +96,9 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     public function valNumberOfParams(array $data, $expected)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         $total = count($data);
         
         if ($total <> $expected) {
@@ -98,11 +107,16 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $errorMsg = 'Expected '.$expected.' parameter/s, '.$total.' recived';
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end valNumberOfParams()
     
@@ -122,17 +136,25 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     public function valExistsParam(array $data, $paramName)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         if (!isset($data[$paramName])) {
             
             // Error message.
             $errorMsg = 'Expected parameter "'.$paramName.'" not found';
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end valExistsParam()
     
@@ -153,17 +175,25 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     public function valParamLength($param, $paramName, $minLength)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         if (strlen($param) < $minLength) {
             
             // Error message.
             $errorMsg = 'Minium length of "'.$paramName.'" parameter is '.$minLength;
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end valParamLength()
     
@@ -180,17 +210,25 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     public function valParamIsBoolean($param)
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         if (!is_bool($param)) {
             
             // Error message.
             $errorMsg = 'Parameter it\s not a boolean';
             
             // Logger.
+            $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
             throw new XsgaValidationException($errorMsg);
             
         }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
         
     }//end valParamIsBoolean()
     

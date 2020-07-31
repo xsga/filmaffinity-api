@@ -63,6 +63,9 @@ class SearchApiController extends XsgaAbstractApiController
     public function postDoSearch()
     {
         
+        // Logger.
+        $this->logger->debugInit();
+        
         /*
          * JSON INPUT:
          * 
@@ -76,12 +79,13 @@ class SearchApiController extends XsgaAbstractApiController
         $data = $this->getInputData();
         
         // Validates input data..
-        $this->valNumberOfParams($data, 1);
-        $this->valExistsParam($data, 'search');
-        $this->valParamLength($data['search'], 'search', 2);
+        $this->postDoSearchValidations($data);
         
         // Get response.
         $this->getResponse($data);
+        
+        // Logger.
+        $this->logger->debugEnd();
         
     }//end postDoSearch()
     
@@ -95,6 +99,9 @@ class SearchApiController extends XsgaAbstractApiController
      */
     public function postDoAdvSearch()
     {
+        
+        // Logger.
+        $this->logger->debugInit();
         
         /*
          * JSON INPUT:
@@ -118,6 +125,59 @@ class SearchApiController extends XsgaAbstractApiController
         
         // Get input data.
         $data = $this->getInputData();
+        
+        // Validate input data.
+        $this->postDoAdvSearchValidations($data);
+        
+        // Get response.
+        $this->getResponse($data);
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+    }//end postDoAdvSearch()
+    
+    
+    /**
+     * Validates input data for do_search API endpoint.
+     * 
+     * @param array $data
+     * 
+     * @return void
+     *
+     * @access private
+     */
+    private function postDoSearchValidations(array $data)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        // Validates input data..
+        $this->valNumberOfParams($data, 1);
+        $this->valExistsParam($data, 'search');
+        $this->valParamLength($data['search'], 'search', 2);
+        
+        // Logger.
+        $this->logger->debugEnd();
+                
+    }//end postDoSearchValidations()
+    
+    
+    /**
+     * Validates input data for do_adv_search API endpoint.
+     * 
+     * @param array $data
+     *
+     * @return void
+     *
+     * @access private
+     */
+    private function postDoAdvSearchValidations(array $data)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
         
         // Validate input data.
         $this->valNumberOfParams($data, 12);
@@ -144,10 +204,10 @@ class SearchApiController extends XsgaAbstractApiController
         $this->helper->valGenre($data['genre']);
         $this->helper->valCountry($data['country']);
         
-        // Get response.
-        $this->getResponse($data);
+        // Logger.
+        $this->logger->debugEnd();
         
-    }//end postDoAdvSearch()
+    }//end postDoAdvSearchValidations()
     
     
 }//end SearchApiController class

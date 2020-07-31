@@ -511,7 +511,7 @@ class XsgaRestClient
     public function prepareUrl($url)
     {
         
-        if ((is_array($url) === true) && (count($url) > 0)) {
+        if ((is_array($url) === true) && (!empty($url))) {
             
             $newUrl = $url[0];
 
