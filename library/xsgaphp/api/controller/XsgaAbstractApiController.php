@@ -59,7 +59,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     /**
      * Get response.
      * 
-     * @param mixed $data response data.
+     * @param mixed $data Response data.
      * 
      * @return void
      * 
@@ -199,9 +199,11 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     
     
     /**
-     * Validates if parametes it's boolean.
+     * Validates if parametes is boolean.
      * 
      * @param mixed $param
+     * 
+     * @throws XsgaValidationException Parameter is not a boolean.
      * 
      * @return void
      * 
@@ -216,7 +218,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         if (!is_bool($param)) {
             
             // Error message.
-            $errorMsg = 'Parameter it\s not a boolean';
+            $errorMsg = 'Parameter is not a boolean';
             
             // Logger.
             $this->logger->debugValidationKO();
@@ -231,6 +233,80 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         $this->logger->debugEnd();
         
     }//end valParamIsBoolean()
+    
+    
+    /**
+     * Validates if parameter is integer.
+     * 
+     * @param mixed $param
+     * 
+     * @throws XsgaValidationException Parameter is not an integer.
+     * 
+     * @return void
+     * 
+     * @access public
+     */
+    public function valParamIsInteger($param)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        if (!is_int($param) && !empty($param)) {
+            
+            // Error message.
+            $errorMsg = 'Parameter is not an integer';
+            
+            // Logger.
+            $this->logger->debugValidationKO();
+            $this->logger->error($errorMsg);
+            
+            throw new XsgaValidationException($errorMsg);
+            
+        }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
+        
+    }//end valParamIsInteger()
+    
+    
+    /**
+     * Validates if parameter is numeric.
+     *
+     * @param mixed $param
+     *
+     * @throws XsgaValidationException Parameter is not numeric.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    public function valParamIsNumeric($param)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        if (!is_numeric($param) && !empty($param)) {
+            
+            // Error message.
+            $errorMsg = 'Parameter is not numeric';
+            
+            // Logger.
+            $this->logger->debugValidationKO();
+            $this->logger->error($errorMsg);
+            
+            throw new XsgaValidationException($errorMsg);
+            
+        }//end if
+        
+        // Logger.
+        $this->logger->debugValidationOK();
+        $this->logger->debugEnd();
+        
+    }//end valParamIsNumeric()
     
     
 }//end XsgaAbstractController class

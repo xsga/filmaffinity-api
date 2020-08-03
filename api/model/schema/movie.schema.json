@@ -1,0 +1,151 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "FilmAffinity-API - Film",
+    "required": [
+        "filmAfinityId",
+        "title",
+        "originalTitle",
+        "year",
+        "duration",
+        "coverUrl",
+        "coverFile",
+        "rating",
+        "country",
+        "directors",
+        "screenplay",
+        "soundtrack",
+        "photography",
+        "cast",
+        "producer",
+        "genres",
+        "officialweb",
+        "synopsis"
+    ],
+    "properties": {
+        "filmAfinityId": {
+            "$id": "#/properties/filmAfinityId",
+            "type": "integer",
+            "title": "FilmAffinity film ID"
+        },
+        "title": {
+            "$id": "#/properties/title",
+            "type": "string",
+            "title": "Film title"
+        },
+        "originalTitle": {
+            "$id": "#/properties/originalTitle",
+            "type": "string",
+            "title": "Film original title"
+        },
+        "year": {
+            "$id": "#/properties/year",
+            "type": "string",
+            "title": "Film release year"
+        },
+        "duration": {
+            "$id": "#/properties/duration",
+            "type": "string",
+            "title": "Film duration"
+        },
+        "coverUrl": {
+            "$id": "#/properties/coverUrl",
+            "type": "string",
+            "title": "Film cover URL"
+        },
+        "coverFile": {
+            "$id": "#/properties/coverFile",
+            "type": "string",
+            "title": "Film cover filename"
+        },
+        "rating": {
+            "$id": "#/properties/rating",
+            "type": "string",
+            "title": "Film rating"
+        },
+        "country": {
+            "$id": "#/properties/country",
+            "type": "string",
+            "title": "Film country name"
+        },
+        "directors": {
+            "$id": "#/properties/directors",
+            "type": "array",
+            "title": "Film directors array",
+            "additionalItems": false,
+            "items": {
+                "$id": "#/properties/directors/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/directors/items/anyOf/0",
+                        "type": "string",
+                        "title": "Director name"
+                    }
+                ]
+            }
+        },
+        "screenplay": {
+            "$id": "#/properties/screenplay",
+            "type": "string",
+            "title": "Film screenplay"
+        },
+        "soundtrack": {
+            "$id": "#/properties/soundtrack",
+            "type": "string",
+            "title": "Film soundtrack"
+        },
+        "photography": {
+            "$id": "#/properties/photography",
+            "type": "string",
+            "title": "Film photography"
+        },
+        "cast": {
+            "$id": "#/properties/cast",
+            "type": "array",
+            "title": "The cast schema",
+            "additionalItems": false,
+            "items": {
+                "$id": "#/properties/cast/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/cast/items/anyOf/0",
+                        "type": "string",
+                        "title": "Cast name"
+                    }
+                ]
+            }
+        },
+        "producer": {
+            "$id": "#/properties/producer",
+            "type": "string",
+            "title": "Film producer"
+        },
+        "genres": {
+            "$id": "#/properties/genres",
+            "type": "array",
+            "title": "Film genres array",
+            "additionalItems": false,
+            "items": {
+                "$id": "#/properties/genres/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/genres/items/anyOf/0",
+                        "type": "string",
+                        "title": "Film genre name"
+                    }
+                ]
+            }
+        },
+        "officialweb": {
+            "$id": "#/properties/officialweb",
+            "type": "string",
+            "title": "Film official website"
+        },
+        "synopsis": {
+            "$id": "#/properties/synopsis",
+            "type": "string",
+            "title": "Film synopsis"
+        }
+    },
+    "additionalProperties": false
+}

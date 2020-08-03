@@ -76,7 +76,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
                 
                 // Logger.
                 $this->logger->error('HTTP ERROR: '.$response->getCode());
-                $this->logger->error($response->getErrors());
+                $this->logger->error($response->getRaw());
                 
             } else {
                 

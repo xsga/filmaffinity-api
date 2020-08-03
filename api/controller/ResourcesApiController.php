@@ -31,6 +31,8 @@ class ResourcesApiController extends XsgaAbstractApiController
     
     /**
      * Get genres list GET method.
+     * 
+     * @api
      *
      * @return void
      *
@@ -53,6 +55,8 @@ class ResourcesApiController extends XsgaAbstractApiController
     
     /**
      * Get countries list GET method.
+     * 
+     * @api
      *
      * @return void
      *

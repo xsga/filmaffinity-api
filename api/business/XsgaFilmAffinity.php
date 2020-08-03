@@ -22,10 +22,13 @@ namespace api\business;
  * Import namespaces.
  */
 use xsgaphp\rest\XsgaRestWrapper;
-use xsgaphp\filmaffinity\dto\FilmAffinityAdvSearchDto;
-use xsgaphp\exceptions\XsgaValidationException;
 use xsgaphp\exceptions\XsgaPageNotFoundException;
 use xsgaphp\mvc\XsgaAbstractClass;
+use api\model\dto\AdvSearchDto;
+use api\model\dto\SearchResultsDto;
+use api\model\dto\SingleSearchResultDto;
+use api\model\dto\SearchDto;
+use api\model\dto\FilmDto;
 
 /**
  * Class XsgaFilmAffinity.
@@ -33,132 +36,31 @@ use xsgaphp\mvc\XsgaAbstractClass;
 class XsgaFilmAffinity extends XsgaAbstractClass
 {
     
-    /**
-     * Base URL.
-     * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $baseURL = 'https://www.filmaffinity.com/es/';
-    
-    /**
-     * Search URL.
-     * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $searchURL = 'search.php?stext={1}';
-    
-    /**
-     * Advanced search URL.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $advSearchURL = 'advsearch.php?stext={1}{2}&country={3}&genre={4}&fromyear={5}&toyear={6}';
-    
-    /**
-     * Film URL.
-     * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $filmURL = 'film{1}.html';
-    
-    /**
-     * Search type.
-     * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $searchType = 'title';
-    
-    /**
-     * Language.
-     * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $language = '';
-    
-    /**
-     * Default language.
-     * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $defaultLanguage = 'spa';
-    
-    /**
-     * Errors.
-     * 
-     * @var array
-     * 
-     * @access private
-     */
-    private $errors;
-    
-    /**
-     * Minimum length of the search text.
-     * 
-     * @var integer
-     * 
-     * @access private
-     */
-    private $minLength = 2;
-    
-    
-    /**
-     * Constructor.
-     * 
-     * @access public
-     */
-    public function __construct()
-    {
-        
-        // Executes parent constructor.
-        parent::__construct();
-        
-        // Set language.
-        $this->setLanguage($this->defaultLanguage);
-        
-    }//end __construct()
-    
     
     /**
      * Search.
      *
-     * @param string $searchText Search text.
+     * @param SearchDto $searchDto Search DTO.
      *
-     * @return array
+     * @return SearchResultsDto
      *
      * @access public
      */
-    public function search($searchText)
+    public function search($searchDto)
     {
         
         // Logger.
         $this->logger->debugInit();
         
-        // Validates search text.
-        $this->validateSearchText($searchText);
-        
         // Prepare search string.
-        $origSearchText = $searchText;
-        $searchText     = trim($searchText);
+        $origSearchText = $searchDto->searchText;
+        $searchText     = trim($searchDto->searchText);
         $searchText     = str_replace(' ', '+', $searchText);
         
         // Get url.
-        $urlSearch = $this->searchURL;
+        $urlSearch = FA_SEARCH_URL;
         $urlSearch = str_replace('{1}', $searchText, $urlSearch);
-        $urlSearch = $this->baseURL.$urlSearch;
+        $urlSearch = FA_BASE_URL.$urlSearch;
         
         // Logger.
         $this->logger->debug('Search URL: '.$urlSearch);
@@ -169,7 +71,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         // Logger.
         $this->logger->debugEnd();
     
-        return json_encode($out);
+        return $out;
     
     }//end search()
     
@@ -177,20 +79,17 @@ class XsgaFilmAffinity extends XsgaAbstractClass
     /**
      * Advanced search.
      *
-     * @param FilmAffinityAdvSearchDto $advSearchDto Advanced search data.
+     * @param AdvSearchDto $advSearchDto Advanced search data.
      *
-     * @return array
+     * @return SearchResultsDto
      *
      * @access public
      */
-    public function advancedSearch(FilmAffinityAdvSearchDto $advSearchDto)
+    public function advancedSearch(AdvSearchDto $advSearchDto)
     {
     
         // Logger.
         $this->logger->debugInit();
-    
-        // Validates search text.
-        $this->validateSearchText($advSearchDto->searchText);
     
         // Prepare search string.
         $origSearchText           = $advSearchDto->searchText;
@@ -201,7 +100,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $searchType = '';
         
         if ($advSearchDto->searchTypeTitle === true) {
-            $searchType .= '&stype[]=tite';
+            $searchType .= '&stype[]=title';
         }//end if
         
         if ($advSearchDto->searchTypeDirector === true) {
@@ -212,15 +111,15 @@ class XsgaFilmAffinity extends XsgaAbstractClass
             $searchType .= '&stype[]=cast';
         }//end if
         
-        if ($advSearchDto->searchTypeMusic === true) {
+        if ($advSearchDto->searchTypeSoundtrack === true) {
             $searchType .= '&stype[]=music';
         }//end if
         
-        if ($advSearchDto->searchTypeScript === true) {
+        if ($advSearchDto->searchTypeScreenplay === true) {
             $searchType .= '&stype[]=script';
         }//end if
         
-        if ($advSearchDto->searchTypePhoto === true) {
+        if ($advSearchDto->searchTypePhotography === true) {
             $searchType .= '&stype[]=photo';
         }//end if
         
@@ -228,15 +127,23 @@ class XsgaFilmAffinity extends XsgaAbstractClass
             $searchType .= '&stype[]=producer';
         }//end if
         
+        // By default, search in title.
+        if ($searchType === '') {
+            
+            $this->logger->warn('No search type found. Set the default search type: title');
+            
+            $searchType = '&stype[]=title';
+        }//end if
+        
         // Get url.
-        $urlSearch = $this->advSearchURL;
+        $urlSearch = FA_ADV_SEARCH_URL;
         $urlSearch = str_replace('{1}', $advSearchDto->searchText, $urlSearch);
         $urlSearch = str_replace('{2}', $searchType, $urlSearch);
         $urlSearch = str_replace('{3}', $advSearchDto->searchCountry, $urlSearch);
         $urlSearch = str_replace('{4}', $advSearchDto->searchGenre, $urlSearch);
         $urlSearch = str_replace('{5}', $advSearchDto->searchYearFrom, $urlSearch);
         $urlSearch = str_replace('{6}', $advSearchDto->searchYearTo, $urlSearch);
-        $urlSearch = $this->baseURL.$urlSearch;
+        $urlSearch = FA_BASE_URL.$urlSearch;
     
         // Logger.
         $this->logger->debug('Search URL: '.$urlSearch);
@@ -247,7 +154,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         // Logger.
         $this->logger->debugEnd();
     
-        return json_encode($out);
+        return $out;
     
     }//end advancedSearch()
     
@@ -255,9 +162,9 @@ class XsgaFilmAffinity extends XsgaAbstractClass
     /**
      * Load film.
      *
-     * @param string $filmId Film id.
+     * @param integer $filmId Film id.
      *
-     * @return string
+     * @return FilmDto
      *
      * @access public
      */
@@ -268,8 +175,8 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $this->logger->debugInit();
         
         // Get url.
-        $urlFilm = str_replace('{1}', $filmId, $this->filmURL);
-        $urlFilm = $this->baseURL.$urlFilm;
+        $urlFilm = str_replace('{1}', $filmId, FA_FILM_URL);
+        $urlFilm = FA_BASE_URL.$urlFilm;
         
         // Logger.
         $this->logger->debug('Film URL: '.$urlFilm);
@@ -290,23 +197,23 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $domXpath = new \DOMXPath($document);
         
         // Initialize output array.
-        $out = array();
+        $out = new FilmDto();
         
         // Get movie title and rating.
-        $out['title']  = trim($document->getElementById('main-title')->nodeValue);
-        $out['rating'] = trim($document->getElementById('movie-rat-avg')->nodeValue);
+        $out->title  = trim($document->getElementById('main-title')->nodeValue);
+        $out->rating = trim($document->getElementById('movie-rat-avg')->nodeValue);
         
         // Get movie cover URL and cover filename.
         $result = $domXpath->query("//a[@class = 'lightbox']");
         
         if ($result->length === 0) {
-            $out['cover_url']  = null;
-            $out['cover_file'] = null;
+            $out->coverUrl  = null;
+            $out->coverFile = null;
         } else {
-            $coverURL          = trim($result->item(0)->getAttribute('href'));
-            $coverFile         = explode('/', $coverURL);
-            $out['cover_url']  = $coverURL;
-            $out['cover_file'] = end($coverFile);
+            $coverURL      = trim($result->item(0)->getAttribute('href'));
+            $coverFile     = explode('/', $coverURL);
+            $out->coverUrl = $coverURL;
+            $out->coverFile= end($coverFile);
         }//end if
         
         // Execute XPaths queries.
@@ -345,204 +252,27 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $directorsTrim = array_map('trim', $directors);
         
         // Set film information into output array.
-        $out['filmaffinity_id'] = $filmId;
-        $out['original_title']  = (isset($info['Título original']) === true) ? trim(str_replace('aka', '', $info['Título original'])) : '';
-        $out['year']            = (isset($info['Año']) === true) ? $info['Año'] : '';
-        $out['duration']        = (isset($info['Duración']) === true) ? trim(str_replace('min.', '', $info['Duración'])) : '';
-        $out['country']         = (isset($info['País']) === true) ? trim(trim($info['País'], chr(0xC2).chr(0xA0))) : '';
-        $out['director']        = $directorsTrim;
-        $out['screenplay']      = (isset($info['Guion']) === true) ? $info['Guion'] : '';
-        $out['soundtrack']      = (isset($info['Música']) === true) ? $info['Música'] : '';
-        $out['photo']           = (isset($info['Fotografía']) === true) ? $info['Fotografía'] : '';
-        $out['actors']          = $actorsTrim;
-        $out['production']      = (isset($info['Productora']) === true) ? $info['Productora'] : '';
-        $out['genres']          = $genresTrim;
-        $out['official_web']    = (isset($info['Web oficial']) === true) ? $info['Web oficial'] : '';
-        $out['synopsis']        = (isset($info['Sinopsis']) === true) ? trim(str_replace('(FILMAFFINITY)', '', $info['Sinopsis'])) : '';
+        $out->filmAfinityId = (int)$filmId;
+        $out->originalTitle = (isset($info['Título original']) === true) ? trim(str_replace('aka', '', $info['Título original'])) : '';
+        $out->year          = (isset($info['Año']) === true) ? $info['Año'] : '';
+        $out->duration      = (isset($info['Duración']) === true) ? trim(str_replace('min.', '', $info['Duración'])) : '';
+        $out->country       = (isset($info['País']) === true) ? trim(trim($info['País'], chr(0xC2).chr(0xA0))) : '';
+        $out->directors     = $directorsTrim;
+        $out->screenplay    = (isset($info['Guion']) === true) ? $info['Guion'] : '';
+        $out->producer      = (isset($info['Productora']) === true) ? $info['Productora'] : '';
+        $out->soundtrack    = (isset($info['Música']) === true) ? $info['Música'] : '';
+        $out->photography   = (isset($info['Fotografía']) === true) ? $info['Fotografía'] : '';
+        $out->cast          = $actorsTrim;
+        $out->genres        = $genresTrim;
+        $out->officialweb   = (isset($info['Web oficial']) === true) ? $info['Web oficial'] : '';
+        $out->synopsis      = (isset($info['Sinopsis']) === true) ? trim(str_replace('(FILMAFFINITY)', '', $info['Sinopsis'])) : '';
         
         // Logger.
         $this->logger->debugEnd();
         
-        return json_encode($out);
+        return $out;
     
     }//end loadFilm()
-    
-    
-    /**
-     * Set minimum length of the search text.
-     * 
-     * @param integer $minLength Minimum length of the search text.
-     * 
-     * @return void
-     * 
-     * @access public
-     */
-    public function setMinLength($minLength)
-    {
-        
-        // Logger.
-        $this->logger->debugInit();
-        
-        if (is_numeric($minLength) === true) {
-            
-            // Round minimum length.
-            $minLength = round($minLength, 0);
-            
-            if ($minLength <= 0) {
-                
-                // Logger.
-                $this->logger->warn('Length out of range');
-                
-                // Set minimum length to 2.
-                $this->minLength = 2;
-                
-            } else {
-                
-                // Logger.
-                $this->logger->debug('Set minimum length to: '.$minLength);
-                
-                // Set minimum length.
-                $this->minLength = $minLength;
-                
-            }//end if
-            
-        } else {
-            
-            // Logger.
-            $this->logger->warn('Not a valid number');
-            
-        }//end if
-        
-        // Logger.
-        $this->logger->debugEnd();
-        
-    }//end setMinLength()
-    
-    
-    /**
-     * Get minimum length of the search text.
-     * 
-     * @return integer
-     * 
-     * @access public
-     */
-    public function getMinLength()
-    {
-        
-        return $this->minLength;
-        
-    }//end getMinLength()
-    
-    
-    /**
-     * Set language.
-     * 
-     * @param string $language Language code.
-     * 
-     * @return void
-     * 
-     * @access public
-     */
-    public function setLanguage($language)
-    {
-        
-        // Logger.
-        $this->logger->debugInit();
-        
-        // Get language.
-        switch (strtolower(trim($language))) {
-            case 'spa':
-                
-                // Logger.
-                $this->logger->info('Set language to "spa" (spanish)');
-                
-                // Set language.
-                $this->language = 'spa';
-                
-                break;
-                
-            case 'ca':
-                
-                // Logger.
-                $this->logger->info('Set language to "ca" (catalan)');
-                
-                // Set language.
-                $this->language = 'ca';
-                
-                break;
-                
-            case 'en':
-                
-                // Logger.
-                $this->logger->info('Set language to "en" (english)');
-                
-                // Set language.
-                $this->language = 'en';
-                
-                break;
-                
-            default:
-                
-                // Logger.
-                $this->logger->warn('Language "'.$language.'" not valid. Set to default, "'.$this->defaultLanguage.'"');
-                
-                // Set language to default language.
-                $this->language = $this->defaultLanguage;
-                                
-        }//end switch
-        
-        // Load language literals.
-        $this->loadLanguageLiterals();
-        
-        // Logger.
-        $this->logger->debugEnd();
-        
-    }//end setLanguage()
-    
-    
-    /**
-     * Validate search text.
-     * 
-     * @param string $searchText Search text.
-     * 
-     * @return void
-     * 
-     * @throws XsgaValidationException Invalid search text: empty.
-     * @throws XsgaValidationException Invalid search text: less than 3 chars.
-     * 
-     * @access private
-     */
-    private function validateSearchText($searchText)
-    {
-        
-        // Logger.
-        $this->logger->debugInit();
-        
-        if (($searchText === '') || ($searchText === null)) {
-            
-            // Logger.
-            $this->logger->debugValidationKO();
-            $this->logger->error('Invalid search text: empty');
-        
-            throw new XsgaValidationException($this->errors['no_search_text']);
-        
-        }//end if
-        
-        if (strlen($searchText) < $this->minLength) {
-            
-            // Logger.
-            $this->logger->debugValidationKO();
-            $this->logger->error('Invalid search text: less than 3 chars');
-        
-            throw new XsgaValidationException($this->errors['short_search_text']);
-        
-        }//end if
-        
-        // Logger.
-        $this->logger->debugValidationOK();
-        $this->logger->debugEnd();
-        
-    }//end validateSearchText()
     
     
     /**
@@ -551,7 +281,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * @param string $urlSearch  Search URL.
      * @param string $searchText Search text.
      * 
-     * @return array
+     * @return SearchResultsDto
      * 
      * @access private
      */
@@ -562,7 +292,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $this->logger->debugInit();
         
         // Get search results page.
-        $searchResult = $this->getPageContent($urlSearch);
+        $searchResultPage = $this->getPageContent($urlSearch);
         
         // Disable parse output errors.
         libxml_use_internal_errors(true);
@@ -571,13 +301,13 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $document = new \DOMDocument();
         
         // Load search results into the DOMDocument.
-        $document->loadHtml(mb_convert_encoding($searchResult, 'HTML-ENTITIES', 'UTF-8'));
+        $document->loadHtml(mb_convert_encoding($searchResultPage, 'HTML-ENTITIES', 'UTF-8'));
         
         // New DOMXPath instance.
         $domXpath = new \DOMXPath($document);
         
         // Initialize output.
-        $out = array();
+        $out = new SearchResultsDto();
         
         $result = $domXpath->query("//meta[@property = 'og:title']");
         
@@ -593,8 +323,14 @@ class XsgaFilmAffinity extends XsgaAbstractClass
             $title = trim(str_replace('  ', ' ', str_replace('   ', ' ', $titleAux)));
             $id    = trim(str_replace('https://www.filmaffinity.com/es/film', '', str_replace('.html', '', $idAux)));
         
-            // Put result data into output array.
-            $out[] = array('id' => $id, 'title' => $title);
+            // Put result into single result DTO.
+            $searchResult        = new SingleSearchResultDto();
+            $searchResult->id    = (int)$id;
+            $searchResult->title = $title;
+            
+            // Put single result into output DTO.
+            $out->total     = 1;
+            $out->results[] = $searchResult;
         
         } else {
         
@@ -603,40 +339,37 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         
             // Set total search results.
             $totalResults = $filter->length;
-        
-            if ($totalResults === 0) {
-        
-                // Logger.
-                $this->logger->warn('No search results for "'.$searchText.'"');
-        
-                throw new \Exception($this->errors['no_search_results']);
-        
-            }//end if
-        
+            
+            // Set total results.
+            $out->total = $totalResults;
+            
             // Logger.
             $this->logger->info('FilmAffinity search ("'.$searchText.'"): '.$totalResults.' results found');
         
-            for ($i = 0; $i < $totalResults; $i++) {
+            if ($totalResults > 0) {
         
-                // Execute new XPath query.
-                $filter2 = $domXpath->query("//div[@class = 'mc-title']");
-                $filter3 = $domXpath->query("//div[@class = 'ye-w']");
+                for ($i = 0; $i < $totalResults; $i++) {
+                    
+                    // Execute new XPath query.
+                    $filter2 = $domXpath->query("//div[@class = 'mc-title']");
+                    $filter3 = $domXpath->query("//div[@class = 'ye-w']");
+                    
+                    // Get result data.
+                    $searchResult        = new SingleSearchResultDto();
+                    $searchResult->id    = (int)trim($filter->item($i)->getAttribute('data-movie-id'));
+                    $searchResult->title = trim(str_replace('  ', ' ', str_replace('   ', ' ', $filter2->item($i)->nodeValue)));
+                    
+                    if (empty($filter3->item($i)->nodeValue) === false) {
+                        $searchResult->title .= ' ('.$filter3->item($i)->nodeValue.')';
+                    }//end if
+                    
+                    // Put single result data into output DTO.
+                    $out->results[] = $searchResult;
+                    
+                }//end for
         
-                // Get result data.
-                $id     = trim($filter->item($i)->getAttribute('data-movie-id'));
-                $title  = trim(str_replace('  ', ' ', str_replace('   ', ' ', $filter2->item($i)->nodeValue)));
-        
-                if (empty($filter3->item($i)->nodeValue) === false) {
-        
-                    $title .= ' ('.$filter3->item($i)->nodeValue.')';
-        
-                }//end if
-        
-                // Put result data into output array.
-                $out[] = array('id' => $id, 'title' => $title);
-        
-            }//end for
-        
+            }//end if
+            
         }//end if
         
         // Enable parse output errors.
@@ -675,7 +408,13 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         
         if (empty($pageContent) === true) {
             
-            throw new XsgaPageNotFoundException($this->errors['internal_error']);
+            // Error message.
+            $errorMsg = 'FilmAffinity page can not be loaded';
+            
+            // Logger.
+            $this->logger->error($errorMsg);
+            
+            throw new XsgaPageNotFoundException($errorMsg);
             
         }//end if
         
@@ -685,37 +424,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         return $pageContent;
         
     }//end getPageContent()
-    
-    
-    /**
-     * Load language literals.
-     * 
-     * @return void
-     * 
-     * @access private
-     */
-    private function loadLanguageLiterals()
-    {
-        
-        // Logger.
-        $this->logger->debugInit();
-
-        // Set language file.
-        $file = 'errors'.ucfirst($this->language).'.php';
-
-        // Logger.
-        $this->logger->debug('Load property file: '.$file);
-        
-        // Load errors labels.
-        require_once 'language/'.$file;
-        
-        // Set errors.
-        $this->errors = $errors;
-        
-        // Logger.
-        $this->logger->debugEnd();
-        
-    }//end loadLanguageLiterals()
     
     
 }//end XsgaFilmAffinity class

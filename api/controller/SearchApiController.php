@@ -21,6 +21,7 @@ namespace api\controller;
  */
 use xsgaphp\api\controller\XsgaAbstractApiController;
 use api\controller\helpers\SearchACHelper;
+use api\business\XsgaFilmAffinity;
 
 /**
  * Class SearchApiController.
@@ -32,8 +33,19 @@ class SearchApiController extends XsgaAbstractApiController
      * Helper.
      * 
      * @var SearchACHelper
+     * 
+     * @access private
      */
-    public $helper;
+    private $helper;
+    
+    /**
+     * FilmAffinity business class.
+     * 
+     * @var XsgaFilmAffinity
+     * 
+     * @access private
+     */
+    private $filmAffinity;
     
     
     /**
@@ -50,11 +62,16 @@ class SearchApiController extends XsgaAbstractApiController
         // Set helper.
         $this->helper = new SearchACHelper();
         
+        // Set FilmAffinity business class.
+        $this->filmAffinity = new XsgaFilmAffinity();
+        
     }//end __construct()
     
     
     /**
      * Do search POST method.
+     * 
+     * @api
      * 
      * @return void
      * 
@@ -70,7 +87,7 @@ class SearchApiController extends XsgaAbstractApiController
          * JSON INPUT:
          * 
          * {
-         *   "search": "<search_text>"
+         *   "text": "<search_text>"
          * }
          * 
          */
@@ -78,11 +95,17 @@ class SearchApiController extends XsgaAbstractApiController
         // Get input data.
         $data = $this->getInputData();
         
-        // Validates input data..
+        // Validates input data.
         $this->postDoSearchValidations($data);
         
+        // Get AdvSearchDto.
+        $dto = $this->helper->getSearchDto($data);
+        
+        // Do search.
+        $searchResults = $this->filmAffinity->search($dto);
+        
         // Get response.
-        $this->getResponse($data);
+        $this->getResponse($searchResults);
         
         // Logger.
         $this->logger->debugEnd();
@@ -92,6 +115,8 @@ class SearchApiController extends XsgaAbstractApiController
     
     /**
      * Do advanced search POST method.
+     * 
+     * @api
      * 
      * @return void
      * 
@@ -129,8 +154,14 @@ class SearchApiController extends XsgaAbstractApiController
         // Validate input data.
         $this->postDoAdvSearchValidations($data);
         
+        // Get AdvSearchDto.
+        $dto = $this->helper->getAdvSearchDto($data);
+        
+        // Do advanced search.
+        $searchResults = $this->filmAffinity->advancedSearch($dto);
+        
         // Get response.
-        $this->getResponse($data);
+        $this->getResponse($searchResults);
         
         // Logger.
         $this->logger->debugEnd();
@@ -155,8 +186,8 @@ class SearchApiController extends XsgaAbstractApiController
         
         // Validates input data..
         $this->valNumberOfParams($data, 1);
-        $this->valExistsParam($data, 'search');
-        $this->valParamLength($data['search'], 'search', 2);
+        $this->valExistsParam($data, 'text');
+        $this->valParamLength($data['text'], 'text', 2);
         
         // Logger.
         $this->logger->debugEnd();
@@ -201,6 +232,8 @@ class SearchApiController extends XsgaAbstractApiController
         $this->valParamIsBoolean($data['photography']);
         $this->valParamIsBoolean($data['soundtrack']);
         $this->valParamIsBoolean($data['producer']);
+        $this->valParamIsInteger($data['year_from']);
+        $this->valParamIsInteger($data['year_to']);
         $this->helper->valGenre($data['genre']);
         $this->helper->valCountry($data['country']);
         

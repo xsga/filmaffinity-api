@@ -22,6 +22,8 @@ namespace api\controller\helpers;
 use xsgaphp\mvc\XsgaAbstractClass;
 use xsgaphp\exceptions\XsgaValidationException;
 use api\business\FilmAffinityResources;
+use api\model\dto\AdvSearchDto;
+use api\model\dto\SearchDto;
 
 /**
  * Class SearchACHelper.
@@ -34,6 +36,8 @@ class SearchACHelper extends XsgaAbstractClass
      * Validates genre parameter.
      * 
      * @param string $genreParam
+     * 
+     * @throws XsgaValidationException Not a valid genre.
      * 
      * @return void
      * 
@@ -48,7 +52,7 @@ class SearchACHelper extends XsgaAbstractClass
         if (!array_key_exists($genreParam, FilmAffinityResources::$genres) && $genreParam <> '') {
             
             // Error message.
-            $errorMsg = 'Genre code "'.$genreParam.'" it\'s not valid';
+            $errorMsg = 'Code "'.$genreParam.'" is not a valid genre code';
             
             // Logger.
             $this->logger->debugValidationKO();
@@ -69,6 +73,8 @@ class SearchACHelper extends XsgaAbstractClass
      * Validates country parameter.
      *
      * @param string $countryParam
+     * 
+     * @throws XsgaValidationException Not a valid country.
      *
      * @return void
      *
@@ -80,10 +86,10 @@ class SearchACHelper extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
-        if (!array_key_exists($countryParam, FilmAffinityResources::$countries) && $countryParam<> '') {
+        if (!array_key_exists($countryParam, FilmAffinityResources::$countries) && $countryParam <> '') {
             
             // Error message.
-            $errorMsg = 'Country code "'.$countryParam.'" it\'s not valid';
+            $errorMsg = 'Code "'.$countryParam.'" is not a valid country code';
             
             // Logger.
             $this->logger->debugValidationKO();
@@ -98,6 +104,75 @@ class SearchACHelper extends XsgaAbstractClass
         $this->logger->debugEnd();
         
     }//end valCountry()
+    
+    
+    /**
+     * Get AdvSearchDto from input data array.
+     * 
+     * @param array $data Input data array.
+     * 
+     * @return AdvSearchDto
+     * 
+     * @access public
+     */
+    public function getAdvSearchDto(array $data)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        // New DTO instance.
+        $dto = new AdvSearchDto();
+        
+        // Populates DTO.
+        $dto->searchText            = $data['text'];
+        $dto->searchTypeTitle       = $data['title'];
+        $dto->searchTypeDirector    = $data['director'];
+        $dto->searchTypeCast        = $data['cast'];
+        $dto->searchTypeScreenplay  = $data['screenplay'];
+        $dto->searchTypePhotography = $data['photography'];
+        $dto->searchTypeSoundtrack  = $data['soundtrack'];
+        $dto->searchTypeProducer    = $data['producer'];
+        $dto->searchGenre           = $data['genre'];
+        $dto->searchCountry         = $data['country'];
+        $dto->searchYearFrom        = $data['year_from'];
+        $dto->searchYearTo          = $data['year_to'];
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+        return $dto;
+        
+    }//end getAdvSearchDto()
+    
+    
+    /**
+     * Get SearchDto from input data array.
+     *
+     * @param array $data Input data array.
+     *
+     * @return SearchDto
+     *
+     * @access public
+     */
+    public function getSearchDto(array $data)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        // New DTO instance.
+        $dto = new SearchDto();
+        
+        // Populates DTO.
+        $dto->searchText = $data['text'];
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+        return $dto;
+        
+    }//end getSearchDto()
     
     
 }//end SearchACHelper class

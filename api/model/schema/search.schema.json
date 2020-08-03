@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "FilmAffinity-API - Search",
+    "required": [
+        "text"
+    ],
+    "properties": {
+        "text": {
+            "$id": "#/properties/text",
+            "type": "string",
+            "title": "The text to search"
+        }
+    },
+    "additionalProperties": false
+}

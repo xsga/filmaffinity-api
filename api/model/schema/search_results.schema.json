@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "FilmAffinity-API - Search Results",
+    "required": [
+        "total",
+        "results"
+    ],
+    "properties": {
+        "total": {
+            "$id": "#/properties/total",
+            "type": "integer",
+            "title": "Number of search results"
+        },
+        "results": {
+            "$id": "#/properties/results",
+            "type": "array",
+            "title": "The results array",
+            "description": "An array of all search results.",
+            "additionalItems": false,
+            "items": {
+                "$id": "#/properties/results/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/results/items/anyOf/0",
+                        "type": "object",
+                        "title": "Single search result",
+                        "required": [
+                            "id",
+                            "title"
+                        ],
+                        "properties": {
+                            "id": {
+                                "$id": "#/properties/results/items/anyOf/0/properties/id",
+                                "type": "integer",
+                                "title": "FilmAffinity film ID"
+                            },
+                            "title": {
+                                "$id": "#/properties/results/items/anyOf/0/properties/title",
+                                "type": "string",
+                                "title": "The film title"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": false
+}

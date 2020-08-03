@@ -1,0 +1,82 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "FilmAffinity-API - Advanced Search",
+    "required": [
+        "text",
+        "title",
+        "director",
+        "cast",
+        "screenplay",
+        "photography",
+        "soundtrack",
+        "producer",
+        "country",
+        "genre",
+        "year_from",
+        "year_to"
+    ],
+    "properties": {
+        "text": {
+            "$id": "#/properties/text",
+            "type": "string",
+            "title": "Text to search"
+        },
+        "title": {
+            "$id": "#/properties/title",
+            "type": "boolean",
+            "title": "Title flag"
+        },
+        "director": {
+            "$id": "#/properties/director",
+            "type": "boolean",
+            "title": "Director flag"
+        },
+        "cast": {
+            "$id": "#/properties/cast",
+            "type": "boolean",
+            "title": "Cast flag"
+        },
+        "screenplay": {
+            "$id": "#/properties/screenplay",
+            "type": "boolean",
+            "title": "Screenplay flag"
+        },
+        "photography": {
+            "$id": "#/properties/photography",
+            "type": "boolean",
+            "title": "Photography flag"
+        },
+        "soundtrack": {
+            "$id": "#/properties/soundtrack",
+            "type": "boolean",
+            "title": "Soundtrack flag"
+        },
+        "producer": {
+            "$id": "#/properties/producer",
+            "type": "boolean",
+            "title": "Producer flag"
+        },
+        "country": {
+            "$id": "#/properties/country",
+            "type": "string",
+            "title": "Film country code"
+        },
+        "genre": {
+            "$id": "#/properties/genre",
+            "type": "string",
+            "title": "Film genre code"
+        },
+        "year_from": {
+            "$id": "#/properties/year_from",
+            "type": "string",
+            "title": "Film release year from"
+        },
+        "year_to": {
+            "$id": "#/properties/year_to",
+            "type": "string",
+            "title": "Film release year to"
+        }
+    },
+    "additionalProperties": false
+}
