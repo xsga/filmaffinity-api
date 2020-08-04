@@ -19,9 +19,10 @@ namespace xsgaphp\api;
  * Import namespaces.
  */
 use xsgaphp\mvc\XsgaAbstractRouter;
-use xsgaphp\api\dto\OutErrorDto;
 use xsgaphp\exceptions\XsgaValidationException;
-use xsgaphp\exceptions\XsgaException;
+use api\model\dto\ApiErrorDevDto;
+use api\model\dto\ApiErrorDto;
+use xsgaphp\utils\XsgaLangFiles;
 
 /**
  * XsgaAPIRouter class.
@@ -92,42 +93,56 @@ class XsgaAPIRouter extends XsgaAbstractRouter
     /**
      * Dispatch API error.
      * 
-     * @param integer $code    Error code.
-     * @param string  $message Error message.
-     * @param string  $file    Error file.
-     * @param integer $line    Error line.
-     * @param string  $trace   Error trace.
+     * @param integer $code  Error code.
+     * @param string  $file  Error file.
+     * @param integer $line  Error line.
+     * @param string  $trace Error trace.
      * 
      * @return void
      * 
      * @access public
      */
-    public function dispatchError($code, $message, $file, $line, $trace)
+    public function dispatchError($code, $file, $line, $trace)
     {
         
         // Logger.
         $this->logger->debugInit();
         
-        // Set out error DTO.
-        $errorDto          = new OutErrorDto();
-        $errorDto->code    = $code;
-        $errorDto->message = $message;
-        $errorDto->file    = $file;
-        $errorDto->line    = $line;
-        $errorDto->trace   = $trace;
+        // Get error literals.
+        $lang = XsgaLangFiles::load('Api');
+        
+        // Set error message.
+        $message = $lang['error_'.$code];
+        
+        if (API_ENV === 'dev') {
+            
+            // Set out error DTO.
+            $errorDto          = new ApiErrorDevDto();
+            $errorDto->code    = $code;
+            $errorDto->message = $message;
+            $errorDto->file    = $file;
+            $errorDto->line    = $line;
+            $errorDto->trace   = $trace;
+            
+        } else {
+            
+            // Set out error DTO.
+            $errorDto          = new ApiErrorDto();
+            $errorDto->code    = $code;
+            $errorDto->message = $message;
+            
+        }//end if
         
         // Clean output buffer.
         ob_clean();
         
         // Set response.
-        http_response_code($code);
+        http_response_code(500);
         self::getHeaders();
         echo json_encode($errorDto);
         
         // Logger.
         $this->logger->debugEnd();
-        
-        throw new XsgaException();
         
     }//end dispatchError()
     
@@ -177,7 +192,7 @@ class XsgaAPIRouter extends XsgaAbstractRouter
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 111);
             
         }//end if
         

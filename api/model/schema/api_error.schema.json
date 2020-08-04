@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "Error response for development environment",
+    "required": [
+        "code",
+        "message"
+    ],
+    "properties": {
+        "code": {
+            "$id": "#/properties/code",
+            "type": "integer",
+            "title": "Error code"
+        },
+        "message": {
+            "$id": "#/properties/message",
+            "type": "string",
+            "title": "Error description"
+        }
+    },
+    "additionalProperties": false
+}

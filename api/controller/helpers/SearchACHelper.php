@@ -58,7 +58,7 @@ class SearchACHelper extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 103);
             
         }//end if
         
@@ -95,7 +95,7 @@ class SearchACHelper extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 104);
             
         }//end if
         

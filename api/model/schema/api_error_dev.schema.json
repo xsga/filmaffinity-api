@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "Error response for development environment",
+    "required": [
+        "code",
+        "message",
+        "file",
+        "line",
+        "trace"
+    ],
+    "properties": {
+        "code": {
+            "$id": "#/properties/code",
+            "type": "integer",
+            "title": "Error code"
+        },
+        "message": {
+            "$id": "#/properties/message",
+            "type": "string",
+            "title": "Error description"
+        },
+        "file": {
+            "$id": "#/properties/file",
+            "type": "string",
+            "title": "Error file"
+        },
+        "line": {
+            "$id": "#/properties/line",
+            "type": "integer",
+            "title": "File error line"
+        },
+        "trace": {
+            "$id": "#/properties/trace",
+            "type": "string",
+            "title": "Error trace"
+        }
+    },
+    "additionalProperties": false
+}

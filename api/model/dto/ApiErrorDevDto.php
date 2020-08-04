@@ -1,22 +1,23 @@
 <?php
 /**
- * OutErrorDto.
+ * ApiErrorDevDto.
  * 
  * PHP Version 7
  * 
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
  */
 
 /**
  * Namespace.
  */
-namespace xsgaphp\api\dto;
+namespace api\model\dto;
 
 /**
- * Class OutErrorDto.
+ * Class ApiErrorDevDto.
  */
-class OutErrorDto
+class ApiErrorDevDto
 {
     
     /**
@@ -65,4 +66,4 @@ class OutErrorDto
     public $trace;
     
     
-}//end OutErrorDto class
+}//end ApiErrorDevDto class

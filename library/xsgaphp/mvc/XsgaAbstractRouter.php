@@ -192,7 +192,7 @@ class XsgaAbstractRouter extends XsgaAbstractClass
             // Logger.
             $this->logger->error($log);
             
-            throw new XsgaPageNotFoundException($log, 404);
+            throw new XsgaPageNotFoundException($log, 112);
             
         }//end if
         

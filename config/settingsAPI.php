@@ -1,14 +1,17 @@
 <?php
 /**
- * File comment.
+ * FilmAffinity-API settings.
  *
- * PHP Version 5
+ * PHP Version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
  */
 
 $settings = array();
+
+$settings['environment'] = 'dev';
 
 /**
  * Domain settings.
@@ -36,7 +39,7 @@ $settings['fa_film_url']       = 'film{1}.html';
  * Language:
  *  - spa
  *  - ca
- *  -en
+ *  - en
  */
 $settings['fa_language'] = 'spa';
 
@@ -49,6 +52,7 @@ $settings['logger_level'] = 'debug';
 
 
 // User config constants definition.
+define('API_ENV', $settings['environment']);
 define('URL_PATH', $settings['url_path']);
 define('FA_BASE_URL', strtolower($settings['fa_base_url']));
 define('FA_SEARCH_URL', strtolower($settings['fa_search_url']));

@@ -2,11 +2,12 @@
 /**
  * API main page.
  * 
- * The index web page it's the xsga-PHP API front controller. It manages all REST petitions.
+ * The index web page it's the FilmAffinity-API front controller. It manages all petitions.
  * 
  * PHP Version 7
  * 
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
  */
 
@@ -48,7 +49,7 @@ try {
     
     // Get error code.
     if ($e->getCode() === 0) {
-        $errorCode = 500;
+        $errorCode = 101;
     } else {
         $errorCode = $e->getCode();
     }//end if
@@ -58,7 +59,7 @@ try {
     $logger->error($e->__toString());
     
     // Dispatch error.
-    $apiRouter->dispatchError($errorCode, $e->getMessage(), $e->getFile(), $e->getLine(), $e->__toString());
+    $apiRouter->dispatchError($errorCode, $e->getFile(), $e->getLine(), $e->__toString());
     
 }//end try
 

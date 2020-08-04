@@ -35,6 +35,7 @@ class FilmAffinityResources extends XsgaAbstractClass
      * @access public
      */
     public static $genres = array(
+            'AC'    => 'Acción',
             'AN'    => 'Animación',
             'AV'    => 'Aventuras',
             'BE'    => 'Bélico',

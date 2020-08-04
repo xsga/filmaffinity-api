@@ -110,7 +110,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 105);
             
         }//end if
         
@@ -148,7 +148,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 106);
             
         }//end if
         
@@ -187,7 +187,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 107);
             
         }//end if
         
@@ -224,7 +224,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 108);
             
         }//end if
         
@@ -261,7 +261,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 109);
             
         }//end if
         
@@ -298,7 +298,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg);
+            throw new XsgaValidationException($errorMsg, 110);
             
         }//end if
         
