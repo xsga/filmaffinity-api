@@ -5,11 +5,9 @@ FilmAffinity-API it's a public API wich allow you to get information about films
 The API is written in PHP and uses a JSON objects as a input and output data.
 
 ## Installation
-***
 TODO.
 
 ## Public methods
-***
 These are the public methods:
 
 * Search films.
@@ -17,6 +15,7 @@ These are the public methods:
 * Get film.
 * Get film genres.
 * Get countries.
+
 
 |Method name|API endpoint|HTTP method|Input|Output|
 |-----------|------------|-----------|-----|------|
@@ -27,7 +26,6 @@ These are the public methods:
 |Get countries|resources/get_countries|GET|none|JSON object|
 
 ### Public method Search
-***
 This public method allows you to search films by a single text.
 
 <ins>API ENDPOINT</ins>
@@ -64,7 +62,6 @@ JSON properties:
   * "title" - film title and release year.
 
 ### Public method Advanced Search
-***
 This public method allows you to search films by some criterias.
 
 <ins>API ENDPOINT</ins>
@@ -100,7 +97,6 @@ http://<server_domain_api>/search/do_adv_search
 }
 ```
 ### Public method Get Film
-***
 This public method allows you to get film information by id (FilmAffinity ID).
 
 <ins>API ENDPOINT</ins>
