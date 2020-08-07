@@ -1,8 +1,8 @@
 # filmaffinity-api
 
-[Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)
-[Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF?style=flat)](https://php.net/)
-[License](https://img.shields.io/github/license/xsga/filmaffinity-api)
+[![Language]](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)
+[![Minimum PHP Version]](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF?style=flat)](https://php.net/)
+[![License]](https://img.shields.io/github/license/xsga/filmaffinity-api)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
 
