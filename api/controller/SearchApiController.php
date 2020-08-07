@@ -7,8 +7,8 @@
  * PHP version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
- *
  */
 
 /**
@@ -83,15 +83,6 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        /*
-         * JSON INPUT:
-         * 
-         * {
-         *   "text": "<search_text>"
-         * }
-         * 
-         */
-        
         // Get input data.
         $data = $this->getInputData();
         
@@ -127,26 +118,6 @@ class SearchApiController extends XsgaAbstractApiController
         
         // Logger.
         $this->logger->debugInit();
-        
-        /*
-         * JSON INPUT:
-         * 
-         * {
-         *   "text": "<search_text>",
-         *   "title": true|false,
-         *   "director": true|false,
-         *   "cast": true|false,
-         *   "screenplay": true|false,
-         *   "photography": true|false,
-         *   "soundtrack": true|false,
-         *   "producer": true|false,
-         *   "country": "<country_code>",
-         *   "genre": "<genre_code>",
-         *   "year_from": "<year>",
-         *   "year_to": "<year>"
-         * }
-         * 
-         */
         
         // Get input data.
         $data = $this->getInputData();

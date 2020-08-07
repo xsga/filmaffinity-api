@@ -7,8 +7,8 @@
  * PHP version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
- *
  */
 
 /**
@@ -20,6 +20,7 @@ namespace api\business;
  * Import namespaces.
  */
 use xsgaphp\mvc\XsgaAbstractClass;
+use xsgaphp\exceptions\XsgaFileNotFoundException;
 
 /**
  * Class FilmAffinityResources.
@@ -27,259 +28,102 @@ use xsgaphp\mvc\XsgaAbstractClass;
 class FilmAffinityResources extends XsgaAbstractClass
 {
     
-    /**
-     * Valid genres.
-     *
-     * @var array
-     *
-     * @access public
-     */
-    public static $genres = array(
-            'AC'    => 'Acción',
-            'AN'    => 'Animación',
-            'AV'    => 'Aventuras',
-            'BE'    => 'Bélico',
-            'C-F'   => 'Ciencia ficción',
-            'F-N'   => 'Cine negro',
-            'CO'    => 'Comedia',
-            'DESC'  => 'Desconocido',
-            'DO'    => 'Documental',
-            'DR'    => 'Drama',
-            'FAN'   => 'Fantástico',
-            'INF'   => 'Infantil',
-            'INT'   => 'Intriga',
-            'MU'    => 'Musical',
-            'RO'    => 'Romance',
-            'TV_SE' => 'Serie de TV',
-            'TE'    => 'Terror',
-            'TH'    => 'Thriller',
-            'WE'    => 'Western'
-    );
     
     /**
-     * Valid countries.
+     * Get JSON file.
+     * 
+     * @param string $fileName JSON filename.
+     * 
+     * @throws XsgaFileNotFoundException When file not found.
+     * 
+     * @return string
+     * 
+     * @access public
+     */
+    public function getJsonFile($fileName)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        // Get json filename.
+        $jsonFileName = strtolower($fileName).ucfirst(strtolower(FA_LANGUAGE)).'.json';
+        
+        // Json path and filename.
+        $jsonFile = realpath(dirname(__FILE__)).'/../resources/json/'.$jsonFileName;
+        
+        if (file_exists($jsonFile)) {
+            
+            // Get file content.
+            $jsonContent = file_get_contents($jsonFile);
+            
+        } else {
+            
+            // Error message.
+            $errorMsg = 'JSON file not found ('.$jsonFileName.')';
+            
+            // Logger.
+            $this->logger->error($errorMsg);
+            
+            throw new XsgaFileNotFoundException($errorMsg, 113);
+            
+        }//end if
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+        return $jsonContent;
+        
+    }//end getJsonFile()
+    
+    
+    /**
+     * Get JSON schema file.
      *
-     * @var array
+     * @param string $mode     Mode: IN or OUT.
+     * @param string $fileName JSON schema filename.
+     *
+     * @throws XsgaFileNotFoundException When file not found.
+     *
+     * @return string
      *
      * @access public
      */
-    public static $countries = array(
-            'ES' => 'España',
-            'US' => 'Estados Unidos',
-            'GB' => 'Reino Unido',
-            'AF' => 'Afganistán',
-            'AL' => 'Albania',
-            'DE' => 'Alemania',
-            'FD' => 'Alemania del Este (RDA)',
-            'FF' => 'Alemania del Oeste (RFA)',
-            'AD' => 'Andorra',
-            'AO' => 'Angola',
-            'AG' => 'Antigua y Barbuda',
-            'SA' => 'Arabia Saudí',
-            'DZ' => 'Argelia',
-            'AR' => 'Argentina',
-            'AM' => 'Armenia',
-            'AW' => 'Aruba',
-            'AU' => 'Australia',
-            'AT' => 'Austria',
-            'AZ' => 'Azerbaijan',
-            'BS' => 'Bahamas',
-            'BH' => 'Bahrein',
-            'BD' => 'Bangladesh',
-            'BB' => 'Barbados',
-            'BE' => 'Bélgica',
-            'BZ' => 'Belize',
-            'BJ' => 'Benín',
-            'BY' => 'Bielorrusia',
-            'BO' => 'Bolivia',
-            'BA' => 'Bosnia y Herzegovina',
-            'BW' => 'Botswana',
-            'BR' => 'Brasil',
-            'BN' => 'Brunei',
-            'BG' => 'Bulgaria',
-            'BF' => 'Burkina Faso',
-            'BI' => 'Burundi',
-            'BT' => 'Bután',
-            'CV' => 'Cabo Verde',
-            'KH' => 'Camboya',
-            'CM' => 'Camerún',
-            'CA' => 'Canadá',
-            'TD' => 'Chad',
-            'ZX' => 'Checoslovaquia',
-            'CL' => 'Chile',
-            'CN' => 'China',
-            'CY' => 'Chipre',
-            'VA' => 'Ciudad del Vaticano',
-            'CO' => 'Colombia',
-            'KM' => 'Comores',
-            'CG' => 'Congo',
-            'KK' => 'Corea',
-            'KP' => 'Corea del Norte',
-            'KR' => 'Corea del Sur',
-            'CI' => 'Costa de Marfil',
-            'CR' => 'Costa Rica',
-            'HR' => 'Croacia',
-            'CU' => 'Cuba',
-            'DK' => 'Dinamarca',
-            'DM' => 'Dominica',
-            'EC' => 'Ecuador',
-            'EG' => 'Egipto',
-            'SV' => 'El Salvador',
-            'AE' => 'Emiratos Árabes',
-            'ER' => 'Eritrea',
-            'SK' => 'Eslovaquia',
-            'SI' => 'Eslovenia',
-            'ES' => 'España',
-            'US' => 'Estados Unidos',
-            'EE' => 'Estonia',
-            'ET' => 'Etiopía',
-            'FJ' => 'Fidji',
-            'PH' => 'Filipinas',
-            'FI' => 'Finlandia',
-            'FR' => 'Francia',
-            'GA' => 'Gabón',
-            'GM' => 'Gambia',
-            'GE' => 'Georgia',
-            'GH' => 'Ghana',
-            'GD' => 'Granada',
-            'GR' => 'Grecia',
-            'GL' => 'Groenlandia',
-            'GU' => 'Guam',
-            'GT' => 'Guatemala',
-            'GN' => 'Guinea',
-            'GW' => 'Guinea Bissau',
-            'GQ' => 'Guinea Ecuatorial',
-            'GY' => 'Guyana',
-            'HT' => 'Haití',
-            'HN' => 'Honduras',
-            'HK' => 'Hong Kong',
-            'HU' => 'Hungría',
-            'IN' => 'India',
-            'ID' => 'Indonesia',
-            'IQ' => 'Irak',
-            'IR' => 'Irán',
-            'IE' => 'Irlanda',
-            'IS' => 'Islandia',
-            'KY' => 'Islas Caimán',
-            'FO' => 'Islas Feroe',
-            'SB' => 'Islas Salomón',
-            'VI' => 'Islas Vírgenes',
-            'IL' => 'Israel',
-            'IT' => 'Italia',
-            'JM' => 'Jamaica',
-            'JP' => 'Japón',
-            'JO' => 'Jordania',
-            'KZ' => 'Kazajstán',
-            'KE' => 'Kenia',
-            'KG' => 'Kirguistán',
-            'KI' => 'Kiribati',
-            'KO' => 'Kosovo',
-            'KW' => 'Kuwait',
-            'LA' => 'Laos',
-            'LS' => 'Lesotho',
-            'LE' => 'Letonia',
-            'LB' => 'Líbano',
-            'LR' => 'Liberia',
-            'LY' => 'Libia',
-            'LI' => 'Liechtenstein',
-            'LT' => 'Lituania',
-            'LU' => 'Luxemburgo',
-            'MO' => 'Macao',
-            'MK' => 'Macedonia',
-            'MG' => 'Madagascar',
-            'MY' => 'Malasia',
-            'MW' => 'Malawi',
-            'MV' => 'Maldivas',
-            'ML' => 'Mali',
-            'MT' => 'Malta',
-            'MA' => 'Marruecos',
-            'MH' => 'Marshall (Islas)',
-            'MQ' => 'Martinica',
-            'MU' => 'Mauricio (Isla)',
-            'MR' => 'Mauritania',
-            'MX' => 'México',
-            'FM' => 'Micronesia',
-            'MD' => 'Moldavia',
-            'MC' => 'Mónaco',
-            'MN' => 'Mongolia',
-            'ME' => 'Montenegro',
-            'MZ' => 'Mozambique',
-            'MM' => 'Myanmar - Birmania',
-            'NA' => 'Namibia',
-            'NP' => 'Nepal',
-            'NI' => 'Nicaragua',
-            'NE' => 'Níger',
-            'NG' => 'Nigeria',
-            'NO' => 'Noruega',
-            'NC' => 'Nueva Caledonia',
-            'NZ' => 'Nueva Zelanda',
-            'OM' => 'Omán',
-            'NL' => 'Países Bajos (Holanda)',
-            'PW' => 'Palau',
-            'PS' => 'Palestina',
-            'PA' => 'Panamá',
-            'PG' => 'Papua Nueva Guinea',
-            'PK' => 'Paquistán',
-            'PY' => 'Paraguay',
-            'PE' => 'Perú',
-            'PF' => 'Polinesia francesa',
-            'PL' => 'Polonia',
-            'PT' => 'Portugal',
-            'PR' => 'Puerto Rico',
-            'QA' => 'Qatar',
-            'GB' => 'Reino Unido',
-            'EH' => 'Rep. Árabe Saharaui Democrática',
-            'CF' => 'Rep. Centroafricana',
-            'DO' => 'Rep. Dominicana',
-            'CZ' => 'República Checa',
-            'CD' => 'República del Congo',
-            'RW' => 'Ruanda',
-            'RO' => 'Rumanía',
-            'RU' => 'Rusia',
-            'WS' => 'Samoa',
-            'AS' => 'Samoa Americana',
-            'SM' => 'San Marino',
-            'VC' => 'San Vicente y las Granadinas',
-            'ST' => 'Santo Tomé y Príncipe',
-            'SN' => 'Senegal',
-            'RS' => 'Serbia',
-            'RR' => 'Serbia y Montenegro',
-            'SC' => 'Seychelles',
-            'SL' => 'Sierra Leona',
-            'SG' => 'Singapur',
-            'SY' => 'Siria',
-            'SO' => 'Somalia',
-            'LK' => 'Sri Lanka',
-            'ZA' => 'Sudáfrica',
-            'SD' => 'Sudán',
-            'SS' => 'Sudán del Sur',
-            'SE' => 'Suecia',
-            'CH' => 'Suiza',
-            'SR' => 'Surinam',
-            'SZ' => 'Swazilandia',
-            'TH' => 'Tailandia',
-            'TW' => 'Taiwán',
-            'TJ' => 'Tajikistan',
-            'TZ' => 'Tanzania',
-            'TL' => 'Timor Oriental',
-            'TG' => 'Togo',
-            'TO' => 'Tonga',
-            'TT' => 'Trinidad y Tobago',
-            'TN' => 'Túnez',
-            'TM' => 'Turkmenistán',
-            'TR' => 'Turquía',
-            'UA' => 'Ucrania',
-            'UG' => 'Uganda',
-            'ZY' => 'Unión Soviética (URSS)',
-            'UY' => 'Uruguay',
-            'UZ' => 'Uzbekistan',
-            'VU' => 'Vanuatu',
-            'VE' => 'Venezuela',
-            'VN' => 'Vietnam',
-            'YE' => 'Yemen',
-            'YU' => 'Yugoslavia',
-            'ZM' => 'Zambia',
-            'ZW' => 'Zimbabwe'
-    );
+    public function getSchemaFile($mode, $fileName)
+    {
+        
+        // Logger.
+        $this->logger->debugInit();
+        
+        // Get json schema filename.
+        $schemaFileName = strtolower($fileName).'.schema.json';
+        
+        // Json schema path and filename.
+        $schemaFile = realpath(dirname(__FILE__)).'/../resources/schema/'.$mode.'/'.$schemaFileName;
+        
+        if (file_exists($schemaFile)) {
+            
+            // Get file content.
+            $schemaContent = file_get_contents($schemaFile);
+            
+        } else {
+            
+            // Error message.
+            $errorMsg = 'JSON file not found ('.$schemaFileName.')';
+            
+            // Logger.
+            $this->logger->error($errorMsg);
+            
+            throw new XsgaFileNotFoundException($errorMsg, 115);
+            
+        }//end if
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+        return $schemaContent;
+        
+    }//end getSchemaFile()
+    
     
 }//end FilmAffinityResources class

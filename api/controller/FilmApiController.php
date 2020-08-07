@@ -7,8 +7,8 @@
  * PHP version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
- *
  */
 
 /**
@@ -60,7 +60,7 @@ class FilmApiController extends XsgaAbstractApiController
      * 
      * @access public
      */
-    public function getGetFilm(array $params)
+    public function getGetFilm(array $params = array())
     {
         
         // Logger.

@@ -1,47 +1,70 @@
 # filmaffinity-api
 
-FilmAffinity-API it's a public API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
+[![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF?style=flat)](https://php.net/)
+[![License](https://img.shields.io/github/license/xsga/filmaffinity-api)
 
-The API is written in PHP and uses a JSON objects as a input and output data.
+FilmAffinity-API is a public API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
+
+The API is written in PHP and uses a JSON objects to input and output data.
 
 ## Installation
-TODO.
 
-## Public methods
-These are the public methods:
+Server prerequisites:
+
+* PHP 5.6 or later.
+* Apache's `mod_rewrite` module enabled.
+* Composer
+
+Install instructions:
+
+* Unzip the api files in an empty folder in your server.
+* Make sure that the HTTP shared folder match with the api `public` folder.
+* `log` folder needs read and write permissions:
+```
+user@server:~# chmod 777 -R log
+```
+* Run `composer` to install dependencies:
+```
+user@server:~# composer install
+```
+* Set up basic and mandatory api settings (`config/settingsAPI.php`):
+  * Set de environment, development (dev) or production (pro)
+  ```
+  $settings['environment'] = 'dev';
+  ``` 
+  * Set de URL path (see instructions)
+  ```
+  $settings['url_path'] = '';
+  ```
+
+## API Public methods
+The API has three main public methods:
 
 * Search films.
 * Advanced search films.
 * Get film.
-* Get film genres.
-* Get countries.
 
 
 |Method name|API endpoint|HTTP method|Input|Output|
 |-----------|------------|-----------|-----|------|
-|Search films|search/do_search|POST|JSON object|JSON object|
-|Advanced search films|search/do_adv_search|POST|JSON object|JSON object|
-|Get film|film/get_film|GET|URL parameter|JSON object|
-|Get film genres|resources/get_genres|GET|none|JSON object|
-|Get countries|resources/get_countries|GET|none|JSON object|
+|Search films|search/do_search|POST|[search json](https://github.com/xsga/filmaffinity-api/tree/master/api/resources/input/search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/tree/master/api/resources/output/search_results.schema.json)|
+|Advanced search films|search/do_adv_search|POST|[adv_search json](https://github.com/xsga/filmaffinity-api/tree/master/api/resources/input/adv_search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/tree/master/api/resources/output/search_results.schema.json)|
+|Get film|film/get_film|GET|URL parameter|[film json](https://github.com/xsga/filmaffinity-api/tree/master/api/resources/output/film.schema.json)|
 
-### Public method Search
-This public method allows you to search films by a single text.
+## Basic usage
 
-<ins>API ENDPOINT</ins>
+### Simple search
 ```
 http://<server_domain_api>/search/do_search
 ```
 
-<ins>INPUT</ins>
+INPUT
 ```json
 {"text": "pulp fiction"}
 ```
-JSON properties:
 
-* "text" - text to search, mandatory.
-
-<ins>OUTPUT</ins>
+OUTPUT
 ```json
 {
   "total": 2,
@@ -54,22 +77,13 @@ JSON properties:
   }]
 }
 ```
-JSON properties:
 
-* "total" - number of search results, integer.
-* "results" - list of single results.
-  * "id" - FilmAffinity film ID, integer.
-  * "title" - film title and release year.
-
-### Public method Advanced Search
-This public method allows you to search films by some criterias.
-
-<ins>API ENDPOINT</ins>
+### Advanced search
 ```
 http://<server_domain_api>/search/do_adv_search
 ```
 
-<ins>INPUT</ins>
+INPUT
 ```json
 {
   "text": "pulp fiction",
@@ -86,7 +100,8 @@ http://<server_domain_api>/search/do_adv_search
   "year_to": "2000"
 }
 ```
-<ins>OUTPUT</ins>
+
+OUTPUT
 ```json
 {
   "total": 1,
@@ -96,15 +111,13 @@ http://<server_domain_api>/search/do_adv_search
   }]
 }
 ```
-### Public method Get Film
-This public method allows you to get film information by id (FilmAffinity ID).
 
-<ins>API ENDPOINT</ins>
+### Get Film
 ```
 http://<server_domain_api>/film/get_film/<film_id>
 ```
 
-<ins>OUTPUT</ins>
+OUTPUT
 ```json
 {
   "filmAfinityId": 160882,

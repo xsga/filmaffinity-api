@@ -5,6 +5,7 @@
  * PHP Version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
  */
 
@@ -41,12 +42,6 @@ set_error_handler('exceptionErrorHandler', $errorTypes);
 // Xsga-PHP constants definition.
 define('DEBUG_LITERAL', 'debug');
 define('TRUE_LITERAL', 'true');
-
-// Load settings.
-$pathConfig  = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
-$pathConfig .= 'config'.DIRECTORY_SEPARATOR;
-
-require_once realpath(dirname(__FILE__)).$pathConfig.'settingsGlobal.php';
 
 // Load Composer autoloader.
 $pathAutoload  = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;

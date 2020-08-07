@@ -12,11 +12,22 @@
 /**
  * API errors.
  */
-$lang['no_search_results']   = 'La búsqueda no ha retornado ningún resultado';
-$lang['no_search_text']      = 'No se ha introducido ningún texto para buscar';
-$lang['short_search_text']   = 'El texto a buscar debe tener almenos 3 carácteres';
-$lang['invalid_search_type'] = 'El tipo de búsqueda no es correcto';
-$lang['internal_error']      = 'Se ha producido un error interno';
+$lang['error_101'] = 'Internal system error';
+$lang['error_102'] = 'Can\'t access to FimlAffinity web page';
+$lang['error_103'] = 'Genre code it\'s not valid';
+$lang['error_104'] = 'Country code it\'s not valid';
+$lang['error_105'] = 'Wrong number of input parameters';
+$lang['error_106'] = 'Input parameter not found';
+$lang['error_107'] = 'Input parameters length not valid';
+$lang['error_108'] = 'Input parameter is not a boolean';
+$lang['error_109'] = 'Input parameter is not an integer';
+$lang['error_110'] = 'Input parameter is not a numeric';
+$lang['error_111'] = 'Not a valid HTTP petition';
+$lang['error_112'] = 'Resource not found';
+$lang['error_113'] = 'JSON resource not found';
+$lang['error_114'] = 'JSON resource not valid';
+$lang['error_115'] = 'JSON schema not found';
+$lang['error_116'] = 'JSON schema mode not valid';
 
 /**
  * FilmAffinity literals.

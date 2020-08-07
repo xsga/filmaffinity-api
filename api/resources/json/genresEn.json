@@ -1,0 +1,78 @@
+[
+    {
+        "genre_code": "AC",
+        "genre_desc": "Action"
+    },
+    {
+        "genre_code": "AN",
+        "genre_desc": "Animation"
+    },
+    {
+        "genre_code": "AV",
+        "genre_desc": "Adventure"
+    },
+    {
+        "genre_code": "BE",
+        "genre_desc": "War"
+    },
+    {
+        "genre_code": "C-F",
+        "genre_desc": "Sci-Fi"
+    },
+    {
+        "genre_code": "F-N",
+        "genre_desc": "Film noir"
+    },
+    {
+        "genre_code": "CO",
+        "genre_desc": "Comedy"
+    },
+    {
+        "genre_code": "DESC",
+        "genre_desc": "Unknown"
+    },
+    {
+        "genre_code": "DO",
+        "genre_desc": "Documentary"
+    },
+    {
+        "genre_code": "DR",
+        "genre_desc": "Drama"
+    },
+    {
+        "genre_code": "FAN",
+        "genre_desc": "Fantasy"
+    },
+    {
+        "genre_code": "INF",
+        "genre_desc": "Kids"
+    },
+    {
+        "genre_code": "INT",
+        "genre_desc": "Mystery"
+    },
+    {
+        "genre_code": "MU",
+        "genre_desc": "Musical"
+    },
+    {
+        "genre_code": "RO",
+        "genre_desc": "Romance"
+    },
+    {
+        "genre_code": "TV_SE",
+        "genre_desc": "TV Series"
+    },
+    {
+        "genre_code": "TE",
+        "genre_desc": "Horror"
+    },
+    {
+        "genre_code": "TH",
+        "genre_desc": "Thriller"
+    },
+    {
+        "genre_code": "WE",
+        "genre_desc": "Western"
+    }
+]

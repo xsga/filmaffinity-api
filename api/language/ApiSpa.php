@@ -17,13 +17,17 @@ $lang['error_102'] = 'No se ha podido acceder a la página de FilmAffinity';
 $lang['error_103'] = 'El código de género proporcinado no es válido';
 $lang['error_104'] = 'El código de país proporcionado no es válido';
 $lang['error_105'] = 'Número de parámetros de entrada incorrecto';
-$lang['error_106'] = 'Parámetro de entrada no encontrado ';
+$lang['error_106'] = 'Parámetro de entrada no encontrado';
 $lang['error_107'] = 'Longitud del parámetro de entrada no válida';
 $lang['error_108'] = 'El parámetro de entrada no es un boleano';
 $lang['error_109'] = 'El parámetro de entrada no es un entero';
 $lang['error_110'] = 'El parámetro de entrada no es numérico';
 $lang['error_111'] = 'Petición HTTP no válida';
 $lang['error_112'] = 'Recurso no encontrado';
+$lang['error_113'] = 'Recurso JSON no encontrado';
+$lang['error_114'] = 'Recurso JSON no válido';
+$lang['error_115'] = 'Schema JSON no encontrado';
+$lang['error_116'] = 'Modo de schema JSON no válido (input u output)';
 
 /**
  * FilmAffinity literals.

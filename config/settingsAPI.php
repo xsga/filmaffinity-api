@@ -9,21 +9,44 @@
  * @version 1.0.0
  */
 
+// Initialize settings.
 $settings = array();
 
+/**
+ * Environment settings.
+ * 
+ * dev --> development
+ * pro --> production
+ */
 $settings['environment'] = 'dev';
 
 /**
  * Domain settings.
  * 
- * URL path.
+ * URL path. Path in URL to access the API without domain or subdomain.
+ *  
+ * Examples:
+ * 
+ *  - http://www.domain.com            --> url_path = ''
+ *  - http://subdomain.domain.com      --> url_path = ''
+ *  - http://www.domain.com/api        --> url_path = '/api/'
+ *  - http://www.domain.com/api/folder --> url_path = '/api/folder/'
  */
 $settings['url_path'] = '/filmaffinity-api/';
 
 /**
+ * Language settings.
+ *
+ * Language:
+ *  - spa --> https://www.filmaffinity.com/es/
+ *  - en  --> https://www.filmaffinity.com/us/
+ */
+$settings['fa_language'] = 'spa';
+
+/**
  * Filmaffinity settings.
  * 
- * Base URL.
+ * Base URL --> page country MUST MATCH with language!!
  * Search URL.
  * Advanced search URL.
  * Film URL.
@@ -32,16 +55,6 @@ $settings['fa_base_url']       = 'https://www.filmaffinity.com/es/';
 $settings['fa_search_url']     = 'search.php?stext={1}';
 $settings['fa_adv_search_url'] = 'advsearch.php?stext={1}{2}&country={3}&genre={4}&fromyear={5}&toyear={6}';
 $settings['fa_film_url']       = 'film{1}.html';
-
-/**
- * Language settings.
- * 
- * Language:
- *  - spa
- *  - ca
- *  - en
- */
-$settings['fa_language'] = 'spa';
 
 /**
  * Logger settings.

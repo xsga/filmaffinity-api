@@ -1,0 +1,78 @@
+[
+    {
+        "genre_code": "AC",
+        "genre_desc": "Acción"
+    },
+    {
+        "genre_code": "AN",
+        "genre_desc": "Animación"
+    },
+    {
+        "genre_code": "AV",
+        "genre_desc": "Aventuras"
+    },
+    {
+        "genre_code": "BE",
+        "genre_desc": "Bélico"
+    },
+    {
+        "genre_code": "C-F",
+        "genre_desc": "Ciencia ficción"
+    },
+    {
+        "genre_code": "F-N",
+        "genre_desc": "Cine negro"
+    },
+    {
+        "genre_code": "CO",
+        "genre_desc": "Comedia"
+    },
+    {
+        "genre_code": "DESC",
+        "genre_desc": "Desconocido"
+    },
+    {
+        "genre_code": "DO",
+        "genre_desc": "Documental"
+    },
+    {
+        "genre_code": "DR",
+        "genre_desc": "Drama"
+    },
+    {
+        "genre_code": "FAN",
+        "genre_desc": "Fantástico"
+    },
+    {
+        "genre_code": "INF",
+        "genre_desc": "Infantil"
+    },
+    {
+        "genre_code": "INT",
+        "genre_desc": "Intriga"
+    },
+    {
+        "genre_code": "MU",
+        "genre_desc": "Musical"
+    },
+    {
+        "genre_code": "RO",
+        "genre_desc": "Romance"
+    },
+    {
+        "genre_code": "TV_SE",
+        "genre_desc": "Serie de TV"
+    },
+    {
+        "genre_code": "TE",
+        "genre_desc": "Terror"
+    },
+    {
+        "genre_code": "TH",
+        "genre_desc": "Thriller"
+    },
+    {
+        "genre_code": "WE",
+        "genre_desc": "Western"
+    }
+]

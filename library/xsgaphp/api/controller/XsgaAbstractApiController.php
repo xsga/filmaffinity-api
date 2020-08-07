@@ -5,6 +5,7 @@
  * PHP version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
  */
  
@@ -59,13 +60,14 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
     /**
      * Get response.
      * 
-     * @param mixed $data Response data.
+     * @param mixed   $data       Response data.
+     * @param boolean $encodeJson Flag to indicates if have to encode JSON.
      * 
      * @return void
      * 
      * @access public
      */
-    public function getResponse($data)
+    public function getResponse($data, $encodeJson = true)
     {
         
         // Logger.
@@ -73,7 +75,12 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         
         ob_clean();
         XsgaAPIRouter::getHeaders();
-        echo json_encode($data);
+        
+        if ($encodeJson) {
+            echo json_encode($data);
+        } else {
+            echo $data;
+        }//end if
         
         // Logger.
         $this->logger->debugEnd();

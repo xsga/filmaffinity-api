@@ -7,8 +7,8 @@
  * PHP version 7
  *
  * @author  xsga <xsegales@outlook.com>
+ * @license MIT
  * @version 1.0.0
- *
  */
 
 /**
@@ -49,7 +49,24 @@ class SearchACHelper extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
-        if (!array_key_exists($genreParam, FilmAffinityResources::$genres) && $genreParam <> '') {
+        // Get FilmAffinityResources instance.
+        $resources = new FilmAffinityResources();
+        
+        // Get genres array from JSON file.
+        $genresArray = json_decode($resources->getJsonFile('genres'), true);
+        
+        // Set exists flag to false.
+        $exists = false;
+        
+        // Search genre code.
+        foreach ($genresArray as $genre) {
+            if ($genre['genre_code'] === $genreParam) {
+                $exists = true;
+                break;
+            }//end if
+        }//end foreach
+        
+        if (!$exists && $genreParam <> '') {
             
             // Error message.
             $errorMsg = 'Code "'.$genreParam.'" is not a valid genre code';
@@ -86,7 +103,24 @@ class SearchACHelper extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
-        if (!array_key_exists($countryParam, FilmAffinityResources::$countries) && $countryParam <> '') {
+        // Get FilmAffinityResources instance.
+        $resources = new FilmAffinityResources();
+        
+        // Get genres array from JSON file.
+        $countriesArray = json_decode($resources->getJsonFile('countries'), true);
+        
+        // Set exists flag to false.
+        $exists = false;
+        
+        // Search genre code.
+        foreach ($countriesArray as $country) {
+            if ($country['country_code'] === $countryParam) {
+                $exists = true;
+                break;
+            }//end if
+        }//end foreach
+        
+        if (!$exists && $countryParam <> '') {
             
             // Error message.
             $errorMsg = 'Code "'.$countryParam.'" is not a valid country code';
