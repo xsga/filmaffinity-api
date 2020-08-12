@@ -41,9 +41,6 @@ class XsgaLangFiles
     public static function load($fileName, $folder=null)
     {
         
-        // Initialize language variable.
-        $lang = array();
-        
         // Get logger.
         $logger = Logger::getRootLogger();
         
@@ -51,7 +48,7 @@ class XsgaLangFiles
         $logger->debugInit();
         
         // Set language.
-        $language = FA_LANGUAGE;
+        $language = strtolower(FA_LANGUAGE);
         
         // Set path to file.
         if ($folder === null) {
@@ -60,10 +57,21 @@ class XsgaLangFiles
             $file = $folder.'/'.$fileName.ucfirst($language).'.php';
         }//end if
         
+        // Path to language folder.
+        $pathToLanguage  = DIRECTORY_SEPARATOR.'..';
+        $pathToLanguage .= DIRECTORY_SEPARATOR.'..';
+        $pathToLanguage .= DIRECTORY_SEPARATOR.'..';
+        $pathToLanguage .= DIRECTORY_SEPARATOR.'api';
+        $pathToLanguage .= DIRECTORY_SEPARATOR.'language';
+        $pathToLanguage .= DIRECTORY_SEPARATOR;
+        
         // Set language file.
-        $langFile = realpath(dirname(__FILE__)).'/../../../api/language/'.$file;
-                
-        if (file_exists($langFile) === true) {
+        $langFile = realpath(dirname(__FILE__)).$pathToLanguage.$file;
+        
+        // Initialize language variable.
+        $lang = array();
+        
+        if (file_exists($langFile)) {
             
             // Load language.
             require $langFile;

@@ -2,7 +2,7 @@
 /**
  * SearchACHelper.
  *
- * This class provide helper methods to SearchApiController class..
+ * This class provide helper methods to SearchApiController class.
  *
  * PHP version 7
  *
@@ -33,17 +33,18 @@ class SearchACHelper extends XsgaAbstractClass
     
     
     /**
-     * Validates genre parameter.
+     * Validates if parameter exists in array.
      * 
-     * @param string $genreParam
+     * @param string $param Parameter string to validate.
+     * @param string $type  Validation type.
      * 
-     * @throws XsgaValidationException Not a valid genre.
+     * @throws XsgaValidationException When parameter is not valid.
      * 
      * @return void
      * 
      * @access public
      */
-    public function valGenre($genreParam)
+    public function valParamIsValid($param, $type)
     {
         
         // Logger.
@@ -52,30 +53,66 @@ class SearchACHelper extends XsgaAbstractClass
         // Get FilmAffinityResources instance.
         $resources = new FilmAffinityResources();
         
-        // Get genres array from JSON file.
-        $genresArray = json_decode($resources->getJsonFile('genres'), true);
+        // Set array to search, array key name, error message and error number.
+        switch ($type) {
+            
+            case 'genre':
+                
+                // Logger.
+                $this->logger->debug('Genre code validation');
+                
+                // Set common variables.
+                $arraySearch = json_decode($resources->getResourceFile('json', 'genres'), true);
+                $arrayKey    = 'genre_code';
+                $errorMsg    = 'Code "'.$param.'" is not a valid genre code';
+                $errorNum    = 103;
+                
+                break;
+                
+            case 'country':
+                
+                // Logger.
+                $this->logger->debug('Country code validation');
+                
+                // Set common variables.
+                $arraySearch = json_decode($resources->getResourceFile('json', 'countries'), true);
+                $arrayKey    = 'country_code';
+                $errorMsg    = 'Code "'.$param.'" is not a valid country code';
+                $errorNum    = 104;
+                
+                break;
+                
+            default:
+                
+                // Set common variables.
+                $arraySearch = array();
+                $arrayKey    = '';
+                $errorMsg    = 'Validation type not valid';
+                $errorNum    = 101;
+                
+                // Logger.
+                $this->logger->warn($errorMsg);
+            
+        }//end switch
         
         // Set exists flag to false.
         $exists = false;
         
-        // Search genre code.
-        foreach ($genresArray as $genre) {
-            if ($genre['genre_code'] === $genreParam) {
+        // Search parameter code.
+        foreach ($arraySearch as $array) {
+            if ($array[$arrayKey] === $param) {
                 $exists = true;
                 break;
             }//end if
         }//end foreach
         
-        if (!$exists && $genreParam <> '') {
-            
-            // Error message.
-            $errorMsg = 'Code "'.$genreParam.'" is not a valid genre code';
+        if (!$exists && $param <> '') {
             
             // Logger.
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 103);
+            throw new XsgaValidationException($errorMsg, $errorNum);
             
         }//end if
         
@@ -83,61 +120,7 @@ class SearchACHelper extends XsgaAbstractClass
         $this->logger->debugValidationOK();
         $this->logger->debugEnd();
         
-    }//end valGenre()
-    
-    
-    /**
-     * Validates country parameter.
-     *
-     * @param string $countryParam
-     * 
-     * @throws XsgaValidationException Not a valid country.
-     *
-     * @return void
-     *
-     * @access public
-     */
-    public function valCountry($countryParam)
-    {
-        
-        // Logger.
-        $this->logger->debugInit();
-        
-        // Get FilmAffinityResources instance.
-        $resources = new FilmAffinityResources();
-        
-        // Get genres array from JSON file.
-        $countriesArray = json_decode($resources->getJsonFile('countries'), true);
-        
-        // Set exists flag to false.
-        $exists = false;
-        
-        // Search genre code.
-        foreach ($countriesArray as $country) {
-            if ($country['country_code'] === $countryParam) {
-                $exists = true;
-                break;
-            }//end if
-        }//end foreach
-        
-        if (!$exists && $countryParam <> '') {
-            
-            // Error message.
-            $errorMsg = 'Code "'.$countryParam.'" is not a valid country code';
-            
-            // Logger.
-            $this->logger->debugValidationKO();
-            $this->logger->error($errorMsg);
-            
-            throw new XsgaValidationException($errorMsg, 104);
-            
-        }//end if
-        
-        // Logger.
-        $this->logger->debugValidationOK();
-        $this->logger->debugEnd();
-        
-    }//end valCountry()
+    }//end valParamIsValid()
     
     
     /**

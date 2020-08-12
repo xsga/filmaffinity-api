@@ -2,7 +2,7 @@
 /**
  * API main page.
  * 
- * The index web page it's the FilmAffinity-API front controller. It manages all petitions.
+ * The index page is the FilmAffinity-API front controller. It manages all petitions.
  * 
  * PHP Version 7
  * 
@@ -20,14 +20,15 @@ use xsgaphp\api\XsgaAPIRouter;
 // Start or continue session.
 session_start();
 
-// Bootstrap.
-$path  = DIRECTORY_SEPARATOR.'..';
-$path .= DIRECTORY_SEPARATOR.'library';
-$path .= DIRECTORY_SEPARATOR.'xsgaphp';
-$path .= DIRECTORY_SEPARATOR.'bootstrap';
-$path .= DIRECTORY_SEPARATOR;
+// Path to bootstrap files.
+$pathToBootstrap  = DIRECTORY_SEPARATOR.'..';
+$pathToBootstrap.= DIRECTORY_SEPARATOR.'library';
+$pathToBootstrap.= DIRECTORY_SEPARATOR.'xsgaphp';
+$pathToBootstrap.= DIRECTORY_SEPARATOR.'bootstrap';
+$pathToBootstrap.= DIRECTORY_SEPARATOR;
 
-require_once realpath(dirname(__FILE__)).$path.'XsgaBootstrapAPI.php';
+// Loads API bootstrap.
+require_once realpath(dirname(__FILE__)).$pathToBootstrap.'XsgaBootstrapAPI.php';
 
 // Get Logger.
 $logger = Logger::getRootLogger();

@@ -1,7 +1,7 @@
 [
     {
         "country_code": "AF",
-        "country_name": "Afganistán"
+        "country_name": "Afghanistan"
     },
     {
         "country_code": "AL",
@@ -9,15 +9,15 @@
     },
     {
         "country_code": "DE",
-        "country_name": "Alemania"
+        "country_name": "Germany"
     },
     {
         "country_code": "FD",
-        "country_name": "Alemania del Este (RDA)"
+        "country_name": "Germany - East Germany (GDR)"
     },
     {
         "country_code": "FF",
-        "country_name": "Alemania del Oeste (RFA)"
+        "country_name": "Germany - West Germany (FRG)"
     },
     {
         "country_code": "AD",
@@ -29,15 +29,15 @@
     },
     {
         "country_code": "AG",
-        "country_name": "Antigua y Barbuda"
+        "country_name": "Antigua and Barbuda"
     },
     {
         "country_code": "SA",
-        "country_name": "Arabia Saudí"
+        "country_name": "Saudi Arabia"
     },
     {
         "country_code": "DZ",
-        "country_name": "Argelia"
+        "country_name": "Algeria"
     },
     {
         "country_code": "AR",
@@ -69,7 +69,7 @@
     },
     {
         "country_code": "BH",
-        "country_name": "Bahrein"
+        "country_name": "Bahrain"
     },
     {
         "country_code": "BD",
@@ -81,7 +81,7 @@
     },
     {
         "country_code": "BE",
-        "country_name": "Bélgica"
+        "country_name": "Belgium"
     },
     {
         "country_code": "BZ",
@@ -89,11 +89,11 @@
     },
     {
         "country_code": "BJ",
-        "country_name": "Benín"
+        "country_name": "Benin"
     },
     {
         "country_code": "BY",
-        "country_name": "Bielorrusia"
+        "country_name": "Belarus"
     },
     {
         "country_code": "BO",
@@ -101,7 +101,7 @@
     },
     {
         "country_code": "BA",
-        "country_name": "Bosnia y Herzegovina"
+        "country_name": "Bosnia and Herzegovina"
     },
     {
         "country_code": "BW",
@@ -109,7 +109,7 @@
     },
     {
         "country_code": "BR",
-        "country_name": "Brasil"
+        "country_name": "Brazil"
     },
     {
         "country_code": "BN",
@@ -129,23 +129,23 @@
     },
     {
         "country_code": "BT",
-        "country_name": "Bután"
+        "country_name": "Bhutan"
     },
     {
         "country_code": "CV",
-        "country_name": "Cabo Verde"
+        "country_name": "Cape Verde"
     },
     {
         "country_code": "KH",
-        "country_name": "Camboya"
+        "country_name": "Cambodia"
     },
     {
         "country_code": "CM",
-        "country_name": "Camerún"
+        "country_name": "Cameroon"
     },
     {
         "country_code": "CA",
-        "country_name": "Canadá"
+        "country_name": "Canada"
     },
     {
         "country_code": "TD",
@@ -153,7 +153,7 @@
     },
     {
         "country_code": "ZX",
-        "country_name": "Checoslovaquia"
+        "country_name": "Czechoslovakia"
     },
     {
         "country_code": "CL",
@@ -165,11 +165,11 @@
     },
     {
         "country_code": "CY",
-        "country_name": "Chipre"
+        "country_name": "Cyprus"
     },
     {
         "country_code": "VA",
-        "country_name": "Ciudad del Vaticano"
+        "country_name": "Vatican City"
     },
     {
         "country_code": "CO",
@@ -177,7 +177,7 @@
     },
     {
         "country_code": "KM",
-        "country_name": "Comores"
+        "country_name": "Comoros"
     },
     {
         "country_code": "CG",
@@ -185,19 +185,19 @@
     },
     {
         "country_code": "KK",
-        "country_name": "Corea"
+        "country_name": "Korea"
     },
     {
         "country_code": "KP",
-        "country_name": "Corea del Norte"
+        "country_name": "North Korea"
     },
     {
         "country_code": "KR",
-        "country_name": "Corea del Sud"
+        "country_name": "South Korea"
     },
     {
         "country_code": "CI",
-        "country_name": "Costa de Marfil"
+        "country_name": "Ivory Coast"
     },
     {
         "country_code": "CR",
@@ -205,7 +205,7 @@
     },
     {
         "country_code": "HR",
-        "country_name": "Croacia"
+        "country_name": "Croatia"
     },
     {
         "country_code": "CU",
@@ -213,7 +213,7 @@
     },
     {
         "country_code": "DK",
-        "country_name": "Dinamarca"
+        "country_name": "Denmark"
     },
     {
         "country_code": "DM",
@@ -225,7 +225,7 @@
     },
     {
         "country_code": "EG",
-        "country_name": "Egipto"
+        "country_name": "Egypt"
     },
     {
         "country_code": "SV",
@@ -233,7 +233,7 @@
     },
     {
         "country_code": "AE",
-        "country_name": "Emiratos Árabes"
+        "country_name": "United Arab Emirates"
     },
     {
         "country_code": "ER",
@@ -241,19 +241,19 @@
     },
     {
         "country_code": "SK",
-        "country_name": "Eslovaquia"
+        "country_name": "Slovakia"
     },
     {
         "country_code": "SI",
-        "country_name": "Eslovenia"
+        "country_name": "Slovenia"
     },
     {
         "country_code": "ES",
-        "country_name": "España"
+        "country_name": "Spain"
     },
     {
         "country_code": "US",
-        "country_name": "Estados Unidos"
+        "country_name": "United States"
     },
     {
         "country_code": "EE",
@@ -261,27 +261,27 @@
     },
     {
         "country_code": "ET",
-        "country_name": "Etiopía"
+        "country_name": "Ethiopia"
     },
     {
         "country_code": "FJ",
-        "country_name": "Fidji"
+        "country_name": "Fiji"
     },
     {
         "country_code": "PH",
-        "country_name": "Filipinas"
+        "country_name": "Philippines"
     },
     {
         "country_code": "FI",
-        "country_name": "Finlandia"
+        "country_name": "Finland"
     },
     {
         "country_code": "FR",
-        "country_name": "Francia"
+        "country_name": "France"
     },
     {
         "country_code": "GA",
-        "country_name": "Gabón"
+        "country_name": "Gabon"
     },
     {
         "country_code": "GM",
@@ -297,15 +297,15 @@
     },
     {
         "country_code": "GD",
-        "country_name": "Granada"
+        "country_name": "Grenada"
     },
     {
         "country_code": "GR",
-        "country_name": "Grecia"
+        "country_name": "Greece"
     },
     {
         "country_code": "GL",
-        "country_name": "Groenlandia"
+        "country_name": "Greenland"
     },
     {
         "country_code": "GU",
@@ -321,11 +321,11 @@
     },
     {
         "country_code": "GW",
-        "country_name": "Guinea Bissau"
+        "country_name": "Guinea-Bissau"
     },
     {
         "country_code": "GQ",
-        "country_name": "Guinea Ecuatorial"
+        "country_name": "Ecuatorial Guinea"
     },
     {
         "country_code": "GY",
@@ -333,7 +333,7 @@
     },
     {
         "country_code": "HT",
-        "country_name": "Haití"
+        "country_name": "Haiti"
     },
     {
         "country_code": "HN",
@@ -345,7 +345,7 @@
     },
     {
         "country_code": "HU",
-        "country_name": "Hungría"
+        "country_name": "Hungary"
     },
     {
         "country_code": "IN",
@@ -357,35 +357,35 @@
     },
     {
         "country_code": "IQ",
-        "country_name": "Irak"
+        "country_name": "Iraq"
     },
     {
         "country_code": "IR",
-        "country_name": "Irán"
+        "country_name": "Iran"
     },
     {
         "country_code": "IE",
-        "country_name": "Irlanda"
+        "country_name": "Ireland"
     },
     {
         "country_code": "IS",
-        "country_name": "Islandia"
+        "country_name": "Iceland"
     },
     {
         "country_code": "KY",
-        "country_name": "Islas Caimán"
+        "country_name": "Cayman Islands"
     },
     {
         "country_code": "FO",
-        "country_name": "Islas Feroe"
+        "country_name": "Faroe Islands"
     },
     {
         "country_code": "SB",
-        "country_name": "Islas Salomón"
+        "country_name": "Solomon Islands"
     },
     {
         "country_code": "VI",
-        "country_name": "Islas Vírgenes"
+        "country_name": "Virgin Islands"
     },
     {
         "country_code": "IL",
@@ -393,7 +393,7 @@
     },
     {
         "country_code": "IT",
-        "country_name": "Italia"
+        "country_name": "Italy"
     },
     {
         "country_code": "JM",
@@ -401,23 +401,23 @@
     },
     {
         "country_code": "JP",
-        "country_name": "Japón"
+        "country_name": "Japan"
     },
     {
         "country_code": "JO",
-        "country_name": "Jordania"
+        "country_name": "Jordan"
     },
     {
         "country_code": "KZ",
-        "country_name": "Kazajstán"
+        "country_name": "Kazakhstan"
     },
     {
         "country_code": "KE",
-        "country_name": "Kenia"
+        "country_name": "Kenya"
     },
     {
         "country_code": "KG",
-        "country_name": "Kirguistán"
+        "country_name": "Kyrgyzstan"
     },
     {
         "country_code": "KI",
@@ -441,11 +441,11 @@
     },
     {
         "country_code": "LE",
-        "country_name": "Letonia"
+        "country_name": "Latvia"
     },
     {
         "country_code": "LB",
-        "country_name": "Líbano"
+        "country_name": "Lebanon"
     },
     {
         "country_code": "LR",
@@ -453,7 +453,7 @@
     },
     {
         "country_code": "LY",
-        "country_name": "Libia"
+        "country_name": "Libya"
     },
     {
         "country_code": "LI",
@@ -461,11 +461,11 @@
     },
     {
         "country_code": "LT",
-        "country_name": "Lituania"
+        "country_name": "Lithuania"
     },
     {
         "country_code": "LU",
-        "country_name": "Luxemburgo"
+        "country_name": "Luxembourg"
     },
     {
         "country_code": "MO",
@@ -473,7 +473,7 @@
     },
     {
         "country_code": "MK",
-        "country_name": "Macedonia"
+        "country_name": "FYROM (Former Yugoslav Republic Of Macedonia)"
     },
     {
         "country_code": "MG",
@@ -481,7 +481,7 @@
     },
     {
         "country_code": "MY",
-        "country_name": "Malasia"
+        "country_name": "Malaysia"
     },
     {
         "country_code": "MW",
@@ -489,7 +489,7 @@
     },
     {
         "country_code": "MV",
-        "country_name": "Maldivas"
+        "country_name": "Maldives"
     },
     {
         "country_code": "ML",
@@ -501,19 +501,19 @@
     },
     {
         "country_code": "MA",
-        "country_name": "Marruecos"
+        "country_name": "Morocco"
     },
     {
         "country_code": "MH",
-        "country_name": "Marshall (Islas)"
+        "country_name": "Marshall Islands"
     },
     {
         "country_code": "MQ",
-        "country_name": "Martinica"
+        "country_name": "Martinique"
     },
     {
         "country_code": "MU",
-        "country_name": "Mauricio (Isla)"
+        "country_name": "Mauritius"
     },
     {
         "country_code": "MR",
@@ -521,7 +521,7 @@
     },
     {
         "country_code": "MX",
-        "country_name": "México"
+        "country_name": "Mexico"
     },
     {
         "country_code": "FM",
@@ -529,11 +529,11 @@
     },
     {
         "country_code": "MD",
-        "country_name": "Moldavia"
+        "country_name": "Moldova"
     },
     {
         "country_code": "MC",
-        "country_name": "Mónaco"
+        "country_name": "Monaco"
     },
     {
         "country_code": "MN",
@@ -549,7 +549,7 @@
     },
     {
         "country_code": "MM",
-        "country_name": "Myanmar - Birmania"
+        "country_name": "Myanmar - Burma"
     },
     {
         "country_code": "NA",
@@ -565,7 +565,7 @@
     },
     {
         "country_code": "NE",
-        "country_name": "Níger"
+        "country_name": "Niger"
     },
     {
         "country_code": "NG",
@@ -573,23 +573,23 @@
     },
     {
         "country_code": "NO",
-        "country_name": "Noruega"
+        "country_name": "Norway"
     },
     {
         "country_code": "NC",
-        "country_name": "Nueva Caledonia"
+        "country_name": "New Caledonia"
     },
     {
         "country_code": "NZ",
-        "country_name": "Nueva Zelanda"
+        "country_name": "New Zealand"
     },
     {
         "country_code": "OM",
-        "country_name": "Omán"
+        "country_name": "Oman"
     },
     {
         "country_code": "NL",
-        "country_name": "Países Bajos (Holanda)"
+        "country_name": "Netherlands"
     },
     {
         "country_code": "PW",
@@ -597,19 +597,19 @@
     },
     {
         "country_code": "PS",
-        "country_name": "Palestina"
+        "country_name": "Palestine"
     },
     {
         "country_code": "PA",
-        "country_name": "Panamá"
+        "country_name": "Panama"
     },
     {
         "country_code": "PG",
-        "country_name": "Papua Nueva Guinea"
+        "country_name": "Papua New Guinea"
     },
     {
         "country_code": "PK",
-        "country_name": "Paquistán"
+        "country_name": "PaKistan"
     },
     {
         "country_code": "PY",
@@ -617,15 +617,15 @@
     },
     {
         "country_code": "PE",
-        "country_name": "Perú"
+        "country_name": "Peru"
     },
     {
         "country_code": "PF",
-        "country_name": "Polinesia francesa"
+        "country_name": "French Polynesia"
     },
     {
         "country_code": "PL",
-        "country_name": "Polonia"
+        "country_name": "Poland"
     },
     {
         "country_code": "PT",
@@ -641,39 +641,39 @@
     },
     {
         "country_code": "GB",
-        "country_name": "Reino Unido"
+        "country_name": "United Kingdom"
     },
     {
         "country_code": "EH",
-        "country_name": "Rep. Árabe Saharaui Democrática"
+        "country_name": "Sahrawi Arab Democratic Republic"
     },
     {
         "country_code": "CF",
-        "country_name": "Rep. Centroafricana"
+        "country_name": "Central African Rep."
     },
     {
         "country_code": "DO",
-        "country_name": "Rep. Dominicana"
+        "country_name": "Dominican Republic"
     },
     {
         "country_code": "CZ",
-        "country_name": "República Checa"
+        "country_name": "Czech Republic"
     },
     {
         "country_code": "CD",
-        "country_name": "República del Congo"
+        "country_name": "Republic of Congo"
     },
     {
         "country_code": "RW",
-        "country_name": "Ruanda"
+        "country_name": "Rwanda"
     },
     {
         "country_code": "RO",
-        "country_name": "Rumanía"
+        "country_name": "Romania"
     },
     {
         "country_code": "RU",
-        "country_name": "Rusia"
+        "country_name": "Russia"
     },
     {
         "country_code": "WS",
@@ -681,7 +681,7 @@
     },
     {
         "country_code": "AS",
-        "country_name": "Samoa Americana"
+        "country_name": "American Samoa"
     },
     {
         "country_code": "SM",
@@ -689,11 +689,11 @@
     },
     {
         "country_code": "VC",
-        "country_name": "San Vicente y las Granadinas"
+        "country_name": "Saint Vincent and the Grenadines"
     },
     {
         "country_code": "ST",
-        "country_name": "Santo Tomé y Príncipe"
+        "country_name": "Sao Tome and Principe"
     },
     {
         "country_code": "SN",
@@ -705,7 +705,7 @@
     },
     {
         "country_code": "RR",
-        "country_name": "Serbia y Montenegro"
+        "country_name": "Serbia and Montenegro"
     },
     {
         "country_code": "SC",
@@ -713,15 +713,15 @@
     },
     {
         "country_code": "SL",
-        "country_name": "Sierra Leona"
+        "country_name": "Sierra Leone"
     },
     {
         "country_code": "SG",
-        "country_name": "Singapur"
+        "country_name": "Singapore"
     },
     {
         "country_code": "SY",
-        "country_name": "Síria"
+        "country_name": "Syria"
     },
     {
         "country_code": "SO",
@@ -733,39 +733,39 @@
     },
     {
         "country_code": "ZA",
-        "country_name": "Sudáfrica"
+        "country_name": "South Africa"
     },
     {
         "country_code": "SD",
-        "country_name": "Sudán"
+        "country_name": "Sudan"
     },
     {
         "country_code": "SS",
-        "country_name": "Sudán del Sur"
+        "country_name": "South Sudan"
     },
     {
         "country_code": "SE",
-        "country_name": "Suecia"
+        "country_name": "Sweden"
     },
     {
         "country_code": "CH",
-        "country_name": "Suiza"
+        "country_name": "Switzerland"
     },
     {
         "country_code": "SR",
-        "country_name": "Surinam"
+        "country_name": "Suriname"
     },
     {
         "country_code": "SZ",
-        "country_name": "Swazilandia"
+        "country_name": "Swaziland"
     },
     {
         "country_code": "TH",
-        "country_name": "Tailandia"
+        "country_name": "Thailand"
     },
     {
         "country_code": "TW",
-        "country_name": "Taiwán"
+        "country_name": "Taiwan"
     },
     {
         "country_code": "TJ",
@@ -777,7 +777,7 @@
     },
     {
         "country_code": "TL",
-        "country_name": "Timor Oriental"
+        "country_name": "Timor-Leste"
     },
     {
         "country_code": "TG",
@@ -789,23 +789,23 @@
     },
     {
         "country_code": "TT",
-        "country_name": "Trinidad y Tobago"
+        "country_name": "Trinidad and Tobago"
     },
     {
         "country_code": "TN",
-        "country_name": "Túnez"
+        "country_name": "Tunisia"
     },
     {
         "country_code": "TM",
-        "country_name": "Turkmenistán"
+        "country_name": "Turkmenistan"
     },
     {
         "country_code": "TR",
-        "country_name": "Turquía"
+        "country_name": "Turkey"
     },
     {
         "country_code": "UA",
-        "country_name": "Ucrania"
+        "country_name": "Ukraine"
     },
     {
         "country_code": "UG",
@@ -813,7 +813,7 @@
     },
     {
         "country_code": "ZY",
-        "country_name": "Unión Soviética (URSS)"
+        "country_name": "Soviet Union  (USSR)"
     },
     {
         "country_code": "UY",

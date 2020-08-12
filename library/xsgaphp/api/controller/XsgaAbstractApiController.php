@@ -73,7 +73,10 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
+        // Clean output buffer.
         ob_clean();
+        
+        // Get HTTP headers.
         XsgaAPIRouter::getHeaders();
         
         if ($encodeJson) {
@@ -106,6 +109,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
+        // Get total elements of array.
         $total = count($data);
         
         if ($total <> $expected) {

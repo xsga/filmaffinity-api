@@ -37,6 +37,12 @@ class FilmApiController extends XsgaAbstractApiController
      */
     private $filmAffinity;
     
+    
+    /**
+     * Constructor.
+     * 
+     * @access public
+     */
     public function __construct()
     {
         
@@ -69,9 +75,10 @@ class FilmApiController extends XsgaAbstractApiController
         // Validates input data.
         $this->getGetFilmValidations($params);
                 
-        // Load movie.
+        // Load film by fimAffinity ID.
         $filmDto = $this->filmAffinity->loadFilm($params[0]);
         
+        // Get response.
         $this->getResponse($filmDto);
         
         // Logger.
@@ -95,7 +102,10 @@ class FilmApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
+        // Validates number of parameters: 1 parameter expected (film ID).
         $this->valNumberOfParams($params, 1);
+        
+        // Validates that parameter is numeric.
         $this->valParamIsNumeric($params[0]);
         
         // Logger.

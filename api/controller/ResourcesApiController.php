@@ -89,7 +89,7 @@ class ResourcesApiController extends XsgaAbstractApiController
         $this->getJsonValidations($params);
         
         // Get response.
-        $this->getResponse($this->resources->getJsonFile($params[0]), false);
+        $this->getResponse($this->resources->getResourceFile('json', $params[0]), false);
         
         // Logger.
         $this->logger->debugEnd();
@@ -118,7 +118,7 @@ class ResourcesApiController extends XsgaAbstractApiController
         $this->getSchemaValidations($params);
         
         // Get response.
-        $this->getResponse($this->resources->getSchemaFile($params[0], $params[1]), false);
+        $this->getResponse($this->resources->getResourceFile('schema', $params[1], $params[0]), false);
         
         // Logger.
         $this->logger->debugEnd();
@@ -141,9 +141,11 @@ class ResourcesApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validates parameters.
+        // Validates number of parameters: 1 parameter expected (JSON file name).
         $this->valNumberOfParams($params, 1);
-        $this->helper->valJsonFile($params[0]);
+        
+        // Validates that JSON file name is valid.
+        $this->helper->valParamIsValid($params[0], 'json_name');
         
         // Logger.
         $this->logger->debugEnd();
@@ -166,10 +168,14 @@ class ResourcesApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validates parameters.
+        // Validates number of parameters: 2 parameters expected (mode and schema name).
         $this->valNumberOfParams($params, 2);
-        $this->helper->valSchemaMode($params[0]);
-        $this->helper->valSchemaFile($params[1]);
+        
+        // Validates that mode is valid: input or output.
+        $this->helper->valParamIsValid($params[0], 'schema_mode');
+        
+        // Validates that schema name is valid.
+        $this->helper->valParamIsValid($params[1], 'schema_name');
         
         // Logger.
         $this->logger->debugEnd();

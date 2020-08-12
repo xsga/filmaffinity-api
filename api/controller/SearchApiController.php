@@ -155,9 +155,13 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validates input data..
+        // Validates number of parameters: 1 parameter expected (search text).
         $this->valNumberOfParams($data, 1);
+        
+        // Validates that parameter "text" exists.
         $this->valExistsParam($data, 'text');
+        
+        // Validates that parameter "text" is longer than 2 characters.
         $this->valParamLength($data['text'], 'text', 2);
         
         // Logger.
@@ -181,8 +185,10 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validate input data.
+        // Validates number of parameters: 12 parameters expected.
         $this->valNumberOfParams($data, 12);
+        
+        // Validates that required parameters exists.
         $this->valExistsParam($data, 'text');
         $this->valExistsParam($data, 'title');
         $this->valExistsParam($data, 'director');
@@ -195,7 +201,11 @@ class SearchApiController extends XsgaAbstractApiController
         $this->valExistsParam($data, 'genre');
         $this->valExistsParam($data, 'year_from');
         $this->valExistsParam($data, 'year_to');
+        
+        // Validates search text length.
         $this->valParamLength($data['text'], 'text', 2);
+        
+        // Validates boolean parameters.
         $this->valParamIsBoolean($data['title']);
         $this->valParamIsBoolean($data['director']);
         $this->valParamIsBoolean($data['cast']);
@@ -203,10 +213,16 @@ class SearchApiController extends XsgaAbstractApiController
         $this->valParamIsBoolean($data['photography']);
         $this->valParamIsBoolean($data['soundtrack']);
         $this->valParamIsBoolean($data['producer']);
+        
+        // Validates integer parameters.
         $this->valParamIsInteger($data['year_from']);
         $this->valParamIsInteger($data['year_to']);
-        $this->helper->valGenre($data['genre']);
-        $this->helper->valCountry($data['country']);
+        
+        // Validates that "genre" parameter is valid.
+        $this->helper->valParamIsValid($data['genre'], 'genre');
+        
+        // Validates that "country" parameter is valid.
+        $this->helper->valParamIsValid($data['country'], 'country');
         
         // Logger.
         $this->logger->debugEnd();
