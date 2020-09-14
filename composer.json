@@ -4,5 +4,8 @@
     "license": "MIT-only",
     "autoload": {
         "psr-0": {"": "","xsgaphp": "library/","log4php": "library/"}
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.5.20"
     }
 }
