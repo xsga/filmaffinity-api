@@ -4,7 +4,7 @@
  * 
  * PHP Version 7
  * 
- * @author  xsga <xsegales@outlook.com>
+ * @author  xsga <parker@xsga.es>
  * @license MIT
  * @version 1.0.0
  */
@@ -27,8 +27,10 @@ require_once realpath(dirname(__FILE__)).$pathConfig.'settingsAPI.php';
 switch (FA_LANGUAGE) {
     case 'spa':
         define('FA_BASE_URL', 'https://www.filmaffinity.com/es/');
+        break;
     case 'en':
         define('FA_BASE_URL', 'https://www.filmaffinity.com/us/');
+        break;
     default:
         define('FA_BASE_URL', 'https://www.filmaffinity.com/es/');
 }//end switch
