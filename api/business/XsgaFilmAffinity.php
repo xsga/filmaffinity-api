@@ -10,7 +10,7 @@
  * 
  * PHP Version 7
  * 
- * @author  xsga <xsegales@outlook.com>
+ * @author  xsga <parker@xsga.es>
  * @license MIT
  * @version 1.0.0
  */
