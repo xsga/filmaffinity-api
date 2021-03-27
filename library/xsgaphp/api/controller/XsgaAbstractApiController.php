@@ -29,6 +29,15 @@ use xsgaphp\exceptions\XsgaValidationException;
 abstract class XsgaAbstractApiController extends XsgaAbstractClass
 {
     
+    /**
+     * Input data file.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
+    public $inputData = 'php://input';
+    
     
     /**
      * Get request parameters.
@@ -43,7 +52,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = json_decode(file_get_contents($this->inputData), true);
         
         if (is_null($data)) {
             $data = array();
