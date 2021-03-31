@@ -1,7 +1,7 @@
 {
     "name": "xsga/filmaffinity-api",
     "description": "A filmAffinity API",
-    "license": "MIT-only",
+    "license": "MIT",
     "autoload": {
         "psr-0": {"": "","xsgaphp": "library/","log4php": "library/"}
     },
