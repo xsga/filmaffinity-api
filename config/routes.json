@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Ejemplo SLUG",
+        "http_method": "GET",
+        "pattern": "example/:slug",
+        "controller": "",
+        "method": ""
+    },
+    {
+        "name": "Ejemplo ID",
+        "http_method": "POST",
+        "pattern": "example/:id",
+        "controller": "PruebaController",
+        "method": "metodo"
+    }
+]
