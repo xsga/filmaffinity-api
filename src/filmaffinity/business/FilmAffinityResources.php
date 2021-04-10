@@ -56,7 +56,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 $this->logger->debug('Get JSON resource');
                 
                 // Set common variables.
-                $resourceFileName = strtolower($fileName).ucfirst(strtolower(FA_LANGUAGE)).'.json';
+                $resourceFileName = strtolower($fileName).ucfirst(strtolower($_ENV['LANGUAGE'])).'.json';
                 $pathToResource   = DIRECTORY_SEPARATOR.'..';
                 $pathToResource  .= DIRECTORY_SEPARATOR.'resources';
                 $pathToResource  .= DIRECTORY_SEPARATOR.'json';

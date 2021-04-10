@@ -18,7 +18,7 @@ namespace xsgaphp\api\controller;
  * Import dependencies.
  */
 use xsgaphp\core\XsgaAbstractClass;
-use xsgaphp\api\XsgaAPIRouter;
+use xsgaphp\api\router\XsgaAPIRouter;
 use xsgaphp\exceptions\XsgaValidationException;
 
 /**

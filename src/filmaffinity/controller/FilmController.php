@@ -1,6 +1,6 @@
 <?php
 /**
- * FilmApiController.
+ * FilmController.
  *
  * This class manages all API petitions from FILM module.
  *
@@ -23,9 +23,9 @@ use xsgaphp\api\controller\XsgaAbstractApiController;
 use api\filmaffinity\business\XsgaFilmAffinity;
 
 /**
- * Class FilmApiController.
+ * Class FilmController.
  */
-class FilmApiController extends XsgaAbstractApiController
+class FilmController extends XsgaAbstractApiController
 {
     
     /**
@@ -45,7 +45,6 @@ class FilmApiController extends XsgaAbstractApiController
      */
     public function __construct()
     {
-        
         // Executes parant constructor.
         parent::__construct();
         
@@ -56,27 +55,33 @@ class FilmApiController extends XsgaAbstractApiController
     
     
     /**
-     * Get film GET method.
+     * Get film information.
      * 
      * @api
      * 
-     * @param array $params Filmaffinity movie ID.
+     * @param array $request Request.
+     * @param array $filters Request filters.
+     * @param array $body    Request body.
      * 
      * @return void
      * 
      * @access public
      */
-    public function getGetFilm(array $params = array())
+    public function getFilm(array $request, array $filters, array $body)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
+        // TODO: tratar parámetros.
+        unset($request[0]);
+        unset($request[1]);
+        $request = array_values($request);
+
         // Validates input data.
-        $this->getGetFilmValidations($params);
+        $this->getFilmValidations($request);
                 
         // Load film by fimAffinity ID.
-        $filmDto = $this->filmAffinity->loadFilm($params[0]);
+        $filmDto = $this->filmAffinity->loadFilm($request[0]);
         
         // Get response.
         $this->getResponse($filmDto);
@@ -84,7 +89,7 @@ class FilmApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugEnd();
         
-    }//end getGetFilm()
+    }//end getFilm()
     
     
     /**
@@ -96,9 +101,8 @@ class FilmApiController extends XsgaAbstractApiController
      * 
      * @access private
      */
-    private function getGetFilmValidations(array $params)
+    private function getFilmValidations(array $params)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -111,7 +115,7 @@ class FilmApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugEnd();
         
-    }//end getGetFilmeValidations()
+    }//end getFilmValidations()
     
     
-}//end FilmApiController class
+}//end FilmController class

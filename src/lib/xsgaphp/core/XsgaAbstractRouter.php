@@ -239,6 +239,8 @@ class XsgaAbstractRouter extends XsgaAbstractClass
         // Process routes.
         foreach ($this->routes as $route) {
 
+            $regex = '';
+
             if (strtoupper($route['http_method']) === $this->requestMethod) {
                 
                 // Regular expression for slug.
@@ -251,6 +253,10 @@ class XsgaAbstractRouter extends XsgaAbstractClass
                     $regex = '#'.str_replace(':id', '[1-9][0-9]*$', $route['pattern']).'#';
                 }//end if
 
+                if (empty($regex)) {
+                    $regex = '#'.$route['pattern'].'#';
+                }//end if
+                
                 // Match with request.
                 if (preg_match($regex, $this->request) === 1) {
                     

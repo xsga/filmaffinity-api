@@ -1,6 +1,6 @@
 <?php
 /**
- * SearchApiController.
+ * SearchController.
  *
  * This class manages all API petitions from SEARCH module.
  *
@@ -24,9 +24,9 @@ use api\filmaffinity\controller\helpers\SearchACHelper;
 use api\filmaffinity\business\XsgaFilmAffinity;
 
 /**
- * Class SearchApiController.
+ * Class SearchController.
  */
-class SearchApiController extends XsgaAbstractApiController
+class SearchController extends XsgaAbstractApiController
 {
     
     /**
@@ -55,7 +55,6 @@ class SearchApiController extends XsgaAbstractApiController
      */
     public function __construct()
     {
-        
         // Executes parent constructor.
         parent::__construct();
         
@@ -69,28 +68,28 @@ class SearchApiController extends XsgaAbstractApiController
     
     
     /**
-     * Do search POST method.
+     * Simple search.
      * 
      * @api
+     * 
+     * @param array $request Request.
+     * @param array $filters Request filters.
+     * @param array $body    Request body.
      * 
      * @return void
      * 
      * @access public
      */
-    public function postDoSearch()
+    public function simpleSearch(array $request, array $filters, array $body)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
-        // Get input data.
-        $data = $this->getInputData();
-        
         // Validates input data.
-        $this->postDoSearchValidations($data);
+        $this->simpleSearchValidations($body);
         
         // Get AdvSearchDto.
-        $dto = $this->helper->getSearchDto($data);
+        $dto = $this->helper->getSearchDto($body);
         
         // Do search.
         $searchResults = $this->filmAffinity->search($dto);
@@ -101,32 +100,32 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugEnd();
         
-    }//end postDoSearch()
+    }//end simpleSearch()
     
     
     /**
-     * Do advanced search POST method.
+     * Advanced search.
      * 
      * @api
+     * 
+     * @param array $request Request.
+     * @param array $filters Request filters.
+     * @param array $body    Request body.
      * 
      * @return void
      * 
      * @access public
      */
-    public function postDoAdvSearch()
+    public function advancedSearch(array $request, array $filters, array $body)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
-        // Get input data.
-        $data = $this->getInputData();
-        
         // Validate input data.
-        $this->postDoAdvSearchValidations($data);
+        $this->advancedSearchValidations($body);
         
         // Get AdvSearchDto.
-        $dto = $this->helper->getAdvSearchDto($data);
+        $dto = $this->helper->getAdvSearchDto($body);
         
         // Do advanced search.
         $searchResults = $this->filmAffinity->advancedSearch($dto);
@@ -137,11 +136,11 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugEnd();
         
-    }//end postDoAdvSearch()
+    }//end advancedSearch()
     
     
     /**
-     * Validates input data for do_search API endpoint.
+     * Validates input data for simple search API endpoint.
      * 
      * @param array $data
      * 
@@ -149,9 +148,8 @@ class SearchApiController extends XsgaAbstractApiController
      *
      * @access private
      */
-    private function postDoSearchValidations(array $data)
+    private function simpleSearchValidations(array $data)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -167,11 +165,11 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugEnd();
                 
-    }//end postDoSearchValidations()
+    }//end simpleSearchValidations()
     
     
     /**
-     * Validates input data for do_adv_search API endpoint.
+     * Validates input data for advanced search API endpoint.
      * 
      * @param array $data
      *
@@ -179,9 +177,8 @@ class SearchApiController extends XsgaAbstractApiController
      *
      * @access private
      */
-    private function postDoAdvSearchValidations(array $data)
+    private function advancedSearchValidations(array $data)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -227,7 +224,7 @@ class SearchApiController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugEnd();
         
-    }//end postDoAdvSearchValidations()
+    }//end advancedSearchValidations()
     
     
-}//end SearchApiController class
+}//end SearchController class

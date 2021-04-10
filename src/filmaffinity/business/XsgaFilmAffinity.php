@@ -48,6 +48,11 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * @access private
      */
     private $lang;
+
+    /**
+     * 
+     */
+    private $baseUrl = '';
     
     
     /**
@@ -57,12 +62,21 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     public function __construct()
     {
-        
         // Executes parent constructor.
         parent::__construct();
         
         // Set language literals.
-        $this->lang = XsgaLangFiles::load('Api');
+        $this->lang = XsgaLangFiles::load();
+
+        // Set base URL.
+        switch ($_ENV['LANGUAGE']) {
+            case 'spa':
+                $this->baseUrl = $_ENV['BASE_URL'].'es/';
+                break;
+            case 'en':
+                $this->baseUrl = $_ENV['BASE_URL'].'us/';
+                break;
+        }//end switch
         
     }//end __construct()
         
@@ -78,7 +92,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     public function search(SearchDto $searchDto)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -104,7 +117,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     public function advancedSearch(AdvSearchDto $advSearchDto)
     {
-    
         // Logger.
         $this->logger->debugInit();
         
@@ -130,7 +142,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     public function loadFilm($filmId)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -162,12 +173,11 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function getSearchUrl(SearchDto $searchDto)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
         // Get url.
-        $urlSearch = FA_BASE_URL.str_replace('{1}', $this->prepareSearchText($searchDto->searchText), FA_SEARCH_URL);
+        $urlSearch = $this->baseUrl.str_replace('{1}', $this->prepareSearchText($searchDto->searchText), $_ENV['SEARCH_URL']);
         
         // Logger.
         $this->logger->debug('Search URL: '.$urlSearch);
@@ -235,14 +245,14 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         }//end if
         
         // Get url.
-        $urlAdvSearch= FA_ADV_SEARCH_URL;
+        $urlAdvSearch= $_ENV['ADV_SEARCH_URL'];
         $urlAdvSearch= str_replace('{1}', $this->prepareSearchText($advSearchDto->searchText), $urlAdvSearch);
         $urlAdvSearch= str_replace('{2}', $searchType, $urlAdvSearch);
         $urlAdvSearch= str_replace('{3}', $advSearchDto->searchCountry, $urlAdvSearch);
         $urlAdvSearch= str_replace('{4}', $advSearchDto->searchGenre, $urlAdvSearch);
         $urlAdvSearch= str_replace('{5}', $advSearchDto->searchYearFrom, $urlAdvSearch);
         $urlAdvSearch= str_replace('{6}', $advSearchDto->searchYearTo, $urlAdvSearch);
-        $urlAdvSearch= FA_BASE_URL.$urlAdvSearch;
+        $urlAdvSearch= $this->baseUrl.$urlAdvSearch;
         
         // Logger.
         $this->logger->debug('Advanced Search URL: '.$urlAdvSearch);
@@ -269,7 +279,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         $this->logger->debugInit();
         
         // Get url.
-        $urlFilm = FA_BASE_URL.str_replace('{1}', $filmId, FA_FILM_URL);
+        $urlFilm = $this->baseUrl.str_replace('{1}', $filmId, $_ENV['FILM_URL']);
         
         // Logger.
         $this->logger->debug('Film URL: '.$urlFilm);
@@ -350,7 +360,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
             $title = $domXpath->query(XpathCons::OG_TITLE)->item(0)->getAttribute('content');
             
             // Prepare film ID and title.
-            $id    = trim(str_replace(FA_BASE_URL.'film', '', str_replace('.html', '', $id)));
+            $id    = trim(str_replace($this->baseUrl.'film', '', str_replace('.html', '', $id)));
             $title = trim(str_replace('  ', ' ', str_replace('   ', ' ', $title)));
             
             // Put result into single result DTO.
