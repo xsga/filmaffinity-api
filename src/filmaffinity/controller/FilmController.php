@@ -74,7 +74,7 @@ class FilmController extends XsgaAbstractApiController
         
         // TODO: tratar parámetros.
         unset($request[0]);
-        unset($request[1]);
+        //unset($request[1]);
         $request = array_values($request);
 
         // Validates input data.

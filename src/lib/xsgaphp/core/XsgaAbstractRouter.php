@@ -57,7 +57,7 @@ class XsgaAbstractRouter extends XsgaAbstractClass
      *
      * @access public
      */
-    public $requestArray = array();
+    public $requestArray;
     
     /**
      * Request filters.
@@ -66,7 +66,7 @@ class XsgaAbstractRouter extends XsgaAbstractClass
      *
      * @access public
      */
-    public $requestFilters = array();
+    public $requestFilters;
 
     /**
      * Request body.
@@ -75,7 +75,7 @@ class XsgaAbstractRouter extends XsgaAbstractClass
      * 
      * @access public
      */
-    public $requestBody = array();
+    public $requestBody;
 
     /**
      * Routes.
@@ -209,7 +209,13 @@ class XsgaAbstractRouter extends XsgaAbstractClass
                 // Logger.
                 $this->logger->warn($this->requestMethod.' request without body data');
 
+                $this->requestBody = array();
+
             }//end if
+
+        } else {
+
+            $this->requestBody = array();
 
         }//end if  
 
@@ -251,6 +257,11 @@ class XsgaAbstractRouter extends XsgaAbstractClass
                 // Regular expression for id.
                 if (is_numeric(stripos($route['pattern'], ':id'))) {
                     $regex = '#'.str_replace(':id', '[1-9][0-9]*$', $route['pattern']).'#';
+                }//end if
+
+                // Regular expression for text.
+                if (is_numeric(stripos($route['pattern'], ':text'))) {
+                    $regex = '#'.str_replace(':text', '[a-zA-Z]*$', $route['pattern']).'#';
                 }//end if
 
                 if (empty($regex)) {

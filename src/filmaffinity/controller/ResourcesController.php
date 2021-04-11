@@ -1,6 +1,6 @@
 <?php
 /**
- * ResourcesApiController.
+ * ResourcesController.
  *
  * This class manages all API petitions from RESOURCES module.
  *
@@ -24,9 +24,9 @@ use api\filmaffinity\business\FilmAffinityResources;
 use api\filmaffinity\controller\helpers\ResourcesACHelper;
 
 /**
- * Class ResourcesApiController.
+ * Class ResourcesController.
  */
-class ResourcesApiController extends XsgaAbstractApiController
+class ResourcesController extends XsgaAbstractApiController
 {
     
     /**
@@ -73,23 +73,30 @@ class ResourcesApiController extends XsgaAbstractApiController
      * 
      * @api
      * 
-     * @param array $params JSON file to get.
+     * @param array $request Request.
+     * @param array $filters Request filters.
+     * @param array $body    Request body.
      *
      * @return void
      *
      * @access public
      */
-    public function getJson(array $params = array())
+    public function getJson(array $request, array $filters, array $body)
     {
         
         // Logger.
         $this->logger->debugInit();
+
+        // TODO: tratar parámetros.
+        unset($request[0]);
+        unset($request[1]);
+        $request = array_values($request);
         
         // Validates input parameters.
-        $this->getJsonValidations($params);
+        $this->getJsonValidations($request);
         
         // Get response.
-        $this->getResponse($this->resources->getResourceFile('json', $params[0]), false);
+        $this->getResponse($this->resources->getResourceFile('json', $request[0]), false);
         
         // Logger.
         $this->logger->debugEnd();
@@ -102,23 +109,30 @@ class ResourcesApiController extends XsgaAbstractApiController
      *
      * @api
      *
-     * @param array $params JSON file to get.
+     * @param array $request Request.
+     * @param array $filters Request filters.
+     * @param array $body    Request body.
      *
      * @return void
      *
      * @access public
      */
-    public function getSchema(array $params = array())
+    public function getSchema(array $request, array $filters, array $body)
     {
         
         // Logger.
         $this->logger->debugInit();
+
+        // TODO: tratar parámetros.
+        unset($request[0]);
+        unset($request[1]);
+        $request = array_values($request);
         
         // Validates input parameters.
-        $this->getSchemaValidations($params);
+        $this->getSchemaValidations($request);
         
         // Get response.
-        $this->getResponse($this->resources->getResourceFile('schema', $params[1], $params[0]), false);
+        $this->getResponse($this->resources->getResourceFile('schema', $request[1], $request[0]), false);
         
         // Logger.
         $this->logger->debugEnd();
@@ -183,4 +197,4 @@ class ResourcesApiController extends XsgaAbstractApiController
     }//end getSchemaValidations()
     
     
-}//end ResourcesApiController class
+}//end ResourcesController class

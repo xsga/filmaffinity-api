@@ -19,5 +19,19 @@
         "pattern": "films/:id",
         "controller": "FilmController",
         "method": "getFilm"
+    },
+    {
+        "name": "Get JSON resource",
+        "http_method": "GET",
+        "pattern": "resources/json/:text",
+        "controller": "ResourcesController",
+        "method": "getJson"
+    },
+    {
+        "name": "Get schema resource",
+        "http_method": "GET",
+        "pattern": "resources/schema/input/:text",
+        "controller": "ResourcesController",
+        "method": "getSchema"
     }
 ]
