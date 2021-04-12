@@ -1,8 +1,8 @@
-# filmaffinity-api
+# filmaffinity-API
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v1.3.0)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF?style=flat)](https://php.net/)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v2.0.0)
 [![Workflow Status](https://img.shields.io/github/workflow/status/xsga/filmaffinity-api/PHP%20Composer)](https://github.com/xsga/filmaffinity-api/actions?query=workflow%3A%22PHP+Composer%22)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
@@ -14,51 +14,55 @@ The API is written in PHP and uses a JSON objects to input and output data.
 
 Server prerequisites:
 
-* PHP 5.6 or later.
+* PHP 7.3 or later.
 * Apache's `mod_rewrite` module enabled.
 * Composer
 
 Install instructions:
 
-* Unzip the api files in an empty folder in your server.
-* Make sure that the HTTP shared folder match with the api `public` folder.
+* Unzip the API files in an empty folder in your server.
+* Make sure that the HTTP shared folder match with the API `public` folder.
 * `log` folder needs read and write permissions:
 ```
 user@server:~# chmod 777 -R log
+```
+* `tmp` folder needs read and write permissions:
+```
+user@server:~# chmod 777 -R tmp
 ```
 * Run `composer` to install dependencies:
 ```
 user@server:~# composer install
 ```
-* Set up basic and mandatory api settings (`config/settingsAPI.php`):
-  * Set de environment, development (dev) or production (pro)
-  ```
-  $settings['environment'] = 'dev';
-  ``` 
-  * Set de URL path (see instructions)
-  ```
-  $settings['url_path'] = '';
-  ```
+* Rename `config/.env.example` to `config/.env` to activates common environment settings.
+* Rename `config/.dev.env.example` to `config/.dev.env` to activates development environment settings.
+* Rename `config/.pro.env.example` to `config/.pro.env` to activates production environment settings.
+* Setup API settings:
+  * `config/.env` for commons API settings.
+  * `config/.dev.env` for development API settings.
+  * `config/.pro.env` for production API settings.
 
 ## API Public methods
-The API has three main public methods:
+API has four main public methods:
 
 * Search films.
 * Advanced search films.
-* Get film.
+* Get film information.
+* Get resources (countries and genres)
 
 
 |Method name|API endpoint|HTTP method|Input|Output|
 |-----------|------------|-----------|-----|------|
-|Search films|search/do_search|POST|[search json](https://github.com/xsga/filmaffinity-api/blob/master/api/resources/schema/input/search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/blob/master/api/resources/schema/output/search_results.schema.json)|
-|Advanced search films|search/do_adv_search|POST|[adv_search json](https://github.com/xsga/filmaffinity-api/blob/master/api/resources/schema/input/adv_search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/blob/master/api/resources/schema/output/search_results.schema.json)|
-|Get film|film/get_film|GET|URL parameter|[film json](https://github.com/xsga/filmaffinity-api/blob/master/api/resources/schema/output/film.schema.json)|
+|Search films|search/simple|POST|[search json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/input/search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/output/search_results.schema.json)|
+|Advanced search films|search/advanced|POST|[adv_search json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/input/adv_search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/output/search_results.schema.json)|
+|Get film|films/:id|GET|URL parameter|[film json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/output/film.schema.json)|
+|Get resources|resources/:name|GET|URL parameter|[Various](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/json)|
 
 ## Basic usage
 
 ### Simple search
 ```
-http://<server_domain_api>/search/do_search
+http://<server_domain_api>/search/simple
 ```
 
 INPUT
@@ -82,7 +86,7 @@ OUTPUT
 
 ### Advanced search
 ```
-http://<server_domain_api>/search/do_adv_search
+http://<server_domain_api>/search/advanced
 ```
 
 INPUT
@@ -98,8 +102,8 @@ INPUT
   "producer": false,
   "country": "",
   "genre": "",
-  "year_from": "1992",
-  "year_to": "2000"
+  "year_from": 1992,
+  "year_to": 2000
 }
 ```
 
@@ -114,9 +118,9 @@ OUTPUT
 }
 ```
 
-### Get Film
+### Get film information
 ```
-http://<server_domain_api>/film/get_film/<film_id>
+http://<server_domain_api>/film/get_film/:id
 ```
 
 OUTPUT
@@ -142,3 +146,16 @@ OUTPUT
   "synopsis": "Jules y Vincent, dos asesinos a sueldo con no demasiadas luces, trabajan para el gángster Marsellus Wallace. Vincent le confiesa a Jules que Marsellus le ha pedido que cuide de Mia, su atractiva mujer. Jules le recomienda prudencia porque es muy peligroso sobrepasarse con la novia del jefe. Cuando llega la hora de trabajar, ambos deben ponerse \"manos a la obra\". Su misión: recuperar un misterioso maletín."
 }
 ```
+
+### Get resources
+
+```
+http://<server_domain_api>/resources/:name
+```
+
+Allowed values for `:name`:
+
+* `countries` - List of allowed countries.
+* `genres` - List of allowed genres.
+
+You must inform the country/genre code in the body request of advances search if you want use these filters.

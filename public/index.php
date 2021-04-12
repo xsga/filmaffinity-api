@@ -1,8 +1,8 @@
 <?php
 /**
- * API main page.
+ * Xsga-PHP-API main page.
  * 
- * The index page is the FilmAffinity-API front controller. It manages all petitions.
+ * The index page is the API front controller. It manages all petitions to the API.
  * 
  * PHP Version 7
  * 
@@ -12,37 +12,32 @@
  */
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use log4php\Logger;
-use xsgaphp\api\XsgaAPIRouter;
+use xsgaphp\api\router\XsgaAPIRouter;
+use xsgaphp\bootstrap\XsgaBootstrap;
 
-// Start or continue session.
-session_start();
+// Load Composer autoloader.
+$pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
+require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
 
-// Path to bootstrap files.
-$pathToBootstrap  = DIRECTORY_SEPARATOR.'..';
-$pathToBootstrap.= DIRECTORY_SEPARATOR.'library';
-$pathToBootstrap.= DIRECTORY_SEPARATOR.'xsgaphp';
-$pathToBootstrap.= DIRECTORY_SEPARATOR.'bootstrap';
-$pathToBootstrap.= DIRECTORY_SEPARATOR;
-
-// Loads API bootstrap.
-require_once realpath(dirname(__FILE__)).$pathToBootstrap.'XsgaBootstrapAPI.php';
+// Bootstrap.
+XsgaBootstrap::loadEnv();
 
 // Get Logger.
 $logger = Logger::getRootLogger();
 
 // Logger.
-$logger->debugInit('main');
+$logger->debugInit();
 $logger->info('Request URI    : '.$_SERVER['REQUEST_URI']);
 $logger->info('Request method : '.$_SERVER['REQUEST_METHOD']);
 
-// Get API router.
-$apiRouter = new XsgaAPIRouter();
-
 try {
     
+    // Get API router.
+    $apiRouter = new XsgaAPIRouter();
+
     // Dispatch API petition.
     $apiRouter->dispatchPetition($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
@@ -65,4 +60,4 @@ try {
 }//end try
 
 // Logger.
-$logger->debugEnd('main');
+$logger->debugEnd();

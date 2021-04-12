@@ -2,10 +2,18 @@
     "name": "xsga/filmaffinity-api",
     "description": "A filmAffinity API",
     "license": "MIT",
-    "autoload": {
-        "psr-0": {"": "","xsgaphp": "library/","log4php": "library/"}
+    "require": {
+        "vlucas/phpdotenv": "5.*",
+        "doctrine/orm": "2.8.*"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^9"
+    "autoload": {
+        "files": [
+            "src/lib/xsgaphp/bootstrap/XsgaErrorHandle.php"
+        ],
+        "psr-4": {
+            "api\\": "src/",
+            "xsgaphp\\": "src/lib/xsgaphp/",
+            "log4php\\": "src/lib/log4php/"
+        }
     }
 }

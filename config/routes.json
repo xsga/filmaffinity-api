@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Simple search",
+        "http_method": "POST",
+        "pattern": "search/simple",
+        "controller": "SearchController",
+        "method": "simpleSearch"
+    },
+    {
+        "name": "Advanced search",
+        "http_method": "POST",
+        "pattern": "search/advanced",
+        "controller": "SearchController",
+        "method": "advancedSearch"
+    },
+    {
+        "name": "Get film information",
+        "http_method": "GET",
+        "pattern": "films/:id",
+        "controller": "FilmController",
+        "method": "getFilm"
+    },
+    {
+        "name": "Get JSON resource",
+        "http_method": "GET",
+        "pattern": "resources/:text",
+        "controller": "ResourcesController",
+        "method": "getJson"
+    },
+    {
+        "name": "Get schema input resource",
+        "http_method": "GET",
+        "pattern": "resources/schema/input/:text",
+        "controller": "ResourcesController",
+        "method": "getSchema"
+    },
+    {
+        "name": "Get schema output resource",
+        "http_method": "GET",
+        "pattern": "resources/schema/output/:text",
+        "controller": "ResourcesController",
+        "method": "getSchema"
+    }
+]
