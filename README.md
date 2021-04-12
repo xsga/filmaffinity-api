@@ -38,12 +38,12 @@ user@server:~# composer install
 * Rename `config/.dev.env.example` to `config/.dev.env` to activates development environment settings.
 * Rename `config/.pro.env.example` to `config/.pro.env` to activates production environment settings.
 * Setup API settings:
- * `config/.env` for commons API settings.
- * `config/.dev.env` for development API settings.
- * `config/.pro.env` for production API settings.
+  * `config/.env` for commons API settings.
+  * `config/.dev.env` for development API settings.
+  * `config/.pro.env` for production API settings.
 
 ## API Public methods
-The API has four main public methods:
+API has four main public methods:
 
 * Search films.
 * Advanced search films.
@@ -56,7 +56,7 @@ The API has four main public methods:
 |Search films|search/simple|POST|[search json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/input/search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/output/search_results.schema.json)|
 |Advanced search films|search/advanced|POST|[adv_search json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/input/adv_search.schema.json)|[search_results json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/output/search_results.schema.json)|
 |Get film|films/:id|GET|URL parameter|[film json](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/schema/output/film.schema.json)|
-|Get resources|resources/json/:name|URL parameter|[Various](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/json)|
+|Get resources|resources/:name|GET|URL parameter|[Various](https://github.com/xsga/filmaffinity-api/blob/master/src/filmaffinity/resources/json)|
 
 ## Basic usage
 
