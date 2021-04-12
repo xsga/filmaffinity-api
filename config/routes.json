@@ -23,7 +23,7 @@
     {
         "name": "Get JSON resource",
         "http_method": "GET",
-        "pattern": "resources/json/:text",
+        "pattern": "resources/:text",
         "controller": "ResourcesController",
         "method": "getJson"
     },
