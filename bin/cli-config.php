@@ -12,7 +12,7 @@
  */
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\bootstrap\XsgaBootstrap;
 use Doctrine\ORM\EntityManager;

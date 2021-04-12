@@ -2,7 +2,7 @@
 /**
  * AdvSearchDto.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT

@@ -4,7 +4,7 @@
  *
  * This class provide helper methods to ResourcesApiController class.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -17,7 +17,7 @@
 namespace api\filmaffinity\controller\helpers;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\core\XsgaAbstractClass;
 use xsgaphp\exceptions\XsgaValidationException;
@@ -84,7 +84,6 @@ class ResourcesACHelper extends XsgaAbstractClass
      */
     public function valParamIsValid($param, $type)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -99,7 +98,7 @@ class ResourcesACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $searchArray = $this->jsonFiles;
                 $errorMsg    = 'JSON file not valid';
-                $errorNum    = 114;
+                $errorNum    = 204;
                 
                 break;
                 
@@ -111,7 +110,7 @@ class ResourcesACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $searchArray = $this->schemaModes;
                 $errorMsg    = 'JSON schema mode not valid (input or output)';
-                $errorNum    = 116;
+                $errorNum    = 206;
                 
                 break;
                 
@@ -123,7 +122,7 @@ class ResourcesACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $searchArray = $this->schemaFiles;
                 $errorMsg    = 'JSON schema file not valid';
-                $errorNum    = 115;
+                $errorNum    = 205;
                 
                 break;
             

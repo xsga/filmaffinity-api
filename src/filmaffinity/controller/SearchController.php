@@ -4,7 +4,7 @@
  *
  * This class manages all API petitions from SEARCH module.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -17,7 +17,7 @@
 namespace api\filmaffinity\controller;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\api\controller\XsgaAbstractApiController;
 use api\filmaffinity\controller\helpers\SearchACHelper;

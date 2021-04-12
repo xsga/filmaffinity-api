@@ -4,7 +4,7 @@
  *
  * This class manages all API petitions from RESOURCES module.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -17,7 +17,7 @@
 namespace api\filmaffinity\controller;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\api\controller\XsgaAbstractApiController;
 use api\filmaffinity\business\FilmAffinityResources;
@@ -55,7 +55,6 @@ class ResourcesController extends XsgaAbstractApiController
      */
     public function __construct()
     {
-        
         // Executes parent constructor.
         parent::__construct();
         
@@ -83,7 +82,6 @@ class ResourcesController extends XsgaAbstractApiController
      */
     public function getJson(array $request, array $filters, array $body)
     {
-        
         // Logger.
         $this->logger->debugInit();
 
@@ -119,7 +117,6 @@ class ResourcesController extends XsgaAbstractApiController
      */
     public function getSchema(array $request, array $filters, array $body)
     {
-        
         // Logger.
         $this->logger->debugInit();
 
@@ -151,7 +148,6 @@ class ResourcesController extends XsgaAbstractApiController
      */
     private function getJsonValidations(array $params)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -178,7 +174,6 @@ class ResourcesController extends XsgaAbstractApiController
      */
     private function getSchemaValidations(array $params)
     {
-        
         // Logger.
         $this->logger->debugInit();
         

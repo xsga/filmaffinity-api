@@ -4,7 +4,7 @@
  *
  * This class manages all API petitions from FILM module.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -17,7 +17,7 @@
 namespace api\filmaffinity\controller;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\api\controller\XsgaAbstractApiController;
 use api\filmaffinity\business\XsgaFilmAffinity;
@@ -74,7 +74,6 @@ class FilmController extends XsgaAbstractApiController
         
         // TODO: tratar parámetros.
         unset($request[0]);
-        //unset($request[1]);
         $request = array_values($request);
 
         // Validates input data.

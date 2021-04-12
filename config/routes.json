@@ -28,9 +28,16 @@
         "method": "getJson"
     },
     {
-        "name": "Get schema resource",
+        "name": "Get schema input resource",
         "http_method": "GET",
         "pattern": "resources/schema/input/:text",
+        "controller": "ResourcesController",
+        "method": "getSchema"
+    },
+    {
+        "name": "Get schema output resource",
+        "http_method": "GET",
+        "pattern": "resources/schema/output/:text",
         "controller": "ResourcesController",
         "method": "getSchema"
     }

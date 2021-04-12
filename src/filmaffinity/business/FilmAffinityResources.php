@@ -4,7 +4,7 @@
  *
  * Resources from FilmAffinity.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -17,7 +17,7 @@
 namespace api\filmaffinity\business;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\core\XsgaAbstractClass;
 use xsgaphp\exceptions\XsgaFileNotFoundException;
@@ -44,7 +44,6 @@ class FilmAffinityResources extends XsgaAbstractClass
      */
     public function getResourceFile($type, $fileName, $mode = '')
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -63,7 +62,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 $pathToResource  .= DIRECTORY_SEPARATOR;
                 $resource         = realpath(dirname(__FILE__)).$pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON file not found ('.$resourceFileName.')';
-                $errorNum         = 113;
+                $errorNum         = 203;
                 
                 break;
                 
@@ -81,7 +80,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 $pathToResource  .= DIRECTORY_SEPARATOR;
                 $resource         = realpath(dirname(__FILE__)).$pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON schema file not found ('.$resourceFileName.')';
-                $errorNum         = 115;
+                $errorNum         = 205;
                 
                 break;
                 
@@ -100,7 +99,7 @@ class FilmAffinityResources extends XsgaAbstractClass
         }//end switch
         
         if (file_exists($resource)) {
-            
+
             // Get file content.
             $resourceContent = file_get_contents($resource);
             

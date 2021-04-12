@@ -4,7 +4,7 @@
  *
  * This class provide helper methods to SearchApiController class.
  *
- * PHP version 7
+ * PHP Version 7
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -17,7 +17,7 @@
 namespace api\filmaffinity\controller\helpers;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\core\XsgaAbstractClass;
 use xsgaphp\exceptions\XsgaValidationException;
@@ -46,7 +46,6 @@ class SearchACHelper extends XsgaAbstractClass
      */
     public function valParamIsValid($param, $type)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -65,7 +64,7 @@ class SearchACHelper extends XsgaAbstractClass
                 $arraySearch = json_decode($resources->getResourceFile('json', 'genres'), true);
                 $arrayKey    = 'genre_code';
                 $errorMsg    = 'Code "'.$param.'" is not a valid genre code';
-                $errorNum    = 103;
+                $errorNum    = 201;
                 
                 break;
                 
@@ -78,7 +77,7 @@ class SearchACHelper extends XsgaAbstractClass
                 $arraySearch = json_decode($resources->getResourceFile('json', 'countries'), true);
                 $arrayKey    = 'country_code';
                 $errorMsg    = 'Code "'.$param.'" is not a valid country code';
-                $errorNum    = 104;
+                $errorNum    = 202;
                 
                 break;
                 
@@ -134,7 +133,6 @@ class SearchACHelper extends XsgaAbstractClass
      */
     public function getAdvSearchDto(array $data)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -174,7 +172,6 @@ class SearchACHelper extends XsgaAbstractClass
      */
     public function getSearchDto(array $data)
     {
-        
         // Logger.
         $this->logger->debugInit();
         

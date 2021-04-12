@@ -21,7 +21,7 @@
 namespace api\filmaffinity\business;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use xsgaphp\rest\XsgaRestWrapper;
 use xsgaphp\exceptions\XsgaPageNotFoundException;
@@ -199,7 +199,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function getAdvSearchUrl(AdvSearchDto $advSearchDto)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -274,7 +273,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function getFilmUrl($filmId)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -301,7 +299,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function prepareSearchText($searchText)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -329,7 +326,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function getSearchResults($urlSearch, $searchText)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -436,7 +432,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function getPageContent($url)
     {
-        
         // Logger.
         $this->logger->debugInit();
         
@@ -454,7 +449,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
             // Logger.
             $this->logger->error($errorMsg);
             
-            throw new XsgaPageNotFoundException($errorMsg, 102);
+            throw new XsgaPageNotFoundException($errorMsg, 200);
             
         }//end if
         
@@ -478,7 +473,6 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      */
     private function getFilmInfo($pageContent, $filmId)
     {
-        
        // Logger.
        $this->logger->debugInit();
        

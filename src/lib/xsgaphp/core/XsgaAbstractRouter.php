@@ -200,22 +200,21 @@ class XsgaAbstractRouter extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
 
+        // Initializes request.
+        $this->requestBody = array();
+
         if (in_array($this->requestMethod, array('POST', 'PUT', 'PATCH'))) {
             
             $this->requestBody = json_decode(file_get_contents('php://input'), true);
 
             if (empty($this->requestBody)) {
+
+                $this->requestBody = array();
                 
                 // Logger.
                 $this->logger->warn($this->requestMethod.' request without body data');
 
-                $this->requestBody = array();
-
             }//end if
-
-        } else {
-
-            $this->requestBody = array();
 
         }//end if  
 
@@ -292,7 +291,7 @@ class XsgaAbstractRouter extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error('Not found route for request');
                                     
-            throw new XsgaValidationException('Invalid request', 111);
+            throw new XsgaValidationException('Invalid request', 104);
 
         }//end if
 
