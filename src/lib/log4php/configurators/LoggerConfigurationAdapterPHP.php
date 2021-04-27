@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Configurators
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\configurators;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerException;
 
 /**
@@ -67,7 +73,7 @@ class LoggerConfigurationAdapterPHP implements LoggerConfigurationAdapter
      * 
      * @throws LoggerException
      */
-    public function convert($url)
+    public function convert($url) : array
     {
         if (!file_exists($url)) {
             throw new LoggerException('File ['.$url.'] does not exist.');

@@ -4,7 +4,7 @@
  *
  * Based on "dHttp - http client based cURL" by Askar Fuzaylov <tkdforever@gmail.com>
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -98,11 +98,11 @@ class XsgaRestResponse
     /**
      * Return raw response.
      *
-     * @return null|string
+     * @return string|null
      * 
      * @access public
      */
-    public function getRaw()
+    public function getRaw() : string|null
     {
         return $this->raw;
         
@@ -112,11 +112,11 @@ class XsgaRestResponse
     /**
      * Return response headers.
      *
-     * @return null|string
+     * @return string|null
      * 
      * @access public
      */
-    public function getHeaders()
+    public function getHeaders() : string|null
     {
         return $this->headers;
         
@@ -129,11 +129,11 @@ class XsgaRestResponse
      * @param string $name    Name.
      * @param string $default Default.
      * 
-     * @return null|string
+     * @return string|null
      * 
      * @access public
      */
-    public function getHeader($name, $default = null)
+    public function getHeader($name, $default = null) : string|null
     {
         return array_key_exists($name, $this->headers) ? $this->headers[$name] : $default;
         
@@ -143,11 +143,11 @@ class XsgaRestResponse
     /**
      * Return response body.
      *
-     * @return null|string
+     * @return string|null
      * 
      * @access public
      */
-    public function getBody()
+    public function getBody() : string|null
     {
         return $this->body;
         
@@ -158,6 +158,8 @@ class XsgaRestResponse
      * Set errors.
      *
      * @param array $errors Errors.
+     * 
+     * @return void
      * 
      * @access public
      */
@@ -171,11 +173,11 @@ class XsgaRestResponse
     /**
      * Return request errors.
      *
-     * @return null|string
+     * @return string|null
      * 
      * @access public
      */
-    public function getErrors()
+    public function getErrors() : string|null
     {
         return $this->errors;
         
@@ -189,7 +191,7 @@ class XsgaRestResponse
      * 
      * @access public
      */
-    public function getCode()
+    public function getCode() : int
     {
         return $this->info['http_code'];
         
@@ -202,11 +204,11 @@ class XsgaRestResponse
      * @param string $name   Name.
      * @param array  $params Parameters.
      * 
-     * @return mixed
+     * @return string|null
      * 
      * @access public
      */
-    public function __call($name, $params)
+    public function __call($name, $params) : string|null
     {
         $name = strtolower(str_replace('get', '', $name));
         

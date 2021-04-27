@@ -17,14 +17,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
-
-use Exception;
 
 /**
  * The internal representation of logging event.
@@ -157,12 +158,12 @@ class LoggerLoggingEvent
      *
      * Except {@link $timeStamp} all the other fields of LoggerLoggingEvent are filled when actually needed.
      *
-     * @param string      $fqcn      Name of the caller class.
-     * @param mixed       $logger    The {@link Logger} category of this event or the logger name.
-     * @param LoggerLevel $level     The level of this event.
-     * @param mixed       $message   The message of this event.
-     * @param integer     $timeStamp The timestamp of this logging event.
-     * @param Exception   $throwable The throwable associated with logging event.
+     * @param string        $fqcn      Name of the caller class.
+     * @param Logger|string $logger    The {@link Logger} category of this event or the logger name.
+     * @param LoggerLevel   $level     The level of this event.
+     * @param mixed         $message   The message of this event.
+     * @param integer       $timeStamp The timestamp of this logging event.
+     * @param \Exception    $throwable The throwable associated with logging event.
      * 
      * @access public
      */
@@ -172,7 +173,7 @@ class LoggerLoggingEvent
         LoggerLevel $level,
         $message,
         $timeStamp = null,
-        Exception $throwable = null
+        \Exception $throwable = null
     )
     {
         $this->fqcn = $fqcn;
@@ -197,7 +198,7 @@ class LoggerLoggingEvent
             $this->timeStamp = microtime(true);
         }//end if
         
-        if (($throwable !== null) && ($throwable instanceof Exception)) {
+        if (($throwable !== null) && ($throwable instanceof \Exception)) {
             $this->throwableInfo = new LoggerThrowableInformation($throwable);
         }//end if
         
@@ -211,7 +212,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getFullQualifiedClassname()
+    public function getFullQualifiedClassname() : string
     {
         return $this->fqcn;
         
@@ -225,7 +226,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getLocationInformation()
+    public function getLocationInformation() : LoggerLocationInfo
     {
         if ($this->locationInfo === null) {
             
@@ -294,7 +295,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getLevel()
+    public function getLevel() : LoggerLevel
     {
         return $this->level;
         
@@ -308,7 +309,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getLogger()
+    public function getLogger() : Logger
     {
         return $this->logger;
         
@@ -322,7 +323,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getLoggerName()
+    public function getLoggerName() : string
     {
         return $this->categoryName;
         
@@ -336,7 +337,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getMessage()
+    public function getMessage() : mixed
     {
         return $this->message;
         
@@ -350,7 +351,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getNDC()
+    public function getNDC() : string
     {
         if ($this->ndcLookupRequired) {
             
@@ -373,7 +374,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getMDC($key)
+    public function getMDC($key) : string
     {
         return LoggerMDC::get($key);
         
@@ -387,7 +388,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getMDCMap()
+    public function getMDCMap() : array
     {
         return LoggerMDC::getMap();
         
@@ -401,7 +402,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getRenderedMessage()
+    public function getRenderedMessage() : string
     {
         if (($this->renderedMessage === null) && ($this->message !== null)) {
             
@@ -426,7 +427,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public static function getStartTime()
+    public static function getStartTime() : float
     {
         if (!isset(static::$startTime)) {
             static::$startTime = microtime(true);
@@ -444,7 +445,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getTimeStamp()
+    public function getTimeStamp() : float
     {
         return $this->timeStamp;
         
@@ -458,7 +459,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getRelativeTime()
+    public function getRelativeTime() : float
     {
         return ($this->timeStamp - static::$startTime);
         
@@ -474,7 +475,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getTime()
+    public function getTime() : int
     {
         $eventTime      = $this->getTimeStamp();
         $eventStartTime = static::getStartTime();
@@ -491,7 +492,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getThreadName()
+    public function getThreadName() : mixed
     {
         if ($this->threadName === null) {
             $this->threadName = (string)getmypid();
@@ -509,7 +510,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function getThrowableInformation()
+    public function getThrowableInformation() : mixed
     {
         return $this->throwableInfo;
         
@@ -537,7 +538,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function __sleep()
+    public function __sleep() : array
     {
         
         return array(

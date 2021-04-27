@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Layouts
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\layouts;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerLayout;
 use log4php\LoggerLoggingEvent;
 use log4php\LoggerLevel;
@@ -114,7 +120,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function getLocationInfo()
+    public function getLocationInfo() : bool
     {
         return $this->locationInfo;
         
@@ -146,7 +152,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
         
@@ -160,7 +166,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function getContentType()
+    public function getContentType() : string
     {
         return 'text/html';
         
@@ -176,7 +182,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function format(LoggerLoggingEvent $event)
+    public function format(LoggerLoggingEvent $event) : string
     {
         $sbuf  = PHP_EOL.'<tr>'.PHP_EOL;
         $sbuf .= '<td>';
@@ -236,7 +242,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function getHeader()
+    public function getHeader() : string
     {
         $sbuf  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"';
         $sbuf  = ' "http://www.w3.org/TR/html4/loose.dtd">'.PHP_EOL;
@@ -280,7 +286,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function getFooter()
+    public function getFooter() : string
     {
         $sbuf  = '</table>'.PHP_EOL;
         $sbuf .= '<br>'.PHP_EOL;

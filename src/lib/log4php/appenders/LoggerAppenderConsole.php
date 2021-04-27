@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
 use log4php\LoggerLoggingEvent;
 
@@ -44,11 +50,19 @@ class LoggerAppenderConsole extends LoggerAppender
 
     /**
      * The standard otuput stream.
+     * 
+     * @var string
+     * 
+     * @access public
      */
     const STDOUT = 'php://stdout';
     
     /**
      * The standard error stream.
+     * 
+     * @var string
+     * 
+     * @access public
      */
     const STDERR = 'php://stderr';
 
@@ -173,7 +187,7 @@ class LoggerAppenderConsole extends LoggerAppender
      * 
      * @access public
      */
-    public function getTarget()
+    public function getTarget() : string
     {
         return $this->target;
         

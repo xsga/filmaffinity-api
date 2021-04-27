@@ -4,7 +4,7 @@
  * 
  * The index page is the API front controller. It manages all petitions to the API.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -41,7 +41,7 @@ try {
     // Dispatch API petition.
     $apiRouter->dispatchPetition($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
     
     // Get error code.
     if ($e->getCode() === 0) {
@@ -51,7 +51,7 @@ try {
     }//end if
     
     // Logger.
-    $logger->error('Error code: '.$errorCode);
+    $logger->error("Error code: $errorCode");
     $logger->error($e->__toString());
     
     // Dispatch error.

@@ -17,26 +17,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package Log4php
  * @version SVN: $Id: Logger.php 1395241 2012-10-07 08:28:53Z ihabunek $
  * @link    http://logging.apache.org/log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
+/**
+ * Import dependencies.
+ */
 use log4php\configurators\LoggerConfiguratorDefault;
-use Exception;
 
 /**
- * This is the central class in the log4php package. All logging operations are done through this class.
+ * This is the central class in the log4php package.
+ * All logging operations are done through this class.
  */
 class Logger
 {
     
     /**
-     * Logger additivity. If set to true then child loggers will inherit the appenders of their ancestors by default.
+     * Logger additivity.
+     * If set to true then child loggers will inherit the appenders of their ancestors by default.
      * 
      * @var boolean
      * 
@@ -125,7 +132,7 @@ class Logger
      * 
      * @access public
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
         
@@ -139,7 +146,7 @@ class Logger
      * 
      * @access public
      */
-    public function getParent()
+    public function getParent() : Logger
     {
         return $this->parent;
         
@@ -149,14 +156,14 @@ class Logger
     /**
      * Log a message object with the TRACE level.
      *
-     * @param mixed     $message   Message.
-     * @param Exception $throwable Optional throwable information to include in the logging event.
+     * @param mixed      $message   Message.
+     * @param \Exception $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function trace($message, Exception $throwable = null)
+    public function trace($message, \Exception $throwable = null)
     {
         $this->log(LoggerLevel::getLevelTrace(), $message, $throwable);
         
@@ -166,14 +173,14 @@ class Logger
     /**
      * Log a message object with the DEBUG level.
      *
-     * @param mixed     $message   Message.
-     * @param Exception $throwable Optional throwable information to include in the logging event.
+     * @param mixed      $message   Message.
+     * @param \Exception $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function debug($message, Exception $throwable = null)
+    public function debug($message, \Exception $throwable = null)
     {
         $this->log(LoggerLevel::getLevelDebug(), $message, $throwable);
 
@@ -257,14 +264,14 @@ class Logger
     /**
      * Log a message object with the INFO Level.
      *
-     * @param mixed     $message   Message.
-     * @param Exception $throwable Optional throwable information to include in the logging event.
+     * @param mixed      $message   Message.
+     * @param \Exception $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function info($message, Exception $throwable = null)
+    public function info($message, \Exception $throwable = null)
     {
         $this->log(LoggerLevel::getLevelInfo(), $message, $throwable);
         
@@ -274,14 +281,14 @@ class Logger
     /**
      * Log a message with the WARN level.
      *
-     * @param mixed     $message   Message.
-     * @param Exception $throwable Optional throwable information to include in the logging event.
+     * @param mixed      $message   Message.
+     * @param \Exception $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function warn($message, Exception $throwable = null)
+    public function warn($message, \Exception $throwable = null)
     {
         $this->log(LoggerLevel::getLevelWarn(), $message, $throwable);
         
@@ -291,14 +298,14 @@ class Logger
     /**
      * Log a message object with the ERROR level.
      *
-     * @param mixed     $message   Message.
-     * @param Exception $throwable Optional throwable information to include in the logging event.
+     * @param mixed      $message   Message.
+     * @param \Exception $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function error($message, Exception $throwable = null)
+    public function error($message, \Exception $throwable = null)
     {
         $this->log(LoggerLevel::getLevelError(), $message, $throwable);
         
@@ -308,14 +315,14 @@ class Logger
     /**
      * Log a message object with the FATAL level.
      *
-     * @param mixed     $message   Message.
-     * @param Exception $throwable Optional throwable information to include in the logging event.
+     * @param mixed      $message   Message.
+     * @param \Exception $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function fatal($message, Exception $throwable = null)
+    public function fatal($message, \Exception $throwable = null)
     {
         $this->log(LoggerLevel::getLevelFatal(), $message, $throwable);
         
@@ -325,15 +332,15 @@ class Logger
     /**
      * Log a message using the provided logging level.
      *
-     * @param LoggerLevel $level     The logging level.
-     * @param mixed       $message   Message to log.
-     * @param Exception   $throwable Optional throwable information to include in the logging event.
+     * @param LoggerLevel  $level     The logging level.
+     * @param mixed        $message   Message to log.
+     * @param \Exception   $throwable Optional throwable information to include in the logging event.
      * 
      * @return void
      * 
      * @access public
      */
-    public function log(LoggerLevel $level, $message, Exception $throwable = null)
+    public function log(LoggerLevel $level, $message, \Exception $throwable = null)
     {
         if ($this->isEnabledFor($level)) {
             
@@ -406,16 +413,16 @@ class Logger
      * {@link info()}, {@link warn()}, {@link error()} and {@link fatal()} 
      * wrappers.
      *
-     * @param string      $fqcn      Fully qualified class name of the Logger.
-     * @param Exception   $throwable Optional throwable information to include in the logging event.
-     * @param LoggerLevel $level     Log level.
-     * @param mixed       $message   Message to log.
+     * @param string       $fqcn      Fully qualified class name of the Logger.
+     * @param \Exception   $throwable Optional throwable information to include in the logging event.
+     * @param LoggerLevel  $level     Log level.
+     * @param mixed        $message   Message to log.
      * 
      * @return void
      * 
      * @access public
      */
-    public function forcedLog($fqcn, Exception $throwable, LoggerLevel $level, $message)
+    public function forcedLog($fqcn, \Exception $throwable, LoggerLevel $level, $message)
     {
         $event = new LoggerLoggingEvent($fqcn, $this, $level, $message, null, $throwable);
         $this->callAppenders($event);
@@ -455,7 +462,7 @@ class Logger
      * 
      * @access public
      */
-    public function isEnabledFor(LoggerLevel $level)
+    public function isEnabledFor(LoggerLevel $level) : bool
     {
         return $level->isGreaterOrEqual($this->getEffectiveLevel());
         
@@ -469,7 +476,7 @@ class Logger
      * 
      * @access public
      */
-    public function isTraceEnabled()
+    public function isTraceEnabled() : bool
     {
         return $this->isEnabledFor(LoggerLevel::getLevelTrace());
         
@@ -483,7 +490,7 @@ class Logger
      * 
      * @access public
      */
-    public function isDebugEnabled()
+    public function isDebugEnabled() : bool
     {
         return $this->isEnabledFor(LoggerLevel::getLevelDebug());
         
@@ -497,7 +504,7 @@ class Logger
      * 
      * @access public
      */
-    public function isInfoEnabled()
+    public function isInfoEnabled() : bool
     {
         return $this->isEnabledFor(LoggerLevel::getLevelInfo());
         
@@ -511,7 +518,7 @@ class Logger
      * 
      * @access public
      */
-    public function isWarnEnabled()
+    public function isWarnEnabled() : bool
     {
         return $this->isEnabledFor(LoggerLevel::getLevelWarn());
         
@@ -525,7 +532,7 @@ class Logger
      * 
      * @access public
      */
-    public function isErrorEnabled()
+    public function isErrorEnabled() : bool
     {
         return $this->isEnabledFor(LoggerLevel::getLevelError());
         
@@ -539,7 +546,7 @@ class Logger
      * 
      * @access public
      */
-    public function isFatalEnabled()
+    public function isFatalEnabled() : bool
     {
         return $this->isEnabledFor(LoggerLevel::getLevelFatal());
         
@@ -608,7 +615,7 @@ class Logger
      * 
      * @access public
      */
-    public function getAllAppenders()
+    public function getAllAppenders() : array
     {
         return $this->appenders;
         
@@ -624,7 +631,7 @@ class Logger
      * 
      * @access public
      */
-    public function getAppender($name)
+    public function getAppender($name) : LoggerAppender
     {
         return $this->appenders[$name];
         
@@ -654,7 +661,7 @@ class Logger
      * 
      * @access public
      */
-    public function getAdditivity()
+    public function getAdditivity() : bool
     {
         return $this->additive;
         
@@ -666,11 +673,11 @@ class Logger
      * 
      * @see    LoggerLevel
      * 
-     * @return LoggerLevel or null
+     * @return LoggerLevel|null
      * 
      * @access public
      */
-    public function getEffectiveLevel()
+    public function getEffectiveLevel() : LoggerLevel|null
     {
         for ($logger = $this; $logger !== null; $logger = $logger->getParent()) {
             
@@ -690,7 +697,7 @@ class Logger
      * 
      * @access public
      */
-    public function getLevel()
+    public function getLevel() : LoggerLevel
     {
         return $this->level;
         
@@ -725,7 +732,7 @@ class Logger
      * 
      * @access public
      */
-    public function isAttached(LoggerAppender $appender)
+    public function isAttached(LoggerAppender $appender) : bool
     {
         return isset($this->appenders[$appender->getName()]);
         
@@ -759,7 +766,7 @@ class Logger
      * 
      * @access public
      */
-    public static function getHierarchy()
+    public static function getHierarchy() : LoggerHierarchy
     {
         if (!isset(static::$hierarchy)) {
             $loggerRoot = new LoggerRoot();
@@ -780,7 +787,7 @@ class Logger
      * 
      * @access public
      */
-    public static function getLogger($name)
+    public static function getLogger($name) : Logger
     {
         if (!static::isInitialized()) {
             static::configure();
@@ -798,7 +805,7 @@ class Logger
      * 
      * @access public
      */
-    public static function getRootLogger()
+    public static function getRootLogger() : LoggerRoot
     {
         if (!static::isInitialized()) {
             static::configure();
@@ -816,7 +823,7 @@ class Logger
      * 
      * @access public
      */
-    public static function clear()
+    public static function clear() : bool
     {
         return static::getHierarchy()->clear();
         
@@ -848,7 +855,7 @@ class Logger
      * 
      * @access public
      */
-    public static function shutdown()
+    public static function shutdown() : mixed
     {
         return static::getHierarchy()->shutdown();
         
@@ -864,7 +871,7 @@ class Logger
      * 
      * @access public
      */
-    public static function exists($name)
+    public static function exists($name) : bool
     {
         return static::getHierarchy()->exists($name);
         
@@ -880,7 +887,7 @@ class Logger
      * 
      * @access public
      */
-    public static function getCurrentLoggers()
+    public static function getCurrentLoggers() : array
     {
         return static::getHierarchy()->getCurrentLoggers();
         
@@ -922,7 +929,7 @@ class Logger
      * 
      * @access public
      */
-    private static function getConfigurator($configurator = null)
+    private static function getConfigurator($configurator = null) : mixed
     {
         if ($configurator === null) {
             return new LoggerConfiguratorDefault();
@@ -992,7 +999,7 @@ class Logger
      * 
      * @access public
      */
-    private static function isInitialized()
+    private static function isInitialized() : bool
     {
         return static::$initialized;
         

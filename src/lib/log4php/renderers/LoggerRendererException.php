@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespaces.
+ */
 namespace log4php\renderers;
 
 /**
@@ -40,7 +43,7 @@ class LoggerRendererException implements LoggerRenderer
      * 
      * @access public
      */
-    public function render($input)
+    public function render($input) : string
     {
         // Exception class has a very decent __toString method so let's just use that instead of writing lots of code.
         return (string)$input; 

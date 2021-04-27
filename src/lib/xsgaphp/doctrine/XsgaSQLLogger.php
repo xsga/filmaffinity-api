@@ -2,7 +2,7 @@
 /**
  * Class XsgaSQLLogger.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -53,6 +53,8 @@ class XsgaSQLLogger implements SQLLogger
      * @param array|null $types  The SQL parameter types.
      *
      * @return void
+     * 
+     * @access public
      */
     public function startQuery($sql, array $params = null, array $types = null)
     {
@@ -64,7 +66,7 @@ class XsgaSQLLogger implements SQLLogger
             
         }//end if
         
-        if ($_ENV['LOGGER_SQL']) {
+        if ($_ENV['LOGGER_SQL'] === 'true') {
 
             // Logger.
             static::$logger->trace('***************************************************************************');
@@ -80,13 +82,15 @@ class XsgaSQLLogger implements SQLLogger
                     
                     if ($param instanceof \DateTime) {
                         
+                        $keyAux = $key + 1;
+
                         // Logger.
-                        static::$logger->trace('P'.($key + 1).' --> '.$param->format('Y-m-d H:i:s'));
+                        static::$logger->trace("P$keyAux --> $param->format('Y-m-d H:i:s')");
 
                     } else {
                         
                         // Logger.
-                        static::$logger->trace('P'.($key + 1).' --> '.$param);
+                        static::$logger->trace("P$keyAux --> $param");
                         
                     }//end if
                                         
@@ -106,10 +110,12 @@ class XsgaSQLLogger implements SQLLogger
      * Marks the last started query as stopped. This can be used for timing of queries.
      *
      * @return void
+     * 
+     * @access public
      */
     public function stopQuery()
     {
-        if ($_ENV['LOGGER_SQL']) {
+        if ($_ENV['LOGGER_SQL'] === 'true') {
             
             // Logger.
             static::$logger->trace('EXECUTION TIME (in seconds):');

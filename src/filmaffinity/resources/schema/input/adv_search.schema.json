@@ -69,12 +69,12 @@
         },
         "year_from": {
             "$id": "#/properties/year_from",
-            "type": "string",
+            "type": "integer",
             "title": "Film release year from"
         },
         "year_to": {
             "$id": "#/properties/year_to",
-            "type": "string",
+            "type": "integer",
             "title": "Film release year to"
         }
     },

@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Configurators
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\configurators;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerConfigurator;
 use log4php\LoggerHierarchy;
 use log4php\LoggerException;
@@ -33,7 +39,6 @@ use log4php\LoggerAppender;
 use log4php\LoggerFilter;
 use log4php\Logger;
 use log4php\LoggerLayout;
-use Exception;
 use log4php\helpers\LoggerOptionConverter;
 
 /**
@@ -152,7 +157,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access public
      */
-    public function parse($input)
+    public function parse($input) : array
     {
         if (!isset($input)) {
             
@@ -194,7 +199,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access public
      */
-    public static function getDefaultConfiguration()
+    public static function getDefaultConfiguration() : array
     {
         return static::$defaultConfiguration;
         
@@ -215,7 +220,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function parseFile($url)
+    private function parseFile($url) : array
     {
         if (!file_exists($url)) {
             throw new LoggerException('File not found at ['.$url.'].');
@@ -243,7 +248,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function getConfigType($url)
+    private function getConfigType($url) : string
     {
         $info = pathinfo($url);
         $ext  = strtolower($info['extension']);
@@ -488,7 +493,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $class     = $namespace.$class;
         
         if (!class_exists($class)) {
-            $log  = 'Nonexistant layout class ['.$class.'] specified for appender ['.$name.'].';
+            $log  = 'Nonexistent layout class ['.$class.'] specified for appender ['.$name.'].';
             $log .= ' Reverting to default layout.';
             $this->warn($log);
             return;
@@ -526,7 +531,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $name  = $appender->getName();
         $class = $config['class'];
         if (!class_exists($class)) {
-            $log  = 'Nonexistant filter class ['.$class.'] specified on appender ['.$name.'].';
+            $log  = 'Nonexistent filter class ['.$class.'] specified on appender ['.$name.'].';
             $log .= ' Skipping filter definition.';
             $this->warn($log);
             return;
@@ -619,7 +624,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
                 if (isset($this->appenders[$appenderName])) {
                     $logger->addAppender($this->appenders[$appenderName]);
                 } else {
-                    $this->warn('Nonexistnant appender ['.$appenderName.'] linked to logger ['.$loggerName.'].');
+                    $this->warn('Nonexistent appender ['.$appenderName.'] linked to logger ['.$loggerName.'].');
                 }//end if
             }//end foreach
         }//end if
@@ -629,7 +634,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
             try {
                 $additivity = LoggerOptionConverter::toBooleanEx($config['additivity'], null);
                 $logger->setAdditivity($additivity);
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 $log  = 'Invalid additivity value ['.$config['additivity'].'] specified for logger ['.$loggerName.'].';
                 $log .= ' Ignoring additivity setting.';
                 $this->warn($log);
@@ -673,7 +678,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
                 $object->$setter($value);
             } else {
                 $class = get_class($object);
-                $this->warn('Nonexistant option ['.$name.'] specified on ['.$class.']. Skipping.');
+                $this->warn('Nonexistent option ['.$name.'] specified on ['.$class.']. Skipping.');
             }//end if
         }//end foreach
         

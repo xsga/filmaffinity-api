@@ -17,15 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
+/**
+ * Import dependencies.
+ */
 use log4php\helpers\LoggerOptionConverter;
-use Exception;
 
 /**
  * A base class from which all classes which have configurable properties are extended.
@@ -50,7 +55,7 @@ abstract class LoggerConfigurable
             
             $this->$property = LoggerOptionConverter::toBooleanEx($value);
             
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
             $value = var_export($value, true);
             
@@ -80,7 +85,7 @@ abstract class LoggerConfigurable
             
             $this->$property = LoggerOptionConverter::toIntegerEx($value);
             
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
             $value = var_export($value, true);
             
@@ -110,7 +115,7 @@ abstract class LoggerConfigurable
             
             $this->$property = LoggerOptionConverter::toLevelEx($value);
             
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
             $value = var_export($value, true);
             
@@ -140,7 +145,7 @@ abstract class LoggerConfigurable
             
             $this->$property = LoggerOptionConverter::toPositiveIntegerEx($value);
             
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
             $value = var_export($value, true);
             
@@ -170,7 +175,7 @@ abstract class LoggerConfigurable
             
             $this->$property = LoggerOptionConverter::toFileSizeEx($value);
             
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
             $value = var_export($value, true);
             
@@ -200,7 +205,7 @@ abstract class LoggerConfigurable
             
             $this->$property = LoggerOptionConverter::toNumericEx($value);
             
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             
             $value = var_export($value, true);
             
@@ -247,7 +252,7 @@ abstract class LoggerConfigurable
                 $value = LoggerOptionConverter::toStringEx($value);
                 $this->$property = LoggerOptionConverter::substConstants($value);
                 
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 
                 $value = var_export($value, true);
                 
@@ -281,5 +286,3 @@ abstract class LoggerConfigurable
     
     
 }//end LoggerConfigurable class
-
-

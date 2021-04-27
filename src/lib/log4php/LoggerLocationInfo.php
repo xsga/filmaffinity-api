@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -34,6 +37,8 @@ class LoggerLocationInfo
      * The value to return when the location information is not available.
      * 
      * @var string
+     * 
+     * @access public
      */
     const LOCATION_INFO_NA = 'NA';
     
@@ -130,7 +135,7 @@ class LoggerLocationInfo
      * 
      * @access public
      */
-    public function getClassName()
+    public function getClassName() : string
     {
         if ($this->className === null) {
             $out = static::LOCATION_INFO_NA;
@@ -150,7 +155,7 @@ class LoggerLocationInfo
      * 
      * @access public
      */
-    public function getFileName()
+    public function getFileName() : string
     {
         if ($this->fileName === null) {
             $out = static::LOCATION_INFO_NA;
@@ -166,11 +171,11 @@ class LoggerLocationInfo
     /**
      * Returns the caller line number.
      * 
-     * @return mixed
+     * @return integer|string
      * 
      * @access public
      */
-    public function getLineNumber() 
+    public function getLineNumber() : int|string
     {
         if ($this->lineNumber === null) {
             $out = static::LOCATION_INFO_NA;
@@ -190,7 +195,7 @@ class LoggerLocationInfo
      * 
      * @access public
      */
-    public function getMethodName()
+    public function getMethodName() : string
     {
         if ($this->methodName === null) {
             $out = static::LOCATION_INFO_NA;
@@ -210,7 +215,7 @@ class LoggerLocationInfo
      * 
      * @access public
      */
-    public function getFullInfo()
+    public function getFullInfo() : string
     {
         if ($this->fullInfo === null) {
             $out = static::LOCATION_INFO_NA;

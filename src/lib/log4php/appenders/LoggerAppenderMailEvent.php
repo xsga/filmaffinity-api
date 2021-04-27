@@ -17,15 +17,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  * @link       http://logging.apache.org/log4php/docs/appenders/mail-event.html Appender documentation
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
 use log4php\LoggerLoggingEvent;
 
@@ -223,7 +229,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function getFrom()
+    public function getFrom() : string
     {
         return $this->from;
         
@@ -253,7 +259,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function getPort()
+    public function getPort() : int
     {
         return $this->port;
         
@@ -283,7 +289,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function getSmtpHost()
+    public function getSmtpHost() : string
     {
         return $this->smtpHost;
         
@@ -313,7 +319,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function getSubject()
+    public function getSubject() : string
     {
         return $this->subject;
         
@@ -343,7 +349,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function getTo()
+    public function getTo() : string
     {
         return $this->to;
         

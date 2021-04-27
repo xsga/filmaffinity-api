@@ -2,7 +2,7 @@
 /**
  * Error handle.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT

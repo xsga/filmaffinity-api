@@ -2,7 +2,7 @@
 /**
  * Bootstrap.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -57,7 +57,7 @@ class XsgaBootstrap
         $dotenv->required('LANGUAGE')->allowedValues(['spa', 'en']);
 
         // Load environment settings (.environment.env).
-        $dotenv = Dotenv::createImmutable($pathConfig, '.'.$_ENV['ENVIRONMENT'].'.env');
+        $dotenv = Dotenv::createImmutable($pathConfig, ".$_ENV[ENVIRONMENT].env");
         $dotenv->safeLoad();
 
         // Validates environment settings.
@@ -80,7 +80,7 @@ class XsgaBootstrap
      * 
      * @access public
      */
-    public static function setupDoctrineORM()
+    public static function setupDoctrineORM() : array
     {
         // Mode.
         switch ($_ENV['ENVIRONMENT']) {
@@ -126,7 +126,7 @@ class XsgaBootstrap
 
         return $setup;
 
-    }//en setupDoctrineORM()
+    }//end setupDoctrineORM()
 
 
 }//end XsgaBootstrap class

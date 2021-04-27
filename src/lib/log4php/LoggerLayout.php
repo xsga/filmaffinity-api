@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -34,13 +37,13 @@ abstract class LoggerLayout extends LoggerConfigurable
     /**
      * Activates options for this layout. Override this method if you have options to be activated.
      * 
-     * @return boolean
+     * @return void
      * 
      * @access public
      */
     public function activateOptions()
     {
-        return true;
+        
         
     }//end activateOptions()
     
@@ -54,7 +57,7 @@ abstract class LoggerLayout extends LoggerConfigurable
      * 
      * @access public
      */
-    public function format(LoggerLoggingEvent $event)
+    public function format(LoggerLoggingEvent $event) : string
     {
         return $event->getRenderedMessage();
         
@@ -68,7 +71,7 @@ abstract class LoggerLayout extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getContentType()
+    public function getContentType() : string
     {
         return 'text/plain';
         
@@ -78,11 +81,11 @@ abstract class LoggerLayout extends LoggerConfigurable
     /**
      * Returns the footer for the layout format.
      * 
-     * @return string
+     * @return string|null
      * 
      * @access public
      */
-    public function getFooter()
+    public function getFooter() : string|null
     {
         return null;
         
@@ -92,11 +95,11 @@ abstract class LoggerLayout extends LoggerConfigurable
     /**
      * Returns the header for the layout format.
      * 
-     * @return string
+     * @return string|null
      * 
      * @access public
      */
-    public function getHeader()
+    public function getHeader() : string|null
     {
         return null;
         

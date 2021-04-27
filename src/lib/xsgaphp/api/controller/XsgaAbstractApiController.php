@@ -2,7 +2,7 @@
 /**
  * XsgaAbstractApiController.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -28,15 +28,6 @@ use xsgaphp\exceptions\XsgaValidationException;
  */
 abstract class XsgaAbstractApiController extends XsgaAbstractClass
 {
-    
-    /**
-     * Input data file.
-     * 
-     * @var string
-     * 
-     * @access public
-     */
-    public $inputData = 'php://input';
     
     
     /**
@@ -95,7 +86,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         if ($total <> $expected) {
             
             // Error message.
-            $errorMsg = 'Expected '.$expected.' parameter/s, '.$total.' recived';
+            $errorMsg = "Expected $expected parameter/s, $total recived";
             
             // Logger.
             $this->logger->debugValidationKO();
@@ -132,7 +123,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         if (!isset($data[$paramName])) {
             
             // Error message.
-            $errorMsg = 'Expected parameter "'.$paramName.'" not found';
+            $errorMsg = "Expected parameter \"$paramName\" not found";
             
             // Logger.
             $this->logger->debugValidationKO();
@@ -170,7 +161,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
         if (strlen($param) < $minLength) {
             
             // Error message.
-            $errorMsg = 'Minium length of "'.$paramName.'" parameter is '.$minLength;
+            $errorMsg = "Minium length of \"$paramName\" parameter is $minLength";
             
             // Logger.
             $this->logger->debugValidationKO();

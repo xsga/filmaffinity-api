@@ -4,7 +4,7 @@
  *
  * This file contains the XsgaEntityManager class.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -46,7 +46,7 @@ class XsgaDoctrineEM
      * 
      * @access public
      */
-    public static function getEntityManager()
+    public static function getEntityManager() : EntityManager
     {
         // Create EM.
         if (empty(static::$entityManager)) {
@@ -55,7 +55,10 @@ class XsgaDoctrineEM
             $doctrineSetup = XsgaBootstrap::setupDoctrineORM();
             
             // Create EntityManager.
-            static::$entityManager = EntityManager::create($doctrineSetup['connection'], $doctrineSetup['config']);
+            static::$entityManager = EntityManager::create(
+                $doctrineSetup['connection'], 
+                $doctrineSetup['config']
+            );
             
         }//end if
         
@@ -63,8 +66,10 @@ class XsgaDoctrineEM
         if (!static::$entityManager->isOpen()) {
             
             // Reload EM.
-            static::$entityManager = static::$entityManager->create(static::$entityManager->getConnection(), 
-                                                                    static::$entityManager->getConfiguration());
+            static::$entityManager = static::$entityManager->create(
+                static::$entityManager->getConnection(), 
+                static::$entityManager->getConfiguration()
+            );
             
         }//end if
         
@@ -75,6 +80,8 @@ class XsgaDoctrineEM
     
     /**
      * Clone.
+     * 
+     * @return void
      * 
      * @throws XsgaSecurityException
      * 

@@ -17,14 +17,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
-
-use RuntimeException;
 
 /**
  * Provides methods for reflective use on php objects.
@@ -65,7 +66,7 @@ class LoggerReflectionUtils
      * 
      * @return mixed
      */
-    public static function setPropertiesByObject($obj, array $properties, $prefix)
+    public static function setPropertiesByObject($obj, array $properties, $prefix) : mixed
     {
         $pSetter = new LoggerReflectionUtils($obj);
         
@@ -90,7 +91,7 @@ class LoggerReflectionUtils
         
         reset($properties);
         
-        while (list($key,) = each($properties)) {
+        foreach($properties as $key => $value) {
             
             if (strpos($key, $prefix) === 0) {
                 
@@ -134,12 +135,12 @@ class LoggerReflectionUtils
      * 
      * @access public
      * 
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
-    public function setProperty($name, $value)
+    public function setProperty($name, $value) : mixed
     {
         if ($value === null) {
-            return;
+            return null;
         }//end if
         
         $method = 'set'.ucfirst($name);
@@ -149,7 +150,7 @@ class LoggerReflectionUtils
             $msg  = 'Error setting log4php property '.$name.' to '.$value.': no method '.$method.' in class ';
             $msg .= get_class($this->obj);
             
-            throw new RuntimeException($msg);
+            throw new \RuntimeException($msg);
             
         } else {
             
@@ -167,7 +168,7 @@ class LoggerReflectionUtils
      * 
      * @access public
      */
-    public function activate()
+    public function activate() : mixed
     {
         if (method_exists($this->obj, 'activateoptions')) {
             return call_user_func(array($this->obj, 'activateoptions'));
@@ -185,7 +186,7 @@ class LoggerReflectionUtils
      * 
      * @access public
      */
-    public static function createObject($class)
+    public static function createObject($class) : mixed
     {
         if (!empty($class)) {
             return new $class();
@@ -207,7 +208,7 @@ class LoggerReflectionUtils
      * 
      * @access public
      */
-    public static function setter($object, $name, $value)
+    public static function setter($object, $name, $value) : mixed
     {
         if (empty($name)) {
             return false;

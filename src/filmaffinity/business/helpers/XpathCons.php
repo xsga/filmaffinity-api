@@ -4,7 +4,7 @@
  *
  * This file contains the XsgaFilmAffinity xPath queries to parse HTML pages.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT

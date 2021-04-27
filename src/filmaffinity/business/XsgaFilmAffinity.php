@@ -8,7 +8,7 @@
  *  - AdvancedSearch : executes a search in FilmAffinity web page using some criterias.
  *  - LoadFilm       : executes a search in FilmAffinity web page by filmId.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -50,7 +50,11 @@ class XsgaFilmAffinity extends XsgaAbstractClass
     private $lang;
 
     /**
+     * FilmAffinity base URL.
      * 
+     * @var string
+     * 
+     * @access private
      */
     private $baseUrl = '';
     
@@ -90,7 +94,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      *
      * @access public
      */
-    public function search(SearchDto $searchDto)
+    public function search(SearchDto $searchDto) : SearchResultsDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -115,7 +119,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      *
      * @access public
      */
-    public function advancedSearch(AdvSearchDto $advSearchDto)
+    public function advancedSearch(AdvSearchDto $advSearchDto) : SearchResultsDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -140,7 +144,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      *
      * @access public
      */
-    public function loadFilm($filmId)
+    public function loadFilm($filmId) : FilmDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -171,7 +175,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      *
      * @access private
      */
-    private function getSearchUrl(SearchDto $searchDto)
+    private function getSearchUrl(SearchDto $searchDto) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -197,7 +201,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getAdvSearchUrl(AdvSearchDto $advSearchDto)
+    private function getAdvSearchUrl(AdvSearchDto $advSearchDto) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -205,31 +209,31 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         // Prepare search type.
         $searchType = '';
         
-        if ($advSearchDto->searchTypeTitle === true) {
+        if ($advSearchDto->searchTypeTitle) {
             $searchType .= '&stype[]=title';
         }//end if
         
-        if ($advSearchDto->searchTypeDirector === true) {
+        if ($advSearchDto->searchTypeDirector) {
             $searchType .= '&stype[]=director';
         }//end if
         
-        if ($advSearchDto->searchTypeCast === true) {
+        if ($advSearchDto->searchTypeCast) {
             $searchType .= '&stype[]=cast';
         }//end if
         
-        if ($advSearchDto->searchTypeSoundtrack === true) {
+        if ($advSearchDto->searchTypeSoundtrack) {
             $searchType .= '&stype[]=music';
         }//end if
         
-        if ($advSearchDto->searchTypeScreenplay === true) {
+        if ($advSearchDto->searchTypeScreenplay) {
             $searchType .= '&stype[]=script';
         }//end if
         
-        if ($advSearchDto->searchTypePhotography === true) {
+        if ($advSearchDto->searchTypePhotography) {
             $searchType .= '&stype[]=photo';
         }//end if
         
-        if ($advSearchDto->searchTypeProducer === true) {
+        if ($advSearchDto->searchTypeProducer) {
             $searchType .= '&stype[]=producer';
         }//end if
         
@@ -271,7 +275,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getFilmUrl($filmId)
+    private function getFilmUrl($filmId) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -297,7 +301,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function prepareSearchText($searchText)
+    private function prepareSearchText($searchText) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -324,7 +328,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getSearchResults($urlSearch, $searchText)
+    private function getSearchResults($urlSearch, $searchText) : SearchResultsDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -430,7 +434,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getPageContent($url)
+    private function getPageContent($url) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -471,7 +475,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getFilmInfo($pageContent, $filmId)
+    private function getFilmInfo($pageContent, $filmId) : array
     {
        // Logger.
        $this->logger->debugInit();
@@ -551,7 +555,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getFilmDto(array $info)
+    private function getFilmDto(array $info) : FilmDto
     {
         // Logger.
         $this->logger->debugInit();

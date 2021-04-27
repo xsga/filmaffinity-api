@@ -4,7 +4,7 @@
  *
  * Resources from FilmAffinity.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -42,7 +42,7 @@ class FilmAffinityResources extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function getResourceFile($type, $fileName, $mode = '')
+    public function getResourceFile($type, $fileName, $mode = '') : string
     {
         // Logger.
         $this->logger->debugInit();

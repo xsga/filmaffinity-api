@@ -17,15 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
+/**
+ * Import dependencies.
+ */
 use log4php\renderers\LoggerRendererException;
-use Exception;
 
 /**
  * The internal representation of throwables.
@@ -36,7 +41,7 @@ class LoggerThrowableInformation
     /**
      * Throwable.
      * 
-     * @var Exception
+     * @var \Exception
      * 
      * @access private
      */
@@ -55,11 +60,11 @@ class LoggerThrowableInformation
     /**
      * Create a new instance.
      * 
-     * @param Exception $throwable A throwable as a exception.
+     * @param \Exception $throwable A throwable as a exception.
      * 
      * @access public
      */
-    public function __construct(Exception $throwable)
+    public function __construct(\Exception $throwable)
     {
         $this->throwable = $throwable;
         
@@ -69,11 +74,11 @@ class LoggerThrowableInformation
     /**
      * Return source exception.
      * 
-     * @return Exception
+     * @return \Exception
      * 
      * @access public
      */
-    public function getThrowable()
+    public function getThrowable() : \Exception
     {
         return $this->throwable;
         
@@ -87,7 +92,7 @@ class LoggerThrowableInformation
      * 
      * @access public
      */
-    public function getStringRepresentation()
+    public function getStringRepresentation() : array
     {
         if (!is_array($this->throwableArray)) {
             $renderer = new LoggerRendererException();

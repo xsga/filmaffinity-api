@@ -4,7 +4,7 @@
  * 
  * Based on "dHttp - http client based cURL" by Askar Fuzaylov <tkdforever@gmail.com>
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -91,7 +91,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setUrl($url)
+    public function setUrl($url) : XsgaRestClient
     {
         if ($url !== null) {
             $this->options[CURLOPT_URL] = $this->prepareUrl($url);
@@ -111,7 +111,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setUserAgent($agent)
+    public function setUserAgent($agent) : XsgaRestClient
     {
         $this->options[CURLOPT_USERAGENT] = $agent;
         
@@ -129,7 +129,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setCookie($cookie)
+    public function setCookie($cookie) : XsgaRestClient
     {
         $this->options[CURLOPT_COOKIEFILE] = $cookie;
         $this->options[CURLOPT_COOKIEJAR]  = $cookie;
@@ -148,7 +148,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setReferer($referer)
+    public function setReferer($referer) : XsgaRestClient
     {
         $this->options[CURLOPT_REFERER] = $referer;
         
@@ -166,7 +166,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setMaxRedirects($redirects)
+    public function setMaxRedirects($redirects) : XsgaRestClient
     {
         $this->options[CURLOPT_MAXREDIRS] = $redirects;
         
@@ -184,7 +184,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setTimeout($timeout)
+    public function setTimeout($timeout) : XsgaRestClient
     {
         $this->options[CURLOPT_TIMEOUT] = $timeout;
         
@@ -202,7 +202,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setConnectionTimeout($timeout)
+    public function setConnectionTimeout($timeout) : XsgaRestClient
     {
         $this->options[CURLOPT_CONNECTTIMEOUT] = $timeout;
         
@@ -220,7 +220,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function showHeaders($show)
+    public function showHeaders($show) : XsgaRestClient
     {
         $this->options[CURLOPT_HEADER] = $show;
         
@@ -238,7 +238,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function addOptions(array $params)
+    public function addOptions(array $params) : XsgaRestClient
     {
         if (count($this->options) === 0) {
             $this->options = $this->default;
@@ -263,7 +263,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function post(array $fields = array(), array $options = array())
+    public function post(array $fields = array(), array $options = array()) : XsgaRestResponse
     {
         $this->addOptions($options + array(
                                         CURLOPT_POST       => true,
@@ -286,7 +286,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function put(array $fields = array(), array $options = array())
+    public function put(array $fields = array(), array $options = array()) : XsgaRestResponse
     {
         $this->addOptions($options + array(
                                         CURLOPT_CUSTOMREQUEST => 'PUT',
@@ -308,7 +308,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function get(array $options = array())
+    public function get(array $options = array()) : XsgaRestResponse
     {
         $this->addOptions($options);
         
@@ -326,7 +326,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function delete(array $options = array())
+    public function delete(array $options = array()) : XsgaRestResponse
     {
         return $this->get($options + array(CURLOPT_CUSTOMREQUEST => 'DELETE'));
         
@@ -344,7 +344,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function multi(array $handlers)
+    public function multi(array $handlers) : array
     {
         // Create the multiple cURL handle.
         $mc        = curl_multi_init();
@@ -406,7 +406,7 @@ class XsgaRestClient
      * 
      * @access private
      */
-    private function exec()
+    private function exec() : XsgaRestResponse
     {
         $ch = $this->init();
         
@@ -433,11 +433,11 @@ class XsgaRestClient
     /**
      * Initialize curl.
      *
-     * @return resource
+     * @return \CurlHandle
      * 
      * @access public
      */
-    public function init()
+    public function init() : \CurlHandle
     {
         $ch = curl_init();
         
@@ -452,14 +452,14 @@ class XsgaRestClient
     /**
      * Set curl options.
      *
-     * @param resource $ch      Resource.
-     * @param array    $options Options.
+     * @param \CurlHandle $ch      Resource.
+     * @param array       $options Options.
      * 
      * @return void
      * 
      * @access private
      */
-    private function setCurlOptions(&$ch, array $options)
+    private function setCurlOptions(\CurlHandle &$ch, array $options)
     {
         curl_setopt_array($ch, $options);
         
@@ -473,7 +473,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function reset()
+    public function reset() : XsgaRestClient
     {
         $this->options = array();
         
@@ -491,7 +491,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function prepareUrl($url)
+    public function prepareUrl($url) : string
     {
         if (is_array($url) && !empty($url)) {
             
@@ -515,11 +515,11 @@ class XsgaRestClient
      *
      * @param string $type Type.
      * 
-     * @return mixed
+     * @return string|null
      * 
      * @access public
      */
-    public static function v($type = 'version')
+    public static function v($type = 'version') : string|null
     {
         $info = curl_version();
         

@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Helpers
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\helpers;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerException;
 use log4php\pattern\LoggerPatternConverter;
 use log4php\pattern\LoggerPatternConverterLiteral;
@@ -41,6 +47,8 @@ class LoggerPatternParser
      * Escape character for conversion words in the conversion pattern.
      * 
      * @var string
+     * 
+     * @access public
      */
     const ESCAPE_CHAR = '%';
     
@@ -116,7 +124,7 @@ class LoggerPatternParser
      * 
      * @access public
      */
-    public function parse()
+    public function parse() : LoggerPatternConverter
     {
         
         // Skip parsing if the pattern is empty.
@@ -243,7 +251,7 @@ class LoggerPatternParser
      * 
      * @access private
      */
-    private function getConverter($word, LoggerFormattingInfo $info, $option)
+    private function getConverter($word, LoggerFormattingInfo $info, $option) : LoggerPatternConverter
     {
         if (!isset($this->converterMap[$word])) {
             throw new LoggerException('Invalid keyword "%$word" in converison pattern. Ignoring keyword.');
@@ -302,7 +310,7 @@ class LoggerPatternParser
      * 
      * @access private
      */
-    private function parseModifiers($modifiers)
+    private function parseModifiers($modifiers) : LoggerFormattingInfo
     {
         $info = new LoggerFormattingInfo();
     

@@ -17,15 +17,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  * @link       http://logging.apache.org/log4php/docs/appenders/file.html Appender documentation
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
 use log4php\LoggerLoggingEvent;
 
@@ -90,7 +96,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access protected
      */
-    protected function getTargetFile()
+    protected function getTargetFile() : string
     {
         return $this->file;
         
@@ -104,7 +110,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access protected
      */
-    protected function openFile()
+    protected function openFile() : bool
     {
         $file = $this->getTargetFile();
 
@@ -326,7 +332,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access public
      */
-    public function getFile()
+    public function getFile() : string
     {
         return $this->file;
         
@@ -340,7 +346,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access public
      */
-    public function getAppend()
+    public function getAppend() : bool
     {
         return $this->append;
         
@@ -390,7 +396,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @deprecated Use getFile() instead.
      */
-    public function getFileName()
+    public function getFileName() : string
     {
         return $this->getFile();
         

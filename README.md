@@ -1,8 +1,8 @@
 # filmaffinity-API
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v2.0.0)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF?style=flat)](https://php.net/)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v3.0.0)
 [![Workflow Status](https://img.shields.io/github/workflow/status/xsga/filmaffinity-api/PHP%20Composer)](https://github.com/xsga/filmaffinity-api/actions?query=workflow%3A%22PHP+Composer%22)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
@@ -14,7 +14,7 @@ The API is written in PHP and uses a JSON objects to input and output data.
 
 Server prerequisites:
 
-* PHP 7.3 or later.
+* PHP 8.0 or later.
 * Apache's `mod_rewrite` module enabled.
 * Composer
 

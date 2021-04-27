@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Pattern
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\pattern;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerLoggingEvent;
 
 /**
@@ -66,7 +72,7 @@ class LoggerPatternConverterLiteral extends LoggerPatternConverter
      * 
      * @access public
      */
-    public function convert(LoggerLoggingEvent $event)
+    public function convert(LoggerLoggingEvent $event) : string
     {
         
         return $this->literalValue;

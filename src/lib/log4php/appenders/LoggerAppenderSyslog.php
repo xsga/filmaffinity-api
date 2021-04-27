@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
 use log4php\LoggerLoggingEvent;
 use log4php\LoggerLevel;
@@ -241,7 +247,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-     public function getIdent()
+     public function getIdent() : string
      {
          return $this->ident;
          
@@ -255,7 +261,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function getPriority()
+    public function getPriority() : string
     {
         return $this->priority;
         
@@ -269,7 +275,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function getFacility()
+    public function getFacility() : string
     {
         return $this->facility;
         
@@ -283,7 +289,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function getOverridePriority()
+    public function getOverridePriority() : string
     {
         return $this->overridePriority;
         
@@ -297,7 +303,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function getOption()
+    public function getOption() : string
     {
         return $this->option;
         
@@ -371,7 +377,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access private
      */
-    private function getSyslogPriority(LoggerLevel $level)
+    private function getSyslogPriority(LoggerLevel $level) : int
     {
         if ($this->overridePriority) {
             return $this->intPriority;
@@ -389,7 +395,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access private
      */
-    private function parseOption()
+    private function parseOption() : int
     {
         $value = 0;
         $options = explode('|', $this->option);
@@ -418,7 +424,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access private
      */
-    private function parseFacility()
+    private function parseFacility() : string
     {
         if (!empty($this->facility)) {   
             $constant = 'LOG_'.trim($this->facility);
@@ -439,7 +445,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access private
      */
-    private function parsePriority()
+    private function parsePriority() : string
     {
         if (!empty($this->priority)) {
             $constant = 'LOG_'.trim($this->priority);

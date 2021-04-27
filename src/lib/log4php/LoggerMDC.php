@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -74,7 +77,7 @@ class LoggerMDC
      * 
      * @access public
      */
-    public static function get($key)
+    public static function get($key) : string
     {
         if (isset(static::$map[$key])) {
             $out = static::$map[$key];
@@ -96,7 +99,7 @@ class LoggerMDC
      * 
      * @access public
      */
-    public static function getMap()
+    public static function getMap() : array
     {
         return static::$map;
         

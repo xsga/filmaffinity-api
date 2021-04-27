@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Configurators
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\configurators;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerException;
 
 /**
@@ -119,7 +125,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * 
      * @throws LoggerException
      */
-    private function load($url)
+    private function load($url) : array
     {
         if (!file_exists($url)) {
             throw new LoggerException('File ['.$url.'] does not exist.');
@@ -148,7 +154,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * 
      * @throws LoggerException If the file cannot be loaded or parsed.
      */
-    public function convert($path)
+    public function convert($path) : array
     {
         // Load the configuration.
         $properties = $this->load($path);
@@ -384,7 +390,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function beginsWith($str, $sub)
+    private function beginsWith($str, $sub) : bool
     {
         if (strncmp($str, $sub, strlen($sub)) === 0) {
             $out = true;

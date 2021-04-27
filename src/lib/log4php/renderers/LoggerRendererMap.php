@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\renderers;
 
 /**
@@ -153,7 +156,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function getDefaultRenderer()
+    public function getDefaultRenderer() : mixed
     {
         return $this->defaultRenderer;
         
@@ -169,7 +172,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function findAndRender($input)
+    public function findAndRender($input) : string
     {
         if ($input === null) {
             return null;
@@ -201,7 +204,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function getByObject($object)
+    public function getByObject($object) : LoggerRenderer
     {
         if (!is_object($object)) {
             return null;
@@ -217,11 +220,11 @@ class LoggerRendererMap
      *
      * @param string $class Clas.
      * 
-     * @return LoggerRendererObject.
+     * @return LoggerRendererObject
      * 
      * @access public
      */
-    public function getByClassName($class)
+    public function getByClassName($class) : LoggerRendererObject
     {
         for (; !empty($class); $class = get_parent_class($class)) {
             

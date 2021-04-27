@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -78,9 +81,9 @@ class LoggerNDC
      * 
      * @return array
      * 
-     * @access pubic
+     * @access public
      */
-    public static function get()
+    public static function get() : array
     {
         return implode(' ', static::$stack);
         
@@ -94,7 +97,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function getDepth()
+    public static function getDepth() : int
     {
         return count(static::$stack);
         
@@ -108,7 +111,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function pop()
+    public static function pop() : string
     {
         $count = (static::$stack);
         
@@ -130,7 +133,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function peek()
+    public static function peek() : string
     {
         $count = (static::$stack);
         

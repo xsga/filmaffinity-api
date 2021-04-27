@@ -17,13 +17,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
+/**
+ * Import dependencies.
+ */
 use log4php\layouts\LoggerLayoutSimple;
 
 /**
@@ -124,7 +130,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getDefaultLayout()
+    public function getDefaultLayout() : LoggerLayout
     {
         return new LoggerLayoutSimple();
         
@@ -172,7 +178,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getFilter()
+    public function getFilter() : LoggerFilter
     {
         return $this->filter;
         
@@ -182,11 +188,11 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Returns the first filter in the filter chain. The return value may be <i>null</i> if no is filter is set.
      * 
-     * @return LoggerFilter
+     * @return LoggerFilter|null
      * 
      * @access public
      */
-    public function getFirstFilter()
+    public function getFirstFilter() : LoggerFilter|null
     {
         return $this->filter;
         
@@ -267,7 +273,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getLayout()
+    public function getLayout() : LoggerLayout
     {
         return $this->layout;
         
@@ -292,7 +298,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function requiresLayout()
+    public function requiresLayout() : bool
     {
         return $this->requiresLayout;
         
@@ -306,7 +312,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
         
@@ -336,7 +342,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getThreshold()
+    public function getThreshold() : LoggerLevel
     {
         return $this->threshold;
         
@@ -370,7 +376,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function isAsSevereAsThreshold(LoggerLevel $level)
+    public function isAsSevereAsThreshold(LoggerLevel $level) : bool
     {
         if ($this->threshold === null) {
             return true;

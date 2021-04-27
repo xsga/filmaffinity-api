@@ -17,20 +17,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
-
-use Exception;
 
 /**
  * LoggerException class.
  */
-class LoggerException extends Exception
+class LoggerException extends \Exception
 {
+    
 }//end LoggerException class
 
 

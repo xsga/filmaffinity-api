@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Appenders
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerException;
 
 /**
@@ -360,7 +366,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function getMaxBackupIndex()
+    public function getMaxBackupIndex() : int
     {
         return $this->maxBackupIndex;
         
@@ -390,7 +396,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function getMaxFileSize()
+    public function getMaxFileSize() : int
     {
         return $this->maxFileSize;
         
@@ -439,7 +445,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function getCompress()
+    public function getCompress() : bool
     {
         return $this->compress;
         

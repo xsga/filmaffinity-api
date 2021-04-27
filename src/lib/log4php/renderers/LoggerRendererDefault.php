@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\renderers;
 
 /**
@@ -40,7 +43,7 @@ class LoggerRendererDefault implements LoggerRenderer
      * 
      * @access public
      */
-    public function render($input)
+    public function render($input) : mixed
     {
         return print_r($input, true);
         

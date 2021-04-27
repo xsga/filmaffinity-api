@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
 use log4php\layouts\LoggerLayoutSerialized;
 use log4php\LoggerLoggingEvent;
@@ -194,7 +200,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function getRemoteHost()
+    public function getRemoteHost() : string
     {
         return $this->getRemoteHost();
         
@@ -208,7 +214,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function getPort()
+    public function getPort() : int
     {
         return $this->port;
         
@@ -222,7 +228,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function getTimeout()
+    public function getTimeout() : int
     {
         return $this->timeout;
         

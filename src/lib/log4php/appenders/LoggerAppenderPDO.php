@@ -17,18 +17,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  * @link       http://logging.apache.org/log4php/docs/appenders/pdo.html Appender documentation
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
-use PDOException;
-use PDO;
 use log4php\LoggerLoggingEvent;
 use log4php\layouts\LoggerLayoutPattern;
 use log4php\helpers\LoggerPatternParser;
@@ -125,7 +129,7 @@ class LoggerAppenderPDO extends LoggerAppender
     /**
      * The PDO instance.
      * 
-     * @var PDO
+     * @var \PDO
      * 
      * @access protected
      */
@@ -176,13 +180,15 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @return void
      * 
+     * @throws \PDOException If connect or prepare fails.
+     * 
      * @access public
      */
     public function activateOptions()
     {
         try {
             $this->establishConnection();
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             $this->warn("Failed connecting to database. Closing appender. Error: " . $e->getMessage());
             $this->close();
             return;
@@ -206,15 +212,13 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @return void
      * 
-     * @throws PDOException If connect or prepare fails.
-     * 
      * @access protected
      */
     protected function establishConnection()
     {
         // Acquire database connection.
-        $this->db = new PDO($this->dsn, $this->user, $this->password);
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->db = new \PDO($this->dsn, $this->user, $this->password);
+        $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         
         // Prepare the insert statement.
         $insertSQL = str_replace('__TABLE__', $this->table, $this->insertSQL);
@@ -234,6 +238,8 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @return void
      * 
+     * @throws \PDOException If connect or prepare fails.
+     * 
      * @access public
      */
     public function append(LoggerLoggingEvent $event)
@@ -244,7 +250,7 @@ class LoggerAppenderPDO extends LoggerAppender
                 $this->preparedInsert->execute($this->format($event));
                 $this->preparedInsert->closeCursor();
                 break;
-            } catch (PDOException $e) {
+            } catch (\PDOException $e) {
                 $this->warn("Failed writing to database: ". $e->getMessage());
                 
                 // Close the appender if it's the last attempt.
@@ -275,7 +281,7 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @access protected
      */
-    protected function format(LoggerLoggingEvent $event)
+    protected function format(LoggerLoggingEvent $event) : array
     {
         $params = array();
         
@@ -315,11 +321,11 @@ class LoggerAppenderPDO extends LoggerAppender
     /**
      * Returns the active database handle or null if not established.
      * 
-     * @return PDO
+     * @return \PDO
      * 
      * @access public
      */
-    public function getDatabaseHandle()
+    public function getDatabaseHandle() : \PDO
     {
         return $this->db;
         
@@ -351,7 +357,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function getUser($user)
+    public function getUser($user) : string
     {
         return $this->user;
         
@@ -383,7 +389,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function getPassword($password)
+    public function getPassword($password) : string
     {
         return $this->password;
         
@@ -415,7 +421,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function getInsertSQL($sql)
+    public function getInsertSQL($sql) : string
     {
         return $this->insertSQL;
         
@@ -447,7 +453,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function getInsertPattern($pattern)
+    public function getInsertPattern($pattern) : string
     {
         return $this->insertPattern;
         
@@ -479,7 +485,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function getTable($table)
+    public function getTable($table) : string
     {
         return $this->table;
         
@@ -511,7 +517,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function getDSN($dsn)
+    public function getDSN($dsn) : string
     {
         return $this->setString('dsn', $dsn);
         

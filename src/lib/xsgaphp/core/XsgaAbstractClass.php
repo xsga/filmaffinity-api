@@ -2,7 +2,7 @@
 /**
  * XsgaAbstractClass.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -32,9 +32,9 @@ abstract class XsgaAbstractClass
      * 
      * @var Logger
      * 
-     * @access public
+     * @access protected
      */
-    public $logger;
+    protected $logger;
    
     
     /**

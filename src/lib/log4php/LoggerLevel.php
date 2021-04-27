@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -34,6 +37,8 @@ class LoggerLevel
      * Off.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const OFF = 2147483647;
     
@@ -41,6 +46,8 @@ class LoggerLevel
      * Fatal.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const FATAL = 50000;
     
@@ -48,6 +55,8 @@ class LoggerLevel
      * Error.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const ERROR = 40000;
     
@@ -55,6 +64,8 @@ class LoggerLevel
      * Warn.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const WARN = 30000;
     
@@ -62,6 +73,8 @@ class LoggerLevel
      * Info.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const INFO = 20000;
     
@@ -69,6 +82,8 @@ class LoggerLevel
      * Debug.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const DEBUG = 10000;
     
@@ -76,6 +91,8 @@ class LoggerLevel
      * Trace.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const TRACE = 5000;
     
@@ -83,6 +100,8 @@ class LoggerLevel
      * All.
      * 
      * @var integer
+     * 
+     * @access public
      */
     const ALL = -2147483647;
     
@@ -99,6 +118,8 @@ class LoggerLevel
      * Contains a list of instantiated levels.
      * 
      * @var array
+     * 
+     * @access private
      */
     private static $levelMap;
     
@@ -148,7 +169,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function equals(LoggerLevel $other)
+    public function equals(LoggerLevel $other) : bool
     {
         if ($other instanceof LoggerLevel) {
             
@@ -172,7 +193,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelOff()
+    public static function getLevelOff() : LoggerLevel
     {
         if (!isset(static::$levelMap[self::OFF])) {
             static::$levelMap[static::OFF] = new LoggerLevel(static::OFF, 'OFF', LOG_ALERT);
@@ -190,7 +211,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelFatal()
+    public static function getLevelFatal() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::FATAL])) {
             static::$levelMap[self::FATAL] = new LoggerLevel(static::FATAL, 'FATAL', LOG_ALERT);
@@ -208,7 +229,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelError()
+    public static function getLevelError() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::ERROR])) {
             static::$levelMap[static::ERROR] = new LoggerLevel(static::ERROR, 'ERROR', LOG_ERR);
@@ -226,7 +247,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelWarn()
+    public static function getLevelWarn() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::WARN])) {
             static::$levelMap[static::WARN] = new LoggerLevel(static::WARN, 'WARN', LOG_WARNING);
@@ -244,7 +265,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelInfo()
+    public static function getLevelInfo() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::INFO])) {
             static::$levelMap[static::INFO] = new LoggerLevel(static::INFO, 'INFO', LOG_INFO);
@@ -262,7 +283,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelDebug()
+    public static function getLevelDebug() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::DEBUG])) {
             static::$levelMap[static::DEBUG] = new LoggerLevel(static::DEBUG, 'DEBUG', LOG_DEBUG);
@@ -280,7 +301,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelTrace()
+    public static function getLevelTrace() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::TRACE])) {
             static::$levelMap[static::TRACE] = new LoggerLevel(static::TRACE, 'TRACE', LOG_DEBUG);
@@ -298,7 +319,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function getLevelAll()
+    public static function getLevelAll() : LoggerLevel
     {
         if (!isset(static::$levelMap[static::ALL])) {
             static::$levelMap[static::ALL] = new LoggerLevel(static::ALL, 'ALL', LOG_DEBUG);
@@ -316,7 +337,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function getSyslogEquivalent()
+    public function getSyslogEquivalent() : int
     {
         return $this->syslogEquivalent;
         
@@ -332,7 +353,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function isGreaterOrEqual(LoggerLevel $other)
+    public function isGreaterOrEqual(LoggerLevel $other) : bool
     {
         if ($this->level >= $other->getLevel()) {
             $out = true;
@@ -352,7 +373,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function toString()
+    public function toString() : string
     {
         return $this->levelStr;
         
@@ -366,7 +387,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->toString();
         
@@ -380,7 +401,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function toInt()
+    public function toInt() : int
     {
         return $this->level;
         
@@ -397,7 +418,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public static function toLevel($arg, LoggerLevel $defaultLevel = null)
+    public static function toLevel($arg, LoggerLevel $defaultLevel = null) : LoggerLevel
     {
         if (is_int($arg)) {
             
@@ -475,7 +496,7 @@ class LoggerLevel
      * 
      * @access public
      */
-    public function getLevel()
+    public function getLevel() : int
     {
         return $this->level;
         

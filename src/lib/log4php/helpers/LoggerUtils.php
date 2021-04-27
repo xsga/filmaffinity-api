@@ -17,12 +17,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Helpers
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\helpers;
 
 /**
@@ -43,7 +46,7 @@ class LoggerUtils
      * 
      * @access public
      */
-    public static function tokenizeClassName($name)
+    public static function tokenizeClassName($name) : array
     {
         $name      = str_replace('.', '\\', $name);
         $name      = trim($name, ' \\');
@@ -75,7 +78,7 @@ class LoggerUtils
      * 
      * @access public
      */
-    public static function shortenClassName($name, $length)
+    public static function shortenClassName($name, $length) : string
     {
         if (($length === null) || ($length < 0)) {
             return $name;

@@ -4,7 +4,7 @@
  *
  * This class provide helper methods to SearchApiController class.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -63,7 +63,7 @@ class SearchACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $arraySearch = json_decode($resources->getResourceFile('json', 'genres'), true);
                 $arrayKey    = 'genre_code';
-                $errorMsg    = 'Code "'.$param.'" is not a valid genre code';
+                $errorMsg    = "Code \"$param\" is not a valid genre code";
                 $errorNum    = 201;
                 
                 break;
@@ -76,7 +76,7 @@ class SearchACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $arraySearch = json_decode($resources->getResourceFile('json', 'countries'), true);
                 $arrayKey    = 'country_code';
-                $errorMsg    = 'Code "'.$param.'" is not a valid country code';
+                $errorMsg    = "Code \"$param\" is not a valid country code";
                 $errorNum    = 202;
                 
                 break;
@@ -131,7 +131,7 @@ class SearchACHelper extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function getAdvSearchDto(array $data)
+    public function getAdvSearchDto(array $data) : AdvSearchDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -170,7 +170,7 @@ class SearchACHelper extends XsgaAbstractClass
      *
      * @access public
      */
-    public function getSearchDto(array $data)
+    public function getSearchDto(array $data) : SearchDto
     {
         // Logger.
         $this->logger->debugInit();

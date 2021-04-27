@@ -17,16 +17,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Configurators
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\configurators;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerException;
-use SimpleXMLElement;
 
 /**
  * Converts XML configuration files to a PHP array.
@@ -38,6 +43,8 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * Path to the XML schema used for validation.
      * 
      * @var sting
+     * 
+     * @access public
      */
     const SCHEMA_PATH = '/../xml/log4php.xsd';
     
@@ -64,7 +71,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access public
      */
-    public function convert($url)
+    public function convert($url) : array
     {
         $xml = $this->loadXML($url);
         
@@ -105,13 +112,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @param string $url Input XML.
      * 
-     * @return SimpleXMLElement
+     * @return \SimpleXMLElement
      * 
      * @access private
      * 
      * @throws LoggerException
      */
-    private function loadXML($url)
+    private function loadXML($url) : \SimpleXMLElement
     {
         if (!file_exists($url)) {
             throw new LoggerException('File ['.$url.'] does not exist.');
@@ -144,13 +151,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses the <configuration> node.
      * 
-     * @param SimpleXMLElement $xml XML.
+     * @param \SimpleXMLElement $xml XML.
      * 
      * @return void
      * 
      * @access private
      */
-    private function parseConfiguration(SimpleXMLElement $xml)
+    private function parseConfiguration(\SimpleXMLElement $xml)
     {
         $attributes = $xml->attributes();
         
@@ -164,13 +171,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses an <appender> node.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return void
      * 
      * @access private
      */
-    private function parseAppender(SimpleXMLElement $node)
+    private function parseAppender(\SimpleXMLElement $node)
     {
         
         $name = $this->getAttributeValue($node, 'name');
@@ -208,13 +215,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses a <layout> node.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return array
      * 
      * @access private
      */
-    private function parseLayout(SimpleXMLElement $node)
+    private function parseLayout(\SimpleXMLElement $node) : array
     {
         $layout          = array();
         $layout['class'] = $this->getAttributeValue($node, 'class');
@@ -231,13 +238,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses any <param> child nodes returning them in an array.
      * 
-     * @param SimpleXMLElement $paramsNode Parameters node.
+     * @param \SimpleXMLElement $paramsNode Parameters node.
      * 
      * @return array
      * 
      * @access private
      */
-    private function parseParameters(SimpleXMLElement $paramsNode)
+    private function parseParameters(\SimpleXMLElement $paramsNode) : array
     {
         $params = array();
 
@@ -263,13 +270,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses a <root> node.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return void
      * 
      * @access private
      */
-    private function parseRootLogger(SimpleXMLElement $node)
+    private function parseRootLogger(\SimpleXMLElement $node)
     {
         
         $logger = array();
@@ -288,13 +295,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses a <logger> node.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return void
      * 
      * @access private
      */
-    private function parseLogger(SimpleXMLElement $node)
+    private function parseLogger(\SimpleXMLElement $node)
     {
         
         $logger = array();
@@ -331,13 +338,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * Previous versions supported appender-ref, as well as appender_ref so both are parsed for backward compatibility.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return array
      * 
      * @access private
      */
-    private function parseAppenderReferences(SimpleXMLElement $node)
+    private function parseAppenderReferences(\SimpleXMLElement $node) : array
     {
         $refs = array();
         
@@ -357,13 +364,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses a <filter> node.
      * 
-     * @param SimpleXMLElement $filterNode Filter node.
+     * @param \SimpleXMLElement $filterNode Filter node.
      * 
      * @return array
      * 
      * @access private
      */
-    private function parseFilter(SimpleXMLElement $filterNode)
+    private function parseFilter(\SimpleXMLElement $filterNode) : array
     {
         
         $filter          = array();
@@ -381,13 +388,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses a <renderer> node.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return void
      * 
      * @access private
      */
-    private function parseRenderer(SimpleXMLElement $node)
+    private function parseRenderer(\SimpleXMLElement $node)
     {
         $renderedClass  = $this->getAttributeValue($node, 'renderedClass');
         $renderingClass = $this->getAttributeValue($node, 'renderingClass');
@@ -400,13 +407,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses a <defaultRenderer> node.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * 
      * @return void
      * 
      * @access private
      */
-    private function parseDefaultRenderer(SimpleXMLElement $node)
+    private function parseDefaultRenderer(\SimpleXMLElement $node)
     {
         $renderingClass = $this->getAttributeValue($node, 'renderingClass');
         
@@ -423,14 +430,14 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Get attribute value.
      * 
-     * @param SimpleXMLElement $node Node.
+     * @param \SimpleXMLElement $node Node.
      * @param string           $name Name.
      * 
-     * @return mixed <string, null>
+     * @return string|null
      * 
      * @access private
      */
-    private function getAttributeValue(SimpleXMLElement $node, $name)
+    private function getAttributeValue(\SimpleXMLElement $node, $name) : string|null
     {
         if (isset($node[$name])) {
             $out = (string)$node[$name];

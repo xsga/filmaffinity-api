@@ -6,7 +6,7 @@
  * 
  * Based on http://emiliocobos.net/php-cache/
  * 
- * PHP Version 7
+ * PHP Version 8
  */
 
 /**
@@ -56,9 +56,8 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function configure($key, $val=null)
+    public static function configure($key, $val = null)
     {
-        
         if (is_array($key)) {
             
             foreach ($key as $configName => $configValue) {
@@ -83,9 +82,8 @@ class XsgaCache
      * 
      * @access private
      */
-    private static function getRoute($key)
+    private static function getRoute($key) : string
     {
-        
         return static::$config['cache_path'].'/'.md5($key).'.cache';
         
     }//end getRoute()
@@ -100,9 +98,8 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function get($key, $raw=false, $customTime=null)
+    public static function get($key, $raw = false, $customTime = null) : mixed
     {
-        
         if (!self::fileExpired($file = self::getRoute($key), $customTime)) {
             
             $content = file_get_contents($file);
@@ -128,9 +125,8 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function put($key, $content, $raw=false)
+    public static function put($key, $content, $raw = false) : bool
     {
-        
         $destFileName = self::getRoute($key);
 
         // Use a unique temporary filename to make writes atomic with rewrite.
@@ -159,9 +155,8 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function delete($key)
+    public static function delete($key) : bool
     {
-        
         return @unlink(self::getRoute($key));
         
     }//end delete()
@@ -174,9 +169,8 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function flush()
+    public static function flush() : bool
     {
-    
         $cache_files = glob(self::$config['cache_path'].'/*.cache', GLOB_NOSORT);
         
         foreach ($cache_files as $file) {
@@ -198,9 +192,8 @@ class XsgaCache
      * 
      * @access private
      */
-    private static function fileExpired($file, $time=null)
+    private static function fileExpired($file, $time = null) : bool
     {
-        
         if (!file_exists($file)) {
             return true;
         }//end if

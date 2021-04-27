@@ -17,13 +17,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\filters;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerFilter;
 use log4php\LoggerLoggingEvent;
 
@@ -38,7 +44,7 @@ class LoggerFilterStringMatch extends LoggerFilter
      * 
      * @var boolean
      * 
-     * @access protecte
+     * @access protected
      */
     protected $acceptOnMatch = true;
     
@@ -93,7 +99,7 @@ class LoggerFilterStringMatch extends LoggerFilter
      * 
      * @access public
      */
-    public function decide(LoggerLoggingEvent $event)
+    public function decide(LoggerLoggingEvent $event) : int
     {
         $msg = $event->getRenderedMessage();
         

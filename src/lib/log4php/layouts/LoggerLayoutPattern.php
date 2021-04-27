@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Layouts
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\layouts;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerLayout;
 use log4php\LoggerException;
 use log4php\helpers\LoggerPatternParser;
@@ -151,7 +157,7 @@ class LoggerLayoutPattern extends LoggerLayout
      * 
      * @access public
      */
-    public static function getDefaultConverterMap()
+    public static function getDefaultConverterMap() : array
     {
         return static::$defaultConverterMap;
         
@@ -222,7 +228,7 @@ class LoggerLayoutPattern extends LoggerLayout
      * 
      * @access public
      */
-    public function format(LoggerLoggingEvent $event)
+    public function format(LoggerLoggingEvent $event) : string
     {
         $sbuf = '';
         $converter = $this->head;

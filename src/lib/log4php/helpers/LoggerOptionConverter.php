@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Helpers
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\helpers;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerException;
 use log4php\LoggerLevel;
 
@@ -82,7 +88,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function getSystemProperty($key, $def)
+    public static function getSystemProperty($key, $def) : string
     {
         if (defined($key)) {
             $out = (string)constant($key);
@@ -110,7 +116,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function toBooleanEx($value)
+    public static function toBooleanEx($value) : bool
     {
         if (isset($value)) {
             
@@ -146,7 +152,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function toIntegerEx($value)
+    public static function toIntegerEx($value) : int
     {
         if (is_integer($value)) {
             return $value;
@@ -172,7 +178,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function toPositiveIntegerEx($value)
+    public static function toPositiveIntegerEx($value) : int
     {
         if (is_integer($value) && ($value > 0)) {
             return $value;
@@ -200,7 +206,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function toLevelEx($value)
+    public static function toLevelEx($value) : LoggerLevel
     {
         if ($value instanceof LoggerLevel) {
             return $value;
@@ -239,7 +245,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function toFileSizeEx($value)
+    public static function toFileSizeEx($value) : int
     {
         if (empty($value)) {
             throw new LoggerException('Empty value cannot be converted to a file size.');
@@ -300,7 +306,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function toStringEx($value) 
+    public static function toStringEx($value) : string
     {
         if (is_string($value)) {
             return $value;
@@ -339,7 +345,7 @@ class LoggerOptionConverter
      * 
      * @access public
      */
-    public static function substConstants($string)
+    public static function substConstants($string) : string
     {
         preg_match_all('/\${([^}]+)}/', $string, $matches);
         

@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -63,17 +66,29 @@ abstract class LoggerFilter extends LoggerConfigurable
     
     /**
      * The log event must be logged immediately without consulting with the remaining filters, if any, in the chain.
+     * 
+     * @var integer
+     * 
+     * @access public
      */
     const ACCEPT = 1;
     
     /**
      * This filter is neutral with respect to the log event.
      * The remaining filters, if any, should be consulted for a final decision.
+     * 
+     * @var integer
+     * 
+     * @access public
      */
     const NEUTRAL = 0;
     
     /**
      * The log event must be dropped immediately without consulting with the remaining filters, if any, in the chain.
+     * 
+     * @var integer
+     * 
+     * @access public
      */
     const DENY = -1;
     
@@ -81,6 +96,8 @@ abstract class LoggerFilter extends LoggerConfigurable
      * Points to the next {@link LoggerFilter} in the filter chain.
      * 
      * @var LoggerFilter
+     * 
+     * @access protected
      */
     protected $next;
     
@@ -113,7 +130,7 @@ abstract class LoggerFilter extends LoggerConfigurable
      * 
      * @access public
      */
-    public function decide(LoggerLoggingEvent $event)
+    public function decide(LoggerLoggingEvent $event) : int
     {
         return static::NEUTRAL;
         
@@ -151,7 +168,7 @@ abstract class LoggerFilter extends LoggerConfigurable
      * 
      * @access public
      */
-    public function getNext()
+    public function getNext() : mixed
     {
         return $this->next;
         

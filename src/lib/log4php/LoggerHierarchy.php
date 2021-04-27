@@ -17,13 +17,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
+/**
+ * Import dependencies.
+ */
 use log4php\renderers\LoggerRendererMap;
 
 /**
@@ -133,7 +139,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function exists($name)
+    public function exists($name) : bool
     {
         return isset($this->loggers[$name]);
         
@@ -147,7 +153,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function getCurrentLoggers()
+    public function getCurrentLoggers() : array
     {
         return array_values($this->loggers);
         
@@ -163,7 +169,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function getLogger($name)
+    public function getLogger($name) : Logger
     {
         if (!isset($this->loggers[$name])) {
             
@@ -213,7 +219,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function getRendererMap()
+    public function getRendererMap() : LoggerRendererMap
     {
         return $this->rendererMap;
         
@@ -227,7 +233,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function getRootLogger()
+    public function getRootLogger() : LoggerRoot
     {
         return $this->root;
         
@@ -241,7 +247,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function getThreshold()
+    public function getThreshold() : LoggerLevel
     {
         return $this->threshold;
         
@@ -257,7 +263,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function isDisabled(LoggerLevel $level)
+    public function isDisabled(LoggerLevel $level) : bool
     {
         if ($this->threshold->toInt() > $level->toInt()) {
             $out = true;

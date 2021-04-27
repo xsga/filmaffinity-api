@@ -2,7 +2,7 @@
 /**
  * XsgaRestWrapper.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -36,7 +36,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function getPageContent($url, array $options = array())
+    public function getPageContent($url, array $options = array()) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -69,13 +69,15 @@ class XsgaRestWrapper extends XsgaAbstractClass
             // Get response.
             $response = $petition->get($cURLOptions);
             
+            $code = $response->getCode();
+
             // Logger.
-            $this->logger->debug('HTTP response code: '.$response->getCode());
+            $this->logger->debug("HTTP response code: $code");
             
             if ($response->getCode() !== 200) {
                 
                 // Logger.
-                $this->logger->error('HTTP ERROR: '.$response->getCode());
+                $this->logger->error("HTTP ERROR: $code");
                 $this->logger->error($response->getRaw());
                 
             } else {
@@ -106,7 +108,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
      *
      * @access public
      */
-    public function getFile($url, $dest, array $options = array())
+    public function getFile($url, $dest, array $options = array()) : bool
     {
         // Logger.
         $this->logger->debugInit();
@@ -145,12 +147,12 @@ class XsgaRestWrapper extends XsgaAbstractClass
             fclose($fp);
     
             // Logger.
-            $this->logger->debug('HTTP response code: '.$response->getCode());
+            $this->logger->debug("HTTP response code: $response->getCode()");
     
             if ($response->getCode() !== 200) {
     
                 // Logger.
-                $this->logger->error('HTTP ERROR: '.$response->getCode());
+                $this->logger->error("HTTP ERROR: $response->getCode()");
                 $this->logger->error($response->getErrors());
                 
                 $out = false;
@@ -178,7 +180,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getUrlDefaultOptions()
+    private function getUrlDefaultOptions() : array
     {
         // Logger.
         $this->logger->debugInit();
@@ -208,7 +210,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
      * @access private
      */
     
-    private function getFileDefaultOptions($fp)
+    private function getFileDefaultOptions($fp) : array
     {
         // Logger.
         $this->logger->debugInit();

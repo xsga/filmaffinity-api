@@ -4,7 +4,7 @@
  *
  * This file contains the XsgaUtil class.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -82,7 +82,7 @@ class XsgaUtil
      * 
      * @access public
      */
-    public static function getPathTo($levelToRoot, array $pathItems = array())
+    public static function getPathTo($levelToRoot, array $pathItems = array()) : string
     {
         // Initialize path.
         $path = '';

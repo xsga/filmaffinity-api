@@ -17,15 +17,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  * 
  * @package    Log4php
  * @subpackage Appenders
  * @link       http://logging.apache.org/log4php/docs/appenders/null.html Appender documentation
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\appenders;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerAppender;
 use log4php\LoggerLoggingEvent;
 
@@ -41,6 +47,8 @@ class LoggerAppenderNull extends LoggerAppender
      * This appender does not require a layout.
      * 
      * @var boolean
+     * 
+     * @access protected
      */
     protected $requiresLayout = false;
     

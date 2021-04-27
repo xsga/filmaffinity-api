@@ -17,11 +17,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package Log4php
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php;
 
 /**
@@ -39,6 +42,8 @@ class LoggerAppenderPool
      * Holds appenders indexed by their name.
      * 
      * @var array
+     * 
+     * @access public
      */
     public static $appenders = array();
     
@@ -80,7 +85,7 @@ class LoggerAppenderPool
      * 
      * @access public
      */
-    public static function get($name)
+    public static function get($name) : LoggerAppender
     {
         return (isset(static::$appenders[$name])) ? static::$appenders[$name] : null;
         
@@ -110,7 +115,7 @@ class LoggerAppenderPool
      * 
      * @access public
      */
-    public static function getAppenders()
+    public static function getAppenders() : array
     {
         return static::$appenders;
         
@@ -126,7 +131,7 @@ class LoggerAppenderPool
      * 
      * @access public
      */
-    public static function exists($name)
+    public static function exists($name) : bool
     {
         return isset(static::$appenders[$name]);
         

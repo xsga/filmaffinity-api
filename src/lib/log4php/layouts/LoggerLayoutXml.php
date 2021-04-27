@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Layouts
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\layouts;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerLayout;
 use log4php\LoggerLoggingEvent;
 
@@ -61,15 +67,77 @@ use log4php\LoggerLoggingEvent;
  */
 class LoggerLayoutXml extends LoggerLayout
 {
+
+    /**
+     * Log4J prefix.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const LOG4J_NS_PREFIX = 'log4j';
+
+    /**
+     * Log4J NS.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const LOG4J_NS = 'http://jakarta.apache.org/log4j/';
     
+    /**
+     * Log4J NS prefix.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const LOG4PHP_NS_PREFIX = 'log4php';
+    
+    /**
+     * Log4PHP NS.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const LOG4PHP_NS = 'http://logging.apache.org/log4php/';
     
+    /**
+     * CDATA start.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const CDATA_START = '<![CDATA[';
+    
+    /**
+     * CDATA end.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const CDATA_END = ']]>';
+    
+    /**
+     * CDATA pseudo end.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const CDATA_PSEUDO_END = ']]&gt;';
+    
+    /**
+     * CDATA embedded end.
+     * 
+     * @var string
+     * 
+     * @access public
+     */
     const CDATA_EMBEDDED_END = ']]>]]&gt;<![CDATA[';
 
     /**
@@ -97,7 +165,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access protected
      */
-    protected $namespace = static::LOG4PHP_NS;
+    protected $namespace = self::LOG4PHP_NS;
     
     /**
      * The namespace prefix in use.
@@ -106,7 +174,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access protected
      */
-    protected $namespacePrefix = static::LOG4PHP_NS_PREFIX;
+    protected $namespacePrefix = self::LOG4PHP_NS_PREFIX;
      
     
     /**
@@ -136,7 +204,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function getHeader()
+    public function getHeader() : string
     {
         $out  = '<'.$this->namespacePrefix.':eventSet xmlns:'.$this->namespacePrefix.'="'.$this->namespace.'" ';
         $out .= 'version="0.3" includesLocationInfo="'.($this->getLocationInfo() ? 'true' : 'false').'">';
@@ -156,7 +224,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function format(LoggerLoggingEvent $event)
+    public function format(LoggerLoggingEvent $event) : string
     {
         $ns = $this->namespacePrefix;
         
@@ -208,7 +276,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function getFooter()
+    public function getFooter() : string
     {
         return '</'.$this->namespacePrefix.':eventSet>'.PHP_EOL;
         
@@ -222,7 +290,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function getLocationInfo()
+    public function getLocationInfo() : bool
     {
         return $this->locationInfo;
         
@@ -256,7 +324,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function getLog4jNamespace()
+    public function getLog4jNamespace() : bool
     {
         return $this->log4jNamespace;
          
@@ -288,7 +356,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access private
      */
-    private function encodeCDATA($string)
+    private function encodeCDATA($string) : string
     {
         $string = str_replace(static::CDATA_END, static::CDATA_EMBEDDED_END, $string);
         

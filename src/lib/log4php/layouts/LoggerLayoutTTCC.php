@@ -17,14 +17,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @package    Log4php
  * @subpackage Layouts
  */
 
+/**
+ * Namespace.
+ */
 namespace log4php\layouts;
 
+/**
+ * Import dependencies.
+ */
 use log4php\LoggerLayout;
 use log4php\LoggerLoggingEvent;
 
@@ -152,7 +158,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function getThreadPrinting()
+    public function getThreadPrinting() : bool
     {
         return $this->threadPrinting;
         
@@ -184,7 +190,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function getCategoryPrefixing()
+    public function getCategoryPrefixing() : bool
     {
         return $this->categoryPrefixing;
         
@@ -217,7 +223,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function getContextPrinting()
+    public function getContextPrinting() : bool
     {
         return $this->contextPrinting;
         
@@ -249,7 +255,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function getMicroSecondsPrinting()
+    public function getMicroSecondsPrinting() : bool
     {
         return $this->microSecondsPrinting;
         
@@ -279,7 +285,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function getDateFormat()
+    public function getDateFormat() : string
     {
         return $this->dateFormat;
         
@@ -298,7 +304,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function format(LoggerLoggingEvent $event)
+    public function format(LoggerLoggingEvent $event) : string
     {
         $timeStamp = (float)$event->getTimeStamp();
         $format    = strftime($this->dateFormat, (int)$timeStamp);
@@ -343,7 +349,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function ignoresThrowable()
+    public function ignoresThrowable() : bool
     {
         return true;
         

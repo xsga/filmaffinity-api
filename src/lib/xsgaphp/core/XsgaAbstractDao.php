@@ -2,7 +2,7 @@
 /**
  * XsgaAbstractDao.
  *
- * PHP Version 7
+ * PHP Version 8
  *
  * @author  xsga <parker@xsga.es>
  * @license MIT
@@ -32,9 +32,9 @@ abstract class XsgaAbstractDao extends XsgaAbstractClass
      * 
      * @var EntityManager
      * 
-     * @access public
+     * @access protected
      */
-    public $em;
+    protected $em;
     
         
     /**
