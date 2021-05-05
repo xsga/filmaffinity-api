@@ -80,7 +80,7 @@ class ResourcesController extends XsgaAbstractApiController
      *
      * @access public
      */
-    public function getJson(array $request, array $filters, array $body)
+    public function getJson(array $request, array $filters, array $body) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -114,7 +114,7 @@ class ResourcesController extends XsgaAbstractApiController
      *
      * @access public
      */
-    public function getSchema(array $request, array $filters, array $body)
+    public function getSchema(array $request, array $filters, array $body) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -145,7 +145,7 @@ class ResourcesController extends XsgaAbstractApiController
      * 
      * @access private
      */
-    private function getJsonValidations(array $params)
+    private function getJsonValidations(array $params) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -171,7 +171,7 @@ class ResourcesController extends XsgaAbstractApiController
      *
      * @access private
      */
-    private function getSchemaValidations(array $params)
+    private function getSchemaValidations(array $params) : void
     {
         // Logger.
         $this->logger->debugInit();

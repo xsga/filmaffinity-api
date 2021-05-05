@@ -67,7 +67,7 @@ class FilmController extends XsgaAbstractApiController
      * 
      * @access public
      */
-    public function getFilm(array $request, array $filters, array $body)
+    public function getFilm(array $request, array $filters, array $body) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -100,7 +100,7 @@ class FilmController extends XsgaAbstractApiController
      * 
      * @access private
      */
-    private function getFilmValidations(array $params)
+    private function getFilmValidations(array $params) : void
     {
         // Logger.
         $this->logger->debugInit();

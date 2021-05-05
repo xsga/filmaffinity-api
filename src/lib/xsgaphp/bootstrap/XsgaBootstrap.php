@@ -37,17 +37,29 @@ class XsgaBootstrap
      * 
      * @access public
      */
-    public static function loadEnv()
+    public static function loadEnv() : void
     {
+        // Set internal variables.
+        $_ENV['APP_ROOT'] = realpath(dirname(__FILE__, 5)).DIRECTORY_SEPARATOR;
+
         // Path to config folder.
-        $pathConfig = realpath(dirname(__FILE__)).XsgaUtil::getPathTo(4, array('config'));
+        $pathConfig = XsgaUtil::getPathTo('config');
 
         // Load Logger configuration.
         Logger::configure($pathConfig.'log4php.xml');
 
+        // Get logger.
+        $logger = Logger::getRootLogger();
+
+        // Logger.
+        $logger->debug('Loading common environment settings');
+
         // Load common settings (.env).
         $dotenv = Dotenv::createImmutable($pathConfig);
         $dotenv->safeLoad();
+
+        // Logger.
+        $logger->debug('Validating common environment settings');
 
         // Validates common settings.
         $dotenv->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
@@ -56,19 +68,31 @@ class XsgaBootstrap
         $dotenv->required('VENDOR')->notEmpty();
         $dotenv->required('LANGUAGE')->allowedValues(['spa', 'en']);
 
+        // Logger.
+        $logger->debug("Loading \"$_ENV[ENVIRONMENT]\" environment settings");
+
         // Load environment settings (.environment.env).
         $dotenv = Dotenv::createImmutable($pathConfig, ".$_ENV[ENVIRONMENT].env");
         $dotenv->safeLoad();
 
+        // Logger.
+        $logger->debug("Validating \"$_ENV[ENVIRONMENT]\" environment settings");
+
         // Validates environment settings.
         $dotenv->required(['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_SCHEMA'])->notEmpty();
         
+        // Logger.
+        $logger->debug('Configuring cache component');
+
         // Configure cache.
         $cacheConfig               = array();
-        $cacheConfig['cache_path'] = realpath(dirname(__FILE__)).XsgaUtil::getPathTo(4, array('tmp', 'cache'));
+        $cacheConfig['cache_path'] = XsgaUtil::getPathTo(array('tmp', 'cache'));
         $cacheConfig['expires']    = 120;
 
         XsgaCache::configure($cacheConfig);
+
+        // Logger.
+        $logger->debug('Environment loaded successfully');
 
     }//end loadEnv()
 
@@ -96,13 +120,13 @@ class XsgaBootstrap
         
         // Path to entities.
         $paths = array(
-            realpath(dirname(__FILE__)).XsgaUtil::getPathTo(3, array('entity'))
+            XsgaUtil::getPathTo('entity')
         );
 
         // Create config.
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
         $config->setSQLLogger(new XsgaSQLLogger());
-        $config->setProxyDir(realpath(dirname(__FILE__)).XsgaUtil::getPathTo(4, array('tmp', 'doctrine-proxies')));
+        $config->setProxyDir(XsgaUtil::getPathTo(array('tmp', 'doctrine-proxies')));
 
         if ($isDevMode) {
             $config->setAutoGenerateProxyClasses(true);

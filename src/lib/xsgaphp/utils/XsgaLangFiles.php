@@ -36,7 +36,7 @@ class XsgaLangFiles
      * 
      * @access public
      */
-    public static function load()
+    public static function load() : array
     {
         // Get logger.
         $logger = Logger::getRootLogger();
@@ -48,10 +48,10 @@ class XsgaLangFiles
         $file = strtolower($_ENV['LANGUAGE']).'.json';
 
         // Path to language folder.
-        $pathToLanguage  = XsgaUtil::getPathTo(4, array('src', 'language'));
+        $pathToLanguage  = XsgaUtil::getPathTo(array('src', 'language'));
                 
         // Set language file.
-        $langFile = realpath(dirname(__FILE__)).$pathToLanguage.$file;
+        $langFile = $pathToLanguage.$file;
         
         if (file_exists($langFile)) {
             

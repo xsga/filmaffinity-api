@@ -70,7 +70,7 @@ abstract class LoggerPatternConverterSuperglobal extends LoggerPatternConverter
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         // Read the key from options array.
         if (isset($this->option) && ($this->option !== '')) {

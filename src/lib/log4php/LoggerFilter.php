@@ -109,7 +109,7 @@ abstract class LoggerFilter extends LoggerConfigurable
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
                 
     }//end activateOptions()
@@ -150,7 +150,7 @@ abstract class LoggerFilter extends LoggerConfigurable
      * 
      * @access public
      */
-    public function addNext($filter)
+    public function addNext($filter) : void
     {
         if ($this->next !== null) {
             $this->next->addNext($filter);

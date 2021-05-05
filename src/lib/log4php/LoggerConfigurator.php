@@ -46,7 +46,7 @@ interface LoggerConfigurator
      * 
      * @access public
      */
-    public function configure(LoggerHierarchy $hierarchy, $input = null);
+    public function configure(LoggerHierarchy $hierarchy, $input = null) : void;
     
     
 }//end LoggerConfigurator interface

@@ -75,7 +75,7 @@ class LoggerAppenderEcho extends LoggerAppender
      * @access public
      * @see    LoggerAppender::close()
      */
-    public function close()
+    public function close() : void
     {
         
         if (!$this->closed && !$this->firstAppend) {
@@ -97,7 +97,7 @@ class LoggerAppenderEcho extends LoggerAppender
      * @access public
      * @see    LoggerAppender::append()
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         if ($this->layout !== null) {
             
@@ -132,7 +132,7 @@ class LoggerAppenderEcho extends LoggerAppender
      * 
      * @access public
      */
-    public function setHtmlLineBreaks($value)
+    public function setHtmlLineBreaks($value) : void
     {
         $this->setBoolean('htmlLineBreaks', $value);
         

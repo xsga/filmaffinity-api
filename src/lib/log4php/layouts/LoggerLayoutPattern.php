@@ -187,7 +187,7 @@ class LoggerLayoutPattern extends LoggerLayout
      * 
      * @access public
      */
-    public function setConversionPattern($conversionPattern)
+    public function setConversionPattern($conversionPattern) : void
     {
         $this->pattern = $conversionPattern;
         
@@ -206,7 +206,7 @@ class LoggerLayoutPattern extends LoggerLayout
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         if (!isset($this->pattern)) {
             throw new LoggerException('Mandatory parameter \'conversionPattern\' is not set.');

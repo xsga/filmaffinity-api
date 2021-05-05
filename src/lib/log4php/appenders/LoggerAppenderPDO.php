@@ -184,7 +184,7 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         try {
             $this->establishConnection();
@@ -214,7 +214,7 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @access protected
      */
-    protected function establishConnection()
+    protected function establishConnection() : void
     {
         // Acquire database connection.
         $this->db = new \PDO($this->dsn, $this->user, $this->password);
@@ -242,7 +242,7 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @access public
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         for ($attempt = 1; $attempt <= ($this->reconnectAttempts + 1); $attempt++) {
             try {
@@ -307,7 +307,7 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @access public
      */
-    public function close()
+    public function close() : void
     {
         // Close the connection (if any).
         $this->db = null;
@@ -341,7 +341,7 @@ class LoggerAppenderPDO extends LoggerAppender
      * 
      * @access public
      */
-    public function setUser($user)
+    public function setUser($user) : void
     {
         $this->setString('user', $user);
         
@@ -373,7 +373,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function setPassword($password)
+    public function setPassword($password) : void
     {
         $this->setString('password', $password);
         
@@ -405,7 +405,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function setInsertSQL($sql)
+    public function setInsertSQL($sql) : void
     {
         $this->setString('insertSQL', $sql);
         
@@ -437,7 +437,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function setInsertPattern($pattern)
+    public function setInsertPattern($pattern) : void
     {
         $this->setString('insertPattern', $pattern);
         
@@ -469,7 +469,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function setTable($table)
+    public function setTable($table) : void
     {
         $this->setString('table', $table);
         
@@ -501,7 +501,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access public
      */
-    public function setDSN($dsn)
+    public function setDSN($dsn) : void
     {
         $this->setString('dsn', $dsn);
         

@@ -144,7 +144,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function setThreadPrinting($threadPrinting)
+    public function setThreadPrinting($threadPrinting) : void
     {
         $this->setBoolean('threadPrinting', $threadPrinting);
         
@@ -176,7 +176,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function setCategoryPrefixing($categoryPrefixing)
+    public function setCategoryPrefixing($categoryPrefixing) : void
     {
         $this->setBoolean('categoryPrefixing', $categoryPrefixing);
         
@@ -209,7 +209,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function setContextPrinting($contextPrinting)
+    public function setContextPrinting($contextPrinting) : void
     {
         $this->setBoolean('contextPrinting', $contextPrinting);
         
@@ -241,7 +241,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function setMicroSecondsPrinting($microSecondsPrinting)
+    public function setMicroSecondsPrinting($microSecondsPrinting) : void
     {
         $this->setBoolean('microSecondsPrinting', $microSecondsPrinting);
         
@@ -271,7 +271,7 @@ class LoggerLayoutTTCC extends LoggerLayout
      * 
      * @access public
      */
-    public function setDateFormat($dateFormat)
+    public function setDateFormat($dateFormat) : void
     {
         $this->setString('dateFormat', $dateFormat);
         

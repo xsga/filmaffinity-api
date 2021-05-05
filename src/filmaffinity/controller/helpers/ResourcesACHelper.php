@@ -35,10 +35,7 @@ class ResourcesACHelper extends XsgaAbstractClass
      * 
      * @access public
      */
-    public $jsonFiles = array(
-            'genres', 
-            'countries'
-    );
+    public $jsonFiles = array('genres', 'countries');
     
     /**
      * Valid schema mode.
@@ -47,10 +44,7 @@ class ResourcesACHelper extends XsgaAbstractClass
      *
      * @access public
      */
-    public $schemaModes = array(
-            'input',
-            'output'
-    );
+    public $schemaModes = array('input', 'output');
     
     /**
      * Valid schema files.
@@ -82,7 +76,7 @@ class ResourcesACHelper extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valParamIsValid($param, $type)
+    public function valParamIsValid(string $param, string $type) : void
     {
         // Logger.
         $this->logger->debugInit();

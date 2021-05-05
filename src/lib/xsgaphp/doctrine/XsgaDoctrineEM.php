@@ -87,7 +87,7 @@ class XsgaDoctrineEM
      * 
      * @access public
      */
-    public function __clone()
+    public function __clone() : void
     {
         throw new XsgaSecurityException('Operation not allowed');
         

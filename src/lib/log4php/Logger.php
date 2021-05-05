@@ -163,7 +163,7 @@ class Logger
      * 
      * @access public
      */
-    public function trace($message, \Exception $throwable = null)
+    public function trace($message, \Exception $throwable = null) : void
     {
         $this->log(LoggerLevel::getLevelTrace(), $message, $throwable);
         
@@ -180,7 +180,7 @@ class Logger
      * 
      * @access public
      */
-    public function debug($message, \Exception $throwable = null)
+    public function debug($message, \Exception $throwable = null) : void
     {
         $this->log(LoggerLevel::getLevelDebug(), $message, $throwable);
 
@@ -194,7 +194,7 @@ class Logger
      *
      * @access public
      */
-    public function debugInit()
+    public function debugInit() : void
     {
         // Get trace.
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
@@ -217,7 +217,7 @@ class Logger
      *
      * @access public
      */
-    public function debugEnd()
+    public function debugEnd() : void
     {
         // Get trace.
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
@@ -240,7 +240,7 @@ class Logger
      *
      * @access public
      */
-    public function debugValidationOK()
+    public function debugValidationOK() : void
     {
         $this->debug('Validation OK');
     
@@ -254,7 +254,7 @@ class Logger
      *
      * @access public
      */
-    public function debugValidationKO()
+    public function debugValidationKO() : void
     {
         $this->debug('Validation KO');
     
@@ -271,7 +271,7 @@ class Logger
      * 
      * @access public
      */
-    public function info($message, \Exception $throwable = null)
+    public function info($message, \Exception $throwable = null) : void
     {
         $this->log(LoggerLevel::getLevelInfo(), $message, $throwable);
         
@@ -288,7 +288,7 @@ class Logger
      * 
      * @access public
      */
-    public function warn($message, \Exception $throwable = null)
+    public function warn($message, \Exception $throwable = null) : void
     {
         $this->log(LoggerLevel::getLevelWarn(), $message, $throwable);
         
@@ -305,7 +305,7 @@ class Logger
      * 
      * @access public
      */
-    public function error($message, \Exception $throwable = null)
+    public function error($message, \Exception $throwable = null) : void
     {
         $this->log(LoggerLevel::getLevelError(), $message, $throwable);
         
@@ -322,7 +322,7 @@ class Logger
      * 
      * @access public
      */
-    public function fatal($message, \Exception $throwable = null)
+    public function fatal($message, \Exception $throwable = null) : void
     {
         $this->log(LoggerLevel::getLevelFatal(), $message, $throwable);
         
@@ -340,7 +340,7 @@ class Logger
      * 
      * @access public
      */
-    public function log(LoggerLevel $level, $message, \Exception $throwable = null)
+    public function log(LoggerLevel $level, $message, \Exception $throwable = null) : void
     {
         if ($this->isEnabledFor($level)) {
             
@@ -373,7 +373,7 @@ class Logger
      * 
      * @access public
      */
-    public function logEvent(LoggerLoggingEvent $event)
+    public function logEvent(LoggerLoggingEvent $event) : void
     {
         if ($this->isEnabledFor($event->getLevel())) {
             $this->callAppenders($event);
@@ -397,7 +397,7 @@ class Logger
      * 
      * @access public
      */
-    public function assertLog($assertion=true, $msg = '')
+    public function assertLog($assertion=true, $msg = '') : void
     {
         if (!$assertion) {
             $this->error($msg);
@@ -422,7 +422,7 @@ class Logger
      * 
      * @access public
      */
-    public function forcedLog($fqcn, \Exception $throwable, LoggerLevel $level, $message)
+    public function forcedLog($fqcn, \Exception $throwable, LoggerLevel $level, $message) : void
     {
         $event = new LoggerLoggingEvent($fqcn, $this, $level, $message, null, $throwable);
         $this->callAppenders($event);
@@ -444,7 +444,7 @@ class Logger
      * 
      * @access public
      */
-    public function callAppenders(LoggerLoggingEvent $event)
+    public function callAppenders(LoggerLoggingEvent $event) : void
     {
         foreach ($this->appenders as $appender) {
             $appender->doAppend($event);
@@ -562,7 +562,7 @@ class Logger
      * 
      * @access public
      */
-    public function addAppender(LoggerAppender $appender)
+    public function addAppender(LoggerAppender $appender) : void
     {
         $appenderName = $appender->getName();
         $this->appenders[$appenderName] = $appender;
@@ -577,7 +577,7 @@ class Logger
      * 
      * @access public
      */
-    public function removeAllAppenders()
+    public function removeAllAppenders() : void
     {
         foreach ($this->appenders as $name => $appender) {
             $this->removeAppender($name);
@@ -595,7 +595,7 @@ class Logger
      * 
      * @access public
      */
-    public function removeAppender($appender)
+    public function removeAppender($appender) : void
     {
         if ($appender instanceof LoggerAppender) {
             $appender->close();
@@ -647,7 +647,7 @@ class Logger
      * 
      * @access public
      */
-    public function setAdditivity($additive)
+    public function setAdditivity($additive) : void
     {
         $this->additive = (bool)$additive;
         
@@ -716,7 +716,7 @@ class Logger
      * 
      * @access public
      */
-    public function setLevel(LoggerLevel $level = null)
+    public function setLevel(LoggerLevel $level = null) : void
     {
         $this->level = $level;
         
@@ -748,7 +748,7 @@ class Logger
      * 
      * @access public
      */
-    public function setParent(Logger $logger)
+    public function setParent(Logger $logger) : void
     {
         $this->parent = $logger;
         
@@ -837,7 +837,7 @@ class Logger
      * 
      * @access public
      */
-    public static function resetConfiguration()
+    public static function resetConfiguration() : void
     {
         static::getHierarchy()->resetConfiguration();
         static::getHierarchy()->clear();
@@ -908,7 +908,7 @@ class Logger
      * 
      * @access public
      */
-    public static function configure($configuration = null, $configurator = null)
+    public static function configure($configuration = null, $configurator = null) : void
     {
         static::resetConfiguration();
         $configurator = static::getConfigurator($configurator);

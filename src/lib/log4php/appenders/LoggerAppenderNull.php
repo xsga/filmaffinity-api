@@ -62,7 +62,7 @@ class LoggerAppenderNull extends LoggerAppender
      * 
      * @access public
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         
     }//end append()

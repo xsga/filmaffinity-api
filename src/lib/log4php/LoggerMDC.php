@@ -61,7 +61,7 @@ class LoggerMDC
      * 
      * @access public
      */
-    public static function put($key, $value)
+    public static function put($key, $value) : void
     {
         static::$map[$key] = $value;
         
@@ -115,7 +115,7 @@ class LoggerMDC
      * 
      * @access public
      */
-    public static function remove($key)
+    public static function remove($key) : void
     {
         unset(static::$map[$key]);
         
@@ -129,7 +129,7 @@ class LoggerMDC
      * 
      * @access public
      */
-    public static function clear()
+    public static function clear() : void
     {
         static::$map = array();
         

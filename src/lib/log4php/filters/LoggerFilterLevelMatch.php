@@ -68,7 +68,7 @@ class LoggerFilterLevelMatch extends LoggerFilter
      * 
      * @access public
      */
-    public function setAcceptOnMatch($acceptOnMatch)
+    public function setAcceptOnMatch($acceptOnMatch) : void
     {
         $this->setBoolean('acceptOnMatch', $acceptOnMatch);
         
@@ -84,7 +84,7 @@ class LoggerFilterLevelMatch extends LoggerFilter
      * 
      * @access public
      */
-    public function setLevelToMatch($level)
+    public function setLevelToMatch($level) : void
     {
         $this->setLevel('levelToMatch', $level);
         

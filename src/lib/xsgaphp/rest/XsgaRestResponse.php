@@ -126,14 +126,14 @@ class XsgaRestResponse
     /**
      * Return response headers.
      *
-     * @param string $name    Name.
-     * @param string $default Default.
+     * @param string      $name    Name.
+     * @param string|null $default Default.
      * 
      * @return string|null
      * 
      * @access public
      */
-    public function getHeader($name, $default = null) : string|null
+    public function getHeader(string $name, string|null $default = null) : string|null
     {
         return array_key_exists($name, $this->headers) ? $this->headers[$name] : $default;
         
@@ -163,7 +163,7 @@ class XsgaRestResponse
      * 
      * @access public
      */
-    public function setError($errors)
+    public function setError($errors) : void
     {
         $this->errors = $errors;
         
@@ -208,7 +208,7 @@ class XsgaRestResponse
      * 
      * @access public
      */
-    public function __call($name, $params) : string|null
+    public function __call(string $name, array $params) : string|null
     {
         $name = strtolower(str_replace('get', '', $name));
         
@@ -230,7 +230,7 @@ class XsgaRestResponse
      * 
      * @access private
      */
-    private function parseHeaders($headers)
+    private function parseHeaders(string $headers)
     {
         $exploded = explode("\r\n", $headers);
         

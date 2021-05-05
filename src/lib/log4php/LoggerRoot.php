@@ -77,7 +77,7 @@ class LoggerRoot extends Logger
      * 
      * @access public
      */
-    public function setLevel(LoggerLevel $level = null)
+    public function setLevel(LoggerLevel $level = null) : void
     {
         if (isset($level)) {
             parent::setLevel($level);
@@ -97,7 +97,7 @@ class LoggerRoot extends Logger
      * 
      * @access public
      */
-    public function setParent(Logger $parent)
+    public function setParent(Logger $parent) : void
     {
         trigger_error('log4php: LoggerRoot cannot have a parent.', E_USER_WARNING);
         

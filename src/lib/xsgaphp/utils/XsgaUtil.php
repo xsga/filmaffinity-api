@@ -40,15 +40,15 @@ class XsgaUtil
      * @access public
      */
     public static function sendMail(
-        $mailTo, 
-        $mailCopy, 
-        $mailHidden, 
-        $mailFrom, 
-        $nameFrom, 
-        $mailReplyTo, 
-        $subject, 
-        $body
-    )
+        string $mailTo, 
+        string $mailCopy, 
+        string $mailHidden, 
+        string $mailFrom, 
+        string $nameFrom, 
+        string $mailReplyTo, 
+        string $subject, 
+        string $body
+    ) : bool
     {
         // Envío en formato HTML.
         $headers  = "MIME-Version: 1.0\r\n";
@@ -75,36 +75,24 @@ class XsgaUtil
     /**
      * Get path to.
      * 
-     * @param integer $levelToRoot Number of directories up to root path.
-     * @param array   $pathItems   Items from path.
+     * @param string|array $pathItems Items from root path.
      * 
      * @return string
      * 
      * @access public
      */
-    public static function getPathTo($levelToRoot, array $pathItems = array()) : string
+    public static function getPathTo(string|array $pathItems) : string
     {
         // Initialize path.
-        $path = '';
-        
-        // Validates levelToRoot variable.
-        if (!is_numeric($levelToRoot)) {
-            $levelToRoot = 0;
-        }//end if
-        
-        // Get path to root.
-        for ($i = 0; $i < $levelToRoot; $i++) {
-            $path .= DIRECTORY_SEPARATOR.'..';
-        }//end for
-        
-        // Add directory separator into path.
-        $path .= DIRECTORY_SEPARATOR;
+        $path = $_ENV['APP_ROOT'];
         
         // Add path items to path.
-        if (!empty($pathItems)) {
+        if (is_array($pathItems)) {
             foreach ($pathItems as $item) {
                 $path .= $item.DIRECTORY_SEPARATOR;
             }//end foreach
+        } else {
+            $path .= $pathItems.DIRECTORY_SEPARATOR;
         }//end if
         
         return $path;

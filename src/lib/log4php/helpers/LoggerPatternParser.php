@@ -202,7 +202,7 @@ class LoggerPatternParser
      * 
      * @access private
      */
-    private function addLiteral($string)
+    private function addLiteral($string) : void
     {
         $converter = new LoggerPatternConverterLiteral($string);
         $this->addToChain($converter);
@@ -221,7 +221,7 @@ class LoggerPatternParser
      * 
      * @access private
      */
-    private function addConverter($word, $modifiers, $option)
+    private function addConverter($word, $modifiers, $option) : void
     {
         $formattingInfo = $this->parseModifiers($modifiers);
         $option         = trim($option, '{} ');
@@ -286,7 +286,7 @@ class LoggerPatternParser
      * 
      * @access private
      */
-    private function addToChain(LoggerPatternConverter $converter)
+    private function addToChain(LoggerPatternConverter $converter) : void
     {
         if (!isset($this->head)) {
             $this->head = $converter;

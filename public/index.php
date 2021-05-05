@@ -30,8 +30,8 @@ $logger = Logger::getRootLogger();
 
 // Logger.
 $logger->debugInit();
-$logger->info('Request URI    : '.$_SERVER['REQUEST_URI']);
-$logger->info('Request method : '.$_SERVER['REQUEST_METHOD']);
+$logger->info("Request URI    : $_SERVER[REQUEST_URI]");
+$logger->info("Request method : $_SERVER[REQUEST_METHOD]");
 
 try {
     

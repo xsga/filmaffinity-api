@@ -41,7 +41,7 @@ abstract class LoggerLayout extends LoggerConfigurable
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         
         
@@ -115,7 +115,7 @@ abstract class LoggerLayout extends LoggerConfigurable
      * 
      * @access protected
      */
-    protected function warn($message)
+    protected function warn($message) : void
     {
         trigger_error('log4php: ['.get_class($this).']: '.$message, E_USER_WARNING);
         

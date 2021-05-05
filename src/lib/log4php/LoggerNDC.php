@@ -69,7 +69,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function clear()
+    public static function clear() : void
     {
         static::$stack = array();
         
@@ -157,7 +157,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function push($message)
+    public static function push($message) : void
     {
         array_push(static::$stack, (string)$message);
         
@@ -171,7 +171,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function remove()
+    public static function remove() : void
     {
         static::clear();
         
@@ -187,7 +187,7 @@ class LoggerNDC
      * 
      * @access public
      */
-    public static function setMaxDepth($maxDepth)
+    public static function setMaxDepth($maxDepth) : void
     {
         $maxDepth = (int)$maxDepth;
         

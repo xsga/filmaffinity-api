@@ -63,7 +63,7 @@ class LoggerLayoutSerialized extends LoggerLayout
      * 
      * @access public
      */
-    public function setLocationInfo($value)
+    public function setLocationInfo($value) : void
     {
         $this->setBoolean('locationInfo', $value);
         

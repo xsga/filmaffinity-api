@@ -59,7 +59,7 @@ class LoggerPatternConverterMDC extends LoggerPatternConverter
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         if (isset($this->option) && ($this->option !== '')) {
             $this->key = $this->option;

@@ -135,7 +135,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access public
      */
-    public function configure(LoggerHierarchy $hierarchy, $input = null)
+    public function configure(LoggerHierarchy $hierarchy, $input = null) : void
     {
         $config = $this->parse($input);
         $this->doConfigure($hierarchy, $config);
@@ -281,7 +281,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function doConfigure(LoggerHierarchy $hierarchy, array $config)
+    private function doConfigure(LoggerHierarchy $hierarchy, array $config) : void
     {
         if (isset($config['threshold'])) {
             
@@ -339,7 +339,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function configureRenderer(LoggerHierarchy $hierarchy, array $config)
+    private function configureRenderer(LoggerHierarchy $hierarchy, array $config) : void
     {
         if (empty($config['renderingClass'])) {
             $this->warn('Rendering class not specified. Skipping renderer definition.');
@@ -367,7 +367,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function configureDefaultRenderer(LoggerHierarchy $hierarchy, array $class)
+    private function configureDefaultRenderer(LoggerHierarchy $hierarchy, array $class) : void
     {
         if (empty($class)) {
             $this->warn('Rendering class not specified. Skipping default renderer definition.');
@@ -390,7 +390,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function configureAppender($name, array $config)
+    private function configureAppender($name, array $config) : void
     {
         $namespace = 'log4php\\appenders\\';
         
@@ -479,7 +479,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function createAppenderLayout(LoggerAppender $appender, array $config)
+    private function createAppenderLayout(LoggerAppender $appender, array $config) : void
     {
         $name  = $appender->getName();
         $class = $config['class'];
@@ -526,7 +526,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function createAppenderFilter(LoggerAppender $appender, array $config)
+    private function createAppenderFilter(LoggerAppender $appender, array $config) : void
     {
         $name  = $appender->getName();
         $class = $config['class'];
@@ -564,7 +564,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function configureRootLogger(LoggerHierarchy $hierarchy, array $config)
+    private function configureRootLogger(LoggerHierarchy $hierarchy, array $config) : void
     {
         $logger = $hierarchy->getRootLogger();
         $this->configureLogger($logger, $config);
@@ -583,7 +583,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function configureOtherLogger(LoggerHierarchy $hierarchy, $name, array $config)
+    private function configureOtherLogger(LoggerHierarchy $hierarchy, $name, array $config) : void
     {
         // Get logger from hierarchy (this creates it if it doesn't already exist).
         $logger = $hierarchy->getLogger($name);
@@ -602,7 +602,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function configureLogger(Logger $logger, array $config)
+    private function configureLogger(Logger $logger, array $config) : void
     {
         $loggerName = $logger->getName();
         
@@ -670,7 +670,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function setOptions($object, array $options)
+    private function setOptions($object, array $options) : void
     {
         foreach ($options as $name => $value) {
             $setter = 'set'.$name;
@@ -694,7 +694,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * 
      * @access private
      */
-    private function warn($message)
+    private function warn($message) : void
     {
         trigger_error('log4php: '.$message, E_USER_WARNING);
         

@@ -110,7 +110,7 @@ class LoggerPatternConverterDate extends LoggerPatternConverter
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         // Parse the option (date format).
         if (!empty($this->option)) {

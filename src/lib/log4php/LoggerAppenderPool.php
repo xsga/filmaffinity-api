@@ -57,7 +57,7 @@ class LoggerAppenderPool
      * 
      * @access public
      */
-    public static function add(LoggerAppender $appender)
+    public static function add(LoggerAppender $appender) : void
     {
         $name = $appender->getName();
         
@@ -101,7 +101,7 @@ class LoggerAppenderPool
      * 
      * @access public
      */
-    public static function delete($name)
+    public static function delete($name) : void
     {
         unset(static::$appenders[$name]);
         
@@ -145,7 +145,7 @@ class LoggerAppenderPool
      * 
      * @access public
      */
-    public static function clear()
+    public static function clear() : void
     {
          static::$appenders = array();
          

@@ -157,7 +157,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseConfiguration(\SimpleXMLElement $xml)
+    private function parseConfiguration(\SimpleXMLElement $xml) : void
     {
         $attributes = $xml->attributes();
         
@@ -177,7 +177,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseAppender(\SimpleXMLElement $node)
+    private function parseAppender(\SimpleXMLElement $node) : void
     {
         
         $name = $this->getAttributeValue($node, 'name');
@@ -276,7 +276,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseRootLogger(\SimpleXMLElement $node)
+    private function parseRootLogger(\SimpleXMLElement $node) : void
     {
         
         $logger = array();
@@ -301,7 +301,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseLogger(\SimpleXMLElement $node)
+    private function parseLogger(\SimpleXMLElement $node) : void
     {
         
         $logger = array();
@@ -394,7 +394,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseRenderer(\SimpleXMLElement $node)
+    private function parseRenderer(\SimpleXMLElement $node) : void
     {
         $renderedClass  = $this->getAttributeValue($node, 'renderedClass');
         $renderingClass = $this->getAttributeValue($node, 'renderingClass');
@@ -413,7 +413,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseDefaultRenderer(\SimpleXMLElement $node)
+    private function parseDefaultRenderer(\SimpleXMLElement $node) : void
     {
         $renderingClass = $this->getAttributeValue($node, 'renderingClass');
         
@@ -459,7 +459,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function warn($message)
+    private function warn($message) : void
     {
         trigger_error("log4php: " . $message, E_USER_WARNING);
         

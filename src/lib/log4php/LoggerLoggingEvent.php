@@ -524,7 +524,7 @@ class LoggerLoggingEvent
      * 
      * @access public
      */
-    public function toString()
+    public function toString() : void
     {
         $out = serialize($this);
         

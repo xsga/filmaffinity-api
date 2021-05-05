@@ -91,22 +91,6 @@ class XsgaAPIRouter extends XsgaAbstractClass
 
 
     /**
-     * Constructor.
-     * 
-     * @access public
-     */
-    public function __construct()
-    {
-        // Executes parent constructor.
-        parent::__construct();
-
-        // Loads routes.
-        $this->loadRoutes();
-
-    }//end __construct()
-    
-    
-    /**
      * Dispatch petition.
      * 
      * @param string $url    URL.
@@ -118,10 +102,13 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function dispatchPetition($url, $method)
+    public function dispatchPetition(string $url, string $method) : void
     {
         // Logger.
         $this->logger->debugInit();
+
+        // Loads routes.
+        $this->loadRoutes();
 
         // Validates routes.
         if (empty($this->routes)) {
@@ -161,7 +148,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function dispatchError($code, $file, $line, $trace)
+    public function dispatchError(int $code, string $file, int $line, string $trace) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -216,7 +203,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access public
      */
-    public static function getHeaders()
+    public static function getHeaders() : void
     {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=UTF-8");
@@ -236,13 +223,13 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function loadRoutes()
+    private function loadRoutes() : void
     {
         // Logger.
         $this->logger->debugInit();
 
         // Routes location.
-        $routes = realpath(dirname(__FILE__)).XsgaUtil::getPathTo(5, array('config')).'routes.json';
+        $routes = XsgaUtil::getPathTo('config').'routes.json';
 
         if (file_exists($routes)) {
             
@@ -270,11 +257,11 @@ class XsgaAPIRouter extends XsgaAbstractClass
      *
      * @param string $requestUri Request URI.
      *
-     * @return array
+     * @return void
      *
      * @access private
      */
-    private function getRequestFromUrl($requestUri)
+    private function getRequestFromUrl(string $requestUri) : void
     {
     
         // Logger.
@@ -312,7 +299,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getRequestBody()
+    private function getRequestBody() : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -368,7 +355,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getRoute()
+    private function getRoute() : array
     {
         // Logger.
         $this->logger->debugInit();
@@ -452,7 +439,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      *
      * @access private
      */
-    private function dispatch(array $route)
+    private function dispatch(array $route) : void
     {
         
         // Logger.

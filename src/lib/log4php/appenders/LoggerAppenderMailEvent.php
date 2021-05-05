@@ -121,7 +121,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * @access public
      * @see    LoggerAppender::activateOptions()
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         if (empty($this->to)) {
             
@@ -158,7 +158,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * @access public
      * @see    LoggerAppender::append()
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
 
         $smtpHost     = $this->smtpHost;
@@ -215,7 +215,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function setFrom($from)
+    public function setFrom($from) : void
     {
         $this->setString('from', $from);
         
@@ -245,7 +245,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function setPort($port)
+    public function setPort($port) : void
     {
         $this->setPositiveInteger('port', $port);
         
@@ -275,7 +275,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function setSmtpHost($smtpHost)
+    public function setSmtpHost($smtpHost) : void
     {
         $this->setString('smtpHost', $smtpHost);
         
@@ -305,7 +305,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function setSubject($subject)
+    public function setSubject($subject) : void
     {
         $this->setString('subject', $subject);
         
@@ -335,7 +335,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function setTo($to)
+    public function setTo($to) : void
     {
         $this->setString('to', $to);
         
@@ -365,7 +365,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
      * 
      * @access public
      */
-    public function setDry($dry)
+    public function setDry($dry) : void
     {
         $this->setBoolean('dry', $dry);
         

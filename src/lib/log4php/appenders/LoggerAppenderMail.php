@@ -114,7 +114,7 @@ class LoggerAppenderMail extends LoggerAppender
      * @access public
      * @see    LoggerAppender::append()
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         if ($this->layout !== null) {
             $this->body .= $this->layout->format($event);
@@ -131,7 +131,7 @@ class LoggerAppenderMail extends LoggerAppender
      * @access public
      * @see    LoggerAppender::close()
      */
-    public function close()
+    public function close() : void
     {
         if (!$this->closed) {
             
@@ -173,7 +173,7 @@ class LoggerAppenderMail extends LoggerAppender
      * 
      * @access public
      */
-    public function setSubject($subject)
+    public function setSubject($subject) : void
     {
         $this->setString('subject', $subject);
         
@@ -203,7 +203,7 @@ class LoggerAppenderMail extends LoggerAppender
      * 
      * @access public
      */
-    public function setTo($to)
+    public function setTo($to) : void
     {
         $this->setString('to', $to);
         
@@ -233,7 +233,7 @@ class LoggerAppenderMail extends LoggerAppender
      * 
      * @access public
      */
-    public function setFrom($from)
+    public function setFrom($from) : void
     {
         $this->setString('from', $from);
         
@@ -263,7 +263,7 @@ class LoggerAppenderMail extends LoggerAppender
      * 
      * @access public
      */
-    public function setDry($dry)
+    public function setDry($dry) : void
     {
         $this->setBoolean('dry', $dry);
         

@@ -177,7 +177,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access protected
      */
-    protected function write($string)
+    protected function write($string) : void
     {
         // Lazy file open.
         if (!isset($this->fp) && !$this->openFile()) {
@@ -205,7 +205,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access protected
      */
-    protected function writeWithLocking($string)
+    protected function writeWithLocking($string) : void
     {
         if (flock($this->fp, LOCK_EX)) {
             
@@ -237,7 +237,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access protected
      */
-    protected function writeWithoutLocking($string)
+    protected function writeWithoutLocking($string) : void
     {
         if (fwrite($this->fp, $string) === false) {
             
@@ -257,7 +257,7 @@ class LoggerAppenderFile extends LoggerAppender
      * @access public
      * @see    LoggerAppender::activateOptions()
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         if (empty($this->file)) {
             
@@ -277,7 +277,7 @@ class LoggerAppenderFile extends LoggerAppender
      * @access public
      * @see    LoggerAppender::close()
      */
-    public function close()
+    public function close() : void
     {
         if (is_resource($this->fp)) {
             
@@ -302,7 +302,7 @@ class LoggerAppenderFile extends LoggerAppender
      * @access public
      * @see    LoggerAppender::append()
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         $this->write($this->layout->format($event));
         
@@ -318,7 +318,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access public
      */
-    public function setFile($file)
+    public function setFile($file) : void
     {
         $this->setString('file', $file);
         
@@ -362,7 +362,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @access public
      */
-    public function setAppend($append)
+    public function setAppend($append) : void
     {
         $this->setBoolean('append', $append);
         
@@ -380,7 +380,7 @@ class LoggerAppenderFile extends LoggerAppender
      * 
      * @deprecated Use setFile() instead.
      */
-    public function setFileName($fileName)
+    public function setFileName($fileName) : void
     {
         $this->setFile($fileName);
         

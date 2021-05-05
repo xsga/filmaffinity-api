@@ -80,7 +80,7 @@ class SearchController extends XsgaAbstractApiController
      * 
      * @access public
      */
-    public function simpleSearch(array $request, array $filters, array $body)
+    public function simpleSearch(array $request, array $filters, array $body) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -116,7 +116,7 @@ class SearchController extends XsgaAbstractApiController
      * 
      * @access public
      */
-    public function advancedSearch(array $request, array $filters, array $body)
+    public function advancedSearch(array $request, array $filters, array $body) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -148,7 +148,7 @@ class SearchController extends XsgaAbstractApiController
      *
      * @access private
      */
-    private function simpleSearchValidations(array $data)
+    private function simpleSearchValidations(array $data) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -177,7 +177,7 @@ class SearchController extends XsgaAbstractApiController
      *
      * @access private
      */
-    private function advancedSearchValidations(array $data)
+    private function advancedSearchValidations(array $data) : void
     {
         // Logger.
         $this->logger->debugInit();

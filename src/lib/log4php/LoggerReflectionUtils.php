@@ -85,7 +85,7 @@ class LoggerReflectionUtils
      * 
      * @access public
      */
-    public function setProperties(array $properties, $prefix)
+    public function setProperties(array $properties, $prefix) : void
     {
         $len = strlen($prefix);
         

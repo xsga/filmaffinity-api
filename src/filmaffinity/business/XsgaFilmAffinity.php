@@ -144,7 +144,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      *
      * @access public
      */
-    public function loadFilm($filmId) : FilmDto
+    public function loadFilm(int $filmId) : FilmDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -275,7 +275,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getFilmUrl($filmId) : string
+    private function getFilmUrl(string $filmId) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -301,7 +301,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function prepareSearchText($searchText) : string
+    private function prepareSearchText(string $searchText) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -328,7 +328,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getSearchResults($urlSearch, $searchText) : SearchResultsDto
+    private function getSearchResults(string $urlSearch, string $searchText) : SearchResultsDto
     {
         // Logger.
         $this->logger->debugInit();
@@ -434,7 +434,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getPageContent($url) : string
+    private function getPageContent(string $url) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -475,7 +475,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
      * 
      * @access private
      */
-    private function getFilmInfo($pageContent, $filmId) : array
+    private function getFilmInfo(string $pageContent, string $filmId) : array
     {
        // Logger.
        $this->logger->debugInit();

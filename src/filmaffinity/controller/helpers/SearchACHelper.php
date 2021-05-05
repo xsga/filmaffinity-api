@@ -44,7 +44,7 @@ class SearchACHelper extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valParamIsValid($param, $type)
+    public function valParamIsValid(string $param, string $type) : void
     {
         // Logger.
         $this->logger->debugInit();

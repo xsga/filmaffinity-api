@@ -99,7 +99,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         if (empty($this->remoteHost)) {
             $this->warn('Required parameter [remoteHost] not set. Closing appender.');
@@ -125,7 +125,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         $socket = fsockopen($this->remoteHost, $this->port, $errno, $errstr, $this->timeout);
         
@@ -154,7 +154,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function setRemoteHost($hostname)
+    public function setRemoteHost($hostname) : void
     {
         $this->setString('remoteHost', $hostname);
         
@@ -170,7 +170,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function setPort($port)
+    public function setPort($port) : void
     {
         $this->setPositiveInteger('port', $port);
         
@@ -186,7 +186,7 @@ class LoggerAppenderSocket extends LoggerAppender
      * 
      * @access public
      */
-    public function setTimeout($timeout)
+    public function setTimeout($timeout) : void
     {
         $this->setPositiveInteger('timeout', $timeout);
         

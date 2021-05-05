@@ -169,7 +169,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function setIdent($ident)
+    public function setIdent($ident) : void
     {
         $this->ident = $ident;
         
@@ -185,7 +185,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function setPriority($priority)
+    public function setPriority($priority) : void
     {
         $this->priority = $priority;
         
@@ -201,7 +201,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function setFacility($facility)
+    public function setFacility($facility) : void
     {
         $this->facility = $facility;
         
@@ -217,7 +217,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function setOverridePriority($overridePriority)
+    public function setOverridePriority($overridePriority) : void
     {
         $this->overridePriority = $overridePriority;
         
@@ -233,7 +233,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-     public function setOption($option)
+     public function setOption($option) : void
      {
          $this->option = $option;
          
@@ -317,7 +317,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         $this->intPriority = $this->parsePriority();
         $this->intOption   = $this->parseOption();
@@ -334,7 +334,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function close()
+    public function close() : void
     {
         if (!$this->closed) {
             closelog();
@@ -356,7 +356,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * 
      * @access public
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         $priority = $this->getSyslogPriority($event->getLevel());
         $message  = $this->layout->format($event);

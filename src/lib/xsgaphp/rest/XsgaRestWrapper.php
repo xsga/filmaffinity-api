@@ -36,7 +36,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function getPageContent($url, array $options = array()) : string
+    public function getPageContent(string $url, array $options = array()) : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -108,7 +108,7 @@ class XsgaRestWrapper extends XsgaAbstractClass
      *
      * @access public
      */
-    public function getFile($url, $dest, array $options = array()) : bool
+    public function getFile(string $url, string $dest, array $options = array()) : bool
     {
         // Logger.
         $this->logger->debugInit();

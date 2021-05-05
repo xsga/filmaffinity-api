@@ -62,7 +62,7 @@ class XsgaRestClient
      *
      * @access public
      */
-    public function __construct($url=null, array $options=array())
+    public function __construct(string $url = null, array $options = array())
     {
         if (!extension_loaded('curl')) {
             throw new \RuntimeException('The PHP cURL extension must be installed to use XsgaRestClient');
@@ -91,7 +91,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setUrl($url) : XsgaRestClient
+    public function setUrl(string $url) : XsgaRestClient
     {
         if ($url !== null) {
             $this->options[CURLOPT_URL] = $this->prepareUrl($url);
@@ -111,7 +111,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setUserAgent($agent) : XsgaRestClient
+    public function setUserAgent(string $agent) : XsgaRestClient
     {
         $this->options[CURLOPT_USERAGENT] = $agent;
         
@@ -129,7 +129,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setCookie($cookie) : XsgaRestClient
+    public function setCookie(string $cookie) : XsgaRestClient
     {
         $this->options[CURLOPT_COOKIEFILE] = $cookie;
         $this->options[CURLOPT_COOKIEJAR]  = $cookie;
@@ -148,7 +148,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setReferer($referer) : XsgaRestClient
+    public function setReferer(string $referer) : XsgaRestClient
     {
         $this->options[CURLOPT_REFERER] = $referer;
         
@@ -166,7 +166,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setMaxRedirects($redirects) : XsgaRestClient
+    public function setMaxRedirects(int $redirects) : XsgaRestClient
     {
         $this->options[CURLOPT_MAXREDIRS] = $redirects;
         
@@ -184,7 +184,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setTimeout($timeout) : XsgaRestClient
+    public function setTimeout(int $timeout) : XsgaRestClient
     {
         $this->options[CURLOPT_TIMEOUT] = $timeout;
         
@@ -202,7 +202,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function setConnectionTimeout($timeout) : XsgaRestClient
+    public function setConnectionTimeout(int $timeout) : XsgaRestClient
     {
         $this->options[CURLOPT_CONNECTTIMEOUT] = $timeout;
         
@@ -220,7 +220,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function showHeaders($show) : XsgaRestClient
+    public function showHeaders(bool $show) : XsgaRestClient
     {
         $this->options[CURLOPT_HEADER] = $show;
         
@@ -491,7 +491,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public function prepareUrl($url) : string
+    public function prepareUrl(string|array $url) : string
     {
         if (is_array($url) && !empty($url)) {
             
@@ -519,7 +519,7 @@ class XsgaRestClient
      * 
      * @access public
      */
-    public static function v($type = 'version') : string|null
+    public static function v(string $type = 'version') : string|null
     {
         $info = curl_version();
         

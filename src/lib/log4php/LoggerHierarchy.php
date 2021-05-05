@@ -123,7 +123,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function clear()
+    public function clear() : void
     {
         $this->loggers = array();
         
@@ -292,7 +292,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function resetConfiguration()
+    public function resetConfiguration() : void
     {
         $root = $this->getRootLogger();
         
@@ -321,7 +321,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function setThreshold(LoggerLevel $threshold)
+    public function setThreshold(LoggerLevel $threshold) : void
     {
         $this->threshold = $threshold;
         
@@ -338,7 +338,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function shutdown()
+    public function shutdown() : void
     {
         $this->root->removeAllAppenders();
         
@@ -356,7 +356,7 @@ class LoggerHierarchy
      * 
      * @access public
      */
-    public function printHierarchy()
+    public function printHierarchy() : void
     {
         $this->printHierarchyInner($this->getRootLogger(), 0);
         
@@ -373,7 +373,7 @@ class LoggerHierarchy
      * 
      * @access private
      */
-    private function printHierarchyInner(Logger $current, $level)
+    private function printHierarchyInner(Logger $current, $level) : void
     {
         for ($i = 0; $i < $level; $i++) {
             echo ($i === $level - 1) ? '|--' : '|  ';

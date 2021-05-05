@@ -84,7 +84,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         parent::activateOptions();
     
@@ -109,7 +109,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         $eventDate = $this->getDate($event->getTimestamp());
         
@@ -179,7 +179,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function setDatePattern($datePattern)
+    public function setDatePattern($datePattern) : void
     {
         $this->setString('datePattern', $datePattern);
         

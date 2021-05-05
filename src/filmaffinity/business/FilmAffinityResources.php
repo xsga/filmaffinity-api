@@ -21,6 +21,7 @@ namespace api\filmaffinity\business;
  */
 use xsgaphp\core\XsgaAbstractClass;
 use xsgaphp\exceptions\XsgaFileNotFoundException;
+use xsgaphp\utils\XsgaUtil;
 
 /**
  * Class FilmAffinityResources.
@@ -42,7 +43,7 @@ class FilmAffinityResources extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function getResourceFile($type, $fileName, $mode = '') : string
+    public function getResourceFile(string $type, string $fileName, string $mode = '') : string
     {
         // Logger.
         $this->logger->debugInit();
@@ -56,11 +57,8 @@ class FilmAffinityResources extends XsgaAbstractClass
                 
                 // Set common variables.
                 $resourceFileName = strtolower($fileName).ucfirst(strtolower($_ENV['LANGUAGE'])).'.json';
-                $pathToResource   = DIRECTORY_SEPARATOR.'..';
-                $pathToResource  .= DIRECTORY_SEPARATOR.'resources';
-                $pathToResource  .= DIRECTORY_SEPARATOR.'json';
-                $pathToResource  .= DIRECTORY_SEPARATOR;
-                $resource         = realpath(dirname(__FILE__)).$pathToResource.$resourceFileName;
+                $pathToResource   = XsgaUtil::getPathTo(array('src', 'filmaffinity', 'resources', 'json'));
+                $resource         = $pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON file not found ('.$resourceFileName.')';
                 $errorNum         = 203;
                 
@@ -73,12 +71,8 @@ class FilmAffinityResources extends XsgaAbstractClass
                 
                 // Set common variables.
                 $resourceFileName = strtolower($fileName).'.schema.json';
-                $pathToResource   = DIRECTORY_SEPARATOR.'..';
-                $pathToResource  .= DIRECTORY_SEPARATOR.'resources';
-                $pathToResource  .= DIRECTORY_SEPARATOR.'schema';
-                $pathToResource  .= DIRECTORY_SEPARATOR.$mode;
-                $pathToResource  .= DIRECTORY_SEPARATOR;
-                $resource         = realpath(dirname(__FILE__)).$pathToResource.$resourceFileName;
+                $pathToResource   = XsgaUtil::getPathTo(array('src', 'filmaffinity', 'resources', 'schema', $mode));
+                $resource         = $pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON schema file not found ('.$resourceFileName.')';
                 $errorNum         = 205;
                 

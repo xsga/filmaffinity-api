@@ -184,7 +184,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         if ($this->getLog4jNamespace()) {
             $this->namespace        = static::LOG4J_NS;
@@ -310,7 +310,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function setLocationInfo($flag)
+    public function setLocationInfo($flag) : void
     {
         $this->setBoolean('locationInfo', $flag);
         
@@ -340,7 +340,7 @@ class LoggerLayoutXml extends LoggerLayout
      * 
      * @access public
      */
-    public function setLog4jNamespace($flag)
+    public function setLog4jNamespace($flag) : void
     {
         $this->setBoolean('log4jNamespace', $flag);
         

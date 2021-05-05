@@ -211,7 +211,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseLogger($value, $name)
+    private function parseLogger($value, $name) : void
     {
         // Value is divided by commas.
         $parts = explode(',', $value);
@@ -309,7 +309,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseAppender($key, $value)
+    private function parseAppender($key, $value) : void
     {
 
         // Remove the appender prefix from key.
@@ -369,7 +369,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * 
      * @access private
      */
-    private function parseRenderer($key, $value)
+    private function parseRenderer($key, $value) : void
     {
         // Remove the appender prefix from key.
         $renderedClass  = substr($key, strlen(static::APPENDER_PREFIX));

@@ -93,7 +93,7 @@ class LoggerAppenderConsole extends LoggerAppender
      * @access public
      * @see    LoggerAppender::activateOptions()
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         $this->fp = fopen($this->target, 'w');
         
@@ -118,7 +118,7 @@ class LoggerAppenderConsole extends LoggerAppender
      * @access public
      * @see    LoggerAppender::close()
      */
-    public function close()
+    public function close() : void
     {
         if ($this->closed !== true) {
             
@@ -146,7 +146,7 @@ class LoggerAppenderConsole extends LoggerAppender
      * @access public
      * @see    LoggerAppender::append()
      */
-    public function append(LoggerLoggingEvent $event)
+    public function append(LoggerLoggingEvent $event) : void
     {
         if (is_resource($this->fp) && ($this->layout !== null)) {
             fwrite($this->fp, $this->layout->format($event));
@@ -164,7 +164,7 @@ class LoggerAppenderConsole extends LoggerAppender
      * 
      * @access public
      */
-    public function setTarget($target)
+    public function setTarget($target) : void
     {
         $value = trim($target);
         

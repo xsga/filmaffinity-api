@@ -154,7 +154,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @throws LoggerException If any part of the rollover procedure fails.
      */
-    private function rollOver()
+    private function rollOver() : void
     {
         // If maxBackups <= 0, then there is no file renaming to be done.
         if ($this->maxBackupIndex > 0) {
@@ -188,7 +188,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access private
      */
-    private function moveToBackup($source)
+    private function moveToBackup($source) : void
     {
         if ($this->compress) {
             $target = $source.'.1.gz';
@@ -213,7 +213,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @throws LoggerException Exception.
      */
-    private function compressFile($source, $target)
+    private function compressFile($source, $target) : void
     {
         $target = 'compress.zlib://'.$target;
         
@@ -249,7 +249,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access private
      */
-    private function renameArchievedLogs($fileName)
+    private function renameArchievedLogs($fileName) : void
     {
         for ($i = ($this->maxBackupIndex - 1); $i >= 1; $i--) {
             
@@ -279,7 +279,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access protected
      */
-    protected function write($string)
+    protected function write($string) : void
     {
         // Lazy file open.
         if (!isset($this->fp) && !$this->openFile()) {
@@ -331,7 +331,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         parent::activateOptions();
         
@@ -352,7 +352,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function setMaxBackupIndex($maxBackupIndex)
+    public function setMaxBackupIndex($maxBackupIndex) : void
     {
         $this->setPositiveInteger('maxBackupIndex', $maxBackupIndex);
         
@@ -382,7 +382,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function setMaxFileSize($maxFileSize)
+    public function setMaxFileSize($maxFileSize) : void
     {
         $this->setFileSize('maxFileSize', $maxFileSize);
         
@@ -414,7 +414,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @deprecated Use setMaxFileSize() instead.
      */
-    public function setMaximumFileSize($maxFileSize)
+    public function setMaximumFileSize($maxFileSize) : void
     {
         $this->warn('The \'maximumFileSize\' parameter is deprecated. Use \'maxFileSize\' instead.');
         $this->setMaxFileSize($maxFileSize);
@@ -431,7 +431,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * 
      * @access public
      */
-    public function setCompress($compress)
+    public function setCompress($compress) : void
     {
         $this->setBoolean('compress', $compress);
         

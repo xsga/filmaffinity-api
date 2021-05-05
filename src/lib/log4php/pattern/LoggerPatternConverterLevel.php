@@ -29,7 +29,7 @@
 namespace log4php\pattern;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use log4php\LoggerLoggingEvent;
 

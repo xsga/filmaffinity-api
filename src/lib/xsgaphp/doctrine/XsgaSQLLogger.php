@@ -56,7 +56,7 @@ class XsgaSQLLogger implements SQLLogger
      * 
      * @access public
      */
-    public function startQuery($sql, array $params = null, array $types = null)
+    public function startQuery($sql, array|null $params = null, array|null $types = null) : void
     {
         // Get logger.
         if (empty(static::$logger)) {
@@ -80,12 +80,14 @@ class XsgaSQLLogger implements SQLLogger
                 
                 foreach ($params as $key => $param) {
                     
+                    $keyAux = $key + 1;
+
                     if ($param instanceof \DateTime) {
                         
-                        $keyAux = $key + 1;
+                        $formattedDate = $param->format('Y-m-d H:i:s');
 
                         // Logger.
-                        static::$logger->trace("P$keyAux --> $param->format('Y-m-d H:i:s')");
+                        static::$logger->trace("P$keyAux --> $formattedDate");
 
                     } else {
                         
@@ -113,13 +115,13 @@ class XsgaSQLLogger implements SQLLogger
      * 
      * @access public
      */
-    public function stopQuery()
+    public function stopQuery() : void
     {
         if ($_ENV['LOGGER_SQL'] === 'true') {
             
             // Logger.
             static::$logger->trace('EXECUTION TIME (in seconds):');
-            static::$logger->trace((microtime(true) - $this->start));
+            static::$logger->trace(number_format(microtime(true) - $this->start, 4));
             static::$logger->trace('***************************************************************************');
             
         }//end if

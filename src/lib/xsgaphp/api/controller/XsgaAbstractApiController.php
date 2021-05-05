@@ -40,7 +40,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function getResponse($data, $encodeJson = true)
+    public function getResponse(mixed $data, bool $encodeJson = true) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -75,7 +75,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valNumberOfParams(array $data, $expected)
+    public function valNumberOfParams(array $data, int $expected) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -115,7 +115,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valExistsParam(array $data, $paramName)
+    public function valExistsParam(array $data, string $paramName) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -153,7 +153,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valParamLength($param, $paramName, $minLength)
+    public function valParamLength(string $param, string $paramName, int $minLength) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -189,7 +189,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valParamIsBoolean($param)
+    public function valParamIsBoolean(mixed $param) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -225,7 +225,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function valParamIsInteger($param)
+    public function valParamIsInteger(mixed $param) : void
     {
         // Logger.
         $this->logger->debugInit();
@@ -261,7 +261,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
      *
      * @access public
      */
-    public function valParamIsNumeric($param)
+    public function valParamIsNumeric(mixed $param) : void
     {
         // Logger.
         $this->logger->debugInit();

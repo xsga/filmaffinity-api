@@ -67,7 +67,7 @@ class LoggerFilterStringMatch extends LoggerFilter
      * 
      * @access public
      */
-    public function setAcceptOnMatch($acceptOnMatch)
+    public function setAcceptOnMatch($acceptOnMatch) : void
     {
         $this->setBoolean('acceptOnMatch', $acceptOnMatch);
         
@@ -83,7 +83,7 @@ class LoggerFilterStringMatch extends LoggerFilter
      * 
      * @access public
      */
-    public function setStringToMatch($string)
+    public function setStringToMatch($string) : void
     {
         $this->setString('stringToMatch', $string);
         

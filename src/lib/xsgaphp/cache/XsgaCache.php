@@ -56,7 +56,7 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function configure($key, $val = null)
+    public static function configure($key, $val = null) : void
     {
         if (is_array($key)) {
             
@@ -82,7 +82,7 @@ class XsgaCache
      * 
      * @access private
      */
-    private static function getRoute($key) : string
+    private static function getRoute(string $key) : string
     {
         return static::$config['cache_path'].'/'.md5($key).'.cache';
         
@@ -92,13 +92,15 @@ class XsgaCache
     /**
      * Get the data associated with a key.
      *
-     * @param string $key The parameter key.
+     * @param string       $key        The parameter key.
+     * @param boolean      $raw        Raw.
+     * @param integer|null $customTime Custom time.
      * 
      * @return mixed The content you put in, or null if expired or not found.
      * 
      * @access public
      */
-    public static function get($key, $raw = false, $customTime = null) : mixed
+    public static function get(string $key, $raw = false, int|null $customTime = null) : mixed
     {
         if (!self::fileExpired($file = self::getRoute($key), $customTime)) {
             
@@ -125,7 +127,7 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function put($key, $content, $raw = false) : bool
+    public static function put(string $key, mixed $content, bool $raw = false) : bool
     {
         $destFileName = self::getRoute($key);
 
@@ -155,7 +157,7 @@ class XsgaCache
      * 
      * @access public
      */
-    public static function delete($key) : bool
+    public static function delete(string $key) : bool
     {
         return @unlink(self::getRoute($key));
         
@@ -185,14 +187,14 @@ class XsgaCache
     /**
      * Check if a file has expired or not.
      *
-     * @param string $file The rout to the file.
-     * @param int    $time The number of minutes it was set to expire.
+     * @param string   $file The rout to the file.
+     * @param int|null $time The number of minutes it was set to expire.
      * 
      * @return boolean If the file has expired or not.
      * 
      * @access private
      */
-    private static function fileExpired($file, $time = null) : bool
+    private static function fileExpired(string $file, int|null $time = null) : bool
     {
         if (!file_exists($file)) {
             return true;

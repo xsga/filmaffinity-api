@@ -146,7 +146,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function addFilter(LoggerFilter $filter)
+    public function addFilter(LoggerFilter $filter) : void
     {
         if ($this->filter === null) {
             $this->filter = $filter;
@@ -164,7 +164,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function clearFilters()
+    public function clearFilters() : void
     {
         $this->filter = null;
         
@@ -210,7 +210,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function doAppend(LoggerLoggingEvent $event)
+    public function doAppend(LoggerLoggingEvent $event) : void
     {
         if ($this->closed) {
             return;
@@ -230,7 +230,8 @@ abstract class LoggerAppender extends LoggerConfigurable
                     return;
                     
                 case LoggerFilter::ACCEPT:
-                    return $this->append($event);
+                    $this->append($event);
+                    return;
                     
                 case LoggerFilter::NEUTRAL:
                     $filter = $filter->getNext();
@@ -257,7 +258,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function setLayout(LoggerLayout $layout)
+    public function setLayout(LoggerLayout $layout) : void
     {
         if ($this->requiresLayout()) {
             $this->layout = $layout;
@@ -328,7 +329,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function setName($name)
+    public function setName($name) : void
     {
         $this->name = $name;
         
@@ -358,7 +359,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function setThreshold($threshold)
+    public function setThreshold($threshold) : void
     {
         $this->setLevel('threshold', $threshold);
         
@@ -396,7 +397,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         $this->closed = false;
         
@@ -414,7 +415,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access protected
      */
-    abstract protected function append(LoggerLoggingEvent $event);
+    abstract protected function append(LoggerLoggingEvent $event) : void;
     
     
     /**
@@ -426,7 +427,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access public
      */
-    public function close()
+    public function close() : void
     {
         $this->closed = true;
         
@@ -442,7 +443,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * 
      * @access protected
      */
-    protected function warn($message)
+    protected function warn($message) : void
     {
         $id = get_class($this) . (empty($this->name) ? '' : ':'.$this->name);
         trigger_error('log4php: ['.$id.']: '.$message, E_USER_WARNING);

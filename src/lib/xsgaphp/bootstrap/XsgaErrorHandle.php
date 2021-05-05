@@ -27,7 +27,7 @@ error_reporting(E_ALL);
  *
  * @access public
 */
-function exceptionErrorHandler($errno, $errstr, $errfile, $errline)
+function exceptionErrorHandler(int $errno, string $errstr, string $errfile, int $errline) : void
 {
     if ($errno !== E_USER_DEPRECATED) {
         // Error exception.

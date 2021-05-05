@@ -96,7 +96,7 @@ abstract class LoggerPatternConverter
      * 
      * @access public
      */
-    public function activateOptions()
+    public function activateOptions() : void
     {
         
     }//end activateOptions()
@@ -124,7 +124,7 @@ abstract class LoggerPatternConverter
      * 
      * @access public
      */
-    public function format(&$sbuf, LoggerLoggingEvent $event)
+    public function format(&$sbuf, LoggerLoggingEvent $event) : void
     {
         $string = $this->convert($event);
         

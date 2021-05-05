@@ -106,7 +106,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function setLocationInfo($flag)
+    public function setLocationInfo($flag) : void
     {
         $this->setBoolean('locationInfo', $flag);
         
@@ -138,7 +138,7 @@ class LoggerLayoutHtml extends LoggerLayout
      * 
      * @access public
      */
-    public function setTitle($title)
+    public function setTitle($title) : void
     {
         $this->setString('title', $title);
         

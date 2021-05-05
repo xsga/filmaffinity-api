@@ -28,7 +28,7 @@
 namespace log4php\filters;
 
 /**
- * Import namespaces.
+ * Import dependencies.
  */
 use log4php\LoggerFilter;
 use log4php\LoggerLoggingEvent;
@@ -80,7 +80,7 @@ class LoggerFilterLevelRange extends LoggerFilter
      * 
      * @access public
      */
-    public function setAcceptOnMatch($acceptOnMatch)
+    public function setAcceptOnMatch($acceptOnMatch) : void
     {
         $this->setBoolean('acceptOnMatch', $acceptOnMatch);
         
@@ -96,7 +96,7 @@ class LoggerFilterLevelRange extends LoggerFilter
      * 
      * @access public
      */
-    public function setLevelMin($level)
+    public function setLevelMin($level) : void
     {
         $this->setLevel('levelMin', $level);
         
@@ -112,7 +112,7 @@ class LoggerFilterLevelRange extends LoggerFilter
      * 
      * @access public
      */
-    public function setLevelMax($level)
+    public function setLevelMax($level) : void
     {
         $this->setLevel('levelMax', $level);
         

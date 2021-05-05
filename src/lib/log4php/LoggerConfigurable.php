@@ -49,7 +49,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setBoolean($property, $value)
+    protected function setBoolean($property, $value) : void
     {
         try {
             
@@ -79,7 +79,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setInteger($property, $value)
+    protected function setInteger($property, $value) : void
     {
         try {
             
@@ -109,7 +109,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setLevel($property, $value)
+    protected function setLevel($property, $value) : void
     {
         try {
             
@@ -139,7 +139,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setPositiveInteger($property, $value)
+    protected function setPositiveInteger($property, $value) : void
     {
         try {
             
@@ -169,7 +169,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setFileSize($property, $value)
+    protected function setFileSize($property, $value) : void
     {
         try {
             
@@ -199,7 +199,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setNumeric($property, $value)
+    protected function setNumeric($property, $value) : void
     {
         try {
             
@@ -230,7 +230,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function setString($property, $value, $nullable=false)
+    protected function setString($property, $value, $nullable = false) : void
     {
         if ($value === null) {
             
@@ -277,7 +277,7 @@ abstract class LoggerConfigurable
      * 
      * @access protected
      */
-    protected function warn($message)
+    protected function warn($message) : void
     {
         $class = get_class($this);
         trigger_error('log4php: '.$class.': '.$message, E_USER_WARNING);

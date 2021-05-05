@@ -75,7 +75,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function addRenderer($renderedClass, $renderingClass)
+    public function addRenderer($renderedClass, $renderingClass) : void
     {
         $namespace = 'log4php\\renderers\\';
         
@@ -121,7 +121,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function setDefaultRenderer($renderingClass)
+    public function setDefaultRenderer($renderingClass) : void
     {
         // Check the class exists.
         if (!class_exists($renderingClass)) {
@@ -200,11 +200,11 @@ class LoggerRendererMap
      * 
      * @param mixed $object Object.
      * 
-     * @return LoggerRenderer
+     * @return LoggerRenderer|null
      * 
      * @access public
      */
-    public function getByObject($object) : LoggerRenderer
+    public function getByObject($object) : LoggerRenderer|null
     {
         if (!is_object($object)) {
             return null;
@@ -220,11 +220,11 @@ class LoggerRendererMap
      *
      * @param string $class Clas.
      * 
-     * @return LoggerRendererObject
+     * @return LoggerRendererObject|null
      * 
      * @access public
      */
-    public function getByClassName($class) : LoggerRendererObject
+    public function getByClassName($class) : LoggerRendererObject|null
     {
         for (; !empty($class); $class = get_parent_class($class)) {
             
@@ -248,7 +248,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function clear()
+    public function clear() : void
     {
         $this->map = array();
         
@@ -262,7 +262,7 @@ class LoggerRendererMap
      * 
      * @access public
      */
-    public function reset()
+    public function reset() : void
     {
         $this->defaultRenderer = new LoggerRendererDefault();
         $this->clear();
