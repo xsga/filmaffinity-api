@@ -30,7 +30,7 @@ user@server:~# chmod 777 -R log
 ```
 user@server:~# chmod 777 -R tmp
 ```
-* Run `composer` to install dependencies:
+* Run `composer` to install the project dependencies:
 ```
 user@server:~# composer install
 ```
