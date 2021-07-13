@@ -8,7 +8,7 @@
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
 
-The API is written in PHP and uses a JSON objects to input and output data.
+This API is written in PHP and uses a JSON objects to input and output data.
 
 ## Installation
 
