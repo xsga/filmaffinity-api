@@ -62,7 +62,7 @@ class XsgaSQLLogger implements SQLLogger
         if (empty(static::$logger)) {
             
             // Set logger.
-            static::$logger = Logger::getRootLogger();
+            static::$logger = Logger::getLogger('sql');
             
         }//end if
         

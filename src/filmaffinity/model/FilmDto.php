@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace api\filmaffinity\model\dto;
+namespace api\filmaffinity\model;
 
 /**
  * 

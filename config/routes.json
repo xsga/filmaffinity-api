@@ -1,5 +1,12 @@
 [
     {
+        "name": "API errors",
+        "http_method": "GET",
+        "pattern": "errors",
+        "controller": "xsgaphp\\api\\errors\\ErrorsController",
+        "method": "getErrors"
+    },
+    {
         "name": "Simple search",
         "http_method": "POST",
         "pattern": "search/simple",

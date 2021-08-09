@@ -120,7 +120,7 @@ class XsgaBootstrap
         
         // Path to entities.
         $paths = array(
-            XsgaUtil::getPathTo('entity')
+            XsgaUtil::getPathTo(array('src', 'entity'))
         );
 
         // Create config.

@@ -120,7 +120,7 @@ OUTPUT
 
 ### Get film information
 ```
-http://<server_domain_api>/film/get_film/:id
+http://<server_domain_api>/films/:id
 ```
 
 OUTPUT

@@ -26,13 +26,13 @@ namespace api\filmaffinity\business;
 use xsgaphp\rest\XsgaRestWrapper;
 use xsgaphp\exceptions\XsgaPageNotFoundException;
 use xsgaphp\core\XsgaAbstractClass;
-use api\filmaffinity\model\dto\AdvSearchDto;
-use api\filmaffinity\model\dto\SearchResultsDto;
-use api\filmaffinity\model\dto\SingleSearchResultDto;
-use api\filmaffinity\model\dto\SearchDto;
-use api\filmaffinity\model\dto\FilmDto;
+use api\filmaffinity\model\AdvSearchDto;
+use api\filmaffinity\model\SearchResultsDto;
+use api\filmaffinity\model\SingleSearchResultDto;
+use api\filmaffinity\model\SearchDto;
+use api\filmaffinity\model\FilmDto;
 use api\filmaffinity\business\helpers\XpathCons;
-use xsgaphp\utils\XsgaLangFiles;
+use xsgaphp\utils\XsgaLoadFile;
 
 /**
  * Class XsgaFilmAffinity.
@@ -70,7 +70,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         parent::__construct();
         
         // Set language literals.
-        $this->lang = XsgaLangFiles::load();
+        $this->lang = XsgaLoadFile::language();
 
         // Set base URL.
         switch ($_ENV['LANGUAGE']) {
@@ -248,14 +248,14 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         }//end if
         
         // Get url.
-        $urlAdvSearch= $_ENV['ADV_SEARCH_URL'];
-        $urlAdvSearch= str_replace('{1}', $this->prepareSearchText($advSearchDto->searchText), $urlAdvSearch);
-        $urlAdvSearch= str_replace('{2}', $searchType, $urlAdvSearch);
-        $urlAdvSearch= str_replace('{3}', $advSearchDto->searchCountry, $urlAdvSearch);
-        $urlAdvSearch= str_replace('{4}', $advSearchDto->searchGenre, $urlAdvSearch);
-        $urlAdvSearch= str_replace('{5}', $advSearchDto->searchYearFrom, $urlAdvSearch);
-        $urlAdvSearch= str_replace('{6}', $advSearchDto->searchYearTo, $urlAdvSearch);
-        $urlAdvSearch= $this->baseUrl.$urlAdvSearch;
+        $urlAdvSearch = $_ENV['ADV_SEARCH_URL'];
+        $urlAdvSearch = str_replace('{1}', $this->prepareSearchText($advSearchDto->searchText), $urlAdvSearch);
+        $urlAdvSearch = str_replace('{2}', $searchType, $urlAdvSearch);
+        $urlAdvSearch = str_replace('{3}', $advSearchDto->searchCountry, $urlAdvSearch);
+        $urlAdvSearch = str_replace('{4}', $advSearchDto->searchGenre, $urlAdvSearch);
+        $urlAdvSearch = str_replace('{5}', $advSearchDto->searchYearFrom, $urlAdvSearch);
+        $urlAdvSearch = str_replace('{6}', $advSearchDto->searchYearTo, $urlAdvSearch);
+        $urlAdvSearch = $this->baseUrl.$urlAdvSearch;
         
         // Logger.
         $this->logger->debug('Advanced Search URL: '.$urlAdvSearch);

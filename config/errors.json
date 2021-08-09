@@ -1,0 +1,75 @@
+[
+    {
+        "api_code": 101,
+        "http_code": 500
+    },
+    {
+        "api_code": 102,
+        "http_code": 500
+    },
+    {
+        "api_code": 103,
+        "http_code": 404
+    },
+    {
+        "api_code": 104,
+        "http_code": 500
+    },
+    {
+        "api_code": 105,
+        "http_code": 500
+    },
+    {
+        "api_code": 106,
+        "http_code": 500
+    },
+    {
+        "api_code": 107,
+        "http_code": 500
+    },
+    {
+        "api_code": 108,
+        "http_code": 500
+    },
+    {
+        "api_code": 109,
+        "http_code": 500
+    },
+    {
+        "api_code": 110,
+        "http_code": 500
+    },
+    {
+        "api_code": 111,
+        "http_code": 500
+    },
+    {
+        "api_code": 200,
+        "http_code": 500
+    }
+    ,
+    {
+        "api_code": 201,
+        "http_code": 500
+    },
+    {
+        "api_code": 202,
+        "http_code": 500
+    },
+    {
+        "api_code": 203,
+        "http_code": 404
+    },
+    {
+        "api_code": 204,
+        "http_code": 404
+    },
+    {
+        "api_code": 205,
+        "http_code": 404
+    },
+    {
+        "api_code": 206,
+        "http_code": 500
+    }
+]

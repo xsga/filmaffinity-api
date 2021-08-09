@@ -17,6 +17,7 @@
 use log4php\Logger;
 use xsgaphp\api\router\XsgaAPIRouter;
 use xsgaphp\bootstrap\XsgaBootstrap;
+use Doctrine\ORM\Query\QueryException;
 
 // Load Composer autoloader.
 $pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
@@ -41,6 +42,18 @@ try {
     // Dispatch API petition.
     $apiRouter->dispatchPetition($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
+} catch (QueryException $e) {
+    
+    // Error code.
+    $errorCode = 111;
+
+    // Logger.
+    $logger->error("Error code: $errorCode");
+    $logger->error($e->__toString());
+    
+    // Dispatch error.
+    $apiRouter->dispatchError($errorCode);
+    
 } catch (Throwable $e) {
     
     // Get error code.

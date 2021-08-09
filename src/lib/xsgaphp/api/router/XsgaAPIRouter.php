@@ -24,8 +24,7 @@ use xsgaphp\api\dto\ApiErrorDevDto;
 use xsgaphp\api\dto\ApiErrorDto;
 use xsgaphp\exceptions\XsgaValidationException;
 use xsgaphp\exceptions\XsgaPageNotFoundException;
-use xsgaphp\utils\XsgaLangFiles;
-use xsgaphp\utils\XsgaUtil;
+use xsgaphp\utils\XsgaLoadFile;
 
 /**
  * XsgaAPIRouter class.
@@ -110,11 +109,6 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Loads routes.
         $this->loadRoutes();
 
-        // Validates routes.
-        if (empty($this->routes)) {
-            throw new XsgaValidationException('Routes not loaded', 102);
-        }//end if
-
         // Set request method.
         $this->requestMethod = strtoupper($method);
         
@@ -148,13 +142,13 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @access public
      */
-    public function dispatchError(int $code, string $file, int $line, string $trace) : void
+    public function dispatchError(int $code, string $file = '', int $line = 0, string $trace = '') : void
     {
         // Logger.
         $this->logger->debugInit();
         
         // Get error literals.
-        $lang = XsgaLangFiles::load();
+        $lang = XsgaLoadFile::language();
         
         // Set error message.
         $message = isset($lang['errors']['error_'.$code]) ? $lang['errors']['error_'.$code] : 'Error message not defined';
@@ -166,7 +160,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
             $errorDto->code    = $code;
             $errorDto->message = $message;
             $errorDto->file    = $file;
-            $errorDto->line    = $line;
+            $errorDto->line    = $line === 0 ? '' : $line;
             $errorDto->trace   = $trace;
             
         } else {
@@ -177,12 +171,15 @@ class XsgaAPIRouter extends XsgaAbstractClass
             $errorDto->message = $message;
             
         }//end if
+
+        // Get HTTP status code.
+        $status = $this->getHttpStatus($code);
         
         // Clean output buffer.
         ob_clean();
         
         // Set response code.
-        http_response_code(500);
+        http_response_code($status);
 
         // Set response headers.
         self::getHeaders();
@@ -215,6 +212,53 @@ class XsgaAPIRouter extends XsgaAbstractClass
 
 
     /**
+     * Get HTTP response status code.
+     * 
+     * @param integer $errorCode Error code.
+     * 
+     * @return integer
+     * 
+     * @access private
+     */
+    private function getHttpStatus(int $errorCode) : int
+    {
+        // Logger.
+        $this->logger->debugInit();
+
+        // Initializes status code.
+        $status = 0;
+
+        // Load errors file.
+        $errors = XsgaLoadFile::errors();
+
+        foreach ($errors as $error) {
+
+            if ($error['api_code'] === $errorCode) {
+                $status = $error['http_code'];
+                break;
+            }//end if
+
+        }//end foreach
+
+        if ($status === 0) {
+
+            // Logger.
+            $this->logger->warn("Error $errorCode not found in errors file");
+
+            // Set default HTTP status.
+            $status = 500;
+
+        }//end if
+
+        // Logger.
+        $this->logger->debugEnd();
+
+        return $status;
+
+    }//end getHttpStatus()
+
+
+    /**
      * Load routes.
      * 
      * @return void
@@ -228,21 +272,17 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
 
-        // Routes location.
-        $routes = XsgaUtil::getPathTo('config').'routes.json';
+        // Load routes.
+        $routes = XsgaLoadFile::routes();
 
-        if (file_exists($routes)) {
-            
-            // Loads routes file.
-            $this->routes = json_decode(file_get_contents($routes), true);
+        if (empty($routes)) {
 
-            // Logger.
-            $this->logger->debug('Routes JSON file loads successfully');
+            throw new XsgaValidationException('Routes not loaded', 102);
 
         } else {
-
-            // Logger.
-            $this->logger->error('Error loading routes JSON file. File not found');
+            
+            // Set routes.
+            $this->routes = $routes;
 
         }//end if
 
@@ -281,7 +321,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Delete all null, false or empty strings from array.
         $reqArray = array_filter($reqArray, 'strlen');
     
-        // Set request, requestArray, requestFilters and requestParams.
+        // Set request, requestArray, and requestFilters.
         $this->request        = rtrim($reqAux[0], '/');
         $this->requestArray   = array_values($reqArray);
         $this->requestFilters = $_GET;
@@ -413,7 +453,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error('Not found route for request');
                                     
-            throw new XsgaValidationException('Invalid request', 104);
+            throw new XsgaValidationException('Invalid request', 103);
 
         }//end if
 
@@ -445,10 +485,19 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
 
-        // Set status and namespace.
-        $status    = false;
-        $namespace = "api\\$_ENV[VENDOR]\\controller\\";
-        $className = $namespace.$route['controller'];
+        // Set status and controller classname.
+        $status     = false;
+        $controller = $route['controller'];
+
+        // Set namespace.
+        if (strpos($controller, '\\') === false) {
+            $namespace = "api\\$_ENV[VENDOR]\\controller\\";
+        } else {
+            $namespace = '';
+        }//end if
+
+        // Set complete classname with namespace.
+        $className = $namespace.$controller;
         
         // If exists route class, continues.
         if (class_exists($className)) {

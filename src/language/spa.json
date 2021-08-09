@@ -10,6 +10,7 @@
         "error_108": "El parámetro de entrada no es un boleano",
         "error_109": "El parámetro de entrada no es un entero",
         "error_110": "El parámetro de entrada no es numérico",
+        "error_111": "Se ha producido un error al ejecutar una consulta SQL",
         "error_200": "No se ha podido acceder a la página de FilmAffinity",
         "error_201": "El código de género proporcinado no es válido",
         "error_202": "El código de país proporcionado no es válido",

@@ -9,8 +9,8 @@ echo
 # Config variables.
 DOCTRINE=../vendor/bin/doctrine
 TMP_FOLDER=../tmp/entity
-NAMESPACE=batch\\entity\\
-TMP_ENTITY_FOLDER=../tmp/entity/batch/entity/
+NAMESPACE=api\\entity\\
+TMP_ENTITY_FOLDER=../tmp/entity/api/entity/
 ENTITY_FOLDER=../src/entity
 
 # Executes orm:convert:mapping.

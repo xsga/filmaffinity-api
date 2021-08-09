@@ -9,8 +9,8 @@ echo.
 rem Config variables.
 set DOCTRINE=../vendor/doctrine/orm/bin/doctrine
 set TMP_FOLDER=../tmp/entity
-set NAMESPACE=batch\entity\
-set TMP_ENTITY_FOLDER=..\tmp\entity\batch\entity\
+set NAMESPACE=api\entity\
+set TMP_ENTITY_FOLDER=..\tmp\entity\api\entity\
 set ENTITY_FOLDER=..\src\entity
 
 rem Executes orm:convert:mapping.

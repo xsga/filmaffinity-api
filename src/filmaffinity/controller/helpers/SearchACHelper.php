@@ -22,8 +22,8 @@ namespace api\filmaffinity\controller\helpers;
 use xsgaphp\core\XsgaAbstractClass;
 use xsgaphp\exceptions\XsgaValidationException;
 use api\filmaffinity\business\FilmAffinityResources;
-use api\filmaffinity\model\dto\AdvSearchDto;
-use api\filmaffinity\model\dto\SearchDto;
+use api\filmaffinity\model\AdvSearchDto;
+use api\filmaffinity\model\SearchDto;
 
 /**
  * Class SearchACHelper.
