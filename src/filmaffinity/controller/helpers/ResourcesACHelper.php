@@ -19,8 +19,8 @@ namespace api\filmaffinity\controller\helpers;
 /**
  * Import dependencies.
  */
-use xsgaphp\core\XsgaAbstractClass;
-use xsgaphp\exceptions\XsgaValidationException;
+use xsgaphp\core\abstract\XsgaAbstractClass;
+use xsgaphp\core\exceptions\XsgaValidationException;
 
 /**
  * Class ResourcesACHelper.

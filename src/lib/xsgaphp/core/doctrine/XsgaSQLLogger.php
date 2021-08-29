@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\doctrine;
+namespace xsgaphp\core\doctrine;
 
 /**
  * Import dependencies.

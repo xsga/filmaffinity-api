@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\exceptions;
+namespace xsgaphp\core\exceptions;
 
 /**
  * Class XsgaDatabaseException.

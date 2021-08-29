@@ -14,12 +14,12 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\rest;
+namespace xsgaphp\core\rest;
 
 /**
  * Import dependencies.
  */
-use xsgaphp\exceptions\XsgaException;
+use xsgaphp\core\exceptions\XsgaException;
 
 /**
  * XsgaRestClient class.

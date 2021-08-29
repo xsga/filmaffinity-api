@@ -19,12 +19,13 @@ namespace xsgaphp\api\router;
 /**
  * Import dependencies.
  */
-use xsgaphp\core\XsgaAbstractClass;
+use xsgaphp\core\abstract\XsgaAbstractClass;
 use xsgaphp\api\dto\ApiErrorDevDto;
 use xsgaphp\api\dto\ApiErrorDto;
-use xsgaphp\exceptions\XsgaValidationException;
-use xsgaphp\exceptions\XsgaPageNotFoundException;
-use xsgaphp\utils\XsgaLoadFile;
+use xsgaphp\core\exceptions\XsgaValidationException;
+use xsgaphp\core\exceptions\XsgaPageNotFoundException;
+use xsgaphp\core\utils\XsgaLoadFile;
+use xsgaphp\core\utils\XsgaPath;
 
 /**
  * XsgaAPIRouter class.
@@ -106,6 +107,9 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
 
+        // Security filter.
+        $this->securityFilter();
+
         // Loads routes.
         $this->loadRoutes();
 
@@ -148,7 +152,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $this->logger->debugInit();
         
         // Get error literals.
-        $lang = XsgaLoadFile::language();
+        $lang = XsgaLoadFile::loadJson(XsgaPath::getPathTo(array('src', 'language')), strtolower($_ENV['LANGUAGE']).'.json');
         
         // Set error message.
         $message = isset($lang['errors']['error_'.$code]) ? $lang['errors']['error_'.$code] : 'Error message not defined';
@@ -212,6 +216,63 @@ class XsgaAPIRouter extends XsgaAbstractClass
 
 
     /**
+     * API security filter.
+     * 
+     * @return void
+     * 
+     * @access private
+     */
+    private function securityFilter() : void
+    {
+        // Logger.
+        $this->logger->debugInit();
+
+        switch ($_ENV['SECURITY_TYPE']) {
+
+            case '0':
+                
+                // Logger.
+                $this->logger->debug('Security type: NONE');
+                
+                break;
+
+            case '1':
+                
+                // Logger.
+                $this->logger->debug('Security type: HTTP Basic');
+
+                // Security BASIC.
+                $this->securityBasic();
+
+                break;
+
+        }//end switch
+
+        // Logger.
+        $this->logger->debugEnd();
+
+    }//end securityFilter()
+
+
+    /**
+     * Basic HTTP security.
+     * 
+     * @return void
+     * 
+     * @access private
+     */
+    private function securityBasic() : void
+    {
+        // Logger.
+        $this->logger->debugInit();
+
+        // Logger.
+        $this->logger->debugEnd();
+
+    }//end securityBasic()
+
+
+    /**
      * Get HTTP response status code.
      * 
      * @param integer $errorCode Error code.
@@ -229,7 +290,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $status = 0;
 
         // Load errors file.
-        $errors = XsgaLoadFile::errors();
+        $errors = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'errors.json');
 
         foreach ($errors as $error) {
 
@@ -273,7 +334,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $this->logger->debugInit();
 
         // Load routes.
-        $routes = XsgaLoadFile::routes();
+        $routes = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'routes.json');
 
         if (empty($routes)) {
 

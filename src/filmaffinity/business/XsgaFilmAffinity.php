@@ -23,16 +23,17 @@ namespace api\filmaffinity\business;
 /**
  * Import dependencies.
  */
-use xsgaphp\rest\XsgaRestWrapper;
-use xsgaphp\exceptions\XsgaPageNotFoundException;
-use xsgaphp\core\XsgaAbstractClass;
+use xsgaphp\core\rest\XsgaRestWrapper;
+use xsgaphp\core\exceptions\XsgaPageNotFoundException;
+use xsgaphp\core\abstract\XsgaAbstractClass;
 use api\filmaffinity\model\AdvSearchDto;
 use api\filmaffinity\model\SearchResultsDto;
 use api\filmaffinity\model\SingleSearchResultDto;
 use api\filmaffinity\model\SearchDto;
 use api\filmaffinity\model\FilmDto;
 use api\filmaffinity\business\helpers\XpathCons;
-use xsgaphp\utils\XsgaLoadFile;
+use xsgaphp\core\utils\XsgaLoadFile;
+use xsgaphp\core\utils\XsgaPath;
 
 /**
  * Class XsgaFilmAffinity.
@@ -70,7 +71,7 @@ class XsgaFilmAffinity extends XsgaAbstractClass
         parent::__construct();
         
         // Set language literals.
-        $this->lang = XsgaLoadFile::language();
+        $this->lang = XsgaLoadFile::loadJson(XsgaPath::getPathTo(array('src', 'language')), strtolower($_ENV['LANGUAGE']).'.json');
 
         // Set base URL.
         switch ($_ENV['LANGUAGE']) {

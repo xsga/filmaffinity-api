@@ -19,8 +19,8 @@ namespace api\filmaffinity\controller\helpers;
 /**
  * Import dependencies.
  */
-use xsgaphp\core\XsgaAbstractClass;
-use xsgaphp\exceptions\XsgaValidationException;
+use xsgaphp\core\abstract\XsgaAbstractClass;
+use xsgaphp\core\exceptions\XsgaValidationException;
 use api\filmaffinity\business\FilmAffinityResources;
 use api\filmaffinity\model\AdvSearchDto;
 use api\filmaffinity\model\SearchDto;

@@ -12,14 +12,14 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\core;
+namespace xsgaphp\core\abstract;
 
 /**
  * Import dependencies.
  */
 use Doctrine\ORM\EntityManager;
-use xsgaphp\doctrine\XsgaDoctrineEM;
-use xsgaphp\core\XsgaAbstractClass;
+use xsgaphp\core\doctrine\XsgaDoctrineEM;
+use xsgaphp\core\abstract\XsgaAbstractClass;
 
 /**
  * XsgaAbstractDao class.

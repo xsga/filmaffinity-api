@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\cache;
+namespace xsgaphp\core\cache;
 
 /**
  * XsgaCache class.

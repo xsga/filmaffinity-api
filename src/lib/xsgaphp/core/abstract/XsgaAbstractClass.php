@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\core;
+namespace xsgaphp\core\abstract;
 
 /**
  * Import dependencies.
@@ -44,8 +44,20 @@ abstract class XsgaAbstractClass
      */
     public function __construct()
     {
-        // Set logger.
-        $this->logger = Logger::getRootLogger();
+        switch ($_ENV['APP_TYPE']) {
+
+            case 'api':
+                $this->logger = Logger::getRootLogger();
+                break;
+
+            case 'batch':
+                $this->logger = Logger::getLogger('main');
+                break;
+
+            default:
+                $this->logger = Logger::getRootLogger();
+
+        }//end switch
         
     }//end __construct()
     

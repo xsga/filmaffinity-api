@@ -14,7 +14,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\rest;
+namespace xsgaphp\core\rest;
 
 /**
  * XsgaRestResponse class.

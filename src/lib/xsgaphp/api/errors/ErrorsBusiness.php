@@ -17,14 +17,15 @@ namespace xsgaphp\api\errors;
 /**
  * Import dependencies.
  */
-use xsgaphp\core\XsgaAbstractBusiness;
+use xsgaphp\api\business\XsgaAbstractApiBusiness;
 use xsgaphp\api\dto\ApiErrorsListDto;
-use xsgaphp\utils\XsgaLoadFile;
+use xsgaphp\core\utils\XsgaLoadFile;
+use xsgaphp\core\utils\XsgaPath;
 
 /**
  * ErrorsBusiness.
  */
-class ErrorsBusiness extends XsgaAbstractBusiness
+class ErrorsBusiness extends XsgaAbstractApiBusiness
 {
 
     
@@ -41,10 +42,10 @@ class ErrorsBusiness extends XsgaAbstractBusiness
         $this->logger->debugInit();
 
         // Get language file.
-        $language = XsgaLoadFile::language();
+        $language = XsgaLoadFile::loadJson(XsgaPath::getPathTo(array('src', 'language')), strtolower($_ENV['LANGUAGE']).'.json');
 
         // Get errors file.
-        $errors = XsgaLoadFile::errors();
+        $errors = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'errors.json');
 
         // Initializes output.
         $out = array();

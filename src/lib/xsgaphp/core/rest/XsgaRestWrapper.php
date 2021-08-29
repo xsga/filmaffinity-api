@@ -12,12 +12,12 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\rest;
+namespace xsgaphp\core\rest;
 
 /**
  * Import dependencies.
  */
-use xsgaphp\core\XsgaAbstractClass;
+use xsgaphp\core\abstract\XsgaAbstractClass;
 
 /**
  * XsgaRestWrapper class.

@@ -39,24 +39,15 @@ class ApiFiltersDto
     private $pageSize = 0;
 
     /**
-     * Order field.
+     * Sort fields.
      * 
-     * @var string
-     * 
-     * @access private
-     */
-    private $orderField = '';
-
-    /**
-     * Order type.
-     * 
-     * @var string
+     * @var array
      * 
      * @access private
      */
-    private $orderType = '';
+    private $sortFields = array();
 
-
+    
     /**
      * Set page number.
      * 
@@ -90,35 +81,19 @@ class ApiFiltersDto
 
 
     /**
-     * Set order field.
+     * Set sort fields.
      * 
-     * @param string $orderField Order field.
-     * 
-     * @return void
-     * 
-     * @access public
-     */
-    public function setOrderField(string $orderField) : void
-    {
-        $this->orderField = $orderField;
-
-    }//end setOrderField()
-
-
-    /**
-     * Set order type.
-     * 
-     * @param string $orderType Order type.
+     * @param array $sortFields Array with sort field and type.
      * 
      * @return void
      * 
      * @access public
      */
-    public function setOrderType(string $orderType) : void
+    public function setSortFields(array $sortFields) : void
     {
-        $this->orderType = $orderType;
+        $this->sortFields = $sortFields;
 
-    }//end setOrderType()
+    }//end setSortFields()
 
 
     /**
@@ -150,31 +125,17 @@ class ApiFiltersDto
 
 
     /**
-     * Get order field.
+     * Get sort fields.
      * 
-     * @return string
-     * 
-     * @access public
-     */
-    public function getOrderField() : string
-    {
-        return $this->orderField;
-
-    }//end getOrderField()
-
-
-    /**
-     * Get order type.
-     * 
-     * @return string
+     * @return array
      * 
      * @access public
      */
-    public function getOrderType() : string
+    public function getSortFields() : array
     {
-        return $this->orderType;
+        return $this->sortFields;
 
-    }//end getOrderType()
+    }//end getSortFields()
     
     
 }//end ApiFiltersDto class

@@ -19,9 +19,9 @@ namespace xsgaphp\bootstrap;
  */
 use log4php\Logger;
 use Dotenv\Dotenv;
-use xsgaphp\utils\XsgaUtil;
-use xsgaphp\cache\XsgaCache;
-use xsgaphp\doctrine\XsgaSQLLogger;
+use xsgaphp\core\utils\XsgaPath;
+use xsgaphp\core\cache\XsgaCache;
+use xsgaphp\core\doctrine\XsgaSQLLogger;
 use Doctrine\ORM\Tools\Setup;
 
 /**
@@ -41,9 +41,10 @@ class XsgaBootstrap
     {
         // Set internal variables.
         $_ENV['APP_ROOT'] = realpath(dirname(__FILE__, 5)).DIRECTORY_SEPARATOR;
+        $_ENV['APP_TYPE'] = 'api';
 
         // Path to config folder.
-        $pathConfig = XsgaUtil::getPathTo('config');
+        $pathConfig = XsgaPath::getPathTo('config');
 
         // Load Logger configuration.
         Logger::configure($pathConfig.'log4php.xml');
@@ -64,6 +65,7 @@ class XsgaBootstrap
         // Validates common settings.
         $dotenv->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
         $dotenv->required('LOGGER_SQL')->isBoolean();
+        $dotenv->required('SECURITY_TYPE')->allowedValues(['0', '1']);
         $dotenv->required('URL_PATH');
         $dotenv->required('VENDOR')->notEmpty();
         $dotenv->required('LANGUAGE')->allowedValues(['spa', 'en']);
@@ -86,7 +88,7 @@ class XsgaBootstrap
 
         // Configure cache.
         $cacheConfig               = array();
-        $cacheConfig['cache_path'] = XsgaUtil::getPathTo(array('tmp', 'cache'));
+        $cacheConfig['cache_path'] = XsgaPath::getPathTo(array('tmp', 'cache'));
         $cacheConfig['expires']    = 120;
 
         XsgaCache::configure($cacheConfig);
@@ -120,19 +122,14 @@ class XsgaBootstrap
         
         // Path to entities.
         $paths = array(
-            XsgaUtil::getPathTo(array('src', 'entity'))
+            XsgaPath::getPathTo(array('src', 'entity'))
         );
 
         // Create config.
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
         $config->setSQLLogger(new XsgaSQLLogger());
-        $config->setProxyDir(XsgaUtil::getPathTo(array('tmp', 'doctrine-proxies')));
-
-        if ($isDevMode) {
-            $config->setAutoGenerateProxyClasses(true);
-        } else {
-            $config->setAutoGenerateProxyClasses(false);
-        }//end if
+        $config->setProxyDir(XsgaPath::getPathTo(array('tmp', 'doctrine-proxies')));
+        $config->setAutoGenerateProxyClasses($isDevMode);
 
         // MySQL data.
         $conn = array(

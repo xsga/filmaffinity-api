@@ -14,12 +14,12 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\doctrine;
+namespace xsgaphp\core\doctrine;
 
 /**
  * Import dependencies.
  */
-use xsgaphp\exceptions\XsgaSecurityException;
+use xsgaphp\core\exceptions\XsgaSecurityException;
 use Doctrine\ORM\EntityManager;
 use xsgaphp\bootstrap\XsgaBootstrap;
 

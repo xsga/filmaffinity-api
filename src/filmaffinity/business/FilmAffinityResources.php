@@ -19,9 +19,9 @@ namespace api\filmaffinity\business;
 /**
  * Import dependencies.
  */
-use xsgaphp\core\XsgaAbstractClass;
-use xsgaphp\exceptions\XsgaFileNotFoundException;
-use xsgaphp\utils\XsgaUtil;
+use xsgaphp\core\abstract\XsgaAbstractClass;
+use xsgaphp\core\exceptions\XsgaFileNotFoundException;
+use xsgaphp\core\utils\XsgaPath;
 
 /**
  * Class FilmAffinityResources.
@@ -57,7 +57,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 
                 // Set common variables.
                 $resourceFileName = strtolower($fileName).ucfirst(strtolower($_ENV['LANGUAGE'])).'.json';
-                $pathToResource   = XsgaUtil::getPathTo(array('src', 'filmaffinity', 'resources', 'json'));
+                $pathToResource   = XsgaPath::getPathTo(array('src', 'filmaffinity', 'resources', 'json'));
                 $resource         = $pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON file not found ('.$resourceFileName.')';
                 $errorNum         = 203;
@@ -71,7 +71,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 
                 // Set common variables.
                 $resourceFileName = strtolower($fileName).'.schema.json';
-                $pathToResource   = XsgaUtil::getPathTo(array('src', 'filmaffinity', 'resources', 'schema', $mode));
+                $pathToResource   = XsgaPath::getPathTo(array('src', 'filmaffinity', 'resources', 'schema', $mode));
                 $resource         = $pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON schema file not found ('.$resourceFileName.')';
                 $errorNum         = 205;
