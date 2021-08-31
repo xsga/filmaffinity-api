@@ -1,0 +1,46 @@
+#!/usr/bin/php
+<?php
+/**
+ * XsgaBatchConsole.
+ * 
+ * This file manage framework console.
+ * 
+ * PHP Version 8
+ * 
+ * @author  xsga <parker@xsga.es>
+ * @license MIT
+ * @version 1.0.0
+ */
+
+/**
+ * Import dependencies.
+ */
+use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
+use xsgaphp\core\console\XsgaConsole;
+
+// Load Composer autoloader.
+$pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
+require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
+
+// Get execution path.
+$path = explode(DIRECTORY_SEPARATOR, getcwd());
+
+if (end($path) !== 'bin') {
+    chdir('bin');
+}//end if
+
+echo "\n";
+echo '** Xsga-PHP Console';
+echo "\n";
+echo "\n";
+
+// Bootstrap.
+XsgaCoreBootstrap::init();
+
+// Get console instance.
+$console = new XsgaConsole();
+
+// Run console.
+$console->runConsole($argv);
+
+echo "\n";

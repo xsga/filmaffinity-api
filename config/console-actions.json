@@ -1,0 +1,12 @@
+[
+    {
+        "id": "id",
+        "name": "ActionName",
+        "class": "ActionClassPathAndName"
+    },
+    {
+        "id": "id",
+        "name": "ActionName",
+        "class": "ActionClassPathAndName"
+    }
+]

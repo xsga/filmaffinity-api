@@ -1,6 +1,6 @@
 <?php
 /**
- * Bootstrap.
+ * XsgaCoreBootstrap.
  * 
  * PHP Version 8
  * 
@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\bootstrap;
+namespace xsgaphp\core\bootstrap;
 
 /**
  * Import dependencies.
@@ -25,10 +25,11 @@ use xsgaphp\core\doctrine\XsgaSQLLogger;
 use Doctrine\ORM\Tools\Setup;
 
 /**
- * Bootstrap class.
+ * XsgaCoreBootstrap class.
  */
-class XsgaBootstrap
+class XsgaCoreBootstrap
 {
+
 
     /**
      * Load framework environment.
@@ -37,11 +38,10 @@ class XsgaBootstrap
      * 
      * @access public
      */
-    public static function loadEnv() : void
+    public static function init() : void
     {
         // Set internal variables.
-        $_ENV['APP_ROOT'] = realpath(dirname(__FILE__, 5)).DIRECTORY_SEPARATOR;
-        $_ENV['APP_TYPE'] = 'api';
+        $_ENV['APP_ROOT'] = realpath(dirname(__FILE__, 6)).DIRECTORY_SEPARATOR;
 
         // Path to config folder.
         $pathConfig = XsgaPath::getPathTo('config');
@@ -49,42 +49,27 @@ class XsgaBootstrap
         // Load Logger configuration.
         Logger::configure($pathConfig.'log4php.xml');
 
-        // Get logger.
-        $logger = Logger::getRootLogger();
-
-        // Logger.
-        $logger->debug('Loading common environment settings');
-
         // Load common settings (.env).
         $dotenv = Dotenv::createImmutable($pathConfig);
         $dotenv->safeLoad();
 
-        // Logger.
-        $logger->debug('Validating common environment settings');
-
         // Validates common settings.
+        $dotenv->required('APP_TYPE')->allowedValues(['api', 'batch']);
         $dotenv->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
         $dotenv->required('LOGGER_SQL')->isBoolean();
-        $dotenv->required('SECURITY_TYPE')->allowedValues(['0', '1']);
-        $dotenv->required('URL_PATH');
-        $dotenv->required('VENDOR')->notEmpty();
-        $dotenv->required('LANGUAGE')->allowedValues(['spa', 'en']);
-
-        // Logger.
-        $logger->debug("Loading \"$_ENV[ENVIRONMENT]\" environment settings");
 
         // Load environment settings (.environment.env).
         $dotenv = Dotenv::createImmutable($pathConfig, ".$_ENV[ENVIRONMENT].env");
         $dotenv->safeLoad();
 
-        // Logger.
-        $logger->debug("Validating \"$_ENV[ENVIRONMENT]\" environment settings");
-
         // Validates environment settings.
         $dotenv->required(['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_SCHEMA'])->notEmpty();
-        
-        // Logger.
-        $logger->debug('Configuring cache component');
+
+        // Set application bootstrap class.
+        $appBootstrap = 'xsgaphp\\'.$_ENV['APP_TYPE'].'\\bootstrap\\Xsga'.ucfirst($_ENV['APP_TYPE']).'Bootstrap';
+
+        // Validates custom application properties.
+        $appBootstrap::valProps($dotenv);
 
         // Configure cache.
         $cacheConfig               = array();
@@ -93,10 +78,7 @@ class XsgaBootstrap
 
         XsgaCache::configure($cacheConfig);
 
-        // Logger.
-        $logger->debug('Environment loaded successfully');
-
-    }//end loadEnv()
+    }//end init()
 
 
     /**
@@ -150,4 +132,4 @@ class XsgaBootstrap
     }//end setupDoctrineORM()
 
 
-}//end XsgaBootstrap class
+}//end XsgaCoreBootstrap class

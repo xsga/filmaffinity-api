@@ -8,7 +8,7 @@
   },
   "autoload": {
     "files": [
-      "src/lib/xsgaphp/bootstrap/XsgaErrorHandle.php"
+      "src/lib/xsgaphp/core/bootstrap/XsgaErrorHandle.php"
     ],
     "psr-4": {
       "api\\": "src/",

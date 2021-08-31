@@ -21,7 +21,7 @@ namespace xsgaphp\core\doctrine;
  */
 use xsgaphp\core\exceptions\XsgaSecurityException;
 use Doctrine\ORM\EntityManager;
-use xsgaphp\bootstrap\XsgaBootstrap;
+use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
 
 /**
  * Class XsgaDoctrineEM.
@@ -52,7 +52,7 @@ class XsgaDoctrineEM
         if (empty(static::$entityManager)) {
             
             // Get Doctrine ORM setup.
-            $doctrineSetup = XsgaBootstrap::setupDoctrineORM();
+            $doctrineSetup = XsgaCoreBootstrap::setupDoctrineORM();
             
             // Create EntityManager.
             static::$entityManager = EntityManager::create(

@@ -16,7 +16,7 @@
  */
 use log4php\Logger;
 use xsgaphp\api\router\XsgaAPIRouter;
-use xsgaphp\bootstrap\XsgaBootstrap;
+use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
 use Doctrine\ORM\Query\QueryException;
 
 // Load Composer autoloader.
@@ -24,7 +24,7 @@ $pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_
 require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
 
 // Bootstrap.
-XsgaBootstrap::loadEnv();
+XsgaCoreBootstrap::init();
 
 // Get Logger.
 $logger = Logger::getRootLogger();

@@ -14,7 +14,7 @@
 /**
  * Import dependencies.
  */
-use xsgaphp\bootstrap\XsgaBootstrap;
+use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
@@ -23,10 +23,10 @@ $pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_
 require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
 
 // Bootstrap.
-XsgaBootstrap::loadEnv();
+XsgaCoreBootstrap::init();
 
 // setup Doctrine-ORM.
-$setupDoctrine = XsgaBootstrap::setupDoctrineORM();
+$setupDoctrine = XsgaCoreBootstrap::setupDoctrineORM();
 
 // Get Doctrine Entity Manager.
 $entityManager = EntityManager::create($setupDoctrine['connection'], $setupDoctrine['config']);
