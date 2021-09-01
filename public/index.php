@@ -18,29 +18,45 @@ use log4php\Logger;
 use xsgaphp\api\router\XsgaAPIRouter;
 use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
 use Doctrine\ORM\Query\QueryException;
+use xsgaphp\core\exceptions\XsgaBootstrapException;
 
 // Load Composer autoloader.
 $pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
 require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
 
-// Bootstrap.
-XsgaCoreBootstrap::init();
-
-// Get Logger.
-$logger = Logger::getRootLogger();
-
-// Logger.
-$logger->debugInit();
-$logger->info("Request URI    : $_SERVER[REQUEST_URI]");
-$logger->info("Request method : $_SERVER[REQUEST_METHOD]");
-
 try {
-    
+
+    // Bootstrap.
+    XsgaCoreBootstrap::init();
+
+    // Get Logger.
+    $logger = Logger::getRootLogger();
+
+    // Logger.
+    $logger->debugInit();
+    $logger->info("Request URI    : $_SERVER[REQUEST_URI]");
+    $logger->info("Request method : $_SERVER[REQUEST_METHOD]");
+
     // Get API router.
     $apiRouter = new XsgaAPIRouter();
 
     // Dispatch API petition.
     $apiRouter->dispatchPetition($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+
+} catch (XsgaBootstrapException $e) {
+
+    // Get Logger.
+    $logger = Logger::getRootLogger();
+
+    // Logger.
+    $logger->debugInit();
+    $logger->error($e->getMessage());
+
+    // Get API router.
+    $apiRouter = new XsgaAPIRouter();
+
+    // Dispatch API bootstrap error.
+    $apiRouter->dispatchBootstrapError($e->getMessage());
 
 } catch (QueryException $e) {
     
@@ -62,7 +78,7 @@ try {
     } else {
         $errorCode = $e->getCode();
     }//end if
-    
+
     // Logger.
     $logger->error("Error code: $errorCode");
     $logger->error($e->__toString());

@@ -44,20 +44,7 @@ abstract class XsgaAbstractClass
      */
     public function __construct()
     {
-        switch ($_ENV['APP_TYPE']) {
-
-            case 'api':
-                $this->logger = Logger::getRootLogger();
-                break;
-
-            case 'batch':
-                $this->logger = Logger::getLogger('main');
-                break;
-
-            default:
-                $this->logger = Logger::getRootLogger();
-
-        }//end switch
+        $this->logger = Logger::getLogger('main');
         
     }//end __construct()
     

@@ -8,6 +8,12 @@
     <param name="file" value="../log/log-%s.log" />
     <param name="datePattern" value="Ymd" />
   </appender>
+
+  <appender name="console" class="LoggerAppenderConsole">
+    <layout class="LoggerLayoutPattern">
+      <param name="conversionPattern" value="%date{Y-m-d H:i:s} [%-5level] - %msg%n" />
+    </layout>
+  </appender>
   
   <appender name="sql" class="LoggerAppenderDailyFile">
     <layout class="LoggerLayoutPattern">
@@ -21,6 +27,11 @@
     <level value="debug" />
     <appender_ref ref="default" />
   </root>
+
+  <logger name="main">
+    <level value="info" />
+    <appender_ref ref="console" />
+  </logger>
   
   <logger name="sql">
     <level value="trace" />

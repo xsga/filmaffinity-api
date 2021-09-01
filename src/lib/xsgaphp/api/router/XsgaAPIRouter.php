@@ -198,6 +198,43 @@ class XsgaAPIRouter extends XsgaAbstractClass
 
 
     /**
+     * Dispatch API bootstrap error.
+     * 
+     * @param string $message Error message.
+     * 
+     * @return void
+     * 
+     * @access public
+     */
+    public function dispatchBootstrapError(string $message) : void
+    {
+        // Logger.
+        $this->logger->debugInit();
+        
+        // Set out error DTO.
+        $errorDto          = new ApiErrorDto();
+        $errorDto->code    = 112;
+        $errorDto->message = $message;
+
+        // Clean output buffer.
+        ob_clean();
+        
+        // Set response code.
+        http_response_code(500);
+
+        // Set response headers.
+        self::getHeaders();
+
+        // Set response body.
+        echo json_encode($errorDto);
+        
+        // Logger.
+        $this->logger->debugEnd();
+        
+    }//end dispatchBootstrapError()
+
+
+    /**
      * Get HTTP headers.
      * 
      * @return void
@@ -265,6 +302,8 @@ class XsgaAPIRouter extends XsgaAbstractClass
     {
         // Logger.
         $this->logger->debugInit();
+
+        // TO-DO.
 
         // Logger.
         $this->logger->debugEnd();
@@ -337,15 +376,11 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $routes = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'routes.json');
 
         if (empty($routes)) {
-
             throw new XsgaValidationException('Routes not loaded', 102);
-
-        } else {
-            
-            // Set routes.
-            $this->routes = $routes;
-
         }//end if
+
+        // Set routes.
+        $this->routes = $routes;
 
         // Logger.
         $this->logger->debugEnd();

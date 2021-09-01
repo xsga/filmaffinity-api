@@ -10,7 +10,8 @@
         "error_108": "Input parameter is not a boolean",
         "error_109": "Input parameter is not an integer",
         "error_110": "Input parameter is not a numeric",
-        "error_111": "Error executing SQL query"
+        "error_111": "Error executing SQL query",
+        "error_112": "Error in system bootstrap",
         "error_200": "Can't access to FimlAffinity web page",
         "error_201": "Genre code it's not valid",
         "error_202": "Country code it's not valid",

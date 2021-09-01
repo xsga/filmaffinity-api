@@ -15,8 +15,10 @@
 /**
  * Import dependencies.
  */
+use log4php\Logger;
 use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
 use xsgaphp\core\console\XsgaConsole;
+use xsgaphp\core\exceptions\XsgaBootstrapException;
 
 // Load Composer autoloader.
 $pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
@@ -34,13 +36,25 @@ echo '** Xsga-PHP Console';
 echo "\n";
 echo "\n";
 
-// Bootstrap.
-XsgaCoreBootstrap::init();
+try {
 
-// Get console instance.
-$console = new XsgaConsole();
+    // Bootstrap.
+    XsgaCoreBootstrap::init();
 
-// Run console.
-$console->runConsole($argv);
+    // Get console instance.
+    $console = new XsgaConsole();
+
+    // Run console.
+    $console->runConsole($argv);
+
+} catch (XsgaBootstrapException $e) {
+
+    // Get Logger.
+    $logger = Logger::getLogger('main');
+
+    // Logger.
+    $logger->error($e->getMessage());
+
+}//end try
 
 echo "\n";

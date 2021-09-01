@@ -44,6 +44,10 @@
         "http_code": 500
     },
     {
+        "api_code": 112,
+        "http_code": 500
+    },
+    {
         "api_code": 200,
         "http_code": 500
     }

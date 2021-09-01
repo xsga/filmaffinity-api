@@ -23,6 +23,8 @@ use xsgaphp\core\utils\XsgaPath;
 use xsgaphp\core\cache\XsgaCache;
 use xsgaphp\core\doctrine\XsgaSQLLogger;
 use Doctrine\ORM\Tools\Setup;
+use xsgaphp\core\exceptions\XsgaBootstrapException;
+use Dotenv\Exception\ValidationException;
 
 /**
  * XsgaCoreBootstrap class.
@@ -54,22 +56,39 @@ class XsgaCoreBootstrap
         $dotenv->safeLoad();
 
         // Validates common settings.
-        $dotenv->required('APP_TYPE')->allowedValues(['api', 'batch']);
-        $dotenv->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
-        $dotenv->required('LOGGER_SQL')->isBoolean();
+        try {
+            $dotenv->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
+            $dotenv->required('LOGGER_SQL')->isBoolean();
+        } catch (ValidationException $e) {
+            throw new XsgaBootstrapException($e->getMessage());
+        }//end try
 
         // Load environment settings (.environment.env).
         $dotenv = Dotenv::createImmutable($pathConfig, ".$_ENV[ENVIRONMENT].env");
         $dotenv->safeLoad();
 
         // Validates environment settings.
-        $dotenv->required(['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_SCHEMA'])->notEmpty();
+        try {
+            $dotenv->required(['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_SCHEMA'])->notEmpty();
+        } catch (ValidationException $e) {
+            throw new XsgaBootstrapException($e->getMessage());
+        }//end try
 
-        // Set application bootstrap class.
-        $appBootstrap = 'xsgaphp\\'.$_ENV['APP_TYPE'].'\\bootstrap\\Xsga'.ucfirst($_ENV['APP_TYPE']).'Bootstrap';
+        // Validates custom settings.
+        try {
+            // Set application bootstrap class.
+            $apiBootstrap   = 'xsgaphp\\api\\bootstrap\\XsgaApiBootstrap';
+            $batchBootstrap = 'xsgaphp\\batch\\bootstrap\\XsgaApiBootstrap';
 
-        // Validates custom application properties.
-        $appBootstrap::valProps($dotenv);
+            // Validates custom application properties.
+            if (class_exists($apiBootstrap)) {
+                $apiBootstrap::valProps($dotenv);
+            } else if (class_exists($batchBootstrap)) {
+                $batchBootstrap::valProps($dotenv);
+            }//end if
+        } catch (ValidationException $e) {
+            throw new XsgaBootstrapException($e->getMessage());
+        }//end try
 
         // Configure cache.
         $cacheConfig               = array();

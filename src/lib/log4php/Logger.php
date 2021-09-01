@@ -693,11 +693,11 @@ class Logger
     /**
      * Get the assigned Logger level.
      * 
-     * @return LoggerLevel The assigned level or null if none is assigned.
+     * @return LoggerLevel|null The assigned level or null if none is assigned.
      * 
      * @access public
      */
-    public function getLevel() : LoggerLevel
+    public function getLevel() : LoggerLevel|null
     {
         return $this->level;
         
