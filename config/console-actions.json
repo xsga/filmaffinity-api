@@ -1,12 +1,12 @@
 [
     {
-        "id": "id",
-        "name": "ActionName",
-        "class": "ActionClassPathAndName"
+        "id": "doctrine:gen-entities",
+        "name": "GenerateEntities",
+        "class": "\\xsgaphp\\core\\doctrine\\actions\\GenerateEntitiesAction"
     },
     {
-        "id": "id",
-        "name": "ActionName",
-        "class": "ActionClassPathAndName"
+        "id": "doctrine:gen-proxies",
+        "name": "GenerateProxies",
+        "class": "\\xsgaphp\\core\\doctrine\\actions\\GenerateProxiesAction"
     }
 ]

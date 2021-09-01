@@ -81,11 +81,11 @@ class LoggerAppenderPool
      * 
      * @param string $name Name of the appender to retrieve.
      * 
-     * @return LoggerAppender The named appender or null if no such appender exists in the pool.
+     * @return LoggerAppender|null The named appender or null if no such appender exists in the pool.
      * 
      * @access public
      */
-    public static function get($name) : LoggerAppender
+    public static function get($name) : LoggerAppender|null
     {
         return (isset(static::$appenders[$name])) ? static::$appenders[$name] : null;
         

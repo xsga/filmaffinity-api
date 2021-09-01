@@ -321,11 +321,11 @@ class LoggerAppenderPDO extends LoggerAppender
     /**
      * Returns the active database handle or null if not established.
      * 
-     * @return \PDO
+     * @return \PDO|null
      * 
      * @access public
      */
-    public function getDatabaseHandle() : \PDO
+    public function getDatabaseHandle() : \PDO|null
     {
         return $this->db;
         
