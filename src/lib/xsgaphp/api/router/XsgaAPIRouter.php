@@ -26,6 +26,7 @@ use xsgaphp\core\exceptions\XsgaValidationException;
 use xsgaphp\core\exceptions\XsgaPageNotFoundException;
 use xsgaphp\core\utils\XsgaLoadFile;
 use xsgaphp\core\utils\XsgaPath;
+use xsgaphp\core\utils\XsgaCheckFile;
 
 /**
  * XsgaAPIRouter class.
@@ -329,16 +330,18 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $status = 0;
 
         // Load errors file.
-        $errors = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'errors.json');
+        if (XsgaCheckFile::apiErrors($errors)) {
 
-        foreach ($errors as $error) {
+            foreach ($errors as $error) {
 
-            if ($error['api_code'] === $errorCode) {
-                $status = $error['http_code'];
-                break;
-            }//end if
+                if ($error['api_code'] === $errorCode) {
+                    $status = $error['http_code'];
+                    break;
+                }//end if
+    
+            }//end foreach
 
-        }//end foreach
+        }//end if
 
         if ($status === 0) {
 
@@ -373,14 +376,20 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $this->logger->debugInit();
 
         // Load routes.
-        $routes = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'routes.json');
+        if (XsgaCheckFile::apiRoutes($routes)) {
 
-        if (empty($routes)) {
-            throw new XsgaValidationException('Routes not loaded', 102);
+            // Set routes.
+            $this->routes = $routes;
+            
+        } else {
+            
+            if (empty($routes)) {
+                throw new XsgaValidationException('Routes file not found', 102);
+            } else {
+                throw new XsgaValidationException('Routes file not valid', 113);
+            }//end if
+            
         }//end if
-
-        // Set routes.
-        $this->routes = $routes;
 
         // Logger.
         $this->logger->debugEnd();

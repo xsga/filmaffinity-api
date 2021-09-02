@@ -1,7 +1,7 @@
 {
     "errors": {
         "error_101": "Se ha producido un error interno",
-        "error_102": "No se ha encontrado el fichero routes",
+        "error_102": "No se ha encontrado el fichero api-routes",
         "error_103": "Recurso no encontrado",
         "error_104": "Petición HTTP no válida",
         "error_105": "Número de parámetros de entrada incorrecto",
@@ -12,6 +12,9 @@
         "error_110": "El parámetro de entrada no es numérico",
         "error_111": "Se ha producido un error al ejecutar una consulta SQL",
         "error_112": "Se ha producido un error al inicializar el sistema",
+        "error_113": "El fichero api-routes no es válido",
+        "error_114": "No se ha encontrado el fichero api-errors",
+        "error_115": "El fichero api-errors no es válido",
         "error_200": "No se ha podido acceder a la página de FilmAffinity",
         "error_201": "El código de género proporcinado no es válido",
         "error_202": "El código de país proporcionado no es válido",

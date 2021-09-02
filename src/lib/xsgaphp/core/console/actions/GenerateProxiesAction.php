@@ -14,7 +14,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\core\doctrine\actions;
+namespace xsgaphp\core\console\actions;
 
 /**
  * Import dependencies.

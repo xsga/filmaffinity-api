@@ -1,12 +1,20 @@
 [
     {
+        "id": "actions",
+        "name": "ConsoleActions",
+        "desc": "Shows all available console actions.",
+        "class": "\\xsgaphp\\core\\console\\actions\\ConsoleActionsAction"
+    },
+    {
         "id": "doctrine:gen-entities",
         "name": "GenerateEntities",
-        "class": "\\xsgaphp\\core\\doctrine\\actions\\GenerateEntitiesAction"
+        "desc": "Generates entities files from database.",
+        "class": "\\xsgaphp\\core\\console\\actions\\GenerateEntitiesAction"
     },
     {
         "id": "doctrine:gen-proxies",
         "name": "GenerateProxies",
-        "class": "\\xsgaphp\\core\\doctrine\\actions\\GenerateProxiesAction"
+        "desc": "Generates entities proxies files.",
+        "class": "\\xsgaphp\\core\\console\\actions\\GenerateProxiesAction"
     }
 ]

@@ -21,6 +21,8 @@ use xsgaphp\api\business\XsgaAbstractApiBusiness;
 use xsgaphp\api\dto\ApiErrorsListDto;
 use xsgaphp\core\utils\XsgaLoadFile;
 use xsgaphp\core\utils\XsgaPath;
+use xsgaphp\core\utils\XsgaCheckFile;
+use xsgaphp\core\exceptions\XsgaValidationException;
 
 /**
  * ErrorsBusiness.
@@ -44,23 +46,33 @@ class ErrorsBusiness extends XsgaAbstractApiBusiness
         // Get language file.
         $language = XsgaLoadFile::loadJson(XsgaPath::getPathTo(array('src', 'language')), strtolower($_ENV['LANGUAGE']).'.json');
 
-        // Get errors file.
-        $errors = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'errors.json');
-
         // Initializes output.
         $out = array();
 
-        foreach ($errors as $error) {
+        // Get errors file.
+        if (XsgaCheckFile::apiErrors($errors)) {
 
-            $dto = new ApiErrorsListDto();
+            foreach ($errors as $error) {
 
-            $dto->code        = $error['api_code'];
-            $dto->description = $language['errors']['error_'.$error['api_code']];
-            $dto->statusCode  = $error['http_code'];
+                $dto = new ApiErrorsListDto();
+    
+                $dto->code        = $error['api_code'];
+                $dto->description = $language['errors']['error_'.$error['api_code']];
+                $dto->statusCode  = $error['http_code'];
+    
+                $out[] = $dto;
+    
+            }//end foreach
 
-            $out[] = $dto;
+        } else {
 
-        }//end foreach
+            if (empty($errors)) {
+                throw new XsgaValidationException('Error file not found', 114);
+            } else {
+                throw new XsgaValidationException('Error file not valid', 115);
+            }//end if
+
+        }//end if
 
         // Logger.
         $this->logger->debugEnd();

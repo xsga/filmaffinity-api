@@ -54,6 +54,10 @@ class XsgaLoadFile
             
             // Load file.
             $content = json_decode(file_get_contents($fileLocation), $mode);
+
+            if (empty($content)) {
+                $content = array();
+            }//end if
             
             // Logger.
             $logger->debug("Load \"$fileName\" file");

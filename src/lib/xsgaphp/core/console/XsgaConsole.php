@@ -22,8 +22,7 @@ namespace xsgaphp\core\console;
 use xsgaphp\core\abstract\XsgaAbstractClass;
 use xsgaphp\core\exceptions\XsgaValidationException;
 use xsgaphp\core\console\XsgaActionInt;
-use xsgaphp\core\utils\XsgaPath;
-use xsgaphp\core\utils\XsgaLoadFile;
+use xsgaphp\core\utils\XsgaCheckFile;
 
 /**
  * XsgaConsole class.
@@ -66,6 +65,8 @@ class XsgaConsole extends XsgaAbstractClass
      * 
      * @return void
      * 
+     * @throws XsgaValidationException
+     * 
      * @access public
      */
     public function runConsole(array $params) : void
@@ -80,7 +81,26 @@ class XsgaConsole extends XsgaAbstractClass
             $this->getActionAndArgs($params);
 
             // Loads available actions.
-            $this->actions = XsgaLoadFile::loadJson(XsgaPath::getPathTo('config'), 'console-actions.json');
+            if (XsgaCheckFile::consoleActions($output)) {
+
+                $this->actions = $output;
+                
+            } else {
+                
+                if (empty($output)) {
+                    // Error message.
+                    $errorMsg = 'Console actions configuration file not found';
+                } else {
+                    // Error message.
+                    $errorMsg = 'Console actions configuration file not valid';
+                }//end if
+                
+                // Logger.
+                $this->logger->error($errorMsg);
+
+                throw new XsgaValidationException($errorMsg);
+
+            }//end if
 
             // Executes action.
             $this->executeAction($this->getAction());
