@@ -22,7 +22,6 @@ namespace xsgaphp\core\console\actions;
 use xsgaphp\core\abstract\XsgaAbstractClass;
 use xsgaphp\core\console\XsgaActionInt;
 use xsgaphp\core\utils\XsgaPath;
-use xsgaphp\core\exceptions\XsgaValidationException;
 use xsgaphp\core\exceptions\XsgaException;
 
 /**
@@ -71,7 +70,7 @@ final class GenerateProxiesAction extends XsgaAbstractClass implements XsgaActio
     {
         // Logger.
         $this->logger->debugInit();
-        $this->logger->info('Generating proxies');
+        $this->logger->info('Generating entities proxies');
         
         // Generates proxies.
         exec('php "'.$doctrinePath.'doctrine" orm:generate-proxies', $output, $status);
@@ -79,7 +78,7 @@ final class GenerateProxiesAction extends XsgaAbstractClass implements XsgaActio
         if ($status === 1) {
 
             // Error message.
-            $errorMsg = 'Error creating proxies';
+            $errorMsg = 'Error creating entities proxies';
 
             // Logger.
             $this->logger->error($errorMsg);
@@ -92,7 +91,7 @@ final class GenerateProxiesAction extends XsgaAbstractClass implements XsgaActio
         } else {
 
             // Log output.
-            $this->logOutput($output);
+            $this->logOutput($output, 'debug');
 
         }//end if
 
@@ -112,7 +111,7 @@ final class GenerateProxiesAction extends XsgaAbstractClass implements XsgaActio
      * 
      * @access private
      */
-    private function logOutput(array $output, string $type = 'debug') : void
+    private function logOutput(array $output, string $type = '') : void
     {
         foreach ($output as $line) {
 

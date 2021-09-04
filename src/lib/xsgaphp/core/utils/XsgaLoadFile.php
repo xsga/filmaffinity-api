@@ -56,15 +56,25 @@ class XsgaLoadFile
             $content = json_decode(file_get_contents($fileLocation), $mode);
 
             if (empty($content)) {
-                $content = array();
+
+                // Logger.
+                $logger->warn("File \"$fileName\" it's empty");
+
+                // Set empty content
+                if ($mode) {
+                    $content = array();
+                } else {
+                    $content = new \stdClass();
+                }//end if
+                
             }//end if
             
             // Logger.
-            $logger->debug("Load \"$fileName\" file");
+            $logger->debug("File \"$fileName\" loaded sucessfully");
             
         } else {
 
-            if ($mode === true) {
+            if ($mode) {
                 $content = array();
             } else {
                 $content = new \stdClass();

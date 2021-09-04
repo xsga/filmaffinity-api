@@ -23,7 +23,6 @@ use xsgaphp\core\abstract\XsgaAbstractClass;
 use xsgaphp\core\console\XsgaActionInt;
 use xsgaphp\core\utils\XsgaPath;
 use xsgaphp\core\utils\XsgaLoadFile;
-use xsgaphp\core\exceptions\XsgaException;
 
 /**
  * ConsoleActionsAction class.
@@ -60,11 +59,9 @@ final class ConsoleActionsAction extends XsgaAbstractClass implements XsgaAction
 
 
     /**
-     * Get actions.
+     * Get available actions.
      * 
      * @return void
-     * 
-     * @throws XsgaException Console actions json file not found or empty.
      * 
      * @access private
      */

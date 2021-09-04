@@ -69,12 +69,8 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         // Copy entities to entity folder.
         $this->copyEntities($tmpEntityFolder, $entityFolder);
 
-        // Remove temporal folder.
-        $this->logger->info('Removing temporal folder');
-
-        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$params['type'].DIRECTORY_SEPARATOR.'entity');
-        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$params['type']);
-        \rmdir($tmpFolder);
+        // Remove temporal folders.
+        $this->rmDirs($tmpFolder);
         
         // Logger.
         $this->logger->debugEnd();
@@ -97,6 +93,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
     {
         // Logger.
         $this->logger->debugInit();
+        $this->logger->info('Validating type parameter');
 
         if (!isset($params['type'])) {
             
@@ -114,7 +111,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         if ($params['type'] !== 'api' && $params['type'] !== 'batch') {
             
             // Error message.
-            $errorMsg = 'Parameter type not valid';
+            $errorMsg = 'Parameter type "'.$params['type'].'" not valid (allowed values: "api" or "batch")';
 
             // Logger.
             $this->logger->error($errorMsg);
@@ -148,7 +145,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
     {
         // Logger.
         $this->logger->debugInit();
-        $this->logger->info('Generating entities');
+        $this->logger->info('Mapping entities');
         
         // Generates entities.
         exec('php "'.$doctrinePath.'doctrine" orm:convert:mapping --force --from-database --namespace='.$namespace.' annotation "'.$tmpFolder.'"', $output, $status);
@@ -156,7 +153,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         if ($status === 1) {
 
             // Error message.
-            $errorMsg = 'Error creating entities';
+            $errorMsg = 'Error mapping entities';
 
             // Logger.
             $this->logger->error($errorMsg);
@@ -169,7 +166,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         } else {
 
             // Log output.
-            $this->logOutput($output);
+            $this->logOutput($output, 'debug');
 
         }//end if
 
@@ -216,7 +213,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         } else {
 
             // Log output.
-            $this->logOutput($output);
+            $this->logOutput($output, 'debug');
 
         }//end if
 
@@ -236,7 +233,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
      * 
      * @access private
      */
-    private function logOutput(array $output, string $type = 'debug') : void
+    private function logOutput(array $output, string $type = '') : void
     {
         foreach ($output as $line) {
 
@@ -299,6 +296,31 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         $this->logger->debugEnd();
 
     }//end copyEntities()
+
+
+    /**
+     * Remove working directories.
+     * 
+     * @param string $tmpFolder Temporal folder.
+     * 
+     * @return void
+     * 
+     * @access private
+     */
+    private function rmDirs(string $tmpFolder) : void
+    {
+        // Logger.
+        $this->logger->debugInit();
+        $this->logger->info('Removing temporal folders');
+
+        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$params['type'].DIRECTORY_SEPARATOR.'entity');
+        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$params['type']);
+        \rmdir($tmpFolder);        
+
+        // Logger.
+        $this->logger->debugEnd();
+
+    }//end rmDirs()
 
 
 }//end GenerateEntitiesAction class

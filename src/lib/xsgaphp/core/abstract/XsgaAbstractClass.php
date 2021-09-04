@@ -44,6 +44,7 @@ abstract class XsgaAbstractClass
      */
     public function __construct()
     {
+        // Set logger.
         $this->logger = Logger::getLogger('main');
         
     }//end __construct()

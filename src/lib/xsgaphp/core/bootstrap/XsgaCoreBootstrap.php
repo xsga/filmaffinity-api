@@ -76,6 +76,7 @@ class XsgaCoreBootstrap
 
         // Validates custom settings.
         try {
+
             // Set application bootstrap class.
             $apiBootstrap   = 'xsgaphp\\api\\bootstrap\\XsgaApiBootstrap';
             $batchBootstrap = 'xsgaphp\\batch\\bootstrap\\XsgaApiBootstrap';
@@ -86,6 +87,7 @@ class XsgaCoreBootstrap
             } else if (class_exists($batchBootstrap)) {
                 $batchBootstrap::valProps($dotenv);
             }//end if
+
         } catch (ValidationException $e) {
             throw new XsgaBootstrapException($e->getMessage());
         }//end try
@@ -122,9 +124,7 @@ class XsgaCoreBootstrap
         }//end switch
         
         // Path to entities.
-        $paths = array(
-            XsgaPath::getPathTo(array('src', 'entity'))
-        );
+        $paths = array(XsgaPath::getPathTo(array('src', 'entity')));
 
         // Create config.
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);

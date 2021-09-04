@@ -31,13 +31,22 @@ class XsgaConsole extends XsgaAbstractClass
 {
 
     /**
-     * Action.
+     * Action ID provided.
      * 
      * @var string
      * 
      * @access private
      */
-    private $action = '';
+    private $actionId = '';
+
+    /**
+     * Action information array.
+     * 
+     * @var array
+     * 
+     * @access private
+     */
+    private $action = array();
 
     /**
      * Arguments.
@@ -65,8 +74,6 @@ class XsgaConsole extends XsgaAbstractClass
      * 
      * @return void
      * 
-     * @throws XsgaValidationException
-     * 
      * @access public
      */
     public function runConsole(array $params) : void
@@ -77,33 +84,17 @@ class XsgaConsole extends XsgaAbstractClass
 
         try {
 
-            // Get action and action arguments.
+            // Get action ID and action arguments.
             $this->getActionAndArgs($params);
 
-            // Loads available actions.
-            if (XsgaCheckFile::consoleActions($output)) {
+            // Get available actions.
+            $this->getAvailableActions();
 
-                $this->actions = $output;
-                
-            } else {
-                
-                if (empty($output)) {
-                    // Error message.
-                    $errorMsg = 'Console actions configuration file not found';
-                } else {
-                    // Error message.
-                    $errorMsg = 'Console actions configuration file not valid';
-                }//end if
-                
-                // Logger.
-                $this->logger->error($errorMsg);
-
-                throw new XsgaValidationException($errorMsg);
-
-            }//end if
+            // Get provided action information.
+            $this->getAction();
 
             // Executes action.
-            $this->executeAction($this->getAction());
+            $this->executeAction();
 
         } catch (\Throwable $e) {
 
@@ -155,7 +146,7 @@ class XsgaConsole extends XsgaAbstractClass
         $params = array_values($params);
 
         // Set console action.
-        $this->action = $params[0];
+        $this->actionId = $params[0];
 
         // Quit action from array.
         unset($params[0]);
@@ -189,48 +180,101 @@ class XsgaConsole extends XsgaAbstractClass
 
 
     /**
-     * Get action information array.
+     * Get available actions.
      * 
-     * @return array
+     * @return void
+     * 
+     * @throws XsgaValidationException Action files not found or not valid.
      * 
      * @access private
      */
-    private function getAction() : array
+    private function getAvailableActions() : void
     {
         // Logger.
         $this->logger->debugInit();
 
-        $action = array();
+        // Load and check actions config file.
+        if (XsgaCheckFile::consoleActions($output)) {
 
+            // Logger.
+            $this->logger->debug('Console actions configuration file loaded successfully');
+            
+            // Set actions.
+            $this->actions = $output;
+            
+        } else {
+            
+            if (empty($output)) {
+                // Error message.
+                $errorMsg = 'Console actions configuration file not found';
+            } else {
+                // Error message.
+                $errorMsg = 'Console actions configuration file not valid';
+            }//end if
+            
+            // Logger.
+            $this->logger->error($errorMsg);
+
+            throw new XsgaValidationException($errorMsg);
+
+        }//end if
+
+        // Logger.
+        $this->logger->debugEnd();
+
+    }//end getAvailableActions()
+
+
+    /**
+     * Get action information array.
+     * 
+     * @return void
+     * 
+     * @throws XsgaValidationException No found action.
+     * 
+     * @access private
+     */
+    private function getAction() : void
+    {
+        // Logger.
+        $this->logger->debugInit();
+
+        $found = false;
+
+        // search provided action in available action.
         foreach ($this->actions as $item) {
 
-            if (strtolower($item['id']) === strtolower($this->action)) {
+            if (strtolower($item['id']) === strtolower($this->actionId)) {
                 
-                $action = $item;
-
                 // Logger.
                 $this->logger->debug("Found action \"$item[name]\"");
+                $this->logger->debugValidationOK();
+
+                // Set action array information.
+                $this->action = $item;
+                
+                // Set found to true.
+                $found = true;
+
+                break;
 
             }//end if
 
         }//end foreach
 
-        // Error, no found action.
-        if (empty($action)) {
+        // Error, no action found.
+        if (!$found) {
 
             // Logger.
             $this->logger->debugValidationKO();
-            $this->logger->error("No action found for \"$this->action\"");
+            $this->logger->error("No action found for \"$this->actionId\"");
                                     
             throw new XsgaValidationException('No action found');
 
         }//end if
 
         // Logger.
-        $this->logger->debugValidationOK();
         $this->logger->debugEnd();
-
-        return $action;
 
     }//end getAction()
 
@@ -238,31 +282,32 @@ class XsgaConsole extends XsgaAbstractClass
     /**
      * Executes console action.
      * 
-     * @param array $action Action classname.
-     * 
      * @return void
+     * 
+     * @throws XsgaObjectNotFoundException Action class not found.
+     * @throws XsgaValidationException     Action class not valid.
      * 
      * @access private
      */
-    private function executeAction(array $action) : void
+    private function executeAction() : void
     {
         // Logger.
         $this->logger->debugInit();
 
         // Set classname with namespace.
-        $class = $action['class'];
+        $class = $this->action['class'];
 
         // Validates action class.
         if (!$this->existsAction($class)) {
-            throw new XsgaObjectNotFoundException('Action not found');
+            throw new XsgaObjectNotFoundException('Action class not found');
         } else if (!$this->validAction($class)) {
             throw new XsgaValidationException('Action class not valid');
         }//end if
 
-        // Get actions instance.
+        // Gets action instance.
         $action = new $class;
 
-        // Executes actions.
+        // Executes action.
         $action->execute($this->args);
 
         // Logger.

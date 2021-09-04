@@ -156,8 +156,13 @@ class XsgaCheckFile
         $content = XsgaLoadFile::loadJson($path, $file);
 
         if (empty($content)) {
+            
+            // Logger.
             $logger->error('Error loading file "'.$file.'"');
+            $logger->debugValidationKO();
+
             return false;
+
         }//end if
 
         foreach ($content as $key => $value) {
@@ -168,8 +173,13 @@ class XsgaCheckFile
                     break;
                 }//end if
 
+                // Error message.
                 $errorMsg = 'Element '.$key.': '.strtoupper($field).' key mandatory';
+
+                // Logger.
                 $logger->error($errorMsg);
+
+                // Set error to output.
                 $result[] = $errorMsg;
 
             }//end foreach
@@ -179,6 +189,7 @@ class XsgaCheckFile
         if (empty($result)) {
 
             // Logger.
+            $logger->debug('File loaded and checked successfully');
             $logger->debugValidationOK();
 
             $result = $content;

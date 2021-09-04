@@ -366,7 +366,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @return void
      * 
-     * @throws XsgaFileNotFoundException
+     * @throws XsgaFileNotFoundException Routes file not found or not valid.
      * 
      * @access private
      */
@@ -384,10 +384,14 @@ class XsgaAPIRouter extends XsgaAbstractClass
         } else {
             
             if (empty($routes)) {
-                throw new XsgaValidationException('Routes file not found', 102);
+                $errorMsg  = 'Routes file not found';
+                $errorCode = 102;
             } else {
-                throw new XsgaValidationException('Routes file not valid', 113);
+                $errorMsg  = 'Routes file not valid';
+                $errorCode = 113;
             }//end if
+
+            throw new XsgaValidationException($errorMsg, $errorCode);
             
         }//end if
 
@@ -496,7 +500,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
      * 
      * @return array
      * 
-     * @throws XsgaValidationException
+     * @throws XsgaValidationException Route not found.
      * 
      * @access private
      */

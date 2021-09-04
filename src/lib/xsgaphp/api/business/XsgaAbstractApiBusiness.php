@@ -154,8 +154,8 @@ abstract class XsgaAbstractApiBusiness extends XsgaAbstractClass
         foreach ($sortFieldsArray as $sortField) {
 
             // Get sort type flags.
-            $sortAsc  = strpos($sortField, '+') === false ? false : true;
-            $sortDesc = strpos($sortField, '-') === false ? false : true;
+            $sortAsc  = !strpos($sortField, '+') ? false : true;
+            $sortDesc = !strpos($sortField, '-') ? false : true;
 
             // Get sort field.
             $field = str_replace('+', '', $sortField);

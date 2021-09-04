@@ -36,6 +36,8 @@ class ErrorsBusiness extends XsgaAbstractApiBusiness
      * 
      * @return ApiErrorsListDto[]
      * 
+     * @throws XsgaValidationException Error file not found or not valid.
+     * 
      * @access public
      */
     public function getErrors() : array
@@ -67,10 +69,14 @@ class ErrorsBusiness extends XsgaAbstractApiBusiness
         } else {
 
             if (empty($errors)) {
-                throw new XsgaValidationException('Error file not found', 114);
+                $errorMsg  = 'Error file not found';
+                $errorCode = 114;
             } else {
-                throw new XsgaValidationException('Error file not valid', 115);
+                $errorMsg  = 'Error file not valid';
+                $errorCode = 115;
             }//end if
+
+            throw new XsgaValidationException($errorMsg, $errorCode);
 
         }//end if
 

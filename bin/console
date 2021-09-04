@@ -19,17 +19,11 @@ use log4php\Logger;
 use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
 use xsgaphp\core\console\XsgaConsole;
 use xsgaphp\core\exceptions\XsgaBootstrapException;
+use xsgaphp\core\utils\XsgaPath;
 
 // Load Composer autoloader.
 $pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
 require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
-
-// Get execution path.
-$path = explode(DIRECTORY_SEPARATOR, getcwd());
-
-if (end($path) !== 'bin') {
-    chdir('bin');
-}//end if
 
 echo "\n";
 echo '** Xsga-PHP Console';
@@ -40,6 +34,9 @@ try {
 
     // Bootstrap.
     XsgaCoreBootstrap::init();
+
+    // Move into bin folder.
+    chdir(XsgaPath::getPathTo('bin'));
 
     // Get console instance.
     $console = new XsgaConsole();
