@@ -535,7 +535,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
                 }//end if
 
                 if (empty($regex)) {
-                    $regex = '#'.$route['pattern'].'#';
+                    $regex = '#'.$route['pattern'].'$#';
                 }//end if
                 
                 // Match with request.
