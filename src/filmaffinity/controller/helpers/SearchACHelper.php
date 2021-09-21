@@ -64,7 +64,7 @@ class SearchACHelper extends XsgaAbstractClass
                 $arraySearch = json_decode($resources->getResourceFile('json', 'genres'), true);
                 $arrayKey    = 'genre_code';
                 $errorMsg    = "Code \"$param\" is not a valid genre code";
-                $errorNum    = 201;
+                $errorNum    = 4002;
                 
                 break;
                 
@@ -77,7 +77,7 @@ class SearchACHelper extends XsgaAbstractClass
                 $arraySearch = json_decode($resources->getResourceFile('json', 'countries'), true);
                 $arrayKey    = 'country_code';
                 $errorMsg    = "Code \"$param\" is not a valid country code";
-                $errorNum    = 202;
+                $errorNum    = 4003;
                 
                 break;
                 

@@ -19,8 +19,8 @@ namespace api\filmaffinity\controller;
 /**
  * Import dependencies.
  */
-use xsgaphp\api\controller\XsgaAbstractApiController;
-use api\filmaffinity\business\XsgaFilmAffinity;
+use xsgaphp\api\abstract\XsgaAbstractApiController;
+use api\filmaffinity\business\FilmAffinity;
 
 /**
  * Class FilmController.
@@ -31,7 +31,7 @@ class FilmController extends XsgaAbstractApiController
     /**
      * FilmAffinity business class.
      * 
-     * @var XsgaFilmAffinity
+     * @var FilmAffinity
      * 
      * @access private
      */
@@ -49,7 +49,7 @@ class FilmController extends XsgaAbstractApiController
         parent::__construct();
         
         // Set FilmAffinity business class.
-        $this->filmAffinity = new XsgaFilmAffinity();
+        $this->filmAffinity = new FilmAffinity();
         
     }//end __construct()
     
@@ -72,15 +72,11 @@ class FilmController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // TODO: tratar parámetros.
-        unset($request[0]);
-        $request = array_values($request);
-
         // Validates input data.
         $this->getFilmValidations($request);
                 
         // Load film by fimAffinity ID.
-        $filmDto = $this->filmAffinity->loadFilm($request[0]);
+        $filmDto = $this->filmAffinity->loadFilm($request[1]);
         
         // Get response.
         $this->getResponse($filmDto);
@@ -105,11 +101,11 @@ class FilmController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validates number of parameters: 1 parameter expected (film ID).
-        $this->valNumberOfParams($params, 1);
+        // Validates number of parameters: 2 parameters expected (films + ID).
+        $this->valNumberOfParams($params, 2);
         
-        // Validates that parameter is numeric.
-        $this->valParamIsNumeric($params[0]);
+        // Validates that second parameter it's numeric (film ID).
+        $this->valParamIsNumeric($params[1]);
         
         // Logger.
         $this->logger->debugEnd();

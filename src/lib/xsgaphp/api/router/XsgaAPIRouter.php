@@ -24,9 +24,9 @@ use xsgaphp\api\dto\ApiErrorDevDto;
 use xsgaphp\api\dto\ApiErrorDto;
 use xsgaphp\core\exceptions\XsgaValidationException;
 use xsgaphp\core\exceptions\XsgaPageNotFoundException;
-use xsgaphp\core\utils\XsgaLoadFile;
-use xsgaphp\core\utils\XsgaPath;
 use xsgaphp\core\utils\XsgaCheckFile;
+use xsgaphp\api\security\XsgaApiSecurity;
+use xsgaphp\core\errors\XsgaErrors;
 
 /**
  * XsgaAPIRouter class.
@@ -108,9 +108,6 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
 
-        // Security filter.
-        $this->securityFilter();
-
         // Loads routes.
         $this->loadRoutes();
 
@@ -125,6 +122,9 @@ class XsgaAPIRouter extends XsgaAbstractClass
 
         // Get route.
         $route = $this->getRoute();
+
+        // Security filter.
+        $this->securityFilter();
 
         // Dispatch petition.
         $this->dispatch($route);
@@ -152,18 +152,15 @@ class XsgaAPIRouter extends XsgaAbstractClass
         // Logger.
         $this->logger->debugInit();
         
-        // Get error literals.
-        $lang = XsgaLoadFile::loadJson(XsgaPath::getPathTo(array('src', 'language')), strtolower($_ENV['LANGUAGE']).'.json');
-        
-        // Set error message.
-        $message = isset($lang['errors']['error_'.$code]) ? $lang['errors']['error_'.$code] : 'Error message not defined';
+        // Gets error.
+        $error = XsgaErrors::getError($code);
         
         if ($_ENV['ENVIRONMENT'] === 'dev') {
             
             // Set out error DTO.
             $errorDto          = new ApiErrorDevDto();
-            $errorDto->code    = $code;
-            $errorDto->message = $message;
+            $errorDto->code    = $error->code;
+            $errorDto->message = $error->message;
             $errorDto->file    = $file;
             $errorDto->line    = $line === 0 ? '' : $line;
             $errorDto->trace   = $trace;
@@ -172,19 +169,16 @@ class XsgaAPIRouter extends XsgaAbstractClass
             
             // Set out error DTO.
             $errorDto          = new ApiErrorDto();
-            $errorDto->code    = $code;
-            $errorDto->message = $message;
+            $errorDto->code    = $error->code;
+            $errorDto->message = $error->message;
             
         }//end if
-
-        // Get HTTP status code.
-        $status = $this->getHttpStatus($code);
         
         // Clean output buffer.
         ob_clean();
         
         // Set response code.
-        http_response_code($status);
+        http_response_code($error->httpCode);
 
         // Set response headers.
         self::getHeaders();
@@ -196,43 +190,6 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $this->logger->debugEnd();
         
     }//end dispatchError()
-
-
-    /**
-     * Dispatch API bootstrap error.
-     * 
-     * @param string $message Error message.
-     * 
-     * @return void
-     * 
-     * @access public
-     */
-    public function dispatchBootstrapError(string $message) : void
-    {
-        // Logger.
-        $this->logger->debugInit();
-        
-        // Set out error DTO.
-        $errorDto          = new ApiErrorDto();
-        $errorDto->code    = 112;
-        $errorDto->message = $message;
-
-        // Clean output buffer.
-        ob_clean();
-        
-        // Set response code.
-        http_response_code(500);
-
-        // Set response headers.
-        self::getHeaders();
-
-        // Set response body.
-        echo json_encode($errorDto);
-        
-        // Logger.
-        $this->logger->debugEnd();
-        
-    }//end dispatchBootstrapError()
 
 
     /**
@@ -279,8 +236,11 @@ class XsgaAPIRouter extends XsgaAbstractClass
                 // Logger.
                 $this->logger->debug('Security type: HTTP Basic');
 
+                // Gets security instance.
+                $security = new XsgaApiSecurity();
+
                 // Security BASIC.
-                $this->securityBasic();
+                $security->basic();
 
                 break;
 
@@ -290,75 +250,6 @@ class XsgaAPIRouter extends XsgaAbstractClass
         $this->logger->debugEnd();
 
     }//end securityFilter()
-
-
-    /**
-     * Basic HTTP security.
-     * 
-     * @return void
-     * 
-     * @access private
-     */
-    private function securityBasic() : void
-    {
-        // Logger.
-        $this->logger->debugInit();
-
-        // TO-DO.
-
-        // Logger.
-        $this->logger->debugEnd();
-
-    }//end securityBasic()
-
-
-    /**
-     * Get HTTP response status code.
-     * 
-     * @param integer $errorCode Error code.
-     * 
-     * @return integer
-     * 
-     * @access private
-     */
-    private function getHttpStatus(int $errorCode) : int
-    {
-        // Logger.
-        $this->logger->debugInit();
-
-        // Initializes status code.
-        $status = 0;
-
-        // Load errors file.
-        if (XsgaCheckFile::apiErrors($errors)) {
-
-            foreach ($errors as $error) {
-
-                if ($error['api_code'] === $errorCode) {
-                    $status = $error['http_code'];
-                    break;
-                }//end if
-    
-            }//end foreach
-
-        }//end if
-
-        if ($status === 0) {
-
-            // Logger.
-            $this->logger->warn("Error $errorCode not found in errors file");
-
-            // Set default HTTP status.
-            $status = 500;
-
-        }//end if
-
-        // Logger.
-        $this->logger->debugEnd();
-
-        return $status;
-
-    }//end getHttpStatus()
 
 
     /**
@@ -385,10 +276,10 @@ class XsgaAPIRouter extends XsgaAbstractClass
             
             if (empty($routes)) {
                 $errorMsg  = 'Routes file not found';
-                $errorCode = 102;
+                $errorCode = 2002;
             } else {
                 $errorMsg  = 'Routes file not valid';
-                $errorCode = 113;
+                $errorCode = 2003;
             }//end if
 
             throw new XsgaValidationException($errorMsg, $errorCode);
@@ -531,7 +422,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
 
                 // Regular expression for text.
                 if (is_numeric(stripos($route['pattern'], ':text'))) {
-                    $regex = '#'.str_replace(':text', '[a-zA-Z]*$', $route['pattern']).'#';
+                    $regex = '#'.str_replace(':text', '[a-zA-Z_-]*$', $route['pattern']).'#';
                 }//end if
 
                 if (empty($regex)) {
@@ -562,7 +453,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error('Not found route for request');
                                     
-            throw new XsgaValidationException('Invalid request', 103);
+            throw new XsgaValidationException('Invalid request', 1003);
 
         }//end if
 
@@ -653,7 +544,7 @@ class XsgaAPIRouter extends XsgaAbstractClass
             // Logger.
             $this->logger->error($log);
             
-            throw new XsgaPageNotFoundException($log, 103);
+            throw new XsgaPageNotFoundException($log, 1003);
             
         }//end if
         

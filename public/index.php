@@ -55,13 +55,20 @@ try {
     // Get API router.
     $apiRouter = new XsgaAPIRouter();
 
-    // Dispatch API bootstrap error.
-    $apiRouter->dispatchBootstrapError($e->getMessage());
+    // Error code.
+    $errorCode = 1002;
+
+    // Logger.
+    $logger->error("Error code: $errorCode");
+    $logger->error($e->__toString());
+    
+    // Dispatch error.
+    $apiRouter->dispatchError($errorCode, $e->getFile(), $e->getLine(), $e->__toString());
 
 } catch (QueryException $e) {
     
     // Error code.
-    $errorCode = 111;
+    $errorCode = 1010;
 
     // Logger.
     $logger->error("Error code: $errorCode");
@@ -74,7 +81,7 @@ try {
     
     // Get error code.
     if ($e->getCode() === 0) {
-        $errorCode = 101;
+        $errorCode = 1001;
     } else {
         $errorCode = $e->getCode();
     }//end if

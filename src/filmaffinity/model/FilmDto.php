@@ -15,8 +15,6 @@
 namespace api\filmaffinity\model;
 
 /**
- * 
- * @author XSegales
  *
  */
 class FilmDto
@@ -165,15 +163,6 @@ class FilmDto
      * @access public
      */
     public $genres = array();
-    
-    /**
-     * Official web.
-     *
-     * @var string
-     *
-     * @access public
-     */
-    public $officialweb;
     
     /**
      * Synopsis.

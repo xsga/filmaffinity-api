@@ -19,9 +19,9 @@ namespace api\filmaffinity\controller;
 /**
  * Import dependencies.
  */
-use xsgaphp\api\controller\XsgaAbstractApiController;
+use xsgaphp\api\abstract\XsgaAbstractApiController;
 use api\filmaffinity\controller\helpers\SearchACHelper;
-use api\filmaffinity\business\XsgaFilmAffinity;
+use api\filmaffinity\business\FilmAffinity;
 
 /**
  * Class SearchController.
@@ -62,7 +62,7 @@ class SearchController extends XsgaAbstractApiController
         $this->helper = new SearchACHelper();
         
         // Set FilmAffinity business class.
-        $this->filmAffinity = new XsgaFilmAffinity();
+        $this->filmAffinity = new FilmAffinity();
         
     }//end __construct()
     

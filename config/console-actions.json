@@ -16,5 +16,11 @@
         "name": "GenerateProxies",
         "desc": "Generates entities proxies files.",
         "class": "\\xsgaphp\\core\\console\\actions\\GenerateProxiesAction"
+    },
+    {
+        "id": "db:install",
+        "name": "DatabaseInstall",
+        "desc": "Install database.",
+        "class": "\\xsgaphp\\core\\console\\actions\\DbInstallAction"
     }
 ]

@@ -19,7 +19,6 @@
         "cast",
         "producer",
         "genres",
-        "officialweb",
         "synopsis"
     ],
     "properties": {
@@ -135,11 +134,6 @@
                     }
                 ]
             }
-        },
-        "officialweb": {
-            "$id": "#/properties/officialweb",
-            "type": "string",
-            "title": "Film official website"
         },
         "synopsis": {
             "$id": "#/properties/synopsis",

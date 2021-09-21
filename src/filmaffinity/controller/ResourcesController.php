@@ -19,7 +19,7 @@ namespace api\filmaffinity\controller;
 /**
  * Import dependencies.
  */
-use xsgaphp\api\controller\XsgaAbstractApiController;
+use xsgaphp\api\abstract\XsgaAbstractApiController;
 use api\filmaffinity\business\FilmAffinityResources;
 use api\filmaffinity\controller\helpers\ResourcesACHelper;
 
@@ -85,15 +85,11 @@ class ResourcesController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
 
-        // TODO: tratar parámetros.
-        unset($request[0]);
-        $request = array_values($request);
-        
         // Validates input parameters.
         $this->getJsonValidations($request);
         
         // Get response.
-        $this->getResponse($this->resources->getResourceFile('json', $request[0]), false);
+        $this->getResponse($this->resources->getResourceFile('json', $request[1]), false);
         
         // Logger.
         $this->logger->debugEnd();
@@ -119,16 +115,11 @@ class ResourcesController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
 
-        // TODO: tratar parámetros.
-        unset($request[0]);
-        unset($request[1]);
-        $request = array_values($request);
-        
         // Validates input parameters.
         $this->getSchemaValidations($request);
         
         // Get response.
-        $this->getResponse($this->resources->getResourceFile('schema', $request[1], $request[0]), false);
+        $this->getResponse($this->resources->getResourceFile('schema', $request[3], $request[2]), false);
         
         // Logger.
         $this->logger->debugEnd();
@@ -150,11 +141,11 @@ class ResourcesController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validates number of parameters: 1 parameter expected (JSON file name).
-        $this->valNumberOfParams($params, 1);
+        // Validates number of parameters: 2 parameters expected (resources + JSON file name).
+        $this->valNumberOfParams($params, 2);
         
         // Validates that JSON file name is valid.
-        $this->helper->valParamIsValid($params[0], 'json_name');
+        $this->helper->valParamIsValid($params[1], 'json_name');
         
         // Logger.
         $this->logger->debugEnd();
@@ -176,14 +167,14 @@ class ResourcesController extends XsgaAbstractApiController
         // Logger.
         $this->logger->debugInit();
         
-        // Validates number of parameters: 2 parameters expected (mode and schema name).
-        $this->valNumberOfParams($params, 2);
+        // Validates number of parameters: 4 parameters expected (resources + schema + mode + schema name).
+        $this->valNumberOfParams($params, 4);
         
         // Validates that mode is valid: input or output.
-        $this->helper->valParamIsValid($params[0], 'schema_mode');
+        $this->helper->valParamIsValid($params[2], 'schema_mode');
         
         // Validates that schema name is valid.
-        $this->helper->valParamIsValid($params[1], 'schema_name');
+        $this->helper->valParamIsValid($params[3], 'schema_name');
         
         // Logger.
         $this->logger->debugEnd();

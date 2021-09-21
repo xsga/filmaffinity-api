@@ -60,7 +60,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 $pathToResource   = XsgaPath::getPathTo(array('src', 'filmaffinity', 'resources', 'json'));
                 $resource         = $pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON file not found ('.$resourceFileName.')';
-                $errorNum         = 203;
+                $errorNum         = 4004;
                 
                 break;
                 
@@ -74,7 +74,7 @@ class FilmAffinityResources extends XsgaAbstractClass
                 $pathToResource   = XsgaPath::getPathTo(array('src', 'filmaffinity', 'resources', 'schema', $mode));
                 $resource         = $pathToResource.$resourceFileName;
                 $errorMsg         = 'JSON schema file not found ('.$resourceFileName.')';
-                $errorNum         = 205;
+                $errorNum         = 4006;
                 
                 break;
                 

@@ -17,7 +17,7 @@ namespace xsgaphp\api\errors;
 /**
  * Import dependencies.
  */
-use xsgaphp\api\controller\XsgaAbstractApiController;
+use xsgaphp\api\abstract\XsgaAbstractApiController;
 use xsgaphp\api\errors\ErrorsBusiness;
 
 /**

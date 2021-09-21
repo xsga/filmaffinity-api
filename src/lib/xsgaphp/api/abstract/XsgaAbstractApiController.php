@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\api\controller;
+namespace xsgaphp\api\abstract;
 
 /**
  * Import dependencies.
@@ -92,7 +92,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 105);
+            throw new XsgaValidationException($errorMsg, 1004);
             
         }//end if
         
@@ -129,7 +129,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 106);
+            throw new XsgaValidationException($errorMsg, 1005);
             
         }//end if
         
@@ -167,7 +167,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 107);
+            throw new XsgaValidationException($errorMsg, 1006);
             
         }//end if
         
@@ -203,7 +203,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 108);
+            throw new XsgaValidationException($errorMsg, 1007);
             
         }//end if
         
@@ -239,7 +239,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 109);
+            throw new XsgaValidationException($errorMsg, 1008);
             
         }//end if
         
@@ -275,7 +275,7 @@ abstract class XsgaAbstractApiController extends XsgaAbstractClass
             $this->logger->debugValidationKO();
             $this->logger->error($errorMsg);
             
-            throw new XsgaValidationException($errorMsg, 110);
+            throw new XsgaValidationException($errorMsg, 1009);
             
         }//end if
         

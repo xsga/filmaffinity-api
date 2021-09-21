@@ -92,7 +92,7 @@ class ResourcesACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $searchArray = $this->jsonFiles;
                 $errorMsg    = 'JSON file not valid';
-                $errorNum    = 204;
+                $errorNum    = 4005;
                 
                 break;
                 
@@ -104,7 +104,7 @@ class ResourcesACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $searchArray = $this->schemaModes;
                 $errorMsg    = 'JSON schema mode not valid (input or output)';
-                $errorNum    = 206;
+                $errorNum    = 4007;
                 
                 break;
                 
@@ -116,7 +116,7 @@ class ResourcesACHelper extends XsgaAbstractClass
                 // Set common variables.
                 $searchArray = $this->schemaFiles;
                 $errorMsg    = 'JSON schema file not valid';
-                $errorNum    = 205;
+                $errorNum    = 4006;
                 
                 break;
             

@@ -53,9 +53,9 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         // Init variables.
         $doctrinePath    = XsgaPath::getPathTo(array('vendor', 'bin'));
         $tmpFolder       = substr(XsgaPath::getPathTo(array('tmp', 'entity')), 0, -1);
-        $namespace       = $params['type'].'\\entity\\';
-        $tmpEntityFolder = XsgaPath::getPathTo(array('tmp', 'entity', $params['type'], 'entity'));
-        $entityFolder    = XsgaPath::getPathTo(array('src', 'entity'));
+        $namespace       = $params['type'].'\\common\\persistence\\entity\\';
+        $tmpEntityFolder = XsgaPath::getPathTo(array('tmp', 'entity', $params['type'], 'common', 'persistence', 'entity'));
+        $entityFolder    = XsgaPath::getPathTo(array('src', 'common', 'persitence', 'entity'));
 
         // Executes generates entities.
         $this->execGenerate($doctrinePath, $namespace, $tmpFolder);
@@ -70,7 +70,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         $this->copyEntities($tmpEntityFolder, $entityFolder);
 
         // Remove temporal folders.
-        $this->rmDirs($tmpFolder);
+        $this->rmDirs($tmpFolder, $params['type']);
         
         // Logger.
         $this->logger->debugEnd();
@@ -302,19 +302,22 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
      * Remove working directories.
      * 
      * @param string $tmpFolder Temporal folder.
+     * @param string $type      Type
      * 
      * @return void
      * 
      * @access private
      */
-    private function rmDirs(string $tmpFolder) : void
+    private function rmDirs(string $tmpFolder, string $type) : void
     {
         // Logger.
         $this->logger->debugInit();
         $this->logger->info('Removing temporal folders');
 
-        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$params['type'].DIRECTORY_SEPARATOR.'entity');
-        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$params['type']);
+        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$type.DIRECTORY_SEPARATOR.'common'.DIRECTORY_SEPARATOR.'persistence'.DIRECTORY_SEPARATOR.'entity');
+        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$type.DIRECTORY_SEPARATOR.'common'.DIRECTORY_SEPARATOR.'persistence');
+        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$type.DIRECTORY_SEPARATOR.'common');
+        \rmdir($tmpFolder.DIRECTORY_SEPARATOR.$type);
         \rmdir($tmpFolder);        
 
         // Logger.

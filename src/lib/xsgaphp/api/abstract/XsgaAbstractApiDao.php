@@ -12,7 +12,7 @@
 /**
  * Namespace.
  */
-namespace xsgaphp\api\repository;
+namespace xsgaphp\api\abstract;
 
 /**
  * Import dependencies.

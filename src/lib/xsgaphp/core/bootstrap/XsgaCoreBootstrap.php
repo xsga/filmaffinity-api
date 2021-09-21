@@ -59,6 +59,7 @@ class XsgaCoreBootstrap
         try {
             $dotenv->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
             $dotenv->required('LOGGER_SQL')->isBoolean();
+            $dotenv->required('LANGUAGE')->allowedValues(['spa', 'en']);
         } catch (ValidationException $e) {
             throw new XsgaBootstrapException($e->getMessage());
         }//end try

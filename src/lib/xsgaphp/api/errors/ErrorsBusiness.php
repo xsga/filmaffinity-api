@@ -17,12 +17,9 @@ namespace xsgaphp\api\errors;
 /**
  * Import dependencies.
  */
-use xsgaphp\api\business\XsgaAbstractApiBusiness;
+use xsgaphp\api\abstract\XsgaAbstractApiBusiness;
 use xsgaphp\api\dto\ApiErrorsListDto;
-use xsgaphp\core\utils\XsgaLoadFile;
-use xsgaphp\core\utils\XsgaPath;
-use xsgaphp\core\utils\XsgaCheckFile;
-use xsgaphp\core\exceptions\XsgaValidationException;
+use xsgaphp\core\errors\XsgaErrors;
 
 /**
  * ErrorsBusiness.
@@ -36,8 +33,6 @@ class ErrorsBusiness extends XsgaAbstractApiBusiness
      * 
      * @return ApiErrorsListDto[]
      * 
-     * @throws XsgaValidationException Error file not found or not valid.
-     * 
      * @access public
      */
     public function getErrors() : array
@@ -45,40 +40,20 @@ class ErrorsBusiness extends XsgaAbstractApiBusiness
         // Logger.
         $this->logger->debugInit();
 
-        // Get language file.
-        $language = XsgaLoadFile::loadJson(XsgaPath::getPathTo(array('src', 'language')), strtolower($_ENV['LANGUAGE']).'.json');
-
         // Initializes output.
         $out = array();
 
-        // Get errors file.
-        if (XsgaCheckFile::apiErrors($errors)) {
+        foreach (XsgaErrors::getAllErrors() as $error) {
 
-            foreach ($errors as $error) {
+            $dto = new ApiErrorsListDto();
 
-                $dto = new ApiErrorsListDto();
-    
-                $dto->code        = $error['api_code'];
-                $dto->description = $language['errors']['error_'.$error['api_code']];
-                $dto->statusCode  = $error['http_code'];
-    
-                $out[] = $dto;
-    
-            }//end foreach
+            $dto->code        = $error->code;
+            $dto->description = $error->message;
+            $dto->statusCode  = $error->httpCode;
 
-        } else {
+            $out[] = $dto;
 
-            if (empty($errors)) {
-                $errorMsg  = 'Error file not found';
-                $errorCode = 114;
-            } else {
-                $errorMsg  = 'Error file not valid';
-                $errorCode = 115;
-            }//end if
-
-            throw new XsgaValidationException($errorMsg, $errorCode);
-
-        }//end if
+        }//end foreach
 
         // Logger.
         $this->logger->debugEnd();

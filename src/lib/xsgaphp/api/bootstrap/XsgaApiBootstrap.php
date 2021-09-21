@@ -40,8 +40,7 @@ class XsgaApiBootstrap
         $dotenv->required('SECURITY_TYPE')->allowedValues(['0', '1']);
         $dotenv->required('URL_PATH');
         $dotenv->required('VENDOR')->notEmpty();
-        $dotenv->required('LANGUAGE')->allowedValues(['spa', 'en']);
-
+        
     }//end valProps()
     
 

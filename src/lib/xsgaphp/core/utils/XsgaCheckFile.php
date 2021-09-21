@@ -54,7 +54,7 @@ class XsgaCheckFile
         $fields = array('id', 'name', 'desc', 'class', 'method');
 
         // Validates file.
-        $out = self::validateFile(XsgaPath::getPathTo('config'), 'console-actions.json', $fields, $result);
+        $out = static::validateFile(XsgaPath::getPathTo('config'), 'console-actions.json', $fields, $result);
 
         // Logger.
         $logger->debugEnd();
@@ -88,7 +88,7 @@ class XsgaCheckFile
         $fields = array('name', 'http_method', 'pattern', 'controller', 'method');
 
         // Validates file.
-        $out = self::validateFile(XsgaPath::getPathTo('config'), 'api-routes.json', $fields, $result);
+        $out = static::validateFile(XsgaPath::getPathTo('config'), 'api-routes.json', $fields, $result);
 
         // Logger.
         $logger->debugEnd();
@@ -99,7 +99,7 @@ class XsgaCheckFile
 
 
     /**
-     * Checks api errors JSON file.
+     * Checks errors JSON file.
      * 
      * @param array $result File content or errors.
      * 
@@ -107,7 +107,7 @@ class XsgaCheckFile
      * 
      * @access public
      */
-    public static function apiErrors(array &$result = null) : bool
+    public static function errors(array &$result = null) : bool
     {
         // Get logger.
         $logger = Logger::getRootLogger();
@@ -119,17 +119,17 @@ class XsgaCheckFile
         $result = array();
 
         // Fields.
-        $fields = array('api_code', 'http_code');
+        $fields = array('code', 'http', 'type');
 
         // Validates file.
-        $out = self::validateFile(XsgaPath::getPathTo('config'), 'api-errors.json', $fields, $result);
+        $out = static::validateFile(XsgaPath::getPathTo('config'), 'errors.json', $fields, $result);
 
         // Logger.
         $logger->debugEnd();
         
         return $out;
 
-    }//end apiErrors()
+    }//end errors()
 
 
     /**
@@ -170,7 +170,7 @@ class XsgaCheckFile
             foreach ($fields as $field) {
 
                 if (isset($value[$field])) {
-                    break;
+                    continue;
                 }//end if
 
                 // Error message.

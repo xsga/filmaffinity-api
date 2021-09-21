@@ -1,0 +1,133 @@
+
+[
+    {
+        "code": 1001,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1002,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1003,
+        "http": 404,
+        "type": "core"
+    },
+    {
+        "code": 1004,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1005,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1006,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1007,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1008,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1009,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1010,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1011,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1012,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1013,
+        "http": 403,
+        "type": "core"
+    },
+    {
+        "code": 1014,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1015,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 1016,
+        "http": 500,
+        "type": "core"
+    },
+    {
+        "code": 2001,
+        "http": 500,
+        "type": "api"
+    },
+    {
+        "code": 2002,
+        "http": 500,
+        "type": "api"
+    },
+    {
+        "code": 2003,
+        "http": 500,
+        "type": "api"
+    },
+    {
+        "code": 4001,
+        "http": 500,
+        "type": "user"
+    },
+    {
+        "code": 4002,
+        "http": 500,
+        "type": "user"
+    },
+    {
+        "code": 4003,
+        "http": 500,
+        "type": "user"
+    },
+    {
+        "code": 4004,
+        "http": 404,
+        "type": "user"
+    },
+    {
+        "code": 4005,
+        "http": 404,
+        "type": "user"
+    },
+    {
+        "code": 4006,
+        "http": 404,
+        "type": "user"
+    },
+    {
+        "code": 4007,
+        "http": 500,
+        "type": "user"
+    }
+]
