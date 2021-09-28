@@ -52,7 +52,7 @@ class XsgaCoreBootstrap
         Logger::configure($pathConfig.'log4php.xml');
 
         // Load common settings (.env).
-        $dotenv = Dotenv::createImmutable($pathConfig);
+        $dotenv = Dotenv::createMutable($pathConfig);
         $dotenv->safeLoad();
 
         // Validates common settings.
@@ -65,7 +65,7 @@ class XsgaCoreBootstrap
         }//end try
 
         // Load environment settings (.environment.env).
-        $dotenv = Dotenv::createImmutable($pathConfig, ".$_ENV[ENVIRONMENT].env");
+        $dotenv = Dotenv::createMutable($pathConfig, ".$_ENV[ENVIRONMENT].env");
         $dotenv->safeLoad();
 
         // Validates environment settings.
@@ -125,7 +125,7 @@ class XsgaCoreBootstrap
         }//end switch
         
         // Path to entities.
-        $paths = array(XsgaPath::getPathTo(array('src', 'entity')));
+        $paths = array(XsgaPath::getPathTo(array('src', 'common', 'persistence', 'entity')));
 
         // Create config.
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);

@@ -51,7 +51,7 @@ class XsgaCheckFile
         $result = array();
 
         // Fields.
-        $fields = array('id', 'name', 'desc', 'class', 'method');
+        $fields = array('id', 'name', 'desc', 'class');
 
         // Validates file.
         $out = static::validateFile(XsgaPath::getPathTo('config'), 'console-actions.json', $fields, $result);

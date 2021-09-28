@@ -55,7 +55,7 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         $tmpFolder       = substr(XsgaPath::getPathTo(array('tmp', 'entity')), 0, -1);
         $namespace       = $params['type'].'\\common\\persistence\\entity\\';
         $tmpEntityFolder = XsgaPath::getPathTo(array('tmp', 'entity', $params['type'], 'common', 'persistence', 'entity'));
-        $entityFolder    = XsgaPath::getPathTo(array('src', 'common', 'persitence', 'entity'));
+        $entityFolder    = XsgaPath::getPathTo(array('src', 'common', 'persistence', 'entity'));
 
         // Executes generates entities.
         $this->execGenerate($doctrinePath, $namespace, $tmpFolder);
@@ -147,8 +147,11 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         $this->logger->debugInit();
         $this->logger->info('Mapping entities');
         
+        // Command.
+        $cmd = 'php "'.$doctrinePath.'doctrine" orm:convert:mapping --force --from-database --namespace=\''.$namespace.'\' annotation "'.$tmpFolder.'"';
+
         // Generates entities.
-        exec('php "'.$doctrinePath.'doctrine" orm:convert:mapping --force --from-database --namespace='.$namespace.' annotation "'.$tmpFolder.'"', $output, $status);
+        exec($cmd, $output, $status);
 
         if ($status === 1) {
 
@@ -193,9 +196,12 @@ final class GenerateEntitiesAction extends XsgaAbstractClass implements XsgaActi
         // Logger.
         $this->logger->debugInit();
         $this->logger->info('Adding information to entities');
+
+        // Command.
+        $cmd = 'php "'.$doctrinePath.'doctrine" orm:generate:entities "'.$tmpFolder.'" --generate-annotations=true';
         
         // Add information to entities.
-        exec('php "'.$doctrinePath.'doctrine" orm:generate:entities "'.$tmpFolder.'" --generate-annotations=true', $output, $status);
+        exec($cmd, $output, $status);
         
         if ($status === 1) {
 
