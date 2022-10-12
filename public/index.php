@@ -1,11 +1,10 @@
 <?php
+
 /**
- * Xsga-PHP-API main page.
- * 
- * The index page is the API front controller. It manages all petitions to the API.
- * 
+ * API front controller.
+ *
  * PHP Version 8
- * 
+ *
  * @author  xsga <parker@xsga.es>
  * @license MIT
  * @version 1.0.0
@@ -14,86 +13,34 @@
 /**
  * Import dependencies.
  */
-use log4php\Logger;
-use xsgaphp\api\router\XsgaAPIRouter;
-use xsgaphp\core\bootstrap\XsgaCoreBootstrap;
-use Doctrine\ORM\Query\QueryException;
-use xsgaphp\core\exceptions\XsgaBootstrapException;
+use Psr\Log\LoggerInterface;
 
-// Load Composer autoloader.
-$pathAutoload = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
-require_once realpath(dirname(__FILE__)).$pathAutoload.'autoload.php';
+// Autoload.
+require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-try {
+$start = microtime(true);
+$id    = uniqid();
 
-    // Bootstrap.
-    XsgaCoreBootstrap::init();
+// Load settings.
+loadSettings();
 
-    // Get Logger.
-    $logger = Logger::getRootLogger();
+// Get container.
+$container = getContainer();
 
-    // Logger.
-    $logger->debugInit();
-    $logger->info("Request URI    : $_SERVER[REQUEST_URI]");
-    $logger->info("Request method : $_SERVER[REQUEST_METHOD]");
+// Get logger.
+$logger = $container->get(LoggerInterface::class);
 
-    // Get API router.
-    $apiRouter = new XsgaAPIRouter();
+// Get Slim application.
+$app = getSlimApp($container);
 
-    // Dispatch API petition.
-    $apiRouter->dispatchPetition($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+// Get and add routes to Slim app.
+getRoutes($app);
 
-} catch (XsgaBootstrapException $e) {
+$logger->info('API petition ' . $id . ' : ' . $_SERVER['REQUEST_METHOD'] . ' - ' . $_SERVER['REQUEST_URI']);
 
-    // Get Logger.
-    $logger = Logger::getRootLogger();
+// Run Slim app.
+$app->run();
 
-    // Logger.
-    $logger->debugInit();
-    $logger->error($e->getMessage());
+$end = number_format((microtime(true) - $start), 2);
 
-    // Get API router.
-    $apiRouter = new XsgaAPIRouter();
-
-    // Error code.
-    $errorCode = 1002;
-
-    // Logger.
-    $logger->error("Error code: $errorCode");
-    $logger->error($e->__toString());
-    
-    // Dispatch error.
-    $apiRouter->dispatchError($errorCode, $e->getFile(), $e->getLine(), $e->__toString());
-
-} catch (QueryException $e) {
-    
-    // Error code.
-    $errorCode = 1010;
-
-    // Logger.
-    $logger->error("Error code: $errorCode");
-    $logger->error($e->__toString());
-    
-    // Dispatch error.
-    $apiRouter->dispatchError($errorCode);
-    
-} catch (Throwable $e) {
-    
-    // Get error code.
-    if ($e->getCode() === 0) {
-        $errorCode = 1001;
-    } else {
-        $errorCode = $e->getCode();
-    }//end if
-
-    // Logger.
-    $logger->error("Error code: $errorCode");
-    $logger->error($e->__toString());
-    
-    // Dispatch error.
-    $apiRouter->dispatchError($errorCode, $e->getFile(), $e->getLine(), $e->__toString());
-    
-}//end try
-
-// Logger.
-$logger->debugEnd();
+$logger->info("API petition $id : executed in $end seconds");

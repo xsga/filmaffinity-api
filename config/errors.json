@@ -1,133 +1,90 @@
-
 [
+    {
+        "code": 1000,
+        "http": 500,
+        "description": {
+            "en": "Internal system error",
+            "spa": "Error interno del servidor"
+        }
+    },
     {
         "code": 1001,
         "http": 500,
-        "type": "core"
+        "description": {
+            "en": "HTTP request not valid",
+            "spa": "La petición HTTP no es válida"
+        }
     },
     {
         "code": 1002,
-        "http": 500,
-        "type": "core"
+        "http": 405,
+        "description": {
+            "en": "Method not allowed",
+            "spa": "Método no permitido"
+        }
     },
     {
         "code": 1003,
         "http": 404,
-        "type": "core"
+        "description": {
+            "en": "API resource not found",
+            "spa": "Recurso de la API no encontrado"
+        }
     },
     {
         "code": 1004,
         "http": 500,
-        "type": "core"
+        "description": {
+            "en": "Schema file not found",
+            "spa": "Fichero schema no encontrado"
+        }
     },
     {
         "code": 1005,
         "http": 500,
-        "type": "core"
+        "description": {
+            "en": "Empty schema file",
+            "spa": "Fichero schema vacío"
+        }
     },
     {
         "code": 1006,
         "http": 500,
-        "type": "core"
+        "description": {
+            "en": "Error connecting to FilmAffinity website",
+            "spa": "Error al conectar con la web de FilmAffinity"
+        }
     },
     {
         "code": 1007,
         "http": 500,
-        "type": "core"
+        "description": {
+            "en": "Error validating JSON file",
+            "spa": "Error al validar fichero JSON"
+        }
     },
     {
         "code": 1008,
         "http": 500,
-        "type": "core"
+        "description": {
+            "en": "Invalid search text length (minimum 3 characters)",
+            "spa": "Longitud del texto de búsqueda no válida (mínimo 3 carácteres)"
+        }
     },
     {
         "code": 1009,
-        "http": 500,
-        "type": "core"
+        "http": 404,
+        "description": {
+            "en": "Genre not found",
+            "spa": "Género no encontrado"
+        }
     },
     {
         "code": 1010,
-        "http": 500,
-        "type": "core"
-    },
-    {
-        "code": 1011,
-        "http": 500,
-        "type": "core"
-    },
-    {
-        "code": 1012,
-        "http": 500,
-        "type": "core"
-    },
-    {
-        "code": 1013,
-        "http": 403,
-        "type": "core"
-    },
-    {
-        "code": 1014,
-        "http": 500,
-        "type": "core"
-    },
-    {
-        "code": 1015,
-        "http": 500,
-        "type": "core"
-    },
-    {
-        "code": 1016,
-        "http": 500,
-        "type": "core"
-    },
-    {
-        "code": 2001,
-        "http": 500,
-        "type": "api"
-    },
-    {
-        "code": 2002,
-        "http": 500,
-        "type": "api"
-    },
-    {
-        "code": 2003,
-        "http": 500,
-        "type": "api"
-    },
-    {
-        "code": 4001,
-        "http": 500,
-        "type": "user"
-    },
-    {
-        "code": 4002,
-        "http": 500,
-        "type": "user"
-    },
-    {
-        "code": 4003,
-        "http": 500,
-        "type": "user"
-    },
-    {
-        "code": 4004,
         "http": 404,
-        "type": "user"
-    },
-    {
-        "code": 4005,
-        "http": 404,
-        "type": "user"
-    },
-    {
-        "code": 4006,
-        "http": 404,
-        "type": "user"
-    },
-    {
-        "code": 4007,
-        "http": 500,
-        "type": "user"
+        "description": {
+            "en": "Country not found",
+            "spa": "País no encontrado"
+        }
     }
 ]

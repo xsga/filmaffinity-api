@@ -4,7 +4,14 @@ IndexIgnore */*
 # Turn on the RewriteEngine
 RewriteEngine On
 
-# Rules for online
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Content-Type "application/json; charset=UTF-8"
+Header always set Access-Control-Max-Age "3600"
+Header always set Access-Control-Allow-Headers "*, Content-Type, Access-Control-Allow-Headers, Authorization, X-Request-With"
+
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^.*$ index.php [END]

@@ -1,0 +1,56 @@
+{
+    "type": "object",
+    "title": "FilmAffinity-API - Advanced Search",
+    "additionalProperties": false,
+    "properties": {
+        "text": {
+            "type": "string",
+            "title": "Text to search"
+        },
+        "title": {
+            "type": "boolean",
+            "title": "Title flag"
+        },
+        "director": {
+            "type": "boolean",
+            "title": "Director flag"
+        },
+        "cast": {
+            "type": "boolean",
+            "title": "Cast flag"
+        },
+        "screenplay": {
+            "type": "boolean",
+            "title": "Screenplay flag"
+        },
+        "photography": {
+            "type": "boolean",
+            "title": "Photography flag"
+        },
+        "soundtrack": {
+            "type": "boolean",
+            "title": "Soundtrack flag"
+        },
+        "producer": {
+            "type": "boolean",
+            "title": "Producer flag"
+        },
+        "country": {
+            "type": "string",
+            "title": "Film country code"
+        },
+        "genre": {
+            "type": "string",
+            "title": "Film genre code"
+        },
+        "year_from": {
+            "type": "integer",
+            "title": "Film release year from"
+        },
+        "year_to": {
+            "type": "integer",
+            "title": "Film release year to"
+        }
+    },
+    "required": [ "text" ]
+}

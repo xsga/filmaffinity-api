@@ -33,5 +33,11 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Prepare config file
+      run: cp config/.env.example config/.env
+      
+    - name: Run PHP Lint
+      run: composer lint
+    
+    #- name: Run test suite
+    #  run: composer tests

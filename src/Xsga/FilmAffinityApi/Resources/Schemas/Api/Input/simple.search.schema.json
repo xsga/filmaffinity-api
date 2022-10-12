@@ -1,0 +1,12 @@
+{
+    "type": "object",
+    "title": "FilmAffinity-API - Search",
+    "additionalProperties": false,
+    "properties": {
+        "text": {
+            "type": "string",
+            "title": "The text to search"
+        }
+    },
+    "required": [ "text" ]
+}
