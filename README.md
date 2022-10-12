@@ -45,8 +45,8 @@ The API has the following public methods:
 
 |Method name|API endpoint|HTTP method|Input|
 |-----------|------------|-----------|-----|
-|Search films|search/simple|POST|[Simple Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schema/Input/simple.search.schema.json)|
-|Advanced search films|search/advanced|POST|[Advanced Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schema/Input/advanced.search.schema.json)|
+|Search films|search/simple|POST|[Simple Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Input/simple.search.schema.json)|
+|Advanced search films|search/advanced|POST|[Advanced Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Input/advanced.search.schema.json)|
 |Get film|films/:id|GET|URL parameter (:id)|
 |Get genres|genres|GET|-|
 |Get countries|countries|GET|-|
