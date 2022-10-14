@@ -47,9 +47,6 @@ function getSlimApp(Container $container, bool $errorDetail, string $urlPath): A
     // Body parsing middleware.
     $app->addBodyParsingMiddleware();
 
-    $app->add(ExampleAfterMiddleware::class);
-    $app->add(ExampleBeforeMiddleware::class);
-    
     // Error middleware.
     $errMiddleware = $app->addErrorMiddleware($errorDetail, true, true);
 
