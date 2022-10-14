@@ -52,7 +52,7 @@ final class SimpleSearchController extends AbstractController
     {
         $this->validateJsonInput($request->getBody(), 'simple.search.schema');
 
-        $body = json_decode($request->getBody(), true);
+        $body = $request->getParsedBody();
 
         $searchDto = new SearchDto();
         $searchDto->searchText = $body['text'];

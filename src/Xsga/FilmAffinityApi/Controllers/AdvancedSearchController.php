@@ -52,7 +52,7 @@ final class AdvancedSearchController extends AbstractController
     {
         $this->validateJsonInput($request->getBody(), 'advanced.search.schema');
 
-        $body = json_decode($request->getBody(), true);
+        $body = $request->getParsedBody();
 
         $searchDto = new AdvSearchDto();
 

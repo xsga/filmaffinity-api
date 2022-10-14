@@ -19,17 +19,21 @@ use DI\Container;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Xsga\FilmAffinityApi\Helpers\Slim\ErrorHandler;
+use Xsga\FilmAffinityApi\Helpers\Slim\ExampleAfterMiddleware;
+use Xsga\FilmAffinityApi\Helpers\Slim\ExampleBeforeMiddleware;
 
 /**
  * Gets Slim application.
  *
- * @param Container $container Container instance.
+ * @param Container $container   Container instance.
+ * @param boolean   $errorDetail Error detail flag.
+ * @param string    $urlPath     API URL path.
  *
  * @return App
  *
  * @access public
  */
-function getSlimApp(Container $container): App
+function getSlimApp(Container $container, bool $errorDetail, string $urlPath): App
 {
     // Adds container.
     AppFactory::setContainer($container);
@@ -38,16 +42,16 @@ function getSlimApp(Container $container): App
     $app = AppFactory::create();
 
     // Set URL base path.
-    $app->setBasePath($_ENV['URL_PATH']);
-
-    // Routing middleware.
-    $app->addRoutingMiddleware();
+    $app->setBasePath($urlPath);
 
     // Body parsing middleware.
     $app->addBodyParsingMiddleware();
 
+    $app->add(ExampleAfterMiddleware::class);
+    $app->add(ExampleBeforeMiddleware::class);
+    
     // Error middleware.
-    $errMiddleware = $app->addErrorMiddleware(filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN), true, true);
+    $errMiddleware = $app->addErrorMiddleware($errorDetail, true, true);
 
     // Set custom error handler.
     $errMiddleware->setDefaultErrorHandler(ErrorHandler::class);
