@@ -16,11 +16,13 @@
  * Import dependencies.
  */
 use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
 use Xsga\FilmAffinityApi\Controllers\AdvancedSearchController;
 use Xsga\FilmAffinityApi\Controllers\GetCountriesController;
 use Xsga\FilmAffinityApi\Controllers\GetFilmController;
 use Xsga\FilmAffinityApi\Controllers\GetGenresController;
 use Xsga\FilmAffinityApi\Controllers\SimpleSearchController;
+use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 
 /**
  * Adds API routes to Slim app.
@@ -34,11 +36,15 @@ use Xsga\FilmAffinityApi\Controllers\SimpleSearchController;
 function getRoutes(App $app): App
 {
     // Routes.
-    $app->post('/search/simple', [SimpleSearchController::class, 'search']);
-    $app->post('/search/advanced', [AdvancedSearchController::class, 'search']);
-    $app->get('/films/{id:[0-9]+}', [GetFilmController::class, 'get']);
-    $app->get('/genres', [GetGenresController::class, 'get']);
-    $app->get('/countries', [GetCountriesController::class, 'get']);
+    $app->group('', function (RouteCollectorProxy $group) {
+        $group->post('/search/simple', SimpleSearchController::class);
+        $group->post('/search/advanced', AdvancedSearchController::class);
+        $group->get('/films/{id:[0-9]+}', GetFilmController::class);
+        $group->get('/genres', GetGenresController::class);
+        $group->get('/countries', GetCountriesController::class);
+    })->add(SecurityMiddleware::class);
+
+    //$app->post('/token', GetTokenController::class);
 
     return $app;
 }

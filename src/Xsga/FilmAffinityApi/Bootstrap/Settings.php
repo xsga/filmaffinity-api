@@ -38,4 +38,5 @@ function loadSettings(): void
     $dotEnv->required('SEARCH_URL');
     $dotEnv->required('ADV_SEARCH_URL');
     $dotEnv->required('FILM_URL');
+    $dotEnv->required('SECURITY_TYPE')->allowedValues(['none', 'basic', 'token']);
 }

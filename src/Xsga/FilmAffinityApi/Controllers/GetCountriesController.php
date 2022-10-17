@@ -47,7 +47,7 @@ final class GetCountriesController extends AbstractController
      *
      * @access public
      */
-    public function get(Request $request, Response $response): Response
+    public function __invoke(Request $request, Response $response): Response
     {
         return $this->writeResponse($response, $this->countries->getAll());
     }

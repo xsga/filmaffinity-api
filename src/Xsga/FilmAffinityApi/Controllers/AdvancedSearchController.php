@@ -48,7 +48,7 @@ final class AdvancedSearchController extends AbstractController
      *
      * @access public
      */
-    public function search(Request $request, Response $response): Response
+    public function __invoke(Request $request, Response $response): Response
     {
         $this->validateJsonInput($request->getBody(), 'advanced.search.schema');
 

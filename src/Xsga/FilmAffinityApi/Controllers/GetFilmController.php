@@ -48,7 +48,7 @@ final class GetFilmController extends AbstractController
      *
      * @access public
      */
-    public function get(Request $request, Response $response, array $args): Response
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         return $this->writeResponse($response, $this->loadFilm->loadFilm($args['id']));
     }
