@@ -34,6 +34,7 @@ use Xsga\FilmAffinityApi\Helpers\Errors\Errors;
 use Xsga\FilmAffinityApi\Helpers\Errors\ErrorsInterface;
 use Xsga\FilmAffinityApi\Helpers\JsonValidator\JsonValidator;
 use Xsga\FilmAffinityApi\Helpers\JsonValidator\JsonValidatorInterface;
+use Xsga\FilmAffinityApi\Helpers\JWT\JWT;
 use Xsga\FilmAffinityApi\Helpers\Schema\Schema;
 use Xsga\FilmAffinityApi\Helpers\Schema\SchemaInterface;
 use Xsga\FilmAffinityApi\Helpers\Security\Security;
@@ -115,6 +116,11 @@ function getContainer(): Container
             DI\get(LoggerInterface::class),
             DI\get(Security::class),
             $_ENV['SECURITY_TYPE']
+        ),
+        JWT::class => DI\create(JWT::class)->constructor(
+            DI\get(LoggerInterface::class),
+            $_ENV['JWT_SECRET_KEY'],
+            (int)$_ENV['JWT_LIFETIME']
         )
     ];
 

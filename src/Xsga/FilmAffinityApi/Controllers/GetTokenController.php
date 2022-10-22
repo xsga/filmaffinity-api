@@ -21,12 +21,23 @@ namespace Xsga\FilmAffinityApi\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Xsga\FilmAffinityApi\Exceptions\ApiResourceDisabledException;
+use Xsga\FilmAffinityApi\Helpers\JWT\JWT;
 
 /**
  * GetTokenController class.
  */
 final class GetTokenController extends AbstractController
 {
+    /**
+     * JWT service.
+     *
+     * @Inject
+     * @var JWT
+     *
+     * @access private
+     */
+    private $jwt;
+
     /**
      * Get token.
      *
@@ -49,9 +60,11 @@ final class GetTokenController extends AbstractController
 
         $this->validateJsonInput($request->getBody(), 'get.token.schema');
 
-        // TODO: llamar al servicio para generar token.
+        $body = $request->getParsedBody();
+
+        // TODO: login.
         $token = array();
-        $token['token'] = 'generated_token';
+        $token['token'] = $this->jwt->get($body['user']);
 
         return $this->writeResponse($response, $token);
     }

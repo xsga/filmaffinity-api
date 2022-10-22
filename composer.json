@@ -17,7 +17,8 @@
         "vlucas/phpdotenv": "^5.4",
         "php-di/php-di": "^6.4",
         "guzzlehttp/guzzle": "^7.0",
-        "swaggest/json-schema": "^0.12.41"
+        "swaggest/json-schema": "^0.12.41",
+        "firebase/php-jwt": "^6.3"
     },
     "autoload": {
         "files": [

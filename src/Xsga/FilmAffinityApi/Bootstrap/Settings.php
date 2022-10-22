@@ -39,4 +39,6 @@ function loadSettings(): void
     $dotEnv->required('ADV_SEARCH_URL');
     $dotEnv->required('FILM_URL');
     $dotEnv->required('SECURITY_TYPE')->allowedValues(['none', 'basic', 'token']);
+    $dotEnv->required('JWT_LIFETIME')->isInteger();
+    $dotEnv->required('JWT_SECRET_KEY');
 }
