@@ -18,11 +18,12 @@ namespace Xsga\FilmAffinityApi\Helpers\Slim;
 /**
  * Import dependencies.
  */
-use Exception;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Psr\Log\LoggerInterface;
 use Slim\Psr7\Response;
+use Xsga\FilmAffinityApi\Exceptions\AuthHeaderNotFoundException;
+use Xsga\FilmAffinityApi\Helpers\Security\Security;
 
 /**
  * Class SecurityMiddleware.
@@ -37,6 +38,15 @@ final class SecurityMiddleware
      * @access private
      */
     private $logger;
+
+    /**
+     * Security services.
+     *
+     * @var Security
+     *
+     * @access private
+     */
+    private $security;
 
     /**
      * Security type.
@@ -55,9 +65,10 @@ final class SecurityMiddleware
      *
      * @access public
      */
-    public function __construct(LoggerInterface $logger, string $securityType)
+    public function __construct(LoggerInterface $logger, Security $security, string $securityType)
     {
         $this->logger       = $logger;
+        $this->security     = $security;
         $this->securityType = $securityType;
     }
 
@@ -69,12 +80,12 @@ final class SecurityMiddleware
      *
      * @return Response
      *
+     * @throws AuthHeaderNotFoundException Authorization header not found.
+     *
      * @access public
      */
     public function __invoke(Request $request, Handler $handler): Response
     {
-        $this->logger->debug('Security middleware');
-
         if ($this->securityType === 'none') {
             $this->logger->debug('Not applying security');
             return $handler->handle($request);
@@ -83,12 +94,23 @@ final class SecurityMiddleware
         $authHeader = $request->getHeader('Authorization');
 
         if (empty($authHeader)) {
-            throw new Exception();
+            $errorMsg = 'Authorization header not found';
+            $this->logger->error($errorMsg);
+            throw new AuthHeaderNotFoundException($errorMsg, 1012);
         }//end if
 
-        $auth = $authHeader[0];
+        $authHeader = $authHeader[0];
 
-        $this->logger->debug('Authorization header: ' . $auth);
+        switch ($this->securityType) {
+            case 'basic':
+                $this->logger->debug('Applying BASIC security');
+                $this->security->basic($authHeader);
+                break;
+            case 'token':
+                $this->logger->debug('Applying TOKEN security');
+                $this->security->token($authHeader);
+                break;
+        }//end switch
 
         return $handler->handle($request);
     }

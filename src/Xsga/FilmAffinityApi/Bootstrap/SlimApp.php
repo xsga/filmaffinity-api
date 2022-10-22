@@ -19,7 +19,6 @@ use DI\Container;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Xsga\FilmAffinityApi\Helpers\Slim\ErrorHandler;
-use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 
 /**
  * Gets Slim application.
@@ -45,9 +44,6 @@ function getSlimApp(Container $container, bool $errorDetail, string $urlPath): A
 
     // Body parsing middleware.
     $app->addBodyParsingMiddleware();
-
-    // Security middleware.
-    //$app->add(SecurityMiddleware::class);
 
     // Error middleware.
     $errMiddleware = $app->addErrorMiddleware($errorDetail, true, true);

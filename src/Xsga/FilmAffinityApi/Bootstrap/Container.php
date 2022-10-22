@@ -36,6 +36,7 @@ use Xsga\FilmAffinityApi\Helpers\JsonValidator\JsonValidator;
 use Xsga\FilmAffinityApi\Helpers\JsonValidator\JsonValidatorInterface;
 use Xsga\FilmAffinityApi\Helpers\Schema\Schema;
 use Xsga\FilmAffinityApi\Helpers\Schema\SchemaInterface;
+use Xsga\FilmAffinityApi\Helpers\Security\Security;
 use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 
 /**
@@ -112,6 +113,7 @@ function getContainer(): Container
         ),
         SecurityMiddleware::class => DI\create(SecurityMiddleware::class)->constructor(
             DI\get(LoggerInterface::class),
+            DI\get(Security::class),
             $_ENV['SECURITY_TYPE']
         )
     ];

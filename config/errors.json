@@ -86,5 +86,21 @@
             "en": "Country not found",
             "spa": "País no encontrado"
         }
+    },
+    {
+        "code": 1011,
+        "http": 404,
+        "description": {
+            "en": "API resource not disabled",
+            "spa": "El recurso de la API no está activo"
+        }
+    },
+    {
+        "code": 1012,
+        "http": 404,
+        "description": {
+            "en": "Authorization header not found",
+            "spa": "Cabecera Authorization no encontrada"
+        }
     }
 ]

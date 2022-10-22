@@ -21,6 +21,7 @@ use Xsga\FilmAffinityApi\Controllers\AdvancedSearchController;
 use Xsga\FilmAffinityApi\Controllers\GetCountriesController;
 use Xsga\FilmAffinityApi\Controllers\GetFilmController;
 use Xsga\FilmAffinityApi\Controllers\GetGenresController;
+use Xsga\FilmAffinityApi\Controllers\GetTokenController;
 use Xsga\FilmAffinityApi\Controllers\SimpleSearchController;
 use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 
@@ -35,7 +36,7 @@ use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
  */
 function getRoutes(App $app): App
 {
-    // Routes.
+    // Secured routes.
     $app->group('', function (RouteCollectorProxy $group) {
         $group->post('/search/simple', SimpleSearchController::class);
         $group->post('/search/advanced', AdvancedSearchController::class);
@@ -44,7 +45,8 @@ function getRoutes(App $app): App
         $group->get('/countries', GetCountriesController::class);
     })->add(SecurityMiddleware::class);
 
-    //$app->post('/token', GetTokenController::class);
+    // Non secured rules.
+    $app->post('/token', GetTokenController::class);
 
     return $app;
 }
