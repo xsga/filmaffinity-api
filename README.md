@@ -212,3 +212,4 @@ OUTPUT
 ```
 
 You must inform the country/genre code in the body request of advances search if you want use these filters.
+
