@@ -61,6 +61,7 @@ final class SecurityMiddleware
      * Constructor.
      *
      * @param LoggerInterface $logger       LoggerInterface instance.
+     * @param Security        $security     Security instance.
      * @param string          $securityType API security type.
      *
      * @access public
@@ -104,13 +105,15 @@ final class SecurityMiddleware
         switch ($this->securityType) {
             case 'basic':
                 $this->logger->debug('Applying BASIC security');
-                $this->security->basic($authHeader);
+                $user = $this->security->basic($authHeader);
                 break;
             case 'token':
                 $this->logger->debug('Applying TOKEN security');
-                $this->security->token($authHeader);
+                $user = $this->security->token($authHeader);
                 break;
         }//end switch
+
+        $request = $request->withAttribute('user', $user);
 
         return $handler->handle($request);
     }

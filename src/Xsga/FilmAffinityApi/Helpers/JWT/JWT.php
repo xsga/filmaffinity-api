@@ -115,7 +115,7 @@ final class JWT
      *
      * @param string $token JWT token.
      *
-     * @return void
+     * @return array
      *
      * @throws JWTException JWT token expired.
      * @throws JWTException JWT token not active.
@@ -125,11 +125,15 @@ final class JWT
      *
      * @access public
      */
-    public function validate(string $token): void
+    public function validate(string $token): array
     {
         try {
-            FirebaseJWT::decode($token, new Key($this->secretKey, $this->algorithm));
+            $jwtObject = FirebaseJWT::decode($token, new Key($this->secretKey, $this->algorithm));
+            $jwtArray  = json_decode(json_encode($jwtObject), true);
+
             $this->logger->debug('JWT token validated successfully');
+
+            return $jwtArray;
         } catch (ExpiredException $e) {
             $error = 'JWT token expired';
             $this->logger->error($error);

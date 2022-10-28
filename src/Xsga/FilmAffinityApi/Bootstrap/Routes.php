@@ -23,7 +23,9 @@ use Xsga\FilmAffinityApi\Controllers\GetFilmController;
 use Xsga\FilmAffinityApi\Controllers\GetGenresController;
 use Xsga\FilmAffinityApi\Controllers\GetTokenController;
 use Xsga\FilmAffinityApi\Controllers\SimpleSearchController;
+use Xsga\FilmAffinityApi\Helpers\Slim\AuthMiddleware;
 use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
+use Xsga\FilmAffinityApi\Helpers\Slim\TokenMiddleware;
 
 /**
  * Adds API routes to Slim app.
@@ -43,10 +45,10 @@ function getRoutes(App $app): App
         $group->get('/films/{id:[0-9]+}', GetFilmController::class);
         $group->get('/genres', GetGenresController::class);
         $group->get('/countries', GetCountriesController::class);
-    })->add(SecurityMiddleware::class);
+    })->add(AuthMiddleware::class)->add(SecurityMiddleware::class);
 
     // Non secured rules.
-    $app->post('/token', GetTokenController::class);
+    $app->post('/token', GetTokenController::class)->add(TokenMiddleware::class);
 
     return $app;
 }

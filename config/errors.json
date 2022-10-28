@@ -126,5 +126,29 @@
             "en": "Error validating JWT token",
             "spa": "Error validando el token JWT"
         }
+    },
+    {
+        "code": 1016,
+        "http": 404,
+        "description": {
+            "en": "User doesn't exist in the system",
+            "spa": "El usuario no existe en el sistema"
+        }
+    },
+    {
+        "code": 1017,
+        "http": 500,
+        "description": {
+            "en": "User is not active",
+            "spa": "El usuario no está activo"
+        }
+    },
+    {
+        "code": 1018,
+        "http": 500,
+        "description": {
+            "en": "User's password not valid",
+            "spa": "La contrasenya del usuario no es válida"
+        }
     }
 ]

@@ -41,4 +41,8 @@ function loadSettings(): void
     $dotEnv->required('SECURITY_TYPE')->allowedValues(['none', 'basic', 'token']);
     $dotEnv->required('JWT_LIFETIME')->isInteger();
     $dotEnv->required('JWT_SECRET_KEY');
+    $dotEnv->required('DB_SCHEMA');
+    $dotEnv->required('DB_USER');
+    $dotEnv->required('DB_PASSWORD');
+    $dotEnv->required('DB_HOST');
 }

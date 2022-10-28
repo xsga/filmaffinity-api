@@ -19,6 +19,7 @@ namespace Xsga\FilmAffinityApi\Helpers\Security;
  * Import dependencies.
  */
 use Psr\Log\LoggerInterface;
+use Xsga\FilmAffinityApi\Business\Users\UserLogin;
 use Xsga\FilmAffinityApi\Exceptions\AuthHeaderNotValidException;
 use Xsga\FilmAffinityApi\Helpers\JWT\JWT;
 
@@ -46,16 +47,26 @@ final class Security
     private $jwt;
 
     /**
+     * User login service.
+     *
+     * @var UserLogin
+     *
+     * @access private
+     */
+    private $userLogin;
+
+    /**
      * Constructor.
      *
      * @param LoggerInterface $logger LoggerInterface instance.
      *
      * @access public
      */
-    public function __construct(LoggerInterface $logger, JWT $jwt)
+    public function __construct(LoggerInterface $logger, JWT $jwt, UserLogin $userLogin)
     {
-        $this->logger = $logger;
-        $this->jwt    = $jwt;
+        $this->logger    = $logger;
+        $this->jwt       = $jwt;
+        $this->userLogin = $userLogin;
     }
 
     /**
@@ -63,21 +74,20 @@ final class Security
      *
      * @param string $authorization Authorization header.
      *
-     * @return void
+     * @return string
      *
      * @access public
      */
-    public function basic(string $authorization): void
+    public function basic(string $authorization): string
     {
         $this->logger->debug('BASIC security');
 
-        $authToken = $this->validateAuthorization($authorization, 'basic');
-
+        $authToken       = $this->validateAuthorization($authorization, 'basic');
         $userAndPassword = $this->getUserAndPassword($authToken);
 
-        // TODO: login user.
-        $this->logger->debug('User: ' . $userAndPassword['user']);
-        $this->logger->debug('Password: ' . $userAndPassword['password']);
+        $userDto = $this->userLogin->login($userAndPassword['user'], $userAndPassword['password']);
+
+        return $userDto->email;
     }
 
     /**
@@ -85,24 +95,25 @@ final class Security
      *
      * @param string $authorization Authorization header.
      *
-     * @return void
+     * @return string
      *
      * @access public
      */
-    public function token(string $authorization): void
+    public function token(string $authorization): string
     {
         $this->logger->debug('TOKEN security');
 
         $authToken = $this->validateAuthorization($authorization, 'bearer');
+        $jwtData   = $this->jwt->validate($authToken);
 
-        $this->jwt->validate($authToken);
+        return $jwtData['user'];
     }
 
     /**
      * Validates authorization header.
      *
-     * @param string $authorization Authorization header.
-     * @param string $type          Authorization type.
+     * @param string $authHeader Authorization header.
+     * @param string $type       Authorization type.
      *
      * @return string
      *
@@ -111,9 +122,9 @@ final class Security
      *
      * @access private
      */
-    private function validateAuthorization(string $authorization, string $type): string
+    private function validateAuthorization(string $authHeader, string $type): string
     {
-        $authArray = explode(' ', $authorization);
+        $authArray = explode(' ', $authHeader);
 
         if (count($authArray) !== 2) {
             $errorMsg = 'Authorization header not valid';
