@@ -18,6 +18,7 @@
 use DI\Container;
 use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
 use GuzzleHttp\Client;
 use Log4Php\Logger;
@@ -32,6 +33,7 @@ use Xsga\FilmAffinityApi\Business\Parser\FilmParser;
 use Xsga\FilmAffinityApi\Business\Parser\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Business\Search\AdvancedSearch;
 use Xsga\FilmAffinityApi\Business\Search\SimpleSearch;
+use Xsga\FilmAffinityApi\Business\Users\GetUser;
 use Xsga\FilmAffinityApi\Entities\ApiUsers;
 use Xsga\FilmAffinityApi\Helpers\Errors\Errors;
 use Xsga\FilmAffinityApi\Helpers\Errors\ErrorsInterface;
@@ -43,6 +45,7 @@ use Xsga\FilmAffinityApi\Helpers\Password\PasswordInterface;
 use Xsga\FilmAffinityApi\Helpers\Schema\Schema;
 use Xsga\FilmAffinityApi\Helpers\Schema\SchemaInterface;
 use Xsga\FilmAffinityApi\Helpers\Security\Security;
+use Xsga\FilmAffinityApi\Helpers\Slim\AuthMiddleware;
 use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 use Xsga\FilmAffinityApi\Helpers\Slim\TokenMiddleware;
 use Xsga\FilmAffinityApi\Repositories\UsersRepository;
@@ -172,6 +175,16 @@ function getContainer(): Container
             DI\get(EntityManagerInterface::class),
             ApiUsers::class
         ),
+        'AuthMiddlewareUser' => DI\create(AuthMiddleware::class)->constructor(
+            DI\get(LoggerInterface::class),
+            DI\get(GetUser::class),
+            'user'
+        ),
+        'AuthMiddlewareAdmin' => DI\create(AuthMiddleware::class)->constructor(
+            DI\get(LoggerInterface::class),
+            DI\get(GetUser::class),
+            'admin'
+        )
     ];
 
     $builder = new ContainerBuilder();

@@ -7,7 +7,7 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd">
     <projectFiles>
-        <directory name="src" />
+        <directory name="src/Xsga" />
         <directory name="public" />
         <ignoreFiles>
             <directory name="vendor" />

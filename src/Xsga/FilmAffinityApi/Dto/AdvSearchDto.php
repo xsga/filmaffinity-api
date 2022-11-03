@@ -113,18 +113,18 @@ class AdvSearchDto
     /**
      * Search year from.
      *
-     * @var string
+     * @var integer
      *
      * @access public
      */
-    public $searchYearFrom = '';
+    public $searchYearFrom = 0;
 
     /**
      * Search year to.
      *
-     * @var string
+     * @var integer
      *
      * @access public
      */
-    public $searchYearTo = '';
+    public $searchYearTo = 0;
 }

@@ -101,6 +101,6 @@ final class Extractor
             throw new FilmAffinityWebsiteException($errorMsg, 1006);
         }//end if
 
-        return $response->getBody();
+        return (string)$response->getBody();
     }
 }
