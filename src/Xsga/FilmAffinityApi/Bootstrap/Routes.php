@@ -44,7 +44,7 @@ function getRoutes(App $app): App
         $group->get('/films/{id:[0-9]+}', GetFilmController::class);
         $group->get('/genres', GetGenresController::class);
         $group->get('/countries', GetCountriesController::class);
-    })->add('AuthMiddlewareUser')->add(SecurityMiddleware::class);
+    })->add(SecurityMiddleware::class);
 
     // Non secured rules.
     $app->post('/token', GetTokenController::class)->add(TokenMiddleware::class);

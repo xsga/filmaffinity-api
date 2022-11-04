@@ -45,7 +45,6 @@ use Xsga\FilmAffinityApi\Helpers\Password\PasswordInterface;
 use Xsga\FilmAffinityApi\Helpers\Schema\Schema;
 use Xsga\FilmAffinityApi\Helpers\Schema\SchemaInterface;
 use Xsga\FilmAffinityApi\Helpers\Security\Security;
-use Xsga\FilmAffinityApi\Helpers\Slim\AuthMiddleware;
 use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 use Xsga\FilmAffinityApi\Helpers\Slim\TokenMiddleware;
 use Xsga\FilmAffinityApi\Repositories\UsersRepository;
@@ -174,16 +173,6 @@ function getContainer(): Container
             DI\get(LoggerInterface::class),
             DI\get(EntityManagerInterface::class),
             ApiUsers::class
-        ),
-        'AuthMiddlewareUser' => DI\create(AuthMiddleware::class)->constructor(
-            DI\get(LoggerInterface::class),
-            DI\get(GetUser::class),
-            'user'
-        ),
-        'AuthMiddlewareAdmin' => DI\create(AuthMiddleware::class)->constructor(
-            DI\get(LoggerInterface::class),
-            DI\get(GetUser::class),
-            'admin'
         )
     ];
 
