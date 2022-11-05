@@ -27,7 +27,7 @@ use Dotenv\Dotenv;
 function loadSettings(): void
 {
     // Load settings (.env).
-    $dotEnv = Dotenv::createImmutable(realpath(dirname(__FILE__, 5)) . DIRECTORY_SEPARATOR . 'config');
+    $dotEnv = Dotenv::createMutable(realpath(dirname(__FILE__, 5)) . DIRECTORY_SEPARATOR . 'config');
     $dotEnv->safeLoad();
 
     // Settings validations.

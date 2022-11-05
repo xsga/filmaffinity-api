@@ -20,7 +20,8 @@
         "swaggest/json-schema": "^0.12.41",
         "firebase/php-jwt": "^6.3",
         "doctrine/orm": "^2.13",
-        "symfony/cache": "^6.1"
+        "symfony/cache": "^6.1",
+        "symfony/console": "^6.1"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
