@@ -15,7 +15,9 @@
  */
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application;
-use Xsga\FilmAffinityApi\Commands\AddUserCommand;
+use Xsga\FilmAffinityApi\Commands\CreateUserCommand;
+
+chdir(realpath(dirname(__FILE__)));
 
 // Autoload.
 require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
@@ -33,7 +35,7 @@ $logger = $container->get(LoggerInterface::class);
 $console = new Application();
 
 // Add commands.
-$console->add($container->get(AddUserCommand::class));
+$console->add($container->get(CreateUserCommand::class));
 
 // Run console.
 $console->run();

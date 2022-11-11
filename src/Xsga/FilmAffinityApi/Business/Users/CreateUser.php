@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AddUser.
+ * CreateUser.
  *
  * PHP Version 8
  *
@@ -25,9 +25,9 @@ use Xsga\FilmAffinityApi\Helpers\Password\PasswordInterface;
 use Xsga\FilmAffinityApi\Repositories\UsersRepositoryInterface;
 
 /**
- * AddUser class.
+ * CreateUser class.
  */
-final class AddUser
+final class CreateUser
 {
     /**
      * Logger.
@@ -49,9 +49,9 @@ final class AddUser
 
     /**
      * Password service.
-     * 
+     *
      * @var PasswordInterface
-     * 
+     *
      * @access private
      */
     private $password;
@@ -75,7 +75,7 @@ final class AddUser
     }
 
     /**
-     * Add user.
+     * Create user.
      *
      * @param UserDto $userDto User DTO.
      *
@@ -83,9 +83,9 @@ final class AddUser
      *
      * @access public
      */
-    public function add(UserDto $userDto): int
+    public function create(UserDto $userDto): int
     {
-        $userEntity = new ApiUsers;
+        $userEntity = new ApiUsers();
 
         $userEntity->setEmail($userDto->email);
         $userEntity->setPassword($this->password->getHash($userDto->password));
