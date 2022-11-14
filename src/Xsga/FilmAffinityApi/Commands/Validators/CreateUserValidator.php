@@ -56,22 +56,34 @@ class CreateUserValidator
     private $password;
 
     /**
+     * Get user service.
+     * 
+     * @var GetUser
+     * 
+     * @access private
+     */
+    private $getUser;
+
+    /**
      * Constructor.
      * 
-     * @param LoggerInterface $logger              LoggerInterface instance.
-     * @param EmailValidator  $emailValidator      EmailValidator instance.
+     * @param LoggerInterface   $logger            LoggerInterface instance.
+     * @param EmailValidator    $emailValidator    EmailValidator instance.
      * @param PasswordValidator $passwordValidator PasswordValidator instance.
+     * @param GetUser           $getUser           GetUser instance.
      * 
      * @access public
      */
     public function __construct(
         LoggerInterface $logger, 
         EmailValidator $emailValidator, 
-        PasswordValidator $passwordValidator)
+        PasswordValidator $passwordValidator,
+        GetUser $getUser)
     {
         $this->logger   = $logger;
         $this->email    = $emailValidator;
         $this->password = $passwordValidator;
+        $this->getUser  = $getUser;
     }
 
     /**
@@ -111,6 +123,29 @@ class CreateUserValidator
             return $password;
         }//end if
 
-        throw new RuntimeException('Password must have a minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character');
+        $errorMsg  = 'Password must have a minimum eight characters, at least one uppercase letter, ';
+        $errorMsg .= 'one lowercase letter, one number and one special character';
+
+        throw new RuntimeException($errorMsg);
+    }
+
+    /**
+     * Validates if user exists.
+     * 
+     * @param string $email User e-mail.
+     * 
+     * @return boolean
+     * 
+     * @access public
+     */
+    public function validateUserExists(string $email): bool
+    {
+        $userDto = $this->getUser->byEmail($email);
+
+        if ($userDto->id === 0) {
+            return false;
+        }//end if
+
+        return true;
     }
 }

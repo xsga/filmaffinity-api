@@ -194,7 +194,10 @@ class CreateUserCommand extends Command
             return Command::FAILURE;
         }//end if
 
-        // TODO: validates user exists.
+        if ($this->validator->validateUserExists($this->userEmail)) {
+            $this->display->error('User \"' . $this->userEmail . '\" already exists');
+            return Command::FAILURE;
+        }//end if
 
         $userDto             = new UserDto();
         $userDto->email      = trim($this->userEmail);

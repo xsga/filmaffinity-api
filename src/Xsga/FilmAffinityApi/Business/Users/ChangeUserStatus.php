@@ -72,20 +72,26 @@ final class ChangeUserStatus
      */
     public function change(string $userEmail, int $status): bool
     {
+        if ($status !== 0 || $status !== 1) {
+            $this->logger->error("Status \"$status\" not valid");
+            return false;
+        }//end if
+        
         $userEntity = $this->repository->getUser($userEmail);
 
         if (empty($userEntity)) {
-            $this->logger->warning("User \"$userEmail\" not found");
+            $this->logger->error("User \"$userEmail\" not found");
             return false;
         }//end if
 
-        if ($status !== 0 || $status !== 1) {
-            $this->logger->warning("Status \"$status\" not valid");
-            return false;
-        }//end if
-
+        // Set status.
         $userEntity->setEnabled($status);
 
-        return $this->repository->updateUser($userEntity);
+        if (!$this->repository->updateUser($userEntity)) {
+            $this->logger->error('Error changing user status');
+            return false;
+        }//end if
+
+        return true;
     }
 }

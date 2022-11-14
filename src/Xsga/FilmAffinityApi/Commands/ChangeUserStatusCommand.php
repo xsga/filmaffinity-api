@@ -154,15 +154,29 @@ class ChangeUserStatusCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->exit) {
-            $this->display->warning('Enable user command aborted');
+            $this->display->warning('Change user status command aborted');
             return Command::SUCCESS;
         }//end if
 
-        // TODO: validates user exists.
-        $this->changeUserStatus($this->userEmail, $this->userStatus);
+        if (!$this->validator->validateUserExists($this->userEmail)) {
+            $this->display->error('User "' . $this->userEmail . '" not found');
+            return Command::FAILURE;
+        }//end if
 
-        $this->display->success('User enabled successfully');
+        switch ($this->userStatus) {
+            case 'enabled':
+                $userStatus = 1;
+                break;
+            case 'disabled':
+                $userStatus = 0;
+        }//end switch
 
-        return Command::SUCCESS;
+        if ($this->changeUserStatus->change($this->userEmail, $userStatus)) {
+            $this->display->success('User status changed successfully');
+            return Command::SUCCESS;
+        }//end if
+
+        $this->display->error('Error changing user status');
+        return Command::FAILURE;
     }
 }

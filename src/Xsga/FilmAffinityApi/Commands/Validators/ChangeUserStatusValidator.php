@@ -20,6 +20,7 @@ namespace Xsga\FilmAffinityApi\Commands\Validators;
  */
 use Psr\Log\LoggerInterface;
 use RuntimeException;
+use Xsga\FilmAffinityApi\Business\Users\GetUser;
 use Xsga\FilmAffinityApi\Helpers\Validators\EmailValidator;
 use Xsga\FilmAffinityApi\Helpers\Validators\PasswordValidator;
 
@@ -47,19 +48,31 @@ class EnableUserValidator
     private $email;
 
     /**
+     * Get user service.
+     * 
+     * @var GetUser
+     * 
+     * @access private
+     */
+    private $getUser;
+
+    /**
      * Constructor.
      * 
      * @param LoggerInterface $logger         LoggerInterface instance.
      * @param EmailValidator  $emailValidator EmailValidator instance.
+     * @param GetUser         $getUser        GetUser instance.
      * 
      * @access public
      */
     public function __construct(
         LoggerInterface $logger, 
-        EmailValidator $emailValidator)
+        EmailValidator $emailValidator,
+        GetUser $getUser)
     {
-        $this->logger = $logger;
-        $this->email  = $emailValidator;
+        $this->logger  = $logger;
+        $this->email   = $emailValidator;
+        $this->getUser = $getUser;
     }
 
     /**
@@ -80,5 +93,25 @@ class EnableUserValidator
         }//end if
 
         throw new RuntimeException('E-mail not valid');
+    }
+
+    /**
+     * Validates if user exists.
+     * 
+     * @param string $email User e-mail.
+     * 
+     * @return boolean
+     * 
+     * @access public
+     */
+    public function validateUserExists(string $email): bool
+    {
+        $userDto = $this->getUser->byEmail($email);
+
+        if ($userDto->id === 0) {
+            return false;
+        }//end if
+
+        return true;
     }
 }
