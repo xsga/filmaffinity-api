@@ -23,7 +23,7 @@ use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Psr\Log\LoggerInterface;
 use Slim\Psr7\Response;
 use Xsga\FilmAffinityApi\Exceptions\AuthHeaderNotFoundException;
-use Xsga\FilmAffinityApi\Helpers\Security\Security;
+use Xsga\FilmAffinityApi\Helpers\Security\SecurityInterface;
 
 /**
  * Class SecurityMiddleware.
@@ -42,7 +42,7 @@ final class SecurityMiddleware
     /**
      * Security services.
      *
-     * @var Security
+     * @var SecurityInterface
      *
      * @access private
      */
@@ -60,13 +60,13 @@ final class SecurityMiddleware
     /**
      * Constructor.
      *
-     * @param LoggerInterface $logger       LoggerInterface instance.
-     * @param Security        $security     Security instance.
-     * @param string          $securityType API security type.
+     * @param LoggerInterface   $logger       LoggerInterface instance.
+     * @param SecurityInterface $security     Security instance.
+     * @param string            $securityType API security type.
      *
      * @access public
      */
-    public function __construct(LoggerInterface $logger, Security $security, string $securityType)
+    public function __construct(LoggerInterface $logger, SecurityInterface $security, string $securityType)
     {
         $this->logger       = $logger;
         $this->security     = $security;

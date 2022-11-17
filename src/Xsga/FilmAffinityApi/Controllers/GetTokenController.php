@@ -28,7 +28,7 @@ use Xsga\FilmAffinityApi\Business\Users\GetToken;
 final class GetTokenController extends AbstractController
 {
     /**
-     * JWT service.
+     * GetToken service.
      *
      * @Inject
      * @var GetToken

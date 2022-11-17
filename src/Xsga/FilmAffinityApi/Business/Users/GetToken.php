@@ -19,7 +19,7 @@ namespace Xsga\FilmAffinityApi\Business\Users;
  * Import dependencies.
  */
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\Helpers\JWT\JWT;
+use Xsga\FilmAffinityApi\Helpers\JWT\JWTInterface;
 
 /**
  * GetToken class.
@@ -29,7 +29,7 @@ final class GetToken
     /**
      * JWI interface instance.
      *
-     * @var JWT
+     * @var JWTInterface
      *
      * @access private
      */
@@ -48,14 +48,14 @@ final class GetToken
      * Constructor.
      *
      * @param LoggerInterface $logger LoggerInterface instance.
-     * @param JWT             $jwt    JWT instance.
+     * @param JWTInterface    $jwt    JWTInterface instance.
      * @param UserLogin       $login  UserLogin instance.
      *
      * @access public
      */
     public function __construct(
         LoggerInterface $logger,
-        JWT $jwt,
+        JWTInterface $jwt,
         UserLogin $login
     ) {
         $this->jwt       = $jwt;

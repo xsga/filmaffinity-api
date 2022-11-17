@@ -34,17 +34,19 @@ use Xsga\FilmAffinityApi\Business\Parser\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Business\Search\AdvancedSearch;
 use Xsga\FilmAffinityApi\Business\Search\SimpleSearch;
 use Xsga\FilmAffinityApi\Business\Users\GetUser;
+use Xsga\FilmAffinityApi\Business\Users\UserLogin;
 use Xsga\FilmAffinityApi\Entities\ApiUsers;
 use Xsga\FilmAffinityApi\Helpers\Errors\Errors;
 use Xsga\FilmAffinityApi\Helpers\Errors\ErrorsInterface;
 use Xsga\FilmAffinityApi\Helpers\JsonValidator\JsonValidator;
 use Xsga\FilmAffinityApi\Helpers\JsonValidator\JsonValidatorInterface;
 use Xsga\FilmAffinityApi\Helpers\JWT\JWT;
+use Xsga\FilmAffinityApi\Helpers\JWT\JWTInterface;
 use Xsga\FilmAffinityApi\Helpers\Password\Password;
 use Xsga\FilmAffinityApi\Helpers\Password\PasswordInterface;
 use Xsga\FilmAffinityApi\Helpers\Schema\Schema;
 use Xsga\FilmAffinityApi\Helpers\Schema\SchemaInterface;
-use Xsga\FilmAffinityApi\Helpers\Security\Security;
+use Xsga\FilmAffinityApi\Helpers\Security\SecurityInterface;
 use Xsga\FilmAffinityApi\Helpers\Slim\SecurityMiddleware;
 use Xsga\FilmAffinityApi\Helpers\Slim\TokenMiddleware;
 use Xsga\FilmAffinityApi\Repositories\UsersRepository;
@@ -156,14 +158,14 @@ function getContainer(): Container
         ),
         SecurityMiddleware::class => DI\create(SecurityMiddleware::class)->constructor(
             DI\get(LoggerInterface::class),
-            DI\get(Security::class),
+            DI\get(SecurityInterface::class),
             $_ENV['SECURITY_TYPE']
         ),
         TokenMiddleware::class => DI\create(TokenMiddleware::class)->constructor(
             DI\get(LoggerInterface::class),
             $_ENV['SECURITY_TYPE']
         ),
-        JWT::class => DI\create(JWT::class)->constructor(
+        JWTInterface::class => DI\create(JWT::class)->constructor(
             DI\get(LoggerInterface::class),
             $_ENV['JWT_SECRET_KEY'],
             (int)$_ENV['JWT_LIFETIME']
@@ -173,6 +175,11 @@ function getContainer(): Container
             DI\get(LoggerInterface::class),
             DI\get(EntityManagerInterface::class),
             ApiUsers::class
+        ),
+        SecurityInterface::class => DI\create(Security::class)->constructor(
+            DI\get(LoggerInterface::class),
+            DI\get(JWTInterface::class),
+            DI\get(UserLogin::class)
         )
     ];
 

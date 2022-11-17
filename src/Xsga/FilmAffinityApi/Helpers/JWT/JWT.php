@@ -30,9 +30,9 @@ use UnexpectedValueException;
 use Xsga\FilmAffinityApi\Exceptions\JWTException;
 
 /**
- * JWT.
+ * JWT class.
  */
-final class JWT
+final class JWT implements JWTInterface
 {
     /**
      * Logger.

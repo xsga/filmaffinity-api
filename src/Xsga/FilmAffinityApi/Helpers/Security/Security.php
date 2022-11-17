@@ -21,12 +21,12 @@ namespace Xsga\FilmAffinityApi\Helpers\Security;
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Business\Users\UserLogin;
 use Xsga\FilmAffinityApi\Exceptions\AuthHeaderNotValidException;
-use Xsga\FilmAffinityApi\Helpers\JWT\JWT;
+use Xsga\FilmAffinityApi\Helpers\JWT\JWTInterface;
 
 /**
  * Class Security.
  */
-final class Security
+final class Security implements SecurityInterface
 {
     /**
      * Logger.
@@ -40,7 +40,7 @@ final class Security
     /**
      * JWT service.
      *
-     * @var JWT
+     * @var JWTInterface
      *
      * @access private
      */
@@ -62,7 +62,7 @@ final class Security
      *
      * @access public
      */
-    public function __construct(LoggerInterface $logger, JWT $jwt, UserLogin $userLogin)
+    public function __construct(LoggerInterface $logger, JWTInterface $jwt, UserLogin $userLogin)
     {
         $this->logger    = $logger;
         $this->jwt       = $jwt;
