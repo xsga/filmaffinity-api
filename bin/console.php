@@ -15,6 +15,7 @@
  */
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application;
+use Xsga\FilmAffinityApi\Commands\ChangeUserStatusCommand;
 use Xsga\FilmAffinityApi\Commands\CreateUserCommand;
 
 chdir(realpath(dirname(__FILE__)));
@@ -36,6 +37,7 @@ $console = new Application();
 
 // Add commands.
 $console->add($container->get(CreateUserCommand::class));
+$console->add($container->get(ChangeUserStatusCommand::class));
 
 // Run console.
 $console->run();

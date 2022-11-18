@@ -27,18 +27,18 @@ class PasswordValidator
 {
     /**
      * Logger.
-     * 
+     *
      * @var LoggerInterface
-     * 
+     *
      * @access private
      */
     private $logger;
 
     /**
      * Constructor.
-     * 
+     *
      * @param LoggerInterface $logger LoggerInterface instance.
-     * 
+     *
      * @access public
      */
     public function __construct(LoggerInterface $logger)
@@ -48,11 +48,11 @@ class PasswordValidator
 
     /**
      * Validate password.
-     * 
+     *
      * @param string $password Password to validate.
-     * 
+     *
      * @return boolean
-     * 
+     *
      * @access public
      */
     public function validate(string $password): bool

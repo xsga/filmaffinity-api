@@ -16,9 +16,9 @@
 namespace Xsga\FilmAffinityApi\Helpers\Security;
 
 /**
- * Interface SecurityInterface..
+ * Interface SecurityInterface.
  */
-interface SecurityInterface.
+interface SecurityInterface
 {
     /**
      * Basic security.

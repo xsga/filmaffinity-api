@@ -72,11 +72,11 @@ final class ChangeUserStatus
      */
     public function change(string $userEmail, int $status): bool
     {
-        if ($status !== 0 || $status !== 1) {
+        if ($status !== 0 && $status !== 1) {
             $this->logger->error("Status \"$status\" not valid");
             return false;
         }//end if
-        
+
         $userEntity = $this->repository->getUser($userEmail);
 
         if (empty($userEntity)) {

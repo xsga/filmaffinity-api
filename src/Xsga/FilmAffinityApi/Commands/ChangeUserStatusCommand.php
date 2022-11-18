@@ -50,46 +50,46 @@ class ChangeUserStatusCommand extends Command
 
     /**
      * Validator.
-     * 
+     *
      * @Inject
      * @var ChangeUserStatusValidator
-     * 
+     *
      * @access private
      */
     private $validator;
 
     /**
      * SymfonyStyle.
-     * 
+     *
      * @var SymfonyStyle
-     * 
+     *
      * @access private
      */
     private $display;
 
     /**
      * User e-mail.
-     * 
+     *
      * @var string
-     * 
+     *
      * @access private
      */
     private $userEmail = '';
 
     /**
      * User status.
-     * 
+     *
      * @var string
-     * 
+     *
      * @access private
      */
     private $userStatus = '';
 
     /**
      * Exit create user process.
-     * 
+     *
      * @var boolean
-     * 
+     *
      * @access private
      */
     private $exit = false;
@@ -108,7 +108,7 @@ class ChangeUserStatusCommand extends Command
 
     /**
      * Initialize command.
-     * 
+     *
      * @param InputInterface  $input  InputInterface instance.
      * @param OutputInterface $output OutputInterface instance.
      *
@@ -123,7 +123,7 @@ class ChangeUserStatusCommand extends Command
 
     /**
      * Interacts with the user.
-     * 
+     *
      * @param InputInterface  $input  InputInterface instance.
      * @param OutputInterface $output OutputInterface instance.
      *

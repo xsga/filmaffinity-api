@@ -94,7 +94,7 @@ final class UserLogin
     {
         $userData = $this->getUser->byEmail($user);
 
-        if ($userData->userId === 0) {
+        if ($userData->id === 0) {
             $errorMsg = "User \"$user\" not found";
             $this->logger->error($errorMsg);
             throw new UserNotFoundException($errorMsg, 1016);

@@ -51,73 +51,73 @@ class CreateUserCommand extends Command
 
     /**
      * Validator.
-     * 
+     *
      * @Inject
      * @var CreateUserValidator
-     * 
+     *
      * @access private
      */
     private $validator;
 
     /**
      * SymfonyStyle.
-     * 
+     *
      * @var SymfonyStyle
-     * 
+     *
      * @access private
      */
     private $display;
 
     /**
      * User e-mail.
-     * 
+     *
      * @var null|string
-     * 
+     *
      * @access private
      */
     private $userEmail = null;
 
     /**
      * User password.
-     * 
+     *
      * @var null|string
-     * 
+     *
      * @access private
      */
     private $userPass = null;
 
     /**
      * User password confirm.
-     * 
+     *
      * @var null|string
-     * 
+     *
      * @access private
      */
     private $userPassR = null;
 
     /**
      * User role.
-     * 
+     *
      * @var null|string
-     * 
+     *
      * @access private
      */
     private $userRole = null;
 
     /**
      * User status.
-     * 
+     *
      * @var null|string
-     * 
+     *
      * @access private
      */
     private $userStatus = null;
 
     /**
      * Exit create user process.
-     * 
+     *
      * @var boolean
-     * 
+     *
      * @access private
      */
     private $exit = false;
@@ -136,7 +136,7 @@ class CreateUserCommand extends Command
 
     /**
      * Initialize command.
-     * 
+     *
      * @param InputInterface  $input  InputInterface instance.
      * @param OutputInterface $output OutputInterface instance.
      *
@@ -151,7 +151,7 @@ class CreateUserCommand extends Command
 
     /**
      * Interacts with the user.
-     * 
+     *
      * @param InputInterface  $input  InputInterface instance.
      * @param OutputInterface $output OutputInterface instance.
      *
@@ -164,12 +164,12 @@ class CreateUserCommand extends Command
         $this->display->title('CREATE-USER command');
         $this->display->text('Use this command to create a new user.');
 
-        $this->userEmail   = $this->display->ask('Enter user e-mail', null, [$this->validator, 'validateEmail']);
-        $this->userPass    = $this->display->askHidden('Enter user pasword', [$this->validator, 'validatePassword']);
-        $this->userPassRep = $this->display->askHidden('Repeat user pasword');
-        $this->userRole    = $this->display->choice('Choise a user role', ['user', 'admin'], 0);
-        $this->userStatus  = $this->display->choice('Choise a user status', ['enabled', 'disabled'], 0);
-        $this->exit        = $this->display->confirm('Do you want to continue?', true);
+        $this->userEmail  = $this->display->ask('Enter user e-mail', null, [$this->validator, 'validateEmail']);
+        $this->userPass   = $this->display->askHidden('Enter user pasword', [$this->validator, 'validatePassword']);
+        $this->userPassR  = $this->display->askHidden('Repeat user pasword');
+        $this->userRole   = $this->display->choice('Choise a user role', ['user', 'admin'], 0);
+        $this->userStatus = $this->display->choice('Choise a user status', ['enabled', 'disabled'], 0);
+        $this->exit       = $this->display->confirm('Do you want to continue?', true);
     }
 
     /**
@@ -195,7 +195,7 @@ class CreateUserCommand extends Command
         }//end if
 
         if ($this->validator->validateUserExists($this->userEmail)) {
-            $this->display->error('User \"' . $this->userEmail . '\" already exists');
+            $this->display->error('User "' . $this->userEmail . '" already exists');
             return Command::FAILURE;
         }//end if
 

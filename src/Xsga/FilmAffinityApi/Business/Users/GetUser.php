@@ -82,7 +82,7 @@ final class GetUser
         }//end if
 
         // Maps entity to DTO.
-        $userDto->id         = $userEntity->getId();
+        $userDto->userId     = $userEntity->getId();
         $userDto->email      = $userEntity->getEmail();
         $userDto->password   = $userEntity->getPassword();
         $userDto->createDate = $userEntity->getCreateDate();
