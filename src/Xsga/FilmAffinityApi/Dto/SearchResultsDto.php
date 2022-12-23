@@ -22,19 +22,13 @@ class SearchResultsDto
 {
     /**
      * Total results.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $total = 0;
+    public int $total = 0;
 
     /**
      * Search results.
      *
      * @var SingleSearchResultDto[]
-     *
-     * @access public
      */
-    public $results = array();
+    public array $results = [];
 }

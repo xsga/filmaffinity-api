@@ -42,64 +42,38 @@ class ChangeUserStatusCommand extends Command
      * Add user service.
      *
      * @Inject
-     * @var ChangeUserStatus
-     *
-     * @access private
      */
-    private $changeUserStatus;
+    private ChangeUserStatus $changeUserStatus;
 
     /**
      * Validator.
      *
      * @Inject
-     * @var ChangeUserStatusValidator
-     *
-     * @access private
      */
-    private $validator;
+    private ChangeUserStatusValidator $validator;
 
     /**
      * SymfonyStyle.
-     *
-     * @var SymfonyStyle
-     *
-     * @access private
      */
-    private $display;
+    private SymfonyStyle $display;
 
     /**
      * User e-mail.
-     *
-     * @var string
-     *
-     * @access private
      */
-    private $userEmail = '';
+    private string $userEmail = '';
 
     /**
      * User status.
-     *
-     * @var string
-     *
-     * @access private
      */
-    private $userStatus = '';
+    private string $userStatus = '';
 
     /**
      * Exit create user process.
-     *
-     * @var boolean
-     *
-     * @access private
      */
-    private $exit = false;
+    private bool $exit = false;
 
     /**
      * Configure.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function configure(): void
     {
@@ -108,13 +82,6 @@ class ChangeUserStatusCommand extends Command
 
     /**
      * Initialize command.
-     *
-     * @param InputInterface  $input  InputInterface instance.
-     * @param OutputInterface $output OutputInterface instance.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
@@ -123,13 +90,6 @@ class ChangeUserStatusCommand extends Command
 
     /**
      * Interacts with the user.
-     *
-     * @param InputInterface  $input  InputInterface instance.
-     * @param OutputInterface $output OutputInterface instance.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
@@ -143,13 +103,6 @@ class ChangeUserStatusCommand extends Command
 
     /**
      * Executes command.
-     *
-     * @param InputInterface  $input  InputInterface instance.
-     * @param OutputInterface $output OutputInterface instance.
-     *
-     * @return integer
-     *
-     * @access protected
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

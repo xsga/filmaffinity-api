@@ -32,21 +32,11 @@ final class SimpleSearchController extends AbstractController
      * Simple search service.
      *
      * @Inject
-     * @var SimpleSearch
-     *
-     * @access private
      */
-    private $simpleSearch;
+    private SimpleSearch $simpleSearch;
 
     /**
      * Search.
-     *
-     * @param Request  $request  Request.
-     * @param Response $response Response.
-     *
-     * @return Response
-     *
-     * @access public
      */
     public function __invoke(Request $request, Response $response): Response
     {

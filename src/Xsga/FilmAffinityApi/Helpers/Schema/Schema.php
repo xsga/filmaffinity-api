@@ -28,45 +28,21 @@ use Xsga\FilmAffinityApi\Exceptions\SchemaNotFoundException;
 final class Schema implements SchemaInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * Base path.
-     *
-     * @var string
-     *
-     * @access private
      */
-    private $basePath;
+    private string $basePath;
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
-        $this->logger    = $logger;
         $this->basePath  = realpath(dirname(__FILE__, 3)) . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR;
         $this->basePath .= 'Schemas' . DIRECTORY_SEPARATOR . 'Api' . DIRECTORY_SEPARATOR;
     }
 
     /**
      * Get input schema.
-     *
-     * @param string $schemaName Schema name.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function getInputSchema(string $schemaName): string
     {
@@ -77,12 +53,6 @@ final class Schema implements SchemaInterface
 
     /**
      * Get output schema.
-     *
-     * @param string $schemaName Schema name.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function getOutputSchema(string $schemaName): string
     {
@@ -94,14 +64,8 @@ final class Schema implements SchemaInterface
     /**
      * Get schema.
      *
-     * @param string $schemaLocation Schema location.
-     *
-     * @return string
-     *
      * @throws SchemaNotFoundException Schema file not found.
      * @throws EmptySchemaException    Empty schema file.
-     *
-     * @access private
      */
     private function getSchema(string $schemaLocation): string
     {

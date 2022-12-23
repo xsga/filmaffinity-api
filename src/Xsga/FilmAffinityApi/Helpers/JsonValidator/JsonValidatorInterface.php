@@ -24,13 +24,6 @@ interface JsonValidatorInterface
 {
     /**
      * Validate JSON file with schema.
-     *
-     * @param string $jsonContent JSON file content.
-     * @param object $schema      JSON schema.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function validate(string $jsonContent, object $schema): bool;
 }

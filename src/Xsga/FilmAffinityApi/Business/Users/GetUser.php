@@ -28,47 +28,16 @@ use Xsga\FilmAffinityApi\Repositories\UsersRepositoryInterface;
 final class GetUser
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Users repository.
-     *
-     * @var UsersRepositoryInterface
-     *
-     * @access private
-     */
-    private $repository;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface          $logger       LoggerInterface instance.
-     * @param UsersRepositoryInterface $repository   UserRespositoryInterface interface.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        UsersRepositoryInterface $repository
+        private LoggerInterface $logger,
+        private UsersRepositoryInterface $repository
     ) {
-        $this->logger     = $logger;
-        $this->repository = $repository;
     }
 
     /**
      * Get user by e-mail.
-     *
-     * @param string $userEmail User email.
-     *
-     * @return UserDto
-     *
-     * @access public
      */
     public function byEmail(string $userEmail): UserDto
     {

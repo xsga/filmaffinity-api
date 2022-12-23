@@ -54,10 +54,6 @@ use Xsga\FilmAffinityApi\Repositories\UsersRepositoryInterface;
 
 /**
  * Get DI Container.
- *
- * @return Container
- *
- * @access public
  */
 function getContainer(): Container
 {

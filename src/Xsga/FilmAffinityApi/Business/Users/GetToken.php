@@ -27,50 +27,17 @@ use Xsga\FilmAffinityApi\Helpers\JWT\JWTInterface;
 final class GetToken
 {
     /**
-     * JWI interface instance.
-     *
-     * @var JWTInterface
-     *
-     * @access private
-     */
-    private $jwt;
-
-    /**
-     * User login service.
-     *
-     * @var UserLogin
-     *
-     * @access private
-     */
-    private $userLogin;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     * @param JWTInterface    $jwt    JWTInterface instance.
-     * @param UserLogin       $login  UserLogin instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        JWTInterface $jwt,
-        UserLogin $login
+        private LoggerInterface $logger,
+        private JWTInterface $jwt,
+        private UserLogin $userLogin
     ) {
-        $this->jwt       = $jwt;
-        $this->userLogin = $login;
     }
 
     /**
      * Get token.
-     *
-     * @param string $user     Username.
-     * @param string $password User password.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function get(string $user, string $password): string
     {

@@ -27,45 +27,24 @@ use Xsga\FilmAffinityApi\Dto\GenreDto;
 final class Genres
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * Genres.
      *
      * @var GenreDto[]
-     *
-     * @access private
      */
-    private $genres;
+    private array $genres;
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger   LoggerInterface instance.
-     * @param string          $language API language.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $language)
+    public function __construct(private LoggerInterface $logger, string $language)
     {
-        $this->logger = $logger;
         $this->genres = $this->load(strtoupper($language));
     }
 
     /**
      * Load genres.
      *
-     * @param string $language Language.
-     *
      * @return GenreDto[]
-     *
-     * @access private
      */
     private function load($language): array
     {
@@ -102,8 +81,6 @@ final class Genres
      * Get all genres.
      *
      * @return GenreDto[]
-     *
-     * @access public
      */
     public function getAll(): array
     {
@@ -112,12 +89,6 @@ final class Genres
 
     /**
      * Get genres.
-     *
-     * @param string $code Genre code.
-     *
-     * @return GenreDto
-     *
-     * @access public
      */
     public function get(string $code): GenreDto
     {

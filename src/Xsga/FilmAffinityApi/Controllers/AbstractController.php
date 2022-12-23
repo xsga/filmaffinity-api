@@ -31,60 +31,17 @@ use Xsga\FilmAffinityApi\Helpers\Schema\SchemaInterface;
 abstract class AbstractController
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access protected
-     */
-    protected $logger;
-
-    /**
-     * Schema.
-     *
-     * @var SchemaInterface
-     *
-     * @access private
-     */
-    private $schema;
-
-    /**
-     * JSON validator.
-     *
-     * @var JsonValidatorInterface
-     *
-     * @access private
-     */
-    private $jsonValidator;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface        $logger        LoggerInterface instance.
-     * @param SchemaInterface        $schema        SchemaInterface instance.
-     * @param JsonValidatorInterface $jsonValidator JsonValidatorInterface instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        SchemaInterface $schema,
-        JsonValidatorInterface $jsonValidator
+        protected LoggerInterface $logger,
+        private SchemaInterface $schema,
+        private JsonValidatorInterface $jsonValidator
     ) {
-        $this->logger        = $logger;
-        $this->schema        = $schema;
-        $this->jsonValidator = $jsonValidator;
     }
 
     /**
      * Validates JSON input file.
-     *
-     * @param string $jsonContent JSON content.
-     * @param string $schemaName  Schema name.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function validateJsonInput(string $jsonContent, string $schemaName): void
     {
@@ -95,13 +52,6 @@ abstract class AbstractController
 
     /**
      * Validates JSON output file.
-     *
-     * @param string $jsonContent JSON content.
-     * @param string $schemaName  Schema name.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function validateJsonOutput(string $jsonContent, string $schemaName): void
     {
@@ -113,14 +63,7 @@ abstract class AbstractController
     /**
      * Validate JSON file.
      *
-     * @param string $jsonContent JSON content.
-     * @param object $schema      Schema object.
-     *
-     * @return void
-     *
      * @throws JsonValidatorException Error validating JSON content.
-     *
-     * @access private
      */
     private function validateJson(string $jsonContent, object $schema): void
     {
@@ -136,14 +79,6 @@ abstract class AbstractController
 
     /**
      * Write response body.
-     *
-     * @param Response $response   Response instance.
-     * @param mixed    $data       Response data.
-     * @param integer  $statusCode HTTPstatus code (default 200)
-     *
-     * @return Response
-     *
-     * @access protected
      */
     protected function writeResponse(Response $response, mixed $data, int $statusCode = 200): Response
     {

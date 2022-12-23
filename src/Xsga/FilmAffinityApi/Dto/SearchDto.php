@@ -22,10 +22,6 @@ class SearchDto
 {
     /**
      * Search text.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $searchText = '';
+    public string $searchText = '';
 }

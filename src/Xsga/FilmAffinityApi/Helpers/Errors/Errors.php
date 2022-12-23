@@ -26,53 +26,24 @@ use Psr\Log\LoggerInterface;
 final class Errors implements ErrorsInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * Errors data.
      *
      * @var ErrorDto[]
-     *
-     * @access private
      */
-    private $errors;
-
-    /**
-     * Language.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $lang;
+    private array $errors;
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     * @param string          $lang   Language.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $lang)
-    {
-        $this->logger   = $logger;
-        $this->lang     = $lang;
-        $this->errors   = $this->load();
+    public function __construct(
+        private LoggerInterface $logger,
+        private string $lang
+    ) {
+        $this->errors = $this->load();
     }
 
     /**
      * Loads errors file.
-     *
-     * @return array
-     *
-     * @access private
      */
     private function load(): array
     {
@@ -110,12 +81,6 @@ final class Errors implements ErrorsInterface
 
     /**
      * Get error.
-     *
-     * @param int $code Error code.
-     *
-     * @return ErrorDto
-     *
-     * @access public
      */
     public function getError(int $code): ErrorDto
     {

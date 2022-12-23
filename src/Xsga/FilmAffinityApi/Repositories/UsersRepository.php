@@ -28,12 +28,6 @@ final class UsersRepository extends AbstractRepository implements UsersRepositor
 {
     /**
      * Get user.
-     *
-     * @param string $userEmail User email.
-     *
-     * @return ApiUsers|null
-     *
-     * @access public
      */
     public function getUser(string $userEmail): ApiUsers|null
     {
@@ -46,12 +40,6 @@ final class UsersRepository extends AbstractRepository implements UsersRepositor
 
     /**
      * Add user.
-     *
-     * @param ApiUsers $user User entity.
-     *
-     * @return integer
-     *
-     * @access public
      */
     public function addUser(ApiUsers $user): int
     {
@@ -63,12 +51,6 @@ final class UsersRepository extends AbstractRepository implements UsersRepositor
 
     /**
      * Update user.
-     *
-     * @param ApiUsers $user User entity.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function updateUser(ApiUsers $user): bool
     {

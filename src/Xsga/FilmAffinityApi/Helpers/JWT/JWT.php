@@ -35,65 +35,22 @@ use Xsga\FilmAffinityApi\Exceptions\JWTException;
 final class JWT implements JWTInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Private secret key.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $secretKey;
-
-    /**
      * Algorithm.
-     *
-     * @var string
-     *
-     * @access private
      */
-    private $algorithm = 'HS256';
-
-    /**
-     * Token lifetime (in seconds).
-     *
-     * @var integer
-     *
-     * @access private
-     */
-    private $tokenLifetime;
+    private string $algorithm = 'HS256';
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger    LoggerInterface instance.
-     * @param string          $secretKey Secret key.
-     * @param integer         $lifetime  Token lifetime in seconds.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $secretKey, int $lifetime)
-    {
-        $this->logger        = $logger;
-        $this->secretKey     = $secretKey;
-        $this->tokenLifetime = $lifetime;
+    public function __construct(
+        private LoggerInterface $logger,
+        private string $secretKey,
+        private int $tokenLifetime
+    ) {
     }
 
     /**
      * Get JWT token.
-     *
-     * @param string $userEmail User e-mail.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function get(string $userEmail): string
     {
@@ -113,17 +70,11 @@ final class JWT implements JWTInterface
     /**
      * Validate JWT token.
      *
-     * @param string $token JWT token.
-     *
-     * @return array
-     *
      * @throws JWTException JWT token expired.
      * @throws JWTException JWT token not active.
      * @throws JWTException JWT token signature verification failed.
      * @throws JWTException JWT token is malformed.
      * @throws JWTException JWT token is invalid.
-     *
-     * @access public
      */
     public function validate(string $token): array
     {
@@ -159,12 +110,6 @@ final class JWT implements JWTInterface
 
     /**
      * Decode JWT token.
-     *
-     * @param string $token JWT token.
-     *
-     * @return array
-     *
-     * @access public
      */
     public function decode(string $token): array
     {

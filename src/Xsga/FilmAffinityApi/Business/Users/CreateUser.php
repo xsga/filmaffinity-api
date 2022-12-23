@@ -30,58 +30,17 @@ use Xsga\FilmAffinityApi\Repositories\UsersRepositoryInterface;
 final class CreateUser
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Users repository.
-     *
-     * @var UsersRepositoryInterface
-     *
-     * @access private
-     */
-    private $repository;
-
-    /**
-     * Password service.
-     *
-     * @var PasswordInterface
-     *
-     * @access private
-     */
-    private $password;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface          $logger       LoggerInterface instance.
-     * @param UsersRepositoryInterface $repository   UserRespositoryInterface interface.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        UsersRepositoryInterface $repository,
-        PasswordInterface $password
+        private LoggerInterface $logger,
+        private UsersRepositoryInterface $repository,
+        private PasswordInterface $password
     ) {
-        $this->logger     = $logger;
-        $this->repository = $repository;
-        $this->password   = $password;
     }
 
     /**
      * Create user.
-     *
-     * @param UserDto $userDto User DTO.
-     *
-     * @return integer
-     *
-     * @access public
      */
     public function create(UserDto $userDto): int
     {

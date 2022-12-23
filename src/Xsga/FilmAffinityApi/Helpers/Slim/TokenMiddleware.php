@@ -30,48 +30,18 @@ use Xsga\FilmAffinityApi\Exceptions\ApiResourceDisabledException;
 final class TokenMiddleware
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Security type.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $securityType;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger       LoggerInterface instance.
-     * @param string          $securityType API security type.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $securityType)
-    {
-        $this->logger       = $logger;
-        $this->securityType = $securityType;
+    public function __construct(
+        private LoggerInterface $logger,
+        private string $securityType
+    ) {
     }
 
     /**
      * Invoke method.
      *
-     * @param Request $request API request.
-     * @param Handler $handler Request handler.
-     *
-     * @return Response
-     *
      * @throws ApiResourceDisabledException GetToken API's resource disabled.
-     *
-     * @access public
      */
     public function __invoke(Request $request, Handler $handler): Response
     {

@@ -22,19 +22,11 @@ class CountryDto
 {
     /**
      * Country code.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $code = '';
+    public string $code = '';
 
     /**
      * Country name.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $name = '';
+    public string $name = '';
 }

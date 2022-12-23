@@ -30,71 +30,18 @@ use Xsga\FilmAffinityApi\Dto\SearchResultsDto;
 final class SimpleSearch
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Search URL.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $searchUrl;
-
-    /**
-     * Extractor.
-     *
-     * @var Extractor
-     *
-     * @access private
-     */
-    private $extractor;
-
-    /**
-     * Parser.
-     *
-     * @var SimpleSearchParser
-     *
-     * @access private
-     */
-    private $parser;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface    $logger    LoggerInterface instance.
-     * @param string             $searchUrl Simple search URL.
-     * @param Extractor          $extractor Extractor instance.
-     * @param SimpleSearchParser $parser    SimpleSearchParser instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        string $searchUrl,
-        Extractor $extractor,
-        SimpleSearchParser $parser
+        private LoggerInterface $logger,
+        private string $searchUrl,
+        private Extractor $extractor,
+        private SimpleSearchParser $parser
     ) {
-        $this->logger    = $logger;
-        $this->searchUrl = $searchUrl;
-        $this->extractor = $extractor;
-        $this->parser    = $parser;
     }
 
     /**
      * Search.
-     *
-     * @param SearchDto $searchDto Search DTO.
-     *
-     * @return SearchResultsDto
-     *
-     * @access public
      */
     public function search(SearchDto $searchDto): SearchResultsDto
     {
@@ -112,12 +59,6 @@ final class SimpleSearch
 
      /**
      * Get search URL.
-     *
-     * @param SearchDto $searchDto Search DTO.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getSearchUrl(SearchDto $searchDto): string
     {
@@ -135,12 +76,6 @@ final class SimpleSearch
 
     /**
      * Prepare search text.
-     *
-     * @param string $searchText Text to search.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function prepareSearchText(string $searchText): string
     {

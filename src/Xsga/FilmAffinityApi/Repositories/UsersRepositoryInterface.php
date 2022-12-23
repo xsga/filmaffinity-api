@@ -27,34 +27,16 @@ interface UsersRepositoryInterface
 {
     /**
      * Get user.
-     *
-     * @param string $userEmail User email.
-     *
-     * @return ApiUsers|null
-     *
-     * @access public
      */
     public function getUser(string $userEmail): ApiUsers|null;
 
     /**
      * Add user.
-     *
-     * @param ApiUsers $user User entity.
-     *
-     * @return integer
-     *
-     * @access public
      */
     public function addUser(ApiUsers $user): int;
 
     /**
      * Update user.
-     *
-     * @param ApiUsers $user User entity.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function updateUser(ApiUsers $user): bool;
 }

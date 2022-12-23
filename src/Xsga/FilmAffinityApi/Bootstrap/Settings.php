@@ -19,10 +19,6 @@ use Dotenv\Dotenv;
 
 /**
  * Load API setting.
- *
- * @return void
- *
- * @access public
  */
 function loadSettings(): void
 {

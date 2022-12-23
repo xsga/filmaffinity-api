@@ -27,55 +27,31 @@ class UserDto
 {
     /**
      * User ID.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $userId = 0;
+    public int $userId = 0;
 
     /**
      * User e-mail.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $email = '';
+    public string $email = '';
 
     /**
      * User password.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $password = '';
+    public string $password = '';
 
     /**
      * User role.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $role = '';
+    public string $role = '';
 
     /**
      * User enabled flag.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $enabled = 0;
+    public int $enabled = 0;
 
     /**
      * Create date.
-     *
-     * @var DateTime
-     *
-     * @access public
      */
-    public $createDate;
+    public DateTime $createDate;
 }

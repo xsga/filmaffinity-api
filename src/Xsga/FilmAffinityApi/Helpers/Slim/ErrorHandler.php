@@ -39,49 +39,16 @@ use Xsga\FilmAffinityApi\Helpers\Errors\ErrorsInterface;
 final class ErrorHandler implements ErrorHandlerInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Errors.
-     *
-     * @var ErrorsInterface
-     *
-     * @access private
-     */
-    private $errors;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     * @param ErrorsInterface $errors ErrorsInterface instance.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, ErrorsInterface $errors)
-    {
-        $this->logger = $logger;
-        $this->errors = $errors;
+    public function __construct(
+        private LoggerInterface $logger,
+        private ErrorsInterface $errors
+    ) {
     }
 
     /**
-     * Invoke.
-     *
-     * @param Request   $request             ServerRequestInterface instance.
-     * @param Throwable $exception           Throwable instance.
-     * @param boolean   $displayErrorDetails Display error details flag.
-     * @param boolean   $logError            Log error flag.
-     * @param boolean   $logErrorDetails     Log error details flag.
-     *
-     * @return Response
-     *
-     * @access public
+     * Invoke method.
      */
     public function __invoke(
         Request $request,
@@ -109,12 +76,6 @@ final class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get error code.
-     *
-     * @param Throwable $exception Exception instance.
-     *
-     * @return integer|string
-     *
-     * @access private
      */
     private function getErrorCode(Throwable $exception): int|string
     {
@@ -141,14 +102,6 @@ final class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get error DTO.
-     *
-     * @param bool           $displayErrorDetails Display error details flag.
-     * @param ErrorsErrorDto $error               ErrorInterface instance.
-     * @param Throwable      $exception           Exception instance.
-     *
-     * @return ErrorDetailDto|ErrorDto
-     *
-     * @access private
      */
     private function getErrorDto(
         bool $displayErrorDetails,

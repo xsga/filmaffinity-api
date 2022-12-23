@@ -32,77 +32,49 @@ class ApiUsers
     /**
      * User ID.
      *
-     * @var int
-     *
-     * @access private
-     *
      * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id = 0;
+    private int $id = 0;
 
     /**
      * User email.
      *
-     * @var string
-     *
-     * @access private
-     *
      * @ORM\Column(name="email", type="string", length=150, precision=0, scale=0, nullable=false, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * User password.
      *
-     * @var string
-     *
-     * @access private
-     *
      * @ORM\Column(name="password", type="string", length=500, precision=0, scale=0, nullable=false, unique=false)
      */
-    private $password;
+    private string $password;
 
     /**
      * User role.
      *
-     * @var string
-     *
-     * @access private
-     *
      * @ORM\Column(name="role", type="string", length=15, precision=0, scale=0, nullable=false, unique=false)
      */
-    private $role;
+    private string $role;
 
     /**
      * Create date.
      *
-     * @var DateTime
-     *
-     * @access private
-     *
      * @ORM\Column(name="create_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
      */
-    private $createDate;
+    private DateTime $createDate;
 
     /**
      * User enabled.
      *
-     * @var int
-     *
-     * @access private
-     *
      * @ORM\Column(name="enabled", type="integer", precision=0, scale=0, nullable=false, unique=false)
      */
-    private $enabled;
+    private int $enabled;
 
     /**
      * Get id.
-     *
-     * @return int
-     *
-     * @access public
      */
     public function getId(): int
     {
@@ -111,14 +83,8 @@ class ApiUsers
 
     /**
      * Set email.
-     *
-     * @param string $email
-     *
-     * @return ApiUsers
-     *
-     * @access public
      */
-    public function setEmail($email): ApiUsers
+    public function setEmail(string $email): ApiUsers
     {
         $this->email = $email;
 
@@ -127,10 +93,6 @@ class ApiUsers
 
     /**
      * Get email.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function getEmail(): string
     {
@@ -139,14 +101,8 @@ class ApiUsers
 
     /**
      * Set password.
-     *
-     * @param string $password
-     *
-     * @return ApiUsers
-     *
-     * @access public
      */
-    public function setPassword($password): ApiUsers
+    public function setPassword(string $password): ApiUsers
     {
         $this->password = $password;
 
@@ -155,10 +111,6 @@ class ApiUsers
 
     /**
      * Get password.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function getPassword(): string
     {
@@ -167,14 +119,8 @@ class ApiUsers
 
     /**
      * Set role.
-     *
-     * @param string $role
-     *
-     * @return ApiUsers
-     *
-     * @access public
      */
-    public function setRole($role): ApiUsers
+    public function setRole(string $role): ApiUsers
     {
         $this->role = $role;
 
@@ -183,10 +129,6 @@ class ApiUsers
 
     /**
      * Get role.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function getRole(): string
     {
@@ -195,14 +137,8 @@ class ApiUsers
 
     /**
      * Set createDate.
-     *
-     * @param DateTime $createDate
-     *
-     * @return ApiUsers
-     *
-     * @access public
      */
-    public function setCreateDate($createDate): ApiUsers
+    public function setCreateDate(DateTime $createDate): ApiUsers
     {
         $this->createDate = $createDate;
 
@@ -211,10 +147,6 @@ class ApiUsers
 
     /**
      * Get createDate.
-     *
-     * @return DateTime
-     *
-     * @access public
      */
     public function getCreateDate(): DateTime
     {
@@ -223,14 +155,8 @@ class ApiUsers
 
     /**
      * Set enabled.
-     *
-     * @param int $enabled
-     *
-     * @return ApiUsers
-     *
-     * @access public
      */
-    public function setEnabled($enabled): ApiUsers
+    public function setEnabled(int $enabled): ApiUsers
     {
         $this->enabled = $enabled;
 
@@ -239,10 +165,6 @@ class ApiUsers
 
     /**
      * Get enabled.
-     *
-     * @return int
-     *
-     * @access public
      */
     public function getEnabled(): int
     {

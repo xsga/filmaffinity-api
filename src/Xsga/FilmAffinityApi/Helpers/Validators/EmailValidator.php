@@ -26,34 +26,14 @@ use Psr\Log\LoggerInterface;
 class EmailValidator
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**
      * Validate e-mail.
-     *
-     * @param string $email E-mail to validate.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function validate(string $email): bool
     {

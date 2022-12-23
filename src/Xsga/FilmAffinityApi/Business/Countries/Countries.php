@@ -27,45 +27,24 @@ use Xsga\FilmAffinityApi\Dto\CountryDto;
 final class Countries
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * Countries.
      *
      * @var CountryDto[]
-     *
-     * @access private
      */
-    private $countries;
+    private array $countries;
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger   LoggerInterface instance.
-     * @param string          $language API language.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $language)
+    public function __construct(private LoggerInterface $logger, string $language)
     {
-        $this->logger    = $logger;
         $this->countries = $this->load(strtoupper($language));
     }
 
     /**
      * Load countries.
      *
-     * @param string $language Application language.
-     *
      * @return CountryDto[]
-     *
-     * @access private
      */
     private function load(string $language): array
     {
@@ -102,8 +81,6 @@ final class Countries
      * Get all countries.
      *
      * @return CountryDto[]
-     *
-     * @access public
      */
     public function getAll(): array
     {
@@ -112,12 +89,6 @@ final class Countries
 
     /**
      * Get country.
-     *
-     * @param string $code Country code.
-     *
-     * @return CountryDto
-     *
-     * @access public
      */
     public function get(string $code): CountryDto
     {

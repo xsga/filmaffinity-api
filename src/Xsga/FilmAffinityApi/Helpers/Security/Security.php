@@ -29,54 +29,17 @@ use Xsga\FilmAffinityApi\Helpers\JWT\JWTInterface;
 final class Security implements SecurityInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * JWT service.
-     *
-     * @var JWTInterface
-     *
-     * @access private
-     */
-    private $jwt;
-
-    /**
-     * User login service.
-     *
-     * @var UserLogin
-     *
-     * @access private
-     */
-    private $userLogin;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, JWTInterface $jwt, UserLogin $userLogin)
-    {
-        $this->logger    = $logger;
-        $this->jwt       = $jwt;
-        $this->userLogin = $userLogin;
+    public function __construct(
+        private LoggerInterface $logger,
+        private JWTInterface $jwt,
+        private UserLogin $userLogin
+    ) {
     }
 
     /**
      * Basic security.
-     *
-     * @param string $authorization Authorization header.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function basic(string $authorization): string
     {
@@ -92,12 +55,6 @@ final class Security implements SecurityInterface
 
     /**
      * Token security.
-     *
-     * @param string $authorization Authorization header.
-     *
-     * @return string
-     *
-     * @access public
      */
     public function token(string $authorization): string
     {
@@ -112,15 +69,8 @@ final class Security implements SecurityInterface
     /**
      * Validates authorization header.
      *
-     * @param string $authHeader Authorization header.
-     * @param string $type       Authorization type.
-     *
-     * @return string
-     *
      * @throws AuthHeaderNotValidException Authorization header not valid.
      * @throws AuthHeaderNotValidException Authorization header not match with API security.
-     *
-     * @access private
      */
     private function validateAuthorization(string $authHeader, string $type): string
     {
@@ -144,13 +94,7 @@ final class Security implements SecurityInterface
     /**
      * Gets user and password from basic authorization header.
      *
-     * @param string $authorization Request authorization token.
-     *
-     * @return array
-     *
      * @throws AuthHeaderNotValidException User and password not valid.
-     *
-     * @access private
      */
     private function getUserAndPassword(string $authorization): array
     {

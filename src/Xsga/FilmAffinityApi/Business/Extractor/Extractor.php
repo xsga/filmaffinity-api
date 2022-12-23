@@ -28,47 +28,19 @@ use Xsga\FilmAffinityApi\Exceptions\FilmAffinityWebsiteException;
 final class Extractor
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * FilmAffinity base URL.
-     *
-     * @var string
-     *
-     * @access private
      */
-    private $baseUrl = '';
-
-    /**
-     * HTTP client.
-     *
-     * @var Client
-     *
-     * @access private
-     */
-    private $client;
+    private string $baseUrl = '';
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger   LoggerInterface instance.
-     * @param string          $language API language.
-     * @param string          $baseUrl  filmAffinity base URL.
-     * @param Client          $client   HTTP client.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $language, string $baseUrl, Client $client)
-    {
-        $this->logger = $logger;
-        $this->client = $client;
-
+    public function __construct(
+        private LoggerInterface $logger,
+        private Client $client,
+        string $language,
+        string $baseUrl
+    ) {
         // Set base URL.
         switch (strtolower($language)) {
             case 'spa':
@@ -83,13 +55,7 @@ final class Extractor
     /**
      * Get page content.
      *
-     * @param string $url Page URL.
-     *
-     * @return string
-     *
      * @throws FilmAffinityWebsiteException Error getting data from FilmAffinity website.
-     *
-     * @access public
      */
     public function getData(string $url): string
     {

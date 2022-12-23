@@ -30,73 +30,20 @@ use Xsga\FilmAffinityApi\Helpers\Validators\PasswordValidator;
 class CreateUserValidator
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Email validator.
-     *
-     * @var EmailValidator
-     *
-     * @access private
-     */
-    private $email;
-
-    /**
-     * Password validator.
-     *
-     * @var PasswordValidator
-     *
-     * @access private
-     */
-    private $password;
-
-    /**
-     * Get user service.
-     *
-     * @var GetUser
-     *
-     * @access private
-     */
-    private $getUser;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface   $logger            LoggerInterface instance.
-     * @param EmailValidator    $emailValidator    EmailValidator instance.
-     * @param PasswordValidator $passwordValidator PasswordValidator instance.
-     * @param GetUser           $getUser           GetUser instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        EmailValidator $emailValidator,
-        PasswordValidator $passwordValidator,
-        GetUser $getUser
+        private LoggerInterface $logger,
+        private EmailValidator $email,
+        private PasswordValidator $password,
+        private GetUser $getUser
     ) {
-        $this->logger   = $logger;
-        $this->email    = $emailValidator;
-        $this->password = $passwordValidator;
-        $this->getUser  = $getUser;
     }
 
     /**
      * Validate e-mail.
      *
-     * @param string $email E-mail.
-     *
-     * @return string|null
-     *
      * @throws RuntimeException E-mail not valid.
-     *
-     * @access public
      */
     public function validateEmail(string|null $email): string
     {
@@ -112,13 +59,7 @@ class CreateUserValidator
     /**
      * Validate password.
      *
-     * @param string $password Password.
-     *
-     * @return string|null
-     *
      * @throws RuntimeException Password not valid.
-     *
-     * @access public
      */
     public function validatePassword(string|null $password): string
     {
@@ -136,12 +77,6 @@ class CreateUserValidator
 
     /**
      * Validates if user exists.
-     *
-     * @param string $email User e-mail.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function validateUserExists(string $email): bool
     {

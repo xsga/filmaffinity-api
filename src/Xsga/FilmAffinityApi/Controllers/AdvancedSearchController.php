@@ -32,21 +32,11 @@ final class AdvancedSearchController extends AbstractController
      * Advanced search service.
      *
      * @Inject
-     * @var AdvancedSearch
-     *
-     * @access private
      */
-    private $advancedSearch;
+    private AdvancedSearch $advancedSearch;
 
     /**
      * Search.
-     *
-     * @param Request  $request  Request.
-     * @param Response $response Response.
-     *
-     * @return Response
-     *
-     * @access public
      */
     public function __invoke(Request $request, Response $response): Response
     {

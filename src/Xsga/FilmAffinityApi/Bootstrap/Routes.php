@@ -28,12 +28,6 @@ use Xsga\FilmAffinityApi\Helpers\Slim\TokenMiddleware;
 
 /**
  * Adds API routes to Slim app.
- *
- * @param App $app Slim application.
- *
- * @return App
- *
- * @access public
  */
 function getRoutes(App $app): App
 {

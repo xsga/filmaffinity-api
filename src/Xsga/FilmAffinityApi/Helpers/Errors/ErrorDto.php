@@ -22,28 +22,16 @@ class ErrorDto
 {
     /**
      * Error code.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $code = -1;
+    public int $code = -1;
 
     /**
      * HTTP code.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $httpCode = 500;
+    public int $httpCode = 500;
 
     /**
      * Error message.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $message = '';
+    public string $message = '';
 }

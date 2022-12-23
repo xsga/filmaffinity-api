@@ -22,14 +22,6 @@ use Xsga\FilmAffinityApi\Helpers\Slim\ErrorHandler;
 
 /**
  * Gets Slim application.
- *
- * @param Container $container   Container instance.
- * @param boolean   $errorDetail Error detail flag.
- * @param string    $urlPath     API URL path.
- *
- * @return App
- *
- * @access public
  */
 function getSlimApp(Container $container, bool $errorDetail, string $urlPath): App
 {

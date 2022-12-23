@@ -31,64 +31,21 @@ use Xsga\FilmAffinityApi\Helpers\Password\PasswordInterface;
 final class UserLogin
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * GetUser service.
-     *
-     * @var GetUser
-     *
-     * @access private
-     */
-    private $getUser;
-
-    /**
-     * PasswordInterface.
-     *
-     * @var PasswordInterface
-     *
-     * @access private
-     */
-    private $passUtils;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface   $logger    LoggerInterface instance.
-     * @param GetUser           $getUser   GetUser instance.
-     * @param PasswordInterface $passUtils PaswwordInterface instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        GetUser $getUser,
-        PasswordInterface $passUtils
+        private LoggerInterface $logger,
+        private GetUser $getUser,
+        private PasswordInterface $passUtils
     ) {
-        $this->logger    = $logger;
-        $this->getUser   = $getUser;
-        $this->passUtils = $passUtils;
     }
 
     /**
      * Login user.
      *
-     * @param string $user     Username.
-     * @param string $password User password.
-     *
-     * @return UserDto
-     *
      * @throws UserNotFoundException User not found.
      * @throws UserDisabledException User disabled.
      * @throws UserLoginException    Wrong user password.
-     *
-     * @access public
      */
     public function login(string $user, string $password): UserDto
     {

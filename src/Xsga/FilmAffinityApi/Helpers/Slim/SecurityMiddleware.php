@@ -31,59 +31,19 @@ use Xsga\FilmAffinityApi\Helpers\Security\SecurityInterface;
 final class SecurityMiddleware
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Security services.
-     *
-     * @var SecurityInterface
-     *
-     * @access private
-     */
-    private $security;
-
-    /**
-     * Security type.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $securityType;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface   $logger       LoggerInterface instance.
-     * @param SecurityInterface $security     Security instance.
-     * @param string            $securityType API security type.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, SecurityInterface $security, string $securityType)
-    {
-        $this->logger       = $logger;
-        $this->security     = $security;
-        $this->securityType = $securityType;
+    public function __construct(
+        private LoggerInterface $logger,
+        private SecurityInterface $security,
+        private string $securityType
+    ) {
     }
 
     /**
      * Invoke method.
      *
-     * @param Request $request API request.
-     * @param Handler $handler Request handler.
-     *
-     * @return Response
-     *
      * @throws AuthHeaderNotFoundException Authorization header not found.
-     *
-     * @access public
      */
     public function __invoke(Request $request, Handler $handler): Response
     {

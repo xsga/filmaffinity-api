@@ -27,12 +27,6 @@ final class FilmParser extends AbstractParser
 {
     /**
      * Get film DTO.
-     *
-     * @param string $filmId FilmAffinity film ID.
-     *
-     * @return FilmDto
-     *
-     * @access public
      */
     public function getFilmDto(string $filmId): FilmDto
     {
@@ -63,10 +57,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get title.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getTitle(): string
     {
@@ -92,10 +82,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get release date.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getYear(): string
     {
@@ -121,10 +107,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get duration.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getDuration(): string
     {
@@ -150,10 +132,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get directors
-     *
-     * @return array
-     *
-     * @access private
      */
     private function getDirectors(): array
     {
@@ -177,10 +155,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get actors.
-     *
-     * @return array
-     *
-     * @access private
      */
     private function getActors(): array
     {
@@ -204,10 +178,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get producers.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getProducers(): string
     {
@@ -231,10 +201,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get genres.
-     *
-     * @return array
-     *
-     * @access private
      */
     private function getGenres(): array
     {
@@ -257,10 +223,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get original title.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getOriginalTitle(): string
     {
@@ -275,10 +237,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get country.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getCountry(): string
     {
@@ -293,10 +251,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get screenplay.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getScreenplay(): string
     {
@@ -311,10 +265,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get soundtrack.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getSoundtrack(): string
     {
@@ -329,10 +279,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get photography.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getPhotography(): string
     {
@@ -347,10 +293,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get rating.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getRating(): string
     {
@@ -376,10 +318,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get synopsis.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getSynopsis(): string
     {
@@ -405,10 +343,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get cover URL.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getCoverUrl(): string
     {
@@ -429,10 +363,6 @@ final class FilmParser extends AbstractParser
 
     /**
      * Get cover file.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getCoverFile(): string
     {

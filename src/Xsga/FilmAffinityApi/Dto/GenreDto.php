@@ -22,19 +22,11 @@ class GenreDto
 {
     /**
      * Genre code.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $code = '';
+    public string $code = '';
 
     /**
      * Genre description.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $description = '';
+    public string $description = '';
 }

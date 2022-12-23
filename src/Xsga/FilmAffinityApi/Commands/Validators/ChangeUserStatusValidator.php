@@ -29,65 +29,23 @@ use Xsga\FilmAffinityApi\Helpers\Validators\EmailValidator;
 class ChangeUserStatusValidator
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Email validator.
-     *
-     * @var EmailValidator
-     *
-     * @access private
-     */
-    private $email;
-
-    /**
-     * Get user service.
-     *
-     * @var GetUser
-     *
-     * @access private
-     */
-    private $getUser;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger         LoggerInterface instance.
-     * @param EmailValidator  $emailValidator EmailValidator instance.
-     * @param GetUser         $getUser        GetUser instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        EmailValidator $emailValidator,
-        GetUser $getUser
+        private LoggerInterface $logger,
+        private EmailValidator $emailValidator,
+        private GetUser $getUser
     ) {
-        $this->logger  = $logger;
-        $this->email   = $emailValidator;
-        $this->getUser = $getUser;
     }
 
     /**
      * Validate e-mail.
      *
-     * @param string $email E-mail.
-     *
-     * @return string
-     *
      * @throws RuntimeException E-mail not valid.
-     *
-     * @access public
      */
     public function validateEmail(string $email): string
     {
-        if ($this->email->validate($email)) {
+        if ($this->emailValidator->validate($email)) {
             return $email;
         }//end if
 
@@ -96,12 +54,6 @@ class ChangeUserStatusValidator
 
     /**
      * Validates if user exists.
-     *
-     * @param string $email User e-mail.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function validateUserExists(string $email): bool
     {

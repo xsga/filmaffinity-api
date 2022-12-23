@@ -43,91 +43,53 @@ class CreateUserCommand extends Command
      * Add user service.
      *
      * @Inject
-     * @var CreateUser
-     *
-     * @access private
      */
-    private $createUser;
+    private CreateUser $createUser;
 
     /**
      * Validator.
      *
      * @Inject
-     * @var CreateUserValidator
-     *
-     * @access private
      */
-    private $validator;
+    private CreateUserValidator $validator;
 
     /**
      * SymfonyStyle.
-     *
-     * @var SymfonyStyle
-     *
-     * @access private
      */
-    private $display;
+    private SymfonyStyle $display;
 
     /**
      * User e-mail.
-     *
-     * @var null|string
-     *
-     * @access private
      */
-    private $userEmail = null;
+    private null|string $userEmail = null;
 
     /**
      * User password.
-     *
-     * @var null|string
-     *
-     * @access private
      */
-    private $userPass = null;
+    private null|string $userPass = null;
 
     /**
      * User password confirm.
-     *
-     * @var null|string
-     *
-     * @access private
      */
-    private $userPassR = null;
+    private null|string $userPassR = null;
 
     /**
      * User role.
-     *
-     * @var null|string
-     *
-     * @access private
      */
-    private $userRole = null;
+    private null|string $userRole = null;
 
     /**
      * User status.
-     *
-     * @var null|string
-     *
-     * @access private
      */
-    private $userStatus = null;
+    private null|string $userStatus = null;
 
     /**
      * Exit create user process.
-     *
-     * @var boolean
-     *
-     * @access private
      */
-    private $exit = false;
+    private bool $exit = false;
 
     /**
      * Configure.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function configure(): void
     {
@@ -136,13 +98,6 @@ class CreateUserCommand extends Command
 
     /**
      * Initialize command.
-     *
-     * @param InputInterface  $input  InputInterface instance.
-     * @param OutputInterface $output OutputInterface instance.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
@@ -151,13 +106,6 @@ class CreateUserCommand extends Command
 
     /**
      * Interacts with the user.
-     *
-     * @param InputInterface  $input  InputInterface instance.
-     * @param OutputInterface $output OutputInterface instance.
-     *
-     * @return void
-     *
-     * @access protected
      */
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
@@ -174,13 +122,6 @@ class CreateUserCommand extends Command
 
     /**
      * Executes command.
-     *
-     * @param InputInterface  $input  InputInterface instance.
-     * @param OutputInterface $output OutputInterface instance.
-     *
-     * @return integer
-     *
-     * @access protected
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

@@ -31,21 +31,11 @@ final class GetCountriesController extends AbstractController
      * Advanced search service.
      *
      * @Inject
-     * @var Countries
-     *
-     * @access private
      */
-    private $countries;
+    private Countries $countries;
 
     /**
      * Get genres.
-     *
-     * @param Request  $request  Request.
-     * @param Response $response Response.
-     *
-     * @return Response
-     *
-     * @access public
      */
     public function __invoke(Request $request, Response $response): Response
     {

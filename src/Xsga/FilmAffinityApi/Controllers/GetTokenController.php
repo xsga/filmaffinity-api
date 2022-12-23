@@ -31,21 +31,11 @@ final class GetTokenController extends AbstractController
      * GetToken service.
      *
      * @Inject
-     * @var GetToken
-     *
-     * @access private
      */
-    private $getToken;
+    private GetToken $getToken;
 
     /**
      * Get token.
-     *
-     * @param Request  $request  Request.
-     * @param Response $response Response.
-     *
-     * @return Response
-     *
-     * @access public
      */
     public function __invoke(Request $request, Response $response): Response
     {

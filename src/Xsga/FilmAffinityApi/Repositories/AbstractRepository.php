@@ -28,45 +28,18 @@ use Doctrine\Persistence\ObjectRepository;
 abstract class AbstractRepository
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access protected
-     */
-    protected $logger;
-
-    /**
-     * Doctrine entity manager.
-     *
-     * @var EntityManagerInterface
-     *
-     * @access protected
-     */
-    protected $em;
-
-    /**
      * Entity repository.
-     *
-     * @var ObjectRepository
-     *
-     * @access protected
      */
-    protected $repository;
+    protected ObjectRepository $repository;
 
     /**
      * Constructor.
-     *
-     * @param LoggerInterface        $logger LoggerInterface instance.
-     * @param EntityManagerInterface $em     EntityManagerInterface instance.
-     * @param string                 $entity Entity classname.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, EntityManagerInterface $em, string $entity)
-    {
-        $this->logger     = $logger;
-        $this->em         = $em;
+    public function __construct(
+        protected LoggerInterface $logger,
+        protected EntityManagerInterface $em,
+        string $entity
+    ) {
         $this->repository = $this->em->getRepository($entity);
     }
 }

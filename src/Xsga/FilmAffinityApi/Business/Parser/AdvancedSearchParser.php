@@ -30,10 +30,6 @@ final class AdvancedSearchParser extends AbstractParser
 {
     /**
      * Get advanced search results.
-     *
-     * @return SearchResultsDto
-     *
-     * @access public
      */
     public function getAdvSearchResultsDto(): SearchResultsDto
     {

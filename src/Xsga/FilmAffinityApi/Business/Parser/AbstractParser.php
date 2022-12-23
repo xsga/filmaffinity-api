@@ -29,45 +29,16 @@ use Psr\Log\LoggerInterface;
 abstract class AbstractParser
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    protected $logger;
-
-    /**
-     * DOMDocument object.
-     *
-     * @var DOMDocument
-     *
-     * @access protected
-     */
-    protected $content;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger      LoggerInterface instance.
-     * @param DOMDocument     $domDocument DOMDocument instance.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, DOMDocument $domDocument)
-    {
-        $this->logger  = $logger;
-        $this->content = $domDocument;
+    public function __construct(
+        protected LoggerInterface $logger,
+        protected DOMDocument $content
+    ) {
     }
 
     /**
      * Init DOMDocument.
-     *
-     * @param string $pageContent Page content.
-     *
-     * @return void
-     *
-     * @access public
      */
     public function init(string $pageContent): void
     {
@@ -83,13 +54,6 @@ abstract class AbstractParser
 
     /**
      * Gets data form XPath query.
-     *
-     * @param string  $query    XPath query.
-     * @param boolean $outArray Output array.
-     *
-     * @return array|DOMNodeList
-     *
-     * @access private
      */
     protected function getData(string $query, bool $outArray = true): array|DOMNodeList
     {
