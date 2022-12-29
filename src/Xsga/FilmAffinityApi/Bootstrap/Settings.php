@@ -19,15 +19,11 @@ use Dotenv\Dotenv;
 
 /**
  * Load API setting.
- *
- * @return void
- *
- * @access public
  */
 function loadSettings(): void
 {
     // Load settings (.env).
-    $dotEnv = Dotenv::createImmutable(realpath(dirname(__FILE__, 5)) . DIRECTORY_SEPARATOR . 'config');
+    $dotEnv = Dotenv::createMutable(realpath(dirname(__FILE__, 5)) . DIRECTORY_SEPARATOR . 'config');
     $dotEnv->safeLoad();
 
     // Settings validations.
@@ -38,4 +34,11 @@ function loadSettings(): void
     $dotEnv->required('SEARCH_URL');
     $dotEnv->required('ADV_SEARCH_URL');
     $dotEnv->required('FILM_URL');
+    $dotEnv->required('SECURITY_TYPE')->allowedValues(['none', 'basic', 'token']);
+    $dotEnv->required('JWT_LIFETIME')->isInteger();
+    $dotEnv->required('JWT_SECRET_KEY');
+    $dotEnv->required('DB_SCHEMA');
+    $dotEnv->required('DB_USER');
+    $dotEnv->required('DB_PASSWORD');
+    $dotEnv->required('DB_HOST');
 }

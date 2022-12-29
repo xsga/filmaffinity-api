@@ -31,10 +31,6 @@ final class SimpleSearchParser extends AbstractParser
 {
     /**
      * Get simple search results.
-     *
-     * @return SearchResultsDto
-     *
-     * @access public
      */
     public function getSimpleSearchResultsDto(): SearchResultsDto
     {
@@ -55,12 +51,6 @@ final class SimpleSearchParser extends AbstractParser
 
     /**
      * Gets simple search single result.
-     *
-     * @param DOMNodeList $data Single result object.
-     *
-     * @return SearchResultsDto
-     *
-     * @access private
      */
     private function simpleSearchSingleResult(DOMNodeList $data): SearchResultsDto
     {
@@ -93,10 +83,6 @@ final class SimpleSearchParser extends AbstractParser
 
     /**
      * Gets simple search multiple results.
-     *
-     * @return SearchResultsDto
-     *
-     * @access private
      */
     private function simpleSearchMultipleResults(): SearchResultsDto
     {

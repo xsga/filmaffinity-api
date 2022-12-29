@@ -48,7 +48,7 @@ class LoggerMDC
      *
      * @access private
      */
-    private static $map = array();
+    private static $map = [];
 
     /**
      * Stores a context value as identified with the key parameter into the context map.
@@ -118,6 +118,6 @@ class LoggerMDC
      */
     public static function clear(): void
     {
-        static::$map = array();
+        static::$map = [];
     }
 }

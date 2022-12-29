@@ -35,95 +35,20 @@ use Xsga\FilmAffinityApi\Exceptions\InvalidLengthException;
 final class AdvancedSearch
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Advanced search URL.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $searchUrl;
-
-    /**
-     * Extractor.
-     *
-     * @var Extractor
-     *
-     * @access private
-     */
-    private $extractor;
-
-    /**
-     * Parser.
-     *
-     * @var AdvancedSearchParser
-     *
-     * @access private
-     */
-    private $parser;
-
-    /**
-     * Genres.
-     *
-     * @var Genres
-     *
-     * @access private
-     */
-    private $genres;
-
-    /**
-     * Countries.
-     *
-     * @var Countries
-     *
-     * @access private
-     */
-    private $countries;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface      $logger    LoggerInterface instance.
-     * @param string               $searchUrl Advanced search URL.
-     * @param Extractor            $extractor Extractor instance.
-     * @param AdvancedSearchParser $parser    AdvancedSearchParser instance.
-     * @param Genres               $genres    Genres instance.
-     * @param Countries            $contries  Countries instance.
-     *
-     * @access public
      */
     public function __construct(
-        LoggerInterface $logger,
-        string $searchUrl,
-        Extractor $extractor,
-        AdvancedSearchParser $parser,
-        Genres $genres,
-        Countries $countries
+        private LoggerInterface $logger,
+        private string $searchUrl,
+        private Extractor $extractor,
+        private AdvancedSearchParser $parser,
+        private Genres $genres,
+        private Countries $countries
     ) {
-        $this->logger    = $logger;
-        $this->searchUrl = $searchUrl;
-        $this->extractor = $extractor;
-        $this->parser    = $parser;
-        $this->genres    = $genres;
-        $this->countries = $countries;
     }
 
     /**
      * Advanced search.
-     *
-     * @param AdvSearchDto $advSearchDto Advanced search data.
-     *
-     * @return SearchResultsDto
-     *
-     * @access public
      */
     public function search(AdvSearchDto $advSearchDto): SearchResultsDto
     {
@@ -144,12 +69,6 @@ final class AdvancedSearch
 
     /**
      * Validates input data.
-     *
-     * @param AdvSearchDto $advSearchDto Advanced search DTO.
-     *
-     * @return void
-     *
-     * @access private
      */
     private function validations(AdvSearchDto $advSearchDto): void
     {
@@ -182,12 +101,6 @@ final class AdvancedSearch
 
     /**
      * Get advanced search URL.
-     *
-     * @param AdvSearchDto $advSearchDto Advanced search DTO.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function getUrl(AdvSearchDto $advSearchDto): string
     {
@@ -223,12 +136,6 @@ final class AdvancedSearch
 
     /**
      * Prepare search text.
-     *
-     * @param string $searchText Text to search.
-     *
-     * @return string
-     *
-     * @access private
      */
     private function prepareSearchText(string $searchText): string
     {

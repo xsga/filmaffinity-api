@@ -99,7 +99,7 @@ abstract class LoggerPatternConverterSuperglobal extends LoggerPatternConverter
             }//end if
         } else {
             // When the key is not set, display all values.
-            $values = array();
+            $values = [];
             foreach ($source as $key => $value) {
                 $values[] = $key . '=' . $value;
             }//end foreach

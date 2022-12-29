@@ -22,46 +22,26 @@ class ErrorDetailDto
 {
     /**
      * Error code.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $code = 0;
+    public int $code = 0;
 
     /**
      * Error message.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $message = '';
+    public string $message = '';
 
     /**
      * Error file.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $file = '';
+    public string $file = '';
 
     /**
      * Error line.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $line = 0;
+    public int $line = 0;
 
     /**
      * Error trace.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $trace = '';
+    public string $trace = '';
 }

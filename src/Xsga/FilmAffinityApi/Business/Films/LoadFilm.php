@@ -29,62 +29,18 @@ use Xsga\FilmAffinityApi\Dto\FilmDto;
 final class LoadFilm
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
-     * Film URL.
-     *
-     * @var string
-     *
-     * @access private
-     */
-    private $filmUrl;
-
-    /**
-     * Extractor.
-     *
-     * @var Extractor
-     *
-     * @access private
-     */
-    private $extractor;
-
-    /**
-     * Parser.
-     *
-     * @var FilmParser
-     *
-     * @access private
-     */
-    private $parser;
-
-    /**
      * Constructor.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger, string $filmUrl, Extractor $extractor, FilmParser $parser)
-    {
-        $this->logger    = $logger;
-        $this->filmUrl   = $filmUrl;
-        $this->extractor = $extractor;
-        $this->parser    = $parser;
+    public function __construct(
+        private LoggerInterface $logger,
+        private string $filmUrl,
+        private Extractor $extractor,
+        private FilmParser $parser
+    ) {
     }
 
     /**
      * Load film.
-     *
-     * @param string $filmId Film id.
-     *
-     * @return FilmDto
-     *
-     * @access public
      */
     public function loadFilm(string $filmId): FilmDto
     {
@@ -101,13 +57,7 @@ final class LoadFilm
     }
 
     /**
-     * Get film URL.
-     *
-     * @param string $filmId FilmAffinity film ID.
-     *
-     * @return string
-     *
-     * @access private
+     * Get film URL
      */
     private function getUrl(string $filmId): string
     {

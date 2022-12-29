@@ -16,160 +16,92 @@
 namespace Xsga\FilmAffinityApi\Dto;
 
 /**
- *
+ * FilmDto class.
  */
 class FilmDto
 {
     /**
      * FilmAffinity film ID.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $filmAfinityId = 0;
+    public int $filmAfinityId = 0;
 
     /**
      * Film title.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $title = '';
+    public string $title = '';
 
     /**
      * Film original title.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $originalTitle = '';
+    public string $originalTitle = '';
 
     /**
      * Release year.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $year = '';
+    public string $year = '';
 
     /**
      * Film duration.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $duration = '';
+    public string $duration = '';
 
     /**
      * Cover URL.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $coverUrl = '';
+    public string $coverUrl = '';
 
     /**
      * Cover filename.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $coverFile = '';
+    public string $coverFile = '';
 
     /**
      * Rating.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $rating = '';
+    public string $rating = '';
 
     /**
      * Country.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $country = '';
+    public string $country = '';
 
     /**
      * Directors.
-     *
-     * @var array
-     *
-     * @access public
      */
-    public $directors = array();
+    public array $directors = [];
 
     /**
      * Screenplay.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $screenplay = '';
+    public string $screenplay = '';
 
     /**
      * Sountrack.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $soundtrack = '';
+    public string $soundtrack = '';
 
     /**
      * Photography.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $photography = '';
+    public string $photography = '';
 
     /**
      * Cast.
-     *
-     * @var array
-     *
-     * @access public
      */
-    public $cast = array();
+    public array $cast = [];
 
     /**
      * Producer.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $producer = '';
+    public string $producer = '';
 
     /**
      * Genres.
-     *
-     * @var array
-     *
-     * @access public
      */
-    public $genres = array();
+    public array $genres = [];
 
     /**
      * Synopsis.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $synopsis = '';
+    public string $synopsis = '';
 }

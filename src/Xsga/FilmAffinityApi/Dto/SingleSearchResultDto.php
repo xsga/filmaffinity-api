@@ -22,19 +22,11 @@ class SingleSearchResultDto
 {
     /**
      * FilmAffinity film ID.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $id = 0;
+    public int $id = 0;
 
     /**
      * Film title and release year.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $title = '';
+    public string $title = '';
 }

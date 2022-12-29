@@ -56,7 +56,7 @@ class LoggerPatternConverterClass extends LoggerPatternConverter
      *
      * @access private
      */
-    private $cache = array();
+    private $cache = [];
 
     /**
      * Activate options.

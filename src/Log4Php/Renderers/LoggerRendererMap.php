@@ -45,7 +45,7 @@ class LoggerRendererMap
      *
      * @access private
      */
-    private $map = array();
+    private $map = [];
 
     /**
      * The default renderer to use if no specific renderer is found.
@@ -233,7 +233,7 @@ class LoggerRendererMap
      */
     public function clear(): void
     {
-        $this->map = array();
+        $this->map = [];
     }
 
     /**

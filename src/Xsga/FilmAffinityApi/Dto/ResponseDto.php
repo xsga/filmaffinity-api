@@ -22,28 +22,16 @@ class ResponseDto
 {
     /**
      * Status.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $status = '';
+    public string $status = '';
 
     /**
      * Status code.
-     *
-     * @var integer
-     *
-     * @access public
      */
-    public $statusCode = -1;
+    public int $statusCode = -1;
 
     /**
      * Response object.
-     *
-     * @var mixed
-     *
-     * @access public
      */
-    public $response = '';
+    public mixed $response = '';
 }

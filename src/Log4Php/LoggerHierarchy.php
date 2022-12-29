@@ -70,7 +70,7 @@ class LoggerHierarchy
      *
      * @access protected
      */
-    protected $loggers = array();
+    protected $loggers = [];
 
     /**
      * The root logger.
@@ -122,7 +122,7 @@ class LoggerHierarchy
      */
     public function clear(): void
     {
-        $this->loggers = array();
+        $this->loggers = [];
     }
 
     /**

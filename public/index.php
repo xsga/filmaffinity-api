@@ -31,7 +31,7 @@ $container = getContainer();
 $logger = $container->get(LoggerInterface::class);
 
 // Get Slim application.
-$app = getSlimApp($container);
+$app = getSlimApp($container, filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN), $_ENV['URL_PATH']);
 
 // Get and add routes to Slim app.
 getRoutes($app);

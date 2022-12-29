@@ -94,7 +94,7 @@ class Logger
      *
      * @access private
      */
-    private $appenders = array();
+    private $appenders = [];
 
     /**
      * The logger hierarchy used by log4php.

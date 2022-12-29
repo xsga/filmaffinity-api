@@ -121,7 +121,7 @@ class LoggerLevel
      *
      * @access private
      */
-    private static $levelMap = array();
+    private static $levelMap = [];
 
     /**
      * String representation of the level.

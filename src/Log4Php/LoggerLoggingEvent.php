@@ -217,7 +217,7 @@ class LoggerLoggingEvent
     public function getLocationInformation(): LoggerLocationInfo
     {
         if ($this->locationInfo === null) {
-            $locationInfo = array();
+            $locationInfo = [];
             $trace        = debug_backtrace();
             $prevHop      = null;
 

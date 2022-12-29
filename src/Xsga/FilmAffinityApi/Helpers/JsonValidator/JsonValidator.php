@@ -28,35 +28,14 @@ use Swaggest\JsonSchema\Schema;
 final class JsonValidator implements JsonValidatorInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     *
-     * @access private
-     */
-    private $logger;
-
-    /**
      * Constructor.
-     *
-     * @param LoggerInterface $logger LoggerInterface instance.
-     *
-     * @access public
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**
      * Validate JSON content with schema.
-     *
-     * @param string $jsonContent JSON content.
-     * @param object $schema      JSON schema.
-     *
-     * @return boolean
-     *
-     * @access public
      */
     public function validate(string $jsonContent, object $schema): bool
     {

@@ -56,7 +56,7 @@ class LoggerNDC
      *
      * @access private
      */
-    private static $stack = array();
+    private static $stack = [];
 
     /**
      * Clear.
@@ -70,7 +70,7 @@ class LoggerNDC
      */
     public static function clear(): void
     {
-        static::$stack = array();
+        static::$stack = [];
     }
 
     /**

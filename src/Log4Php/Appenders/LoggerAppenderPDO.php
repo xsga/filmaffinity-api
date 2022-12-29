@@ -160,7 +160,7 @@ class LoggerAppenderPDO extends LoggerAppender
      *
      * @access protected
      */
-    protected $converters = array();
+    protected $converters = [];
 
     /**
      * Constructor.
@@ -281,7 +281,7 @@ class LoggerAppenderPDO extends LoggerAppender
      */
     protected function format(LoggerLoggingEvent $event): array
     {
-        $params = array();
+        $params = [];
 
         foreach ($this->converters as $converter) {
             $buffer = '';

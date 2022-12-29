@@ -54,7 +54,7 @@ class LoggerThrowableInformation
      *
      * @access private
      */
-    private $throwableArray = array();
+    private $throwableArray = [];
 
     /**
      * Create a new instance.

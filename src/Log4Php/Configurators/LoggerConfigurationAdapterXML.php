@@ -56,9 +56,9 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * @access private
      */
     private $config = array(
-        'appenders' => array(),
-        'loggers'   => array(),
-        'renderers' => array(),
+        'appenders' => [],
+        'loggers'   => [],
+        'renderers' => [],
     );
 
     /**
@@ -179,7 +179,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
             return;
         }//end if
 
-        $appender          = array();
+        $appender          = [];
         $appender['class'] = $this->getAttributeValue($node, 'class');
 
         if (isset($node['threshold'])) {
@@ -212,7 +212,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      */
     private function parseLayout(\SimpleXMLElement $node): array
     {
-        $layout          = array();
+        $layout          = [];
         $layout['class'] = $this->getAttributeValue($node, 'class');
 
         if (count($node->param) > 0) {
@@ -233,7 +233,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      */
     private function parseParameters(\SimpleXMLElement $paramsNode): array
     {
-        $params = array();
+        $params = [];
 
         foreach ($paramsNode->param as $paramNode) {
             if (empty($paramNode['name'])) {
@@ -261,7 +261,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      */
     private function parseRootLogger(\SimpleXMLElement $node): void
     {
-        $logger = array();
+        $logger = [];
 
         if (isset($node->level)) {
             $logger['level'] = $this->getAttributeValue($node->level, 'value');
@@ -283,7 +283,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      */
     private function parseLogger(\SimpleXMLElement $node): void
     {
-        $logger = array();
+        $logger = [];
 
         $name = $this->getAttributeValue($node, 'name');
 
@@ -323,7 +323,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      */
     private function parseAppenderReferences(\SimpleXMLElement $node): array
     {
-        $refs = array();
+        $refs = [];
 
         foreach ($node->appender_ref as $ref) {
             $refs[] = $this->getAttributeValue($ref, 'ref');
@@ -347,7 +347,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      */
     private function parseFilter(\SimpleXMLElement $filterNode): array
     {
-        $filter          = array();
+        $filter          = [];
         $filter['class'] = $this->getAttributeValue($filterNode, 'class');
 
         if (count($filterNode->param) > 0) {

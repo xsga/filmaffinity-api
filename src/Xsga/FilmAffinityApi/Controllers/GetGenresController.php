@@ -31,23 +31,13 @@ final class GetGenresController extends AbstractController
      * Advanced search service.
      *
      * @Inject
-     * @var Genres
-     *
-     * @access private
      */
-    private $genres;
+    private Genres $genres;
 
     /**
      * Get genres.
-     *
-     * @param Request  $request  Request.
-     * @param Response $response Response.
-     *
-     * @return Response
-     *
-     * @access public
      */
-    public function get(Request $request, Response $response): Response
+    public function __invoke(Request $request, Response $response): Response
     {
         return $this->writeResponse($response, $this->genres->getAll());
     }

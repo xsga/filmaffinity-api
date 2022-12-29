@@ -22,109 +22,61 @@ class AdvSearchDto
 {
     /**
      * Search text.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $searchText = '';
+    public string $searchText = '';
 
     /**
      * Search types title.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypeTitle = false;
+    public bool $searchTypeTitle = false;
 
     /**
      * Search types director.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypeDirector = false;
+    public bool $searchTypeDirector = false;
 
     /**
      * Search types cast.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypeCast = false;
+    public bool $searchTypeCast = false;
 
     /**
      * Search types screenplay.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypeScreenplay = false;
+    public bool $searchTypeScreenplay = false;
 
     /**
      * Search types photography.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypePhotography = false;
+    public bool $searchTypePhotography = false;
 
     /**
      * Search types soundtrack.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypeSoundtrack = false;
+    public bool $searchTypeSoundtrack = false;
 
     /**
      * Search types producer.
-     *
-     * @var boolean
-     *
-     * @access public
      */
-    public $searchTypeProducer = false;
+    public bool $searchTypeProducer = false;
 
     /**
      * Search country.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $searchCountry = '';
+    public string $searchCountry = '';
 
     /**
      * Search genre.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $searchGenre = '';
+    public string $searchGenre = '';
 
     /**
      * Search year from.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $searchYearFrom = '';
+    public int $searchYearFrom = 0;
 
     /**
      * Search year to.
-     *
-     * @var string
-     *
-     * @access public
      */
-    public $searchYearTo = '';
+    public int $searchYearTo = 0;
 }

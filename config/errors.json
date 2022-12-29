@@ -86,5 +86,69 @@
             "en": "Country not found",
             "spa": "País no encontrado"
         }
+    },
+    {
+        "code": 1011,
+        "http": 404,
+        "description": {
+            "en": "API resource not disabled",
+            "spa": "El recurso de la API no está activo"
+        }
+    },
+    {
+        "code": 1012,
+        "http": 404,
+        "description": {
+            "en": "Authorization header not found",
+            "spa": "Cabecera Authorization no encontrada"
+        }
+    },
+    {
+        "code": 1013,
+        "http": 500,
+        "description": {
+            "en": "Authorization header not valid",
+            "spa": "Cabecera Authorization no válida"
+        }
+    },
+    {
+        "code": 1014,
+        "http": 500,
+        "description": {
+            "en": "Authorization header not match with API security type",
+            "spa": "Cabecera Authorization no se corresponde con la seguridad de la API"
+        }
+    },
+    {
+        "code": 1015,
+        "http": 500,
+        "description": {
+            "en": "Error validating JWT token",
+            "spa": "Error validando el token JWT"
+        }
+    },
+    {
+        "code": 1016,
+        "http": 404,
+        "description": {
+            "en": "User doesn't exist in the system",
+            "spa": "El usuario no existe en el sistema"
+        }
+    },
+    {
+        "code": 1017,
+        "http": 500,
+        "description": {
+            "en": "User is not active",
+            "spa": "El usuario no está activo"
+        }
+    },
+    {
+        "code": 1018,
+        "http": 500,
+        "description": {
+            "en": "User's password not valid",
+            "spa": "La contrasenya del usuario no es válida"
+        }
     }
 ]

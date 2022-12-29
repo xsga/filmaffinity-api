@@ -31,24 +31,13 @@ final class GetFilmController extends AbstractController
      * Load film service.
      *
      * @Inject
-     * @var LoadFilm
-     *
-     * @access private
      */
-    private $loadFilm;
+    private LoadFilm $loadFilm;
 
     /**
      * Get film.
-     *
-     * @param Request  $request  Request.
-     * @param Response $response Response.
-     * @param array    $args     Additional URI parameters (ID).
-     *
-     * @return Response
-     *
-     * @access public
      */
-    public function get(Request $request, Response $response, array $args): Response
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
         return $this->writeResponse($response, $this->loadFilm->loadFilm($args['id']));
     }

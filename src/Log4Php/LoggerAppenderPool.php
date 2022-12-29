@@ -45,7 +45,7 @@ class LoggerAppenderPool
      *
      * @access public
      */
-    public static $appenders = array();
+    public static $appenders = [];
 
     /**
      * Adds an appender to the pool. The appender must be named for this operation.
@@ -136,6 +136,6 @@ class LoggerAppenderPool
      */
     public static function clear(): void
     {
-         static::$appenders = array();
+         static::$appenders = [];
     }
 }

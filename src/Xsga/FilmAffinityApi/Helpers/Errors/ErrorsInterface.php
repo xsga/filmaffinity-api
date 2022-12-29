@@ -24,12 +24,6 @@ interface ErrorsInterface
 {
     /**
      * Get error.
-     *
-     * @param int $code Error code.
-     *
-     * @return ErrorDto
-     *
-     * @access public
      */
     public function getError(int $code): ErrorDto;
 }
