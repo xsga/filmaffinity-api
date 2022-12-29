@@ -111,7 +111,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      *
      * @access private
      */
-    private $config = array();
+    private $config = [];
 
     /**
      * Loads and parses the INI configuration file.
@@ -218,7 +218,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
         $level = array_shift($parts);
 
         // The remaining values are appender references.
-        $appenders = array();
+        $appenders = [];
 
         while ($appender = array_shift($parts)) {
             $appender = trim($appender);

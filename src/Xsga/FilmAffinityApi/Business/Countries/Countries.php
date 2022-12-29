@@ -48,7 +48,7 @@ final class Countries
      */
     private function load(string $language): array
     {
-        $out = array();
+        $out = [];
 
         $countriesLocation  = realpath(dirname(__FILE__, 3)) . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR;
         $countriesLocation .= 'Data' . DIRECTORY_SEPARATOR . 'countries-' . $language . '.json';

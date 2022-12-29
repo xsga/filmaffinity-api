@@ -69,7 +69,7 @@ function getContainer(): Container
             $proxyPath .= 'tmp' . DIRECTORY_SEPARATOR . 'doctrine-proxies';
 
             // Path to entities.
-            $paths   = array();
+            $paths   = [];
             $paths[] = $entityPath;
 
             // Create config.
@@ -125,9 +125,9 @@ function getContainer(): Container
         ),
         Extractor::class => DI\create(Extractor::class)->constructor(
             DI\get(LoggerInterface::class),
+            DI\get(Client::class),
             $_ENV['LANGUAGE'],
-            $_ENV['BASE_URL'],
-            DI\get(Client::class)
+            $_ENV['BASE_URL']
         ),
         LoadFilm::class => DI\create(LoadFilm::class)->constructor(
             DI\get(LoggerInterface::class),

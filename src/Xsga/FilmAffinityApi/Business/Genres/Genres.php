@@ -48,7 +48,7 @@ final class Genres
      */
     private function load($language): array
     {
-        $out = array();
+        $out = [];
 
         $genresLocation  = realpath(dirname(__FILE__, 3)) . DIRECTORY_SEPARATOR . 'Resources' . DIRECTORY_SEPARATOR;
         $genresLocation .= 'Data' . DIRECTORY_SEPARATOR . 'genres-' . $language . '.json';

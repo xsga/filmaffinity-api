@@ -43,7 +43,7 @@ final class GetTokenController extends AbstractController
 
         $body = $request->getParsedBody();
 
-        $token          = array();
+        $token          = [];
         $token['token'] = $this->getToken->get($body['user'], $body['password']);
 
         return $this->writeResponse($response, $token);

@@ -64,7 +64,7 @@ abstract class AbstractParser
         $data = $domXpath->query($query);
 
         if ($outArray) {
-            $out = array();
+            $out = [];
 
             for ($i = 0; $i < count($data); $i++) {
                 $out[] = trim($data[$i]->nodeValue);

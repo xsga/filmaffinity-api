@@ -138,7 +138,7 @@ class LoggerLayoutPattern extends LoggerLayout
      *
      * @access protected
      */
-    protected $converterMap = array();
+    protected $converterMap = [];
 
     /**
      * Head of a chain of Converters.

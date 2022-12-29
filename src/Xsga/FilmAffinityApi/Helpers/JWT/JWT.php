@@ -123,7 +123,7 @@ final class JWT implements JWTInterface
         } catch (Exception $e) {
             $this->logger->error('Error decoding JWT token');
             $this->logger->error($e->getMessage());
-            return array();
+            return [];
         }//end try
     }
 }

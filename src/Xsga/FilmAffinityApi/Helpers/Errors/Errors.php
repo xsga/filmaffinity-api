@@ -52,7 +52,7 @@ final class Errors implements ErrorsInterface
 
         if (!file_exists($errorsLocation)) {
             $this->logger->error("File \"$errorsLocation\" not found");
-            return array();
+            return [];
         }//end if
 
         // Load file.
@@ -60,12 +60,12 @@ final class Errors implements ErrorsInterface
 
         if (empty($errors)) {
             $this->logger->warning("File \"$errorsLocation\" it's empty");
-            return array();
+            return [];
         }//end if
 
         $this->logger->debug("File \"$errorsLocation\" loaded sucessfully");
 
-        $errorsDto = array();
+        $errorsDto = [];
 
         foreach ($errors as $error) {
             $dto           = new ErrorDto();

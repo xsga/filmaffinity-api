@@ -139,7 +139,7 @@ final class FilmParser extends AbstractParser
         $data = $this->getData(XpathCons::FILM_DIRECTORS);
 
         // Sets default directors.
-        $directors = array();
+        $directors = [];
 
         switch (count($data)) {
             case 0:
@@ -162,7 +162,7 @@ final class FilmParser extends AbstractParser
         $data = $this->getData(XpathCons::FILM_ACTORS);
 
         // Sets default actors.
-        $actors = array();
+        $actors = [];
 
         switch (count($data)) {
             case 0:
@@ -208,7 +208,7 @@ final class FilmParser extends AbstractParser
         $data = $this->getData(XpathCons::FILM_GENRES);
 
         // Sets default genres.
-        $genres = array();
+        $genres = [];
 
         switch (count($data)) {
             case 0:

@@ -116,7 +116,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      *
      * @access private
      */
-    private $appenders = array();
+    private $appenders = [];
 
     /**
      * Configure.

@@ -60,7 +60,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function emergency(string|Stringable $message, array $context = array()): void
+    public function emergency(string|Stringable $message, array $context = []): void
     {
         $this->logger->fatal($message);
     }
@@ -75,7 +75,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function alert(string|Stringable $message, array $context = array()): void
+    public function alert(string|Stringable $message, array $context = []): void
     {
         $this->logger->fatal($message);
     }
@@ -90,7 +90,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function critical(string|Stringable $message, array $context = array()): void
+    public function critical(string|Stringable $message, array $context = []): void
     {
         $this->logger->fatal($message);
     }
@@ -106,7 +106,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function error(string|Stringable $message, array $context = array()): void
+    public function error(string|Stringable $message, array $context = []): void
     {
         $this->logger->error($message);
     }
@@ -121,7 +121,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function warning(string|Stringable $message, array $context = array()): void
+    public function warning(string|Stringable $message, array $context = []): void
     {
         $this->logger->warn($message);
     }
@@ -135,7 +135,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function notice(string|Stringable $message, array $context = array()): void
+    public function notice(string|Stringable $message, array $context = []): void
     {
         $this->logger->info($message);
     }
@@ -150,7 +150,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function info(string|Stringable $message, array $context = array()): void
+    public function info(string|Stringable $message, array $context = []): void
     {
         $this->logger->info($message);
     }
@@ -165,7 +165,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function debug(string|Stringable $message, array $context = array()): void
+    public function debug(string|Stringable $message, array $context = []): void
     {
         $this->logger->debug($message);
     }
@@ -181,7 +181,7 @@ class LoggerWrapper implements LoggerInterface
      *
      * @access public
      */
-    public function log(mixed $level, string|Stringable $message, array $context = array()): void
+    public function log(mixed $level, string|Stringable $message, array $context = []): void
     {
         $levels = array(
             LogLevel::EMERGENCY => LoggerLevel::FATAL,

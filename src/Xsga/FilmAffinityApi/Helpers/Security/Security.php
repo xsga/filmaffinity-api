@@ -106,7 +106,7 @@ final class Security implements SecurityInterface
             throw new AuthHeaderNotValidException($error, 1013);
         }//end if
 
-        $out             = array();
+        $out             = [];
         $out['user']     = $userAndPassword[0];
         $out['password'] = $userAndPassword[1];
 
