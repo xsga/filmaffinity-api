@@ -1,177 +1,42 @@
 <?php
 
-/**
- * LoggerLayoutHtml.
- *
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * PHP Version 8
- *
- * @package    Log4Php
- * @subpackage Layouts
- */
-
-/**
- * Namespace.
- */
 namespace Log4Php\Layouts;
 
-/**
- * Import dependencies.
- */
-
+use DateTime;
 use Log4Php\LoggerLayout;
 use Log4Php\LoggerLoggingEvent;
 use Log4Php\LoggerLevel;
 
-/**
- * This layout outputs events in a HTML table.
- *
- * Configurable parameters for this layout are:
- *
- * - title
- * - locationInfo
- *
- * An example for this layout:
- *
- * {@example ../../examples/php/layout_html.php 19}<br>
- *
- * The corresponding XML file:
- *
- * {@example ../../examples/resources/layout_html.properties 18}
- *
- * The above will print a HTML table that looks, converted back to plain text, like the following:<br>
- * <pre>
- *    Log session start time Wed Sep 9 00:11:30 2009
- *
- *    Time Thread Level Category   Message
- *    0    8318   INFO  root       Hello World!
- * </pre>
- */
 class LoggerLayoutHtml extends LoggerLayout
 {
-    /**
-     * Location info.
-     *
-     * The <b>LocationInfo</b> option takes a boolean value. By default, it is set to false which means
-     * there will be no location information output by this layout. If the the option is set to true,
-     * then the file name and line number of the statement at the origin of the log statement will be output.
-     *
-     * <p>If you are embedding this layout within a LoggerAppenderMail or a LoggerAppenderMailEvent then make sure
-     * to set the <b>LocationInfo</b> option of that appender as well.
-     *
-     * @var boolean
-     *
-     * @access protected
-     */
-    protected $locationInfo = false;
+    protected bool $locationInfo = false;
+    protected string $title = 'Log4Php Log Messages';
 
-    /**
-     * The <b>Title</b> option takes a String value.
-     *
-     * This option sets the document title of the generated HTML document. Defaults to 'Log4Php Log Messages'.
-     *
-     * @var string
-     *
-     * @access protected
-     */
-    protected $title = 'Log4Php Log Messages';
-
-    /**
-     * The <b>LocationInfo</b> option takes a boolean value.
-     *
-     * By default, it is set to false which means there will be no location information output by this layout.
-     * If the the option is set to true, then the file name and line number of the statement at the origin of the
-     * log statement will be output.
-     *
-     * <p>If you are embedding this layout within a LoggerAppenderMail or a LoggerAppenderMailEvent then make sure
-     * to set the <b>LocationInfo</b> option of that appender as well.
-     *
-     * @param boolean $flag Flag.
-     *
-     * @return void
-     *
-     * @access public
-     */
     public function setLocationInfo(bool $flag): void
     {
         $this->setBoolean('locationInfo', $flag);
     }
 
-    /**
-     * Returns the current value of the <b>LocationInfo</b> option.
-     *
-     * @return boolean
-     *
-     * @access public
-     */
     public function getLocationInfo(): bool
     {
         return $this->locationInfo;
     }
 
-    /**
-     * The <b>Title</b> option takes a String value.
-     *
-     * This option sets the document title of the generated HTML document. Defaults to 'Log4Php Log Messages'.
-     *
-     * @param string $title Title.
-     *
-     * @return void
-     *
-     * @access public
-     */
     public function setTitle(string $title): void
     {
         $this->setString('title', $title);
     }
 
-    /**
-     * Returns the current value of the <b>Title</b> option.
-     *
-     * @return string
-     *
-     * @access public
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Returns the content type output by this layout, i.e "text/html".
-     *
-     * @return string
-     *
-     * @access public
-     */
     public function getContentType(): string
     {
         return 'text/html';
     }
 
-    /**
-     * Format.
-     *
-     * @param LoggerLoggingEvent $event Event.
-     *
-     * @return string
-     *
-     * @access public
-     */
     public function format(LoggerLoggingEvent $event): string
     {
         $sbuf  = PHP_EOL . '<tr>' . PHP_EOL;
@@ -191,7 +56,7 @@ class LoggerLayoutHtml extends LoggerLayout
             $sbuf .= '<font color="#993300"><strong>' . $level . '</strong></font>';
         } else {
             $sbuf .= $level;
-        }//end if
+        }
 
         $sbuf .= '</td>' . PHP_EOL;
         $sbuf .= '<td title="' . htmlentities($event->getLoggerName(), ENT_QUOTES) . ' category">';
@@ -204,7 +69,7 @@ class LoggerLayoutHtml extends LoggerLayout
             $sbuf .= '<td>';
             $sbuf .= htmlentities($locInfo->getFileName(), ENT_QUOTES) . ':' . $locInfo->getLineNumber();
             $sbuf .= '</td>' . PHP_EOL;
-        }//end if
+        }
 
         $sbuf .= '<td title="Message">';
         $sbuf .= htmlentities($event->getRenderedMessage(), ENT_QUOTES);
@@ -216,21 +81,14 @@ class LoggerLayoutHtml extends LoggerLayout
             $sbuf .= ' title="Nested Diagnostic Context">';
             $sbuf .= 'NDC: ' . htmlentities($event->getNDC(), ENT_QUOTES);
             $sbuf .= '</td></tr>' . PHP_EOL;
-        }//end if
+        }
 
         return $sbuf;
     }
 
-    /**
-     * Returns appropriate HTML headers.
-     *
-     * @return string
-     *
-     * @access public
-     */
     public function getHeader(): string
     {
-        $date = new \DateTime();
+        $date = new DateTime();
 
         $sbuf  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"';
         $sbuf  = ' "http://www.w3.org/TR/html4/loose.dtd">' . PHP_EOL;
@@ -257,7 +115,7 @@ class LoggerLayoutHtml extends LoggerLayout
 
         if ($this->locationInfo) {
             $sbuf .= '<th>File:Line</th>' . PHP_EOL;
-        }//end if
+        }
 
         $sbuf .= '<th>Message</th>' . PHP_EOL;
         $sbuf .= '</tr>' . PHP_EOL;
@@ -265,13 +123,6 @@ class LoggerLayoutHtml extends LoggerLayout
         return $sbuf;
     }
 
-    /**
-     * Returns the appropriate HTML footers.
-     *
-     * @return string
-     *
-     * @access public
-     */
     public function getFooter(): string
     {
         $sbuf  = '</table>' . PHP_EOL;
