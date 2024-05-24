@@ -6,6 +6,7 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
+use GuzzleHttp\Client;
 use Log4Php\Logger;
 use Log4Php\LoggerWrapper;
 use Psr\Container\ContainerInterface;
@@ -24,6 +25,8 @@ use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Controllers\Mappers\Impl\
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\Impl\JsonErrorToErrorImpl;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
+use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
+use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Infrastructure\Services\GuzzleHttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\GetSchemaService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\JsonLoaderService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\JsonValidatorService;
@@ -89,6 +92,12 @@ return [
         'port'     => $_ENV['DB_PORT'],
         'charset'  => 'UTF8'
     ],
+
+    // FILMAFFINITY.
+    'filmaffinity.baseURL' => $_ENV['BASE_URL'],
+    'filmaffinity.searchURL' => $_ENV['SEARCH_URL'],
+    'filmaffinity.advancedSearchURL' => $_ENV['ADV_SEARCH_URL'],
+    'filmaffinity.filmURL' => $_ENV['FILM_URL'],
 
     // --------------------------------------------------------------------------------------------
     // ENTITY MANAGER.
@@ -218,6 +227,14 @@ return [
         DI\get(JWTService::class),
         DI\get(GetUser::class),
         DI\get(AuthHeaderValidator::class)
+    ),
+
+    // HTTP CLIENT application services.
+    HttpClientService::class => DI\create(GuzzleHttpClientService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(Client::class),
+        DI\get('getLanguage'),
+        DI\get('filmaffinity.baseURL')
     ),
 
     // SLIM middleware.
