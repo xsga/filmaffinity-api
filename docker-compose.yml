@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+
+    mysql-server:
+        image: mysql
+        container_name: filmaffinityapi-mysql
+        ports: 
+            - "3306:3306"
+        command: --mysql_native_password=ON
+        environment:
+            MYSQL_ROOT_PASSWORD: test
+            MYSQL_USER: filmaffinityapi
+            MYSQL_PASSWORD: filmaffinityapi
+            MYSQL_DATABASE: filmaffinityapi
+            LANG: C.UTF-8
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./scripts:/docker-entrypoint-initdb.d
+        networks:
+            - default
+
+    php-web-server:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: filmaffinityapi-web-server
+        ports: 
+            - "80:80"
+        volumes:
+            - .:/opt/filmaffinityapi
+        restart: unless-stopped
+        depends_on:
+            - mysql-server
+        networks:
+            - default
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: filmaffinityapi-mysqladmin
+        ports:
+            - "90:80"
+        depends_on:
+            - mysql-server
+        networks:
+            - default
+        environment:
+            PMA_HOST: mysql-server
+            MYSQL_USER: root
+            MYSQL_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test
+
+volumes:
+    mysql_data: {}
+
+networks:
+    default: {}

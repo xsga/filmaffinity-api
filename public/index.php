@@ -1,46 +1,29 @@
 <?php
 
-/**
- * API front controller.
- *
- * PHP Version 8
- *
- * @author  xsga <parker@xsga.es>
- * @license MIT
- * @version 1.0.0
- */
+declare(strict_types=1);
 
-/**
- * Import dependencies.
- */
 use Psr\Log\LoggerInterface;
 
-// Autoload.
 require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-$start = microtime(true);
-$id    = uniqid();
+$start     = microtime(true);
+$requestId = uniqid();
 
-// Load settings.
-loadSettings();
+bootstrap();
 
-// Get container.
-$container = getContainer();
+$container = getDIContainer();
+$logger    = $container->get(LoggerInterface::class);
+$slimApp   = getSlimApp($container, filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN), $_ENV['URL_PATH']);
 
-// Get logger.
-$logger = $container->get(LoggerInterface::class);
+getRoutes($slimApp);
 
-// Get Slim application.
-$app = getSlimApp($container, filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN), $_ENV['URL_PATH']);
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'METHOD_NOT_FOUND';
+$requestUri    = $_SERVER['REQUEST_URI'] ?? 'URI_NOT_FOUND';
 
-// Get and add routes to Slim app.
-getRoutes($app);
+$logger->info("API petition $requestId : $requestMethod - $requestUri");
 
-$logger->info('API petition ' . $id . ' : ' . $_SERVER['REQUEST_METHOD'] . ' - ' . $_SERVER['REQUEST_URI']);
+$slimApp->run();
 
-// Run Slim app.
-$app->run();
+$execTimeInSeconds = number_format((microtime(true) - $startTime), 2);
 
-$end = number_format((microtime(true) - $start), 2);
-
-$logger->info("API petition $id : executed in $end seconds");
+$logger->info("API petition $requestId : executed in $execTimeInSeconds seconds");

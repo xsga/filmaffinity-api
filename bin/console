@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Application;
+
+chdir(realpath(dirname(__FILE__)));
+
+require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+bootstrap();
+
+$container = getDIContainer();
+$console   = $container->get(Application::class);
+$logger    = $container->get(LoggerInterface::class);
+
+$console->add($container->get(CreateUserCommand::class));
+$console->add($container->get(ChangeUserStatusCommand::class));
+
+$console->run();

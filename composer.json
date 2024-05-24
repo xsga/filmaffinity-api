@@ -6,22 +6,20 @@
     "authors": [
         {
             "name": "Parker",
-            "email": "parker@xsga.es",
-            "role": "Developer"
+            "email": "parker@xsga.es"
         }
     ],
     "require": {
         "slim/slim": "4.*",
-        "slim/psr7": "^1.5",
-        "doctrine/annotations": "^1.13",
-        "vlucas/phpdotenv": "^5.4",
-        "php-di/php-di": "^6.4",
+        "slim/psr7": "^1.6",
+        "vlucas/phpdotenv": "^5.5",
+        "doctrine/orm": "^2.16",
+        "php-di/php-di": "^7.0",
         "guzzlehttp/guzzle": "^7.0",
         "swaggest/json-schema": "^0.12.41",
-        "firebase/php-jwt": "^6.3",
-        "doctrine/orm": "^2.13",
-        "symfony/cache": "^6.1",
-        "symfony/console": "^6.1"
+        "firebase/php-jwt": "^6.8",
+        "symfony/cache": "^6.3",
+        "symfony/console": "^6.3"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
@@ -31,10 +29,12 @@
     },
     "autoload": {
         "files": [
-            "src/Xsga/FilmAffinityApi/Bootstrap/Routes.php",
-            "src/Xsga/FilmAffinityApi/Bootstrap/Settings.php",
-            "src/Xsga/FilmAffinityApi/Bootstrap/Container.php",
-            "src/Xsga/FilmAffinityApi/Bootstrap/SlimApp.php"
+            "src/Xsga/FilmAffinityApi/Bootstrap/Bootstrap.php",
+            "src/Xsga/FilmAffinityApi/Bootstrap/DIContainer.php",
+            "src/Xsga/FilmAffinityApi/Bootstrap/GetPath.php",
+            "config/app/SlimApp.php",
+            "config/env/Settings.php",
+            "config/routes/Routes.php"
         ],
         "psr-4": {
             "Xsga\\FilmAffinityApi\\": "src/Xsga/FilmAffinityApi/",
