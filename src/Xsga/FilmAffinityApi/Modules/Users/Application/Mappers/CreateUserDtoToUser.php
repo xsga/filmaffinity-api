@@ -6,8 +6,8 @@ namespace Xsga\FilmAffinityApi\Modules\Users\Application\Mappers;
 
 use DateTime;
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\App\Domain\Model\User;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Dto\CreateUserDto;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 
 final class CreateUserDtoToUser
 {

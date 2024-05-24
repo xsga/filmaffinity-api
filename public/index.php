@@ -6,7 +6,7 @@ use Psr\Log\LoggerInterface;
 
 require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-$start     = microtime(true);
+$startTime = microtime(true);
 $requestId = uniqid();
 
 bootstrap();

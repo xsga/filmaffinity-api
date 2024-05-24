@@ -6,7 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl
 
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\AuthSecurityService;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\Users\GetUser;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;
 
 final class AuthSecurityServiceImpl implements AuthSecurityService
 {

@@ -10,7 +10,7 @@ use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\BasicSecur
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers\AuthHeaderValidator;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\Users\UserLogin;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\UserLogin;
 
 final class BasicSecurityServiceImpl implements BasicSecurityService
 {
@@ -62,7 +62,6 @@ final class BasicSecurityServiceImpl implements BasicSecurityService
         $userDataToken->userId   = $user->userId();
         $userDataToken->email    = $user->email();
         $userDataToken->password = $user->password();
-        $userDataToken->roles    = $user->getRoles();
 
         return $userDataToken;
     }

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Users\Domain\Services;
 
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\App\Domain\Model\User;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UserCredentialsException;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UserDisabledException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 
 final class UserLogin
 {

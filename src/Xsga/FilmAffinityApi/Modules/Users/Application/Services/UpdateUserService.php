@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Users\Application\Services;
 
 use Psr\Log\LoggerInterface;
+use Xsga\FilmAffinityApi\Modules\Users\Application\Dto\UpdateUserDto;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UpdateUserException;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;

@@ -12,7 +12,7 @@ use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDt
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers\AuthHeaderValidator;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\TokenSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\Users\GetUser;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;
 
 final class TokenSecurityServiceImpl implements TokenSecurityService
 {
@@ -58,13 +58,6 @@ final class TokenSecurityServiceImpl implements TokenSecurityService
 
         if ($userDataToken->password !== $user->password()) {
             throw new InvalidArgumentException('User password from JWT token not equals from user');
-        }
-
-        if (
-            count(array_diff($userDataToken->roles, $user->getRoles())) > 0 ||
-            count(array_diff($user->getRoles(), $userDataToken->roles)) > 0
-        ) {
-            throw new InvalidArgumentException('User roles from JWT token not equals from user');
         }
     }
 }
