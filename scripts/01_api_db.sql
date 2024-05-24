@@ -10,16 +10,17 @@
 -- ****************************************************************************
 
 -- ----------------------------------------------------------------------------
--- Table structure `api_users`
+-- Table structure `app_users`
 -- ----------------------------------------------------------------------------
 
-CREATE TABLE `api_users` (
-  `id`          int(11)      NOT NULL,
-  `email`       varchar(150) NOT NULL,
-  `password`    varchar(500) NOT NULL,
-  `create_date` datetime     NOT NULL,
-  `role`        varchar(15)  NOT NULL,
-  `enabled`     int(1)       NOT NULL
+CREATE TABLE app_users (
+  id          int(11)      NOT NULL,
+  email       varchar(150) NOT NULL,
+  password    varchar(500) NOT NULL,
+  name        varchar(100) NOT NULL,
+  create_date datetime     NOT NULL,
+  update_date datetime     NOT NULL,
+  status      boolean      NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -28,10 +29,10 @@ CREATE TABLE `api_users` (
 -- ****************************************************************************
 
 -- ----------------------------------------------------------------------------
--- Table indexes `api_users`
+-- Table indexes `app_users`
 -- ----------------------------------------------------------------------------
 
-ALTER TABLE `api_users`
+ALTER TABLE `app_users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email_unique_idx` (`email`);
 
@@ -41,10 +42,10 @@ ALTER TABLE `api_users`
 -- ****************************************************************************
 
 -- ----------------------------------------------------------------------------
--- AUTO_INCREMENT table `api_users`
+-- AUTO_INCREMENT table `app_users`
 -- ----------------------------------------------------------------------------
 
-ALTER TABLE `api_users`
+ALTER TABLE `app_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 COMMIT;

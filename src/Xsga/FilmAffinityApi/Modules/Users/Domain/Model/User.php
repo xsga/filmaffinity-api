@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\App\Domain\Model;
 
 use DateTime;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserCreateDate;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserEmail;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserId;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserName;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserPassword;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserStatus;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\Users\UserUpdateDate;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserCreateDate;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserEmail;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserId;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserName;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserPassword;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserStatus;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserUpdateDate;
 
 final class User
 {

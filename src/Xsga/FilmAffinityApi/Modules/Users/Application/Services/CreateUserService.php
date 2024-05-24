@@ -2,33 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\App\Application\Services\Users;
+namespace Xsga\FilmAffinityApi\Modules\Users\Application\Services;
 
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\App\Application\Dto\UserDto;
+use Xsga\FilmAffinityApi\Modules\Users\Application\Dto\CreateUserDto;
+use Xsga\FilmAffinityApi\Modules\Users\Application\Mappers\CreateUserDtoToUser;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\CreateUserException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UserExistsException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 
 final class CreateUserService
 {
     public function __construct(
         private LoggerInterface $logger,
-        private UsersRepositoryInterface $repository,
-        private PasswordInterface $password
+        private CreateUserDtoToUser $mapper,
+        private UsersRepository $usersRepository
     ) {
     }
 
-    public function create(UserDto $userDto): int
+    public function create(CreateUserDto $userData): int
     {
-        // TODO: map to User (model) and repository save.
-        $userEntity = new ApiUsers();
+        $user   = $this->mapper->convert($userData);
+        $userId = $this->usersRepository->createUser($user);
 
-        $userEntity->setEmail($userDto->email);
-        $userEntity->setPassword($this->password->getHash($userDto->password));
-        $userEntity->setRole($userDto->role);
-        $userEntity->setEnabled($userDto->enabled);
-        $userEntity->setCreateDate($userDto->createDate);
-
-        $userId = $this->repository->addUser($userEntity);
+        $this->validateUserCreation($userId, $user->email());
 
         return $userId;
+    }
+
+    private function validateUserCreation(int $userId, string $userEmail): void
+    {
+        if ($userId === 0) {
+            $errorMsg = "User '$userEmail' already exists";
+            $this->logger->error($errorMsg);
+            throw new UserExistsException($errorMsg, 1022, null, [1 => $userEmail]);
+        }
+
+        if ($userId === -1) {
+            $errorMsg = "Error creating user '$userEmail'";
+            $this->logger->error($errorMsg);
+            throw new CreateUserException($errorMsg, 1013, null, [1 => $userEmail]);
+        }
+
+        $this->logger->info("User '$userEmail' created successfully (ID: $userId)");
     }
 }

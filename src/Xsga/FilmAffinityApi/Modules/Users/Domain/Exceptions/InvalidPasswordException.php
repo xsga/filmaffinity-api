@@ -6,6 +6,6 @@ namespace Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users;
 
 use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
-final class UserDisabledException extends GenericException
+final class InvalidPasswordException extends GenericException
 {
 }
