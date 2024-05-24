@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Users\Application\Services;
 
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\DeleteUserException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\DeleteUserException;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 
 final class DeleteUserService

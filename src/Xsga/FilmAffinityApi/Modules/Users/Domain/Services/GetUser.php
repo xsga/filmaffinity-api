@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Users\Domain\Services;
 
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UserNotFoundException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\UserNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 

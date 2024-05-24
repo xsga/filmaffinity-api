@@ -15,7 +15,7 @@ use Xsga\FilmAffinityApi\Modules\Users\Application\Services\CreateUserService;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserEmail;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserName;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserPassword;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\Impl\JsonInputToCreateUserDto;
+use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\JsonInputToCreateUserDto;
 
 #[AsCommand(
     name: 'app:create-user',

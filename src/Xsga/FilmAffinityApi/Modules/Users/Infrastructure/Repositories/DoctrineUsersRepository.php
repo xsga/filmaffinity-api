@@ -8,10 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 use Xsga\FilmAffinityApi\Modules\Shared\Persistence\Infrastructure\Doctrine\UsersEntity;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UserNotFoundException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\UserNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\Impl\UserEntityToUser;
+use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserEntityToUser;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserToNewUserEntity;
 
 final class DoctrineUsersRepository implements UsersRepository

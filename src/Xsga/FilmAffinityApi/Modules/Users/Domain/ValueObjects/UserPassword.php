@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects;
 
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\InvalidPasswordException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\InvalidPasswordException;
 
 final class UserPassword
 {

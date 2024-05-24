@@ -4,151 +4,486 @@
         "http": 500,
         "description": {
             "en": "Internal system error",
-            "spa": "Error interno del servidor"
+            "spa": "Error interno del servidor",
+            "ca": "Error intern del servidor"
         }
     },
     {
         "code": 1001,
-        "http": 500,
+        "http": 403,
         "description": {
-            "en": "HTTP request not valid",
-            "spa": "La petición HTTP no es válida"
+            "en": "User '{1}' not allowed to access '{2}' route",
+            "spa": "El usuario '{1}' no tiene permisos para acceder a la ruta '{2}'",
+            "ca": "L'usuari '{1}' no té permissos per accedir a la ruta '{2}'"
         }
     },
     {
         "code": 1002,
-        "http": 405,
+        "http": 400,
         "description": {
-            "en": "Method not allowed",
-            "spa": "Método no permitido"
+            "en": "Error validating authorization header, empty header",
+            "spa": "Error al validar la cabecera de autorización, cabecera vacía",
+            "ca": "Error al validar la capçalera d'autorització, capçalera buida"
         }
     },
     {
         "code": 1003,
-        "http": 404,
+        "http": 405,
         "description": {
-            "en": "API resource not found",
-            "spa": "Recurso de la API no encontrado"
+            "en": "HTTP request method not valid",
+            "spa": "El método de la petición HTTP no es válido",
+            "ca": "El mètode de la petició HTTP no és vàlid"
         }
     },
     {
         "code": 1004,
-        "http": 500,
+        "http": 404,
         "description": {
-            "en": "Schema file not found",
-            "spa": "Fichero schema no encontrado"
+            "en": "API resource not found",
+            "spa": "Recurso de la API no encontrado",
+            "ca": "Recurs de la API no trobat"
         }
     },
     {
         "code": 1005,
-        "http": 500,
+        "http": 404,
         "description": {
-            "en": "Empty schema file",
-            "spa": "Fichero schema vacío"
+            "en": "User '{1}' doesn't exist in the system",
+            "spa": "El usuario '{1}' no existe en el sistema",
+            "ca": "L'usuari '{1}' no existeix en el sistema"
         }
     },
     {
         "code": 1006,
         "http": 500,
         "description": {
-            "en": "Error connecting to FilmAffinity website",
-            "spa": "Error al conectar con la web de FilmAffinity"
+            "en": "User '{1}' is not active",
+            "spa": "El usuario '{1}' no está activo",
+            "ca": "L'usuari '{1}' no està actiu"
         }
     },
     {
         "code": 1007,
         "http": 500,
         "description": {
-            "en": "Error validating JSON file",
-            "spa": "Error al validar fichero JSON"
+            "en": "User name or password incorrects",
+            "spa": "Nombre de usuario o contrasenya incorrectos",
+            "ca": "Nom d'usuari o contrassenya incorrectes"
         }
     },
     {
         "code": 1008,
         "http": 500,
         "description": {
-            "en": "Invalid search text length (minimum 3 characters)",
-            "spa": "Longitud del texto de búsqueda no válida (mínimo 3 carácteres)"
+            "en": "Error applying application security",
+            "spa": "Error aplicando la seguridad de la aplicación",
+            "ca": "Error aplicant la seguretat de l'aplicació"
         }
     },
     {
         "code": 1009,
-        "http": 404,
+        "http": 500,
         "description": {
-            "en": "Genre not found",
-            "spa": "Género no encontrado"
+            "en": "The 'getToken' resource is not available. API security type must be 'token'",
+            "spa": "El recurso 'getToken' no està disponible. El tipo de seguridad de la API debe ser 'token'",
+            "ca": "El recurs 'getToken' no está disponible. El tipus de seguretat de la API ha de ser 'token'"
         }
     },
     {
         "code": 1010,
-        "http": 404,
+        "http": 400,
         "description": {
-            "en": "Country not found",
-            "spa": "País no encontrado"
+            "en": "Error validating request body against schema '{1}'",
+            "spa": "Error validando el cuerpo de la petición contra el esquema '{1}'",
+            "ca": "Error validant el cos de la petició contra l'esquema '{1}'"
         }
     },
     {
         "code": 1011,
         "http": 404,
         "description": {
-            "en": "API resource not disabled",
-            "spa": "El recurso de la API no está activo"
+            "en": "JSON schema '{1}' not found or it's empty",
+            "spa": "Esquema JSON '{1}' no encontrado o está vacío",
+            "ca": "Esquema JSON '{1}' no trobat o està buit"
         }
     },
     {
         "code": 1012,
-        "http": 404,
+        "http": 500,
         "description": {
-            "en": "Authorization header not found",
-            "spa": "Cabecera Authorization no encontrada"
+            "en": "Error updating user '{1}'",
+            "spa": "Error actualizando el usuario '{1}'",
+            "ca": "Error actualitzant l'usuari '{1}'"
         }
     },
     {
         "code": 1013,
         "http": 500,
         "description": {
-            "en": "Authorization header not valid",
-            "spa": "Cabecera Authorization no válida"
+            "en": "Error creating user '{1}'",
+            "spa": "Error creando el usuario '{1}'",
+            "ca": "Error creant l'usuari '{1}'"
         }
     },
     {
         "code": 1014,
-        "http": 500,
+        "http": 403,
         "description": {
-            "en": "Authorization header not match with API security type",
-            "spa": "Cabecera Authorization no se corresponde con la seguridad de la API"
+            "en": "User '{1}' is not the owner",
+            "spa": "El usuario '{1}' no es el propietario",
+            "ca": "L'usuari '{1}' no és el propietari"
         }
     },
     {
         "code": 1015,
         "http": 500,
         "description": {
-            "en": "Error validating JWT token",
-            "spa": "Error validando el token JWT"
+            "en": "User password has not a valid format",
+            "spa": "La contraseña del usuario no tiene un formato válido",
+            "ca": "La contrasenya de l'usuari no té un format vàlid"
         }
     },
     {
         "code": 1016,
-        "http": 404,
+        "http": 500,
         "description": {
-            "en": "User doesn't exist in the system",
-            "spa": "El usuario no existe en el sistema"
+            "en": "Email '{1}' has not a valid format",
+            "spa": "El correo electronico '{1}' no tiene un formato válido",
+            "ca": "El correu electrònic '{1}' no té un format vàlid"
         }
     },
     {
         "code": 1017,
         "http": 500,
         "description": {
-            "en": "User is not active",
-            "spa": "El usuario no está activo"
+            "en": "Error getting application information",
+            "spa": "Error al obtener la informació de la aplicación",
+            "ca": "Error a l'obtenir la informació de la aplicació"
         }
     },
     {
         "code": 1018,
         "http": 500,
         "description": {
-            "en": "User's password not valid",
-            "spa": "La contrasenya del usuario no es válida"
+            "en": "User name '{1}' has not a valid format",
+            "spa": "El nombre de usuario '{1}' no tiene un formato válido",
+            "ca": "El nom d'usuari '{1}' no té un format vàlid"
+        }
+    },
+    {
+        "code": 1019,
+        "http": 500,
+        "description": {
+            "en": "Role '{1}' already exists",
+            "spa": "El rol '{1}' ya existe",
+            "ca": "El rol '{1}' ja existeix"
+        }
+    },
+    {
+        "code": 1020,
+        "http": 404,
+        "description": {
+            "en": "Role '{1}' not found",
+            "spa": "Rol '{1}' no encontrado",
+            "ca": "Rol '{1}' no trobat"
+        }
+    },
+    {
+        "code": 1021,
+        "http": 500,
+        "description": {
+            "en": "Error getting the route contex on Slim middleware",
+            "spa": "Error obteniendo el contexto de la ruta en el middleware de Slim",
+            "ca": "Error obtenint el context de la ruta en el middleware de Slim"
+        }
+    },
+    {
+        "code": 1022,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' already exists",
+            "spa": "El usuario '{1}' ya existe",
+            "ca": "L'usuari '{1}' ja existeix"
+        }
+    },
+    {
+        "code": 1023,
+        "http": 404,
+        "description": {
+            "en": "Error with code '{1}' not found",
+            "spa": "Error con código '{1}' no encontrado",
+            "ca": "Error amb codi '{1}' no trobat"
+        }
+    },
+    {
+        "code": 1024,
+        "http": 500,
+        "description": {
+            "en": "Error creating role '{1}'",
+            "spa": "Error creando el rol '{1}'",
+            "ca": "Error creant el rol '{1}'"
+        }
+    },
+    {
+        "code": 1025,
+        "http": 500,
+        "description": {
+            "en": "Route '{1}' already exists",
+            "spa": "La ruta '{1}' ya existe",
+            "ca": "La ruta '{1}' ja existeix"
+        }
+    },
+    {
+        "code": 1026,
+        "http": 500,
+        "description": {
+            "en": "Error creating route '{1}'",
+            "spa": "Error creando la ruta '{1}'",
+            "ca": "Error creant la ruta '{1}'"
+        }
+    },
+    {
+        "code": 1027,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' already has the role '{2}'",
+            "spa": "El usuario '{1}' ya tiene el rol '{2}'",
+            "ca": "L'usuari '{1}' ja té el rol '{2}'"
+        }
+    },
+    {
+        "code": 1028,
+        "http": 500,
+        "description": {
+            "en": "Error adding role '{1}' to user '{2}'",
+            "spa": "Error añadiendo el rol '{1}' al usuario '{2}'",
+            "ca": "Error afegint el rol '{1}' a l'usuari '{2}'"
+        }
+    },
+    {
+        "code": 1029,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' has not the role '{2}'",
+            "spa": "El usuario '{1}' no tiene el rol '{2}'",
+            "ca": "L'usuari '{1}' no té el rol '{2}'"
+        }
+    },
+    {
+        "code": 1030,
+        "http": 500,
+        "description": {
+            "en": "Error deleting role '{1}' to user '{2}'",
+            "spa": "Error eliminando el rol '{1}' al usuario '{2}'",
+            "ca": "Error eliminant el rol '{1}' a l'usuari '{2}'"
+        }
+    },
+    {
+        "code": 1031,
+        "http": 500,
+        "description": {
+            "en": "Role '{1}' already has the route '{2}'",
+            "spa": "El rol '{1}' ya tiene la ruta '{2}'",
+            "ca": "El rol '{1}' ja té la ruta '{2}'"
+        }
+    },
+    {
+        "code": 1032,
+        "http": 500,
+        "description": {
+            "en": "Role '{1}' has not the route '{2}'",
+            "spa": "El rol '{1}' no tiene la ruta '{2}'",
+            "ca": "El rol '{1}' no té la ruta '{2}'"
+        }
+    },
+    {
+        "code": 1033,
+        "http": 404,
+        "description": {
+            "en": "Route '{1}' not found",
+            "spa": "Ruta '{1}' no encontrada",
+            "ca": "Ruta '{1}' no trobada"
+        }
+    },
+    {
+        "code": 1034,
+        "http": 500,
+        "description": {
+            "en": "Error adding route '{1}' to rol '{2}'",
+            "spa": "Error añadiendo la ruta '{1}' al rol '{2}'",
+            "ca": "Error afegint la ruta '{1}' al rol '{2}'"
+        }
+    },
+    {
+        "code": 1035,
+        "http": 500,
+        "description": {
+            "en": "Error deleting route '{1}' to role '{2}'",
+            "spa": "Error eliminando la ruta '{1}' al rol '{2}'",
+            "ca": "Error eliminant la ruta '{1}' al rol '{2}'"
+        }
+    },
+    {
+        "code": 1036,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is not the owner and has not admin roles",
+            "spa": "El usuario '{1}' no es el propietario i no tiene roles de administrador",
+            "ca": "L'usuari '{1}' no és el propietari i disposa de rols d'administrador"
+        }
+    },
+    {
+        "code": 1037,
+        "http": 500,
+        "description": {
+            "en": "Error deleting route '{1}'",
+            "spa": "Error eliminando la ruta '{1}'",
+            "ca": "Error eliminant la ruta '{1}'"
+        }
+    },
+    {
+        "code": 1038,
+        "http": 500,
+        "description": {
+            "en": "The route '{1}' is being used by roles",
+            "spa": "La ruta '{1}' está siendo usada por los roles",
+            "ca": "La ruta '{1}' està sent usada pels rols"
+        }
+    }
+    ,
+    {
+        "code": 1039,
+        "http": 500,
+        "description": {
+            "en": "The role '{1}' is being used by users",
+            "spa": "El rol '{1}' está siendo usado por los usuarios",
+            "ca": "El rol '{1}' està sent usat pels usuaris"
+        }
+    },
+    {
+        "code": 1040,
+        "http": 500,
+        "description": {
+            "en": "Error deleting role '{1}'",
+            "spa": "Error eliminando el rol '{1}'",
+            "ca": "Error eliminant el rol '{1}'"
+        }
+    },
+    {
+        "code": 1041,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is the owner",
+            "spa": "El usuario '{1}' es el propietario",
+            "ca": "L'usuari '{1}' és el propietari"
+        }
+    },
+    {
+        "code": 1042,
+        "http": 500,
+        "description": {
+            "en": "Error deleting user '{1}'",
+            "spa": "Error eliminando el usuario '{1}'",
+            "ca": "Error eliminant l'usuari '{1}'"
+        }
+    },
+    {
+        "code": 1043,
+        "http": 500,
+        "description": {
+            "en": "Order field '{1}' not valid. Valid format: 'field:order_type'",
+            "spa": "El campo de ordenación '{1}' no es válido. Formato valido: 'campo:tipo_ordenación'",
+            "ca": "El camp d'ordenació '{1}' no és vàlid. Format vàlid: 'camp:tipus_ordenació'"
+        }
+    },
+    {
+        "code": 1044,
+        "http": 500,
+        "description": {
+            "en": "Order type '{1}' not valid. Valid types: ASC, DESC",
+            "spa": "El tipo de ordenación '{1}' no es válido. Tipos validos: ASC, DESC",
+            "ca": "El tipus d'ordenació '{1}' no és vàlid. Tipus vàlids: ASC, DESC"
+        }
+    },
+    {
+        "code": 1045,
+        "http": 500,
+        "description": {
+            "en": "Filter '{1}' not valid. Valid format: 'field:operator:value'",
+            "spa": "El filtro '{1}' no es válido. Formato válido: 'campo:operador:valor'",
+            "ca": "El filtre '{1}' no és vàlid. Format vàlid: 'camp:operador:valor'"
+        }
+    },
+    {
+        "code": 1046,
+        "http": 500,
+        "description": {
+            "en": "Filter operator '{1}' not valid. Valid operators: eq, ne, lk, gt, lt, ge, le",
+            "spa": "El operador del filtro '{1}' no es válido. Formatos válidos: eq, ne, lk, gt, lt, ge, le",
+            "ca": "L'operador del filtre '{1}' no és vàlid. Formats vàlids: eq, ne, lk, gt, lt, ge, le"
+        }
+    },
+    {
+        "code": 1047,
+        "http": 500,
+        "description": {
+            "en": "The new password cannot be the same as the old one",
+            "spa": "La nueva contraseña no puede ser igual a la antigua",
+            "ca": "La nova contrasenya no pot ser igual a la antiga"
+        }
+    },
+    {
+        "code": 1048,
+        "http": 500,
+        "description": {
+            "en": "Criteria field not valid",
+            "spa": "Campo de consulta no válido",
+            "ca": "Camp de consulta no vàlid"
+        }
+    },
+    {
+        "code": 1049,
+        "http": 500,
+        "description": {
+            "en": "Criteria value not valid",
+            "spa": "Valor de consulta no válido",
+            "ca": "Valor de consulta no vàlid"
+        }
+    },
+    {
+        "code": 1050,
+        "http": 500,
+        "description": {
+            "en": "Code '{1}' has not a valid length",
+            "spa": "El código '{1}' no tiene una longitud válida",
+            "ca": "El codi '{1}' no té una longitud vàlida"
+        }
+    },
+    {
+        "code": 1051,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is already disabled",
+            "spa": "El usuario '{1}' ya está deshabilitado",
+            "ca": "L'usuari '{1}' ja està deshabilitat"
+        }
+    },
+    {
+        "code": 1052,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is already enabled",
+            "spa": "El usuario '{1}' ya está habilitado",
+            "ca": "L'usuari '{1}' ja està habilitat"
+        }
+    },
+    {
+        "code": 1053,
+        "http": 404,
+        "description": {
+            "en": "Email '{1}' not found",
+            "spa": "Correo electrónico '{1}' no encontrado",
+            "ca": "Correu electrònic '{1}' no trobat"
         }
     }
 ]

@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "email": {
+            "type": "string"
+        },
+        "password": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "roles": {
+            "type": "array"
+        }
+    },
+    "required":["email", "password", "name", "roles"]
+}

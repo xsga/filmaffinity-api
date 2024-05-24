@@ -7,8 +7,8 @@ namespace Xsga\FilmAffinityApi\Modules\Users\Application\Services;
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Dto\CreateUserDto;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Mappers\CreateUserDtoToUser;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\CreateUserException;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\UserExistsException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\CreateUserException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\UserExistsException;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 
 final class CreateUserService

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects;
 
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\Users\InvalidNameException;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Exceptions\InvalidNameException;
 
 final class UserName
 {

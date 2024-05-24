@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\Impl;
+namespace Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers;
 
 use Xsga\FilmAffinityApi\Modules\Users\Application\Dto\UpdateUserDto;
 

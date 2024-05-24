@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
+use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Controllers\GetTokenController;
 
 function getRoutes(App $slimApp): App
 {
-    // Secured routes.
+    /*
     $slimApp->group('', function (RouteCollectorProxy $group) {
         $group->post('/search/simple', SimpleSearchController::class);
         $group->post('/search/advanced', AdvancedSearchController::class);
@@ -15,11 +16,9 @@ function getRoutes(App $slimApp): App
         $group->get('/genres', GetGenresController::class);
         $group->get('/countries', GetCountriesController::class);
     })->add(SecurityMiddleware::class);
+    */
 
-    //$slimApp->post('/users/token', GetTokenController::class)->setName('get_token');
-
-    // Non secured rules.
-    $slimApp->post('/token', GetTokenController::class)->add(TokenMiddleware::class);
+    $slimApp->post('/users/token', GetTokenController::class)->setName('get_token');
 
     return $slimApp;
 }
