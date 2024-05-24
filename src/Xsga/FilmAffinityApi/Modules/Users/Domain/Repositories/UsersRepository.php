@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories;
 
-use Xsga\FilmAffinityApi\App\Domain\Model\User;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 
 interface UsersRepository
 {

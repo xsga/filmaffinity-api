@@ -8,5 +8,4 @@ final class UpdateUserDto
 {
     public int $userId = 0;
     public string $name = '';
-    public string $reqUserEmail = '';
 }

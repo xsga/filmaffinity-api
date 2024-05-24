@@ -24,7 +24,6 @@ use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 final class SecurityMiddleware implements MiddlewareInterface
 {
     private string $getTokenRoute = 'get_token';
-    private string $getMetricsRoute = 'get_metrics';
 
     public function __construct(
         private LoggerInterface $logger,
@@ -92,7 +91,6 @@ final class SecurityMiddleware implements MiddlewareInterface
     {
         return match ($routeName) {
             $this->getTokenRoute => true,
-            $this->getMetricsRoute => true,
             default => false
         };
     }

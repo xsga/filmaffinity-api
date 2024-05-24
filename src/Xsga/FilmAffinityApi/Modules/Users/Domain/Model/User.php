@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\App\Domain\Model;
+namespace Xsga\FilmAffinityApi\Modules\Users\Domain\Model;
 
 use DateTime;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserCreateDate;
