@@ -12,36 +12,28 @@ use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Domain\Exceptions\FilmAffinit
 
 final class GuzzleHttpClientService implements HttpClientService
 {
-    private string $baseUrl = '';
-
     public function __construct(
         private LoggerInterface $logger,
         private Client $client,
-        string $language,
-        string $baseUrl
+        private string $baseUrl
     ) {
-        // TODO: in container?.
-        $this->baseUrl = match (strtolower($language)) {
-            'spa' => $baseUrl . 'es/',
-            'en' => $baseUrl . 'us/'
-        };
     }
 
     public function getPageContent(string $url): string
     {
+        $statusCode = 0;
+
         try {
             $response = $this->client->get($this->baseUrl . $url);
+            $statusCode = $response->getStatusCode();
         } catch (Throwable $exception) {
-            $this->logger->error($exception->getMessage());
-            $errorMsg = 'Error connecting to FilmAffinity website';
-            throw new FilmAffinityWebsiteException($errorMsg);
+            $statusCode = $exception->getCode();
         }
 
-        if ($response->getStatusCode() !== 200) {
+        if ($statusCode !== 200) {
             $errorMsg = 'Error connecting to FilmAffinity website';
             $this->logger->error($errorMsg);
-            //TODO: error code.
-            throw new FilmAffinityWebsiteException($errorMsg);
+            throw new FilmAffinityWebsiteException($errorMsg, 2000);
         }
 
         return (string)$response->getBody();

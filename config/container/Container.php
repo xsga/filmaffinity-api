@@ -88,6 +88,12 @@ return [
     'filmaffinity.searchURL' => $_ENV['SEARCH_URL'],
     'filmaffinity.advancedSearchURL' => $_ENV['ADV_SEARCH_URL'],
     'filmaffinity.filmURL' => $_ENV['FILM_URL'],
+    'filmaffinity.getBaseURL' => function (ContainerInterface $container): string {
+        return match (strtolower($container->get('getLanguage'))) {
+            'spa' => $container->get('filmaffinity.baseURL') . 'es/',
+            'en' => $container->get('filmaffinity.baseURL') . 'us/'
+        };
+    },
 
     // --------------------------------------------------------------------------------------------
     // ENTITY MANAGER.
@@ -207,8 +213,7 @@ return [
     HttpClientService::class => DI\create(GuzzleHttpClientService::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(Client::class),
-        DI\get('getLanguage'),
-        DI\get('filmaffinity.baseURL')
+        DI\get('filmaffinity.getBaseURL')
     ),
 
     // SLIM middleware.
