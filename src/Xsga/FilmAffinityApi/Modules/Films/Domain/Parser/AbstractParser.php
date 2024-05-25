@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Business\Parser;
+namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parser;
 
 use DOMDocument;
 use DOMNodeList;
@@ -21,7 +21,10 @@ abstract class AbstractParser
     {
         libxml_use_internal_errors(true);
 
-        $this->content->loadHtml(mb_convert_encoding($pageContent, 'HTML-ENTITIES', 'UTF-8'));
+        $this->content->loadHtml(htmlspecialchars_decode(
+            iconv('UTF-8', 'ISO-8859-1', htmlentities($pageContent, ENT_COMPAT, 'UTF-8')),
+            ENT_QUOTES
+        ));
 
         libxml_use_internal_errors(false);
     }

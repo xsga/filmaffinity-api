@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Business\Parser;
+namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parser;
 
-use Xsga\FilmAffinityApi\Dto\FilmDto;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 
 final class FilmParser extends AbstractParser
 {
-    public function getFilmDto(string $filmId): FilmDto
+    public function getFilmDto(int $filmId): Film
     {
-        $dto = new FilmDto();
+        $dto = new Film();
 
         $dto->filmAfinityId = $filmId;
         $dto->title         = $this->getTitle();

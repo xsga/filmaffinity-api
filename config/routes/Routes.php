@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Slim\App;
-use Slim\Routing\RouteCollectorProxy;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\GetFilmByIdController;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Controllers\GetTokenController;
 
 function getRoutes(App $slimApp): App
@@ -18,6 +18,7 @@ function getRoutes(App $slimApp): App
     })->add(SecurityMiddleware::class);
     */
 
+    $slimApp->get('/films/{id:[0-9]+}', GetFilmByIdController::class)->setName('get_film_by_id');
     $slimApp->post('/users/token', GetTokenController::class)->setName('get_token');
 
     return $slimApp;

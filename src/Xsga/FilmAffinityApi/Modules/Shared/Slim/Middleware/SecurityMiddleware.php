@@ -12,11 +12,9 @@ use Psr\Log\LoggerInterface;
 use Slim\Routing\RouteContext;
 use Xsga\FilmAffinityApi\Modules\Shared\Slim\Exceptions\ApiResourceDisabledException;
 use Xsga\FilmAffinityApi\Modules\Shared\Slim\Exceptions\AuthHeaderNotFoundException;
-use Xsga\FilmAffinityApi\Modules\Shared\Slim\Exceptions\AuthorizationException;
 use Xsga\FilmAffinityApi\Modules\Shared\Slim\Exceptions\RouteContextException;
 use Xsga\FilmAffinityApi\Modules\Shared\Slim\Exceptions\SecurityException;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\AuthSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\BasicSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\TokenSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
@@ -29,7 +27,6 @@ final class SecurityMiddleware implements MiddlewareInterface
         private LoggerInterface $logger,
         private BasicSecurityService $basicSecurity,
         private TokenSecurityService $tokenSecurity,
-        private AuthSecurityService $authSecurity,
         private SecurityTypes $securityType
     ) {
     }
@@ -60,7 +57,6 @@ final class SecurityMiddleware implements MiddlewareInterface
         };
 
         $this->validateUserDataToken($userDataToken);
-        $this->validateUserAuthorization($userDataToken->email, $routeName);
 
         $request = $request->withAttribute('userDataToken', $userDataToken);
 
@@ -121,15 +117,6 @@ final class SecurityMiddleware implements MiddlewareInterface
             $errorMsg = "Error applying application security";
             $this->logger->error($errorMsg);
             throw new SecurityException($errorMsg, 1008);
-        }
-    }
-
-    private function validateUserAuthorization(string $userEmail, string $routeName): void
-    {
-        if (!$this->authSecurity->apply($userEmail, $routeName)) {
-            $errorMsg = "User '$userEmail' not allowed to access '$routeName' route";
-            $this->logger->error($errorMsg);
-            throw new AuthorizationException($errorMsg, 1001, null, [1 => $userEmail, 2 => $routeName]);
         }
     }
 }

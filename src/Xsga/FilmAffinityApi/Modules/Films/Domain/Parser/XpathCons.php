@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Business\Parser;
+namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parser;
 
 final class XpathCons
 {
-    public const FILM_VARIOUS = "//dl[@class = 'movie-info']/dd[not(@class) and not(@itemprop)]";
+    public const FILM_VARIOUS = "//dd[not(@class) and not(@itemprop)]";
     public const FILM_TITLE = "//h1[@id = 'main-title']/span[@itemprop = 'name']";
     public const FILM_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
     public const FILM_DURATION = "//dd[@itemprop = 'duration']";
     public const FILM_DIRECTORS = "//dd[@class = 'directors']/div[@class = 'credits']/span[@itemprop = 'director']/a[@itemprop = 'url']/span[@itemprop = 'name']";
-    public const FILM_ACTORS = "//dd[@class = 'card-cast']/div[@class = 'credits']/span[@itemprop = 'actor']/a[@itemprop = 'url']/span[@itemprop = 'name']";
+    public const FILM_ACTORS = "//li[@itemprop = 'actor']";
     public const FILM_PRODUCERS = "//dd[@class = 'card-producer']/div[@class = 'credits']/span";
     public const FILM_GENRES = "//dd[@class = 'card-genres']//a";
     public const FILM_RATING = "//div[@id = 'movie-rat-avg']";

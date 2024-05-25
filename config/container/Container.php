@@ -25,6 +25,9 @@ use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Controllers\Mappers\Impl\
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\Impl\JsonErrorToErrorImpl;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\GetFilmByIdService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\FilmParser;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Infrastructure\Services\GuzzleHttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\GetSchemaService;
@@ -35,9 +38,7 @@ use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Infrastructure\Services\JsonLo
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Infrastructure\Services\SwaggestJsonValidationService;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Infrastructure\Services\FirebaseJwtService;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\AuthSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\BasicSecurityService;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\AuthSecurityServiceImpl;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\BasicSecurityServiceImpl;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers\AuthHeaderValidator;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\TokenSecurityServiceImpl;
@@ -189,6 +190,19 @@ return [
     ),
 
     // --------------------------------------------------------------------------------------------
+    // FILMS MODULE.
+    // --------------------------------------------------------------------------------------------
+
+    // Application services.
+    GetFilmByIdService::class => DI\create(GetFilmByIdService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get('filmaffinity.filmURL'),
+        DI\get(HttpClientService::class),
+        DI\get(FilmParser::class),
+        DI\get(FilmToFilmDto::class)
+    ),
+
+    // --------------------------------------------------------------------------------------------
     // SHARED MODULE.
     // --------------------------------------------------------------------------------------------
 
@@ -213,10 +227,6 @@ return [
     ),
 
     // SECURITY application services.
-    AuthSecurityService::class => DI\create(AuthSecurityServiceImpl::class)->constructor(
-        DI\get(LoggerInterface::class),
-        DI\get(GetUser::class)
-    ),
     BasicSecurityService::class => DI\create(BasicSecurityServiceImpl::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(UserLogin::class),
@@ -242,7 +252,6 @@ return [
         DI\get(LoggerInterface::class),
         DI\get(BasicSecurityService::class),
         DI\get(TokenSecurityService::class),
-        DI\get(AuthSecurityService::class),
         DI\get('getSecurityType')
     ),
 ];
