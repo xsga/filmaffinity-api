@@ -11,18 +11,7 @@ use Log4Php\Logger;
 use Log4Php\LoggerWrapper;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\Modules\Errors\Application\Mappers\ErrorToErrorDto;
-use Xsga\FilmAffinityApi\Modules\Errors\Application\Mappers\Impl\ErrorToErrorDtoImpl;
-use Xsga\FilmAffinityApi\Modules\Errors\Application\Services\GetAllErrorsService;
-use Xsga\FilmAffinityApi\Modules\Errors\Application\Services\GetErrorService;
-use Xsga\FilmAffinityApi\Modules\Errors\Application\Services\Impl\GetAllErrorsServiceImpl;
-use Xsga\FilmAffinityApi\Modules\Errors\Application\Services\Impl\GetErrorServiceImpl;
 use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
-use Xsga\FilmAffinityApi\Modules\Errors\Domain\Services\GetError;
-use Xsga\FilmAffinityApi\Modules\Errors\Domain\Services\Impl\GetErrorImpl;
-use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Controllers\Mappers\ErrorDtoToErrorResponse;
-use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Controllers\Mappers\Impl\ErrorDtoToErrorResponseImpl;
-use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\Impl\JsonErrorToErrorImpl;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
@@ -138,19 +127,6 @@ return [
     // ERROR MODULE.
     // --------------------------------------------------------------------------------------------
 
-    // Application mappers.
-    ErrorToErrorDto::class => DI\create(ErrorToErrorDtoImpl::class),
-
-    // Application services.
-    GetAllErrorsService::class => DI\create(GetAllErrorsServiceImpl::class)->constructor(
-        DI\get(ErrorsRepository::class),
-        DI\get(ErrorToErrorDto::class)
-    ),
-    GetErrorService::class => DI\create(GetErrorServiceImpl::class)->constructor(
-        DI\get(GetError::class),
-        DI\get(ErrorToErrorDto::class)
-    ),
-
     // Domain repositories.
     ErrorsRepository::class => DI\create(JsonErrorsRepository::class)->constructor(
         DI\get(LoggerInterface::class),
@@ -160,18 +136,6 @@ return [
         DI\get('getLanguage'),
         DI\get(JsonErrorToError::class)
     ),
-
-    // Domain services.
-    GetError::class => DI\create(GetErrorImpl::class)->constructor(
-        DI\get(LoggerInterface::class),
-        DI\get(ErrorsRepository::class)
-    ),
-
-    // Infrastructure controller mappers.
-    ErrorDtoToErrorResponse::class => DI\create(ErrorDtoToErrorResponseImpl::class),
-
-    // Infrastructure mappers.
-    JsonErrorToError::class => DI\create(JsonErrorToErrorImpl::class),
 
     // --------------------------------------------------------------------------------------------
     // USERS MODULE.

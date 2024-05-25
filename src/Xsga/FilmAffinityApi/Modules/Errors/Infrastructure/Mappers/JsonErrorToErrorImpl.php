@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\Impl;
+namespace Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers;
 
 use Xsga\FilmAffinityApi\Modules\Errors\Domain\Model\Error;
-use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 
-final class JsonErrorToErrorImpl implements JsonErrorToError
+final class JsonErrorToError
 {
     public function convert(array $errorData, string $language): Error
     {
