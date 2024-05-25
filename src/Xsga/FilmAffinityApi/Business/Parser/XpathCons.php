@@ -29,7 +29,7 @@ final class XpathCons
      *
      * @access public
      */
-    public const FILM_VARIOUS = "//dl[@class = 'movie-info']/dd[not(@class) and not(@itemprop)]";
+    public const FILM_VARIOUS = "//dd[not(@class) and not(@itemprop)]";
 
     /**
      * XPath query to get film title.
@@ -74,7 +74,7 @@ final class XpathCons
      *
      * @access public
      */
-    public const FILM_ACTORS = "//dd[@class = 'card-cast']/div[@class = 'credits']/span[@itemprop = 'actor']/a[@itemprop = 'url']/span[@itemprop = 'name']";
+    public const FILM_ACTORS = "//li[@itemprop = 'actor']";
 
     /**
      * XPath query to get film producers.
