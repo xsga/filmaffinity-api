@@ -27,7 +27,7 @@ final class GetFilmByIdService
 
         $this->parser->init($pageContent);
 
-        $filmDto = $this->parser->getFilmDto($filmId);
+        $filmDto = $this->parser->getFilm($filmId);
 
         return $this->mapper->convert($filmDto);
     }

@@ -8,7 +8,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 
 final class FilmParser extends AbstractParser
 {
-    public function getFilmDto(int $filmId): Film
+    public function getFilm(int $filmId): Film
     {
         $dto = new Film();
 

@@ -2,24 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Business\Search;
+namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
 use Psr\Log\LoggerInterface;
-use Xsga\FilmAffinityApi\App\Application\Dto\SearchDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
+use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
-final class SimpleSearch
+final class SimpleSearchService
 {
     public function __construct(
         private LoggerInterface $logger,
         private string $searchUrl,
-        private Extractor $extractor,
+        private HttpClientService $httpClientService,
         private SimpleSearchParser $parser
     ) {
     }
 
     public function search(SearchDto $searchDto): SearchResultsDto
     {
-        $pageContent = $this->extractor->getData($this->getSearchUrl($searchDto));
+        $pageContent = $this->httpClientService->getPageContent($this->getSearchUrl($searchDto));
 
         $this->parser->init($pageContent);
 
