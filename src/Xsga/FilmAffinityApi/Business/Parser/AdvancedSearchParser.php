@@ -51,27 +51,23 @@ final class AdvancedSearchParser extends AbstractParser
             // Add search result as root child.
             $dom->appendChild($dom->importNode($result->item($i), true));
 
-            // Gets film release date.
-            $data     = strtolower(preg_replace('~\s+~u', '', $dom->textContent));
-            $dataAux  = preg_replace("#\(\d{4}\)#", '#', $data);
-            $position = strpos($dataAux, '#');
-            $year     = substr($data, $position, 6);
-
             // New DOMXPath instance.
             $domXpath = new DOMXPath($dom);
 
             // Get data.
             $titleResult = $domXpath->query(XpathCons::SEARCH_TITLE);
             $idResult    = $domXpath->query(XpathCons::SEARCH_ID);
+            $yearResult  = $domXpath->query(XpathCons::SEARCH_YEAR_ADV);
 
             // Prepare data.
             $title = $titleResult->item(0)->nodeValue;
             $id    = $idResult->item(0)->getAttribute('data-movie-id');
+            $year  = $yearResult->item(1)->nodeValue;
 
             // Set result data.
             $searchResult         = new SingleSearchResultDto();
             $searchResult->id     = (int)trim($id);
-            $searchResult->title  = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' ' . $year);
+            $searchResult->title  = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' (' . $year . ')');
 
             // Put single result data into output DTO.
             $out->results[] = $searchResult;

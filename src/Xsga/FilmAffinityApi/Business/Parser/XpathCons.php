@@ -158,13 +158,22 @@ final class XpathCons
     public const SEARCH_RESULTS = "//div[contains(@class, 'se-it')]";
 
     /**
-     * XPath query to get film year om simple search results.
+     * XPath query to get film year on simple search results.
      *
      * @var string
      *
      * @access public
      */
     public const SEARCH_YEAR = "//div[contains(@class, 'ye-w')]";
+
+    /**
+     * XPath query to get film year on advanced search results.
+     *
+     * @var string
+     *
+     * @access public
+     */
+    public const SEARCH_YEAR_ADV = "//span[contains(@class, 'mc-year')]";
 
     /**
      * XPath query to get film ID in search results.
