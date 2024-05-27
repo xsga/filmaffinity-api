@@ -6,6 +6,9 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchResultsDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
 final class SimpleSearchService
@@ -14,7 +17,8 @@ final class SimpleSearchService
         private LoggerInterface $logger,
         private string $searchUrl,
         private HttpClientService $httpClientService,
-        private SimpleSearchParser $parser
+        private SimpleSearchParser $parser,
+        private SearchResultsToSearchResultsDto $mapper
     ) {
     }
 
@@ -24,9 +28,9 @@ final class SimpleSearchService
 
         $this->parser->init($pageContent);
 
-        $out = $this->parser->getSimpleSearchResultsDto();
+        $searchResults = $this->parser->getSimpleSearchResultsDto();
 
-        return $out;
+        return $this->mapper->convert($searchResults);
     }
 
     private function getSearchUrl(SearchDto $searchDto): string

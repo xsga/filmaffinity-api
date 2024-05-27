@@ -15,8 +15,11 @@ use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\GetFilmByIdService;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\SimpleSearchService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\FilmParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Infrastructure\Services\GuzzleHttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\GetSchemaService;
@@ -170,6 +173,14 @@ return [
         DI\get(HttpClientService::class),
         DI\get(FilmParser::class),
         DI\get(FilmToFilmDto::class)
+    ),
+
+    SimpleSearchService::class => DI\create(SimpleSearchService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get('filmaffinity.searchURL'),
+        DI\get(HttpClientService::class),
+        DI\get(SimpleSearchParser::class),
+        DI\get(SearchResultsToSearchResultsDto::class)
     ),
 
     // --------------------------------------------------------------------------------------------
