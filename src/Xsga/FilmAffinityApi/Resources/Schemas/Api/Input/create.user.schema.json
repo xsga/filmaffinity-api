@@ -10,10 +10,7 @@
         },
         "name": {
             "type": "string"
-        },
-        "roles": {
-            "type": "array"
         }
     },
-    "required":["email", "password", "name", "roles"]
+    "required":["email", "password", "name"]
 }
