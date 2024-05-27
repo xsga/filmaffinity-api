@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Business\Parser;
+namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parser;
 
 use DOMDocument;
 use DOMXPath;
-use Xsga\FilmAffinityApi\Dto\SearchResultsDto;
-use Xsga\FilmAffinityApi\Dto\SingleSearchResultDto;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SearchResults;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class AdvancedSearchParser extends AbstractParser
 {
-    public function getAdvSearchResultsDto(): SearchResultsDto
+    public function getAdvSearchResultsDto(): SearchResults
     {
-        $out = new SearchResultsDto();
+        $out = new SearchResults();
 
         $result = $this->getData(XpathCons::SEARCH_ADV, false);
 
@@ -26,22 +26,19 @@ final class AdvancedSearchParser extends AbstractParser
 
             $dom->appendChild($dom->importNode($result->item($i), true));
 
-            $data     = strtolower(preg_replace('~\s+~u', '', $dom->textContent));
-            $dataAux  = preg_replace("#\(\d{4}\)#", '#', $data);
-            $position = strpos($dataAux, '#');
-            $year     = substr($data, $position, 6);
-
             $domXpath = new DOMXPath($dom);
 
             $titleResult = $domXpath->query(XpathCons::SEARCH_TITLE);
             $idResult    = $domXpath->query(XpathCons::SEARCH_ID);
+            $yearResult  = $domXpath->query(XpathCons::SEARCH_YEAR_ADV);
 
             $title = $titleResult->item(0)->nodeValue;
             $id    = $idResult->item(0)->getAttribute('data-movie-id');
+            $year  = $yearResult->item(1)->nodeValue;
 
-            $searchResult         = new SingleSearchResultDto();
+            $searchResult         = new SingleSearchResult();
             $searchResult->id     = (int)trim($id);
-            $searchResult->title  = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' ' . $year);
+            $searchResult->title  = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' (' . $year . ')');
 
             $out->results[] = $searchResult;
         }

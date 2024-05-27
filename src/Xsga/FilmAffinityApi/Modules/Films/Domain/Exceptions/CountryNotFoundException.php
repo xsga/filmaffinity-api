@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Exceptions;
+namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions;
 
-use Exception;
+use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
-class CountryNotFoundException extends Exception
+class CountryNotFoundException extends GenericException
 {
 }

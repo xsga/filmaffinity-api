@@ -2,25 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\App\Infrastructure\Controllers;
+namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\AdvancedSearchDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\AdvancedSearchService;
+use Xsga\FilmAffinityApi\Modules\Shared\Api\Infrastructure\Controllers\AbstractController;
 
 final class AdvancedSearchController extends AbstractController
 {
-    public function __construct(private AdvancedSearch $advancedSearch)
+    public function __construct(private AdvancedSearchService $advancedSearchService)
     {
     }
 
     public function __invoke(Request $request, Response $response): Response
     {
-        $this->validateJsonInput((string)$request->getBody(), 'advanced.search.schema');
+        $this->validateJson((string)$request->getBody(), 'advanced.search.schema');
 
         $body = $request->getParsedBody();
 
         // TODO: mapper.
-        $searchDto = new AdvSearchDto();
+        $searchDto = new AdvancedSearchDto();
 
         $searchDto->searchText            = $body['text'];
         $searchDto->searchTypeTitle       = $body['title'] ?? false;
@@ -35,6 +38,6 @@ final class AdvancedSearchController extends AbstractController
         $searchDto->searchYearFrom        = $body['year_from'] ?? 0;
         $searchDto->searchYearTo          = $body['year_to'] ?? 0;
 
-        return $this->writeResponse($response, $this->advancedSearch->search($searchDto));
+        return $this->writeResponse($response, $this->advancedSearchService->search($searchDto));
     }
 }

@@ -16,10 +16,18 @@ use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\AdvancedSearchService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\GetFilmByIdService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\SimpleSearchService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\AdvancedSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\FilmParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\SimpleSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonCountryToCountry;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonGenreToGenre;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\JsonCountriesRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\JsonGenresRepository;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Infrastructure\Services\GuzzleHttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\GetSchemaService;
@@ -45,6 +53,8 @@ use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserEntityToUser;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserToNewUserEntity;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Repositories\DoctrineUsersRepository;
 
+use function DI\create;
+
 return [
     // --------------------------------------------------------------------------------------------
     // CONFIGURATION.
@@ -54,6 +64,7 @@ return [
     'root.folder' => getPathTo(),
     'entity.folders' => [getPathTo('src#Xsga#FilmAffinityApi#Entities')],
     'schema.folder' => getPathTo('src#Xsga#FilmAffinityApi#Resources#Schemas#Api#Input'),
+    'resources.folder' => getPathTo('src#Xsga#FilmAffinityApi#Resources#Data'),
     'entities.proxy.folder' => getPathTo('tmp#doctrine-proxies'),
     'logger.config.folder' => getPathTo('config#logger'),
     'errors.folder' => getPathTo('config#errors'),
@@ -181,6 +192,35 @@ return [
         DI\get(HttpClientService::class),
         DI\get(SimpleSearchParser::class),
         DI\get(SearchResultsToSearchResultsDto::class)
+    ),
+
+    AdvancedSearchService::class => DI\create(AdvancedSearchService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get('filmaffinity.advancedSearchURL'),
+        DI\get(HttpClientService::class),
+        DI\get(AdvancedSearchParser::class),
+        DI\get(GenresRepository::class),
+        DI\get(CountriesRepository::class),
+        DI\get(SearchResultsToSearchResultsDto::class)
+    ),
+
+    // Domain repositories.
+    GenresRepository::class => DI\create(JsonGenresRepository::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(GetSchemaService::class),
+        DI\get(JsonLoaderService::class),
+        DI\get('resources.folder'),
+        DI\get('getLanguage'),
+        DI\get(JsonGenreToGenre::class)
+    ),
+
+    CountriesRepository::class => DI\create(JsonCountriesRepository::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(GetSchemaService::class),
+        DI\get(JsonLoaderService::class),
+        DI\get('resources.folder'),
+        DI\get('getLanguage'),
+        DI\get(JsonCountryToCountry::class)
     ),
 
     // --------------------------------------------------------------------------------------------

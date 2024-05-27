@@ -22,6 +22,7 @@ final class XpathCons
     public const SEARCH_ID_SINGLE = "//meta[@property = 'og:url']";
     public const SEARCH_RESULTS = "//div[contains(@class, 'se-it')]";
     public const SEARCH_YEAR = "//div[contains(@class, 'ye-w')]";
+    public const SEARCH_YEAR_ADV = "//span[contains(@class, 'mc-year')]";
     public const SEARCH_ID = "//div[contains(@class, 'movie-card')]";
     public const SEARCH_ADV = "//div[contains(@class, 'adv-search-item')]";
 }
