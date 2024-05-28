@@ -11,7 +11,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearch
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\CountryNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\GenreNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\InvalidSearchLengthException;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\AdvancedSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;

@@ -19,9 +19,9 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearch
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\AdvancedSearchService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\GetFilmByIdService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\SimpleSearchService;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\AdvancedSearchParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\FilmParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\SimpleSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonCountryToCountry;
@@ -63,8 +63,8 @@ return [
     // FOLDERS.
     'root.folder' => getPathTo(),
     'entity.folders' => [getPathTo('src#Xsga#FilmAffinityApi#Entities')],
-    'schema.folder' => getPathTo('src#Xsga#FilmAffinityApi#Resources#Schemas#Api#Input'),
-    'resources.folder' => getPathTo('src#Xsga#FilmAffinityApi#Resources#Data'),
+    'schema.folder' => getPathTo('config#schemas#input'),
+    'resources.folder' => getPathTo('src#Xsga#FilmAffinityApi#Resources'),
     'entities.proxy.folder' => getPathTo('tmp#doctrine-proxies'),
     'logger.config.folder' => getPathTo('config#logger'),
     'errors.folder' => getPathTo('config#errors'),

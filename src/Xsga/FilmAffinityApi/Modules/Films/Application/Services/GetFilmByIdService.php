@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\FilmDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\FilmParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
 final class GetFilmByIdService

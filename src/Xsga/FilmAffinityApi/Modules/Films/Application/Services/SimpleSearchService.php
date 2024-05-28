@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchResultsDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parser\SimpleSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
 final class SimpleSearchService
