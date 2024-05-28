@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Slim\App;
-use Xsga\FilmAffinityApi\App\Infrastructure\Controllers\GetAllCountriesController;
-use Xsga\FilmAffinityApi\App\Infrastructure\Controllers\GetAllGenresController;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\AdvancedSearchController;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\GetAllCountriesController;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\GetAllGenresController;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\GetFilmByIdController;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\SimpleSearchController;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Controllers\GetTokenController;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Dto;
+namespace Xsga\FilmAffinityApi\Modules\Films\Application\Dto;
 
 class GenreDto
 {

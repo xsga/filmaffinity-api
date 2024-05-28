@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\App\Infrastructure\Controllers;
+namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\GetAllCountriesService;
 use Xsga\FilmAffinityApi\Modules\Shared\Api\Infrastructure\Controllers\AbstractController;
 
 final class GetAllCountriesController extends AbstractController
