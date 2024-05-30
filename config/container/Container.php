@@ -39,16 +39,11 @@ use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Infrastructure\Services\Swagge
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Infrastructure\Services\FirebaseJwtService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\BasicSecurityService;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\BasicSecurityServiceImpl;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers\AuthHeaderValidator;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\TokenSecurityServiceImpl;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\TokenSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Shared\Slim\Middleware\SecurityMiddleware;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Mappers\UserToUserDto;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\UserLogin;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserEntityToUser;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserToNewUserEntity;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Repositories\DoctrineUsersRepository;
@@ -245,19 +240,6 @@ return [
         DI\get(LoggerInterface::class),
         DI\get('getJwtSecretKey'),
         DI\get('getJwtLifetime')
-    ),
-
-    // SECURITY application services.
-    BasicSecurityService::class => DI\create(BasicSecurityServiceImpl::class)->constructor(
-        DI\get(LoggerInterface::class),
-        DI\get(UserLogin::class),
-        DI\get(AuthHeaderValidator::class)
-    ),
-    TokenSecurityService::class => DI\create(TokenSecurityServiceImpl::class)->constructor(
-        DI\get(LoggerInterface::class),
-        DI\get(JWTService::class),
-        DI\get(GetUser::class),
-        DI\get(AuthHeaderValidator::class)
     ),
 
     // HTTP CLIENT application services.

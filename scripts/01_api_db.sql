@@ -32,9 +32,9 @@ CREATE TABLE app_users (
 -- Table indexes `app_users`
 -- ----------------------------------------------------------------------------
 
-ALTER TABLE `app_users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email_unique_idx` (`email`);
+ALTER TABLE app_users
+  ADD PRIMARY KEY (id),
+  ADD UNIQUE KEY email_unique_idx (email);
 
 
 -- ****************************************************************************
@@ -45,7 +45,7 @@ ALTER TABLE `app_users`
 -- AUTO_INCREMENT table `app_users`
 -- ----------------------------------------------------------------------------
 
-ALTER TABLE `app_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE app_users
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT;
 
 COMMIT;
