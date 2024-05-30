@@ -23,8 +23,6 @@ final class GetAllGenresService
      */
     public function get(): array
     {
-        $genres = $this->genresRepository->getAll();
-
-        return $this->mapper->convertArray($genres);
+        return $this->mapper->convertArray($this->genresRepository->getAll());
     }
 }

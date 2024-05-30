@@ -23,8 +23,6 @@ final class GetAllCountriesService
      */
     public function get(): array
     {
-        $countries = $this->countriesRepository->getAll();
-
-        return $this->mapper->convertArray($countries);
+        return $this->mapper->convertArray($this->countriesRepository->getAll());
     }
 }
