@@ -14,16 +14,9 @@ use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
-use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
-use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
-use Xsga\FilmAffinityApi\Modules\Films\Application\Services\AdvancedSearchService;
-use Xsga\FilmAffinityApi\Modules\Films\Application\Services\GetFilmByIdService;
-use Xsga\FilmAffinityApi\Modules\Films\Application\Services\SimpleSearchService;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonCountryToCountry;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonGenreToGenre;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\JsonCountriesRepository;
@@ -172,31 +165,11 @@ return [
     // FILMS MODULE.
     // --------------------------------------------------------------------------------------------
 
-    // Application services.
-    GetFilmByIdService::class => DI\create(GetFilmByIdService::class)->constructor(
-        DI\get(LoggerInterface::class),
+    // Domain services.
+    UrlService::class => DI\create(UrlService::class)->constructor(
         DI\get('filmaffinity.filmURL'),
-        DI\get(HttpClientService::class),
-        DI\get(FilmParser::class),
-        DI\get(FilmToFilmDto::class)
-    ),
-
-    SimpleSearchService::class => DI\create(SimpleSearchService::class)->constructor(
-        DI\get(LoggerInterface::class),
         DI\get('filmaffinity.searchURL'),
-        DI\get(HttpClientService::class),
-        DI\get(SimpleSearchParser::class),
-        DI\get(SearchResultsToSearchResultsDto::class)
-    ),
-
-    AdvancedSearchService::class => DI\create(AdvancedSearchService::class)->constructor(
-        DI\get(LoggerInterface::class),
-        DI\get('filmaffinity.advancedSearchURL'),
-        DI\get(HttpClientService::class),
-        DI\get(AdvancedSearchParser::class),
-        DI\get(GenresRepository::class),
-        DI\get(CountriesRepository::class),
-        DI\get(SearchResultsToSearchResultsDto::class)
+        DI\get('filmaffinity.advancedSearchURL')
     ),
 
     // Domain repositories.

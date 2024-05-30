@@ -14,18 +14,19 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\InvalidSearchLengthExce
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
 final class AdvancedSearchService
 {
     public function __construct(
         private LoggerInterface $logger,
-        private string $searchUrl,
         private HttpClientService $httpClientService,
         private AdvancedSearchParser $parser,
         private GenresRepository $genresRepository,
         private CountriesRepository $countriesRepository,
-        private SearchResultsToSearchResultsDto $mapper
+        private SearchResultsToSearchResultsDto $mapper,
+        private UrlService $urlService
     ) {
     }
 
@@ -35,7 +36,8 @@ final class AdvancedSearchService
         $this->validatesGenre($advancedSearchDto->searchGenre);
         $this->validatesCountry($advancedSearchDto->searchCountry);
 
-        $pageContent = $this->httpClientService->getPageContent($this->getUrl($advancedSearchDto));
+        $advancedSearchUrl = $this->urlService->getAdvancedSearchUrl($advancedSearchDto);
+        $pageContent       = $this->httpClientService->getPageContent($advancedSearchUrl);
 
         $this->parser->init($pageContent);
 
@@ -81,42 +83,5 @@ final class AdvancedSearchService
             $this->logger->error($errorMsg);
             throw new CountryNotFoundException($errorMsg, 2003);
         }
-    }
-
-    private function getUrl(AdvancedSearchDto $advancedSearchDto): string
-    {
-        $searchType  = '';
-        $searchType .= $advancedSearchDto->searchTypeTitle ? '&stype[]=title' : '';
-        $searchType .= $advancedSearchDto->searchTypeDirector ? '&stype[]=director' : '';
-        $searchType .= $advancedSearchDto->searchTypeCast ? '&stype[]=cast' : '';
-        $searchType .= $advancedSearchDto->searchTypeSoundtrack ? '&stype[]=music' : '';
-        $searchType .= $advancedSearchDto->searchTypeScreenplay ? '&stype[]=script' : '';
-        $searchType .= $advancedSearchDto->searchTypePhotography ? '&stype[]=photo' : '';
-        $searchType .= $advancedSearchDto->searchTypeProducer ? '&stype[]=producer' : '';
-
-        if ($searchType === '') {
-            $this->logger->warning('No search type found. Set the default search type: title');
-            $searchType = '&stype[]=title';
-        }
-
-        $url = $this->searchUrl;
-        $url = str_replace('{1}', $this->prepareSearchText($advancedSearchDto->searchText), $url);
-        $url = str_replace('{2}', $searchType, $url);
-        $url = str_replace('{3}', $advancedSearchDto->searchCountry, $url);
-        $url = str_replace('{4}', $advancedSearchDto->searchGenre, $url);
-        $url = str_replace('{5}', $advancedSearchDto->searchYearFrom === 0 ? '' : $advancedSearchDto->searchYearFrom, $url);
-        $url = str_replace('{6}', $advancedSearchDto->searchYearTo === 0 ? '' : $advancedSearchDto->searchYearTo, $url);
-
-        $this->logger->debug('Advanced Search URL: ' . $url);
-
-        return $url;
-    }
-
-    private function prepareSearchText(string $searchText): string
-    {
-        $searchText = trim($searchText);
-        $searchText = str_replace(' ', '+', $searchText);
-
-        return $searchText;
     }
 }
