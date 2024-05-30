@@ -21,23 +21,38 @@ final class UrlService
 
     public function getFilmUrl(int $filmId): string
     {
-        return str_replace('{1}', (string)$filmId, $this->filmUrl);
+        $url = str_replace('{1}', (string)$filmId, $this->filmUrl);
+
+        $this->logger->debug('Film URL: ' . $url);
+
+        return $url;
     }
 
     public function getSearchUrl(SearchDto $searchDto): string
     {
-        $urlSearch = str_replace(
-            '{1}',
-            $this->prepareSearchText($searchDto->searchText),
-            $this->searchUrl
-        );
+        $url = str_replace('{1}', $this->prepareSearchText($searchDto->searchText), $this->searchUrl);
 
-        $this->logger->debug('Search URL: ' . $urlSearch);
+        $this->logger->debug('Search URL: ' . $url);
 
-        return $urlSearch;
+        return $url;
     }
 
     public function getAdvancedSearchUrl(AdvancedSearchDto $advancedSearchDto): string
+    {
+        $url = $this->advancedSearchUrl;
+        $url = str_replace('{1}', $this->prepareSearchText($advancedSearchDto->searchText), $url);
+        $url = str_replace('{2}', $this->getAdvancedSeartType($advancedSearchDto), $url);
+        $url = str_replace('{3}', $advancedSearchDto->searchCountry, $url);
+        $url = str_replace('{4}', $advancedSearchDto->searchGenre, $url);
+        $url = str_replace('{5}', $advancedSearchDto->searchYearFrom === 0 ? '' : $advancedSearchDto->searchYearFrom, $url);
+        $url = str_replace('{6}', $advancedSearchDto->searchYearTo === 0 ? '' : $advancedSearchDto->searchYearTo, $url);
+
+        $this->logger->debug('Advanced Search URL: ' . $url);
+
+        return $url;
+    }
+
+    private function getAdvancedSeartType(AdvancedSearchDto $advancedSearchDto): string
     {
         $searchType  = '';
         $searchType .= $advancedSearchDto->searchTypeTitle ? '&stype[]=title' : '';
@@ -53,17 +68,7 @@ final class UrlService
             $searchType = '&stype[]=title';
         }
 
-        $url = $this->advancedSearchUrl;
-        $url = str_replace('{1}', $this->prepareSearchText($advancedSearchDto->searchText), $url);
-        $url = str_replace('{2}', $searchType, $url);
-        $url = str_replace('{3}', $advancedSearchDto->searchCountry, $url);
-        $url = str_replace('{4}', $advancedSearchDto->searchGenre, $url);
-        $url = str_replace('{5}', $advancedSearchDto->searchYearFrom === 0 ? '' : $advancedSearchDto->searchYearFrom, $url);
-        $url = str_replace('{6}', $advancedSearchDto->searchYearTo === 0 ? '' : $advancedSearchDto->searchYearTo, $url);
-
-        $this->logger->debug('Advanced Search URL: ' . $url);
-
-        return $url;
+        return $searchType;
     }
 
     private function prepareSearchText(string $searchText): string
