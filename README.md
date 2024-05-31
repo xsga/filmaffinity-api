@@ -14,7 +14,7 @@ This API is written in PHP and uses Slim 4 framework.
 
 Server prerequisites:
 
-* PHP 8.0 or later.
+* PHP 8.3 or later.
 * Apache's `mod_rewrite` and `mod_headers` modules enabled.
 * Composer
 
@@ -22,9 +22,11 @@ Install instructions:
 
 * Unzip the API files in an empty folder in your server.
 * Make sure that the HTTP shared folder match with the API `public` folder.
-* `log` folder needs read and write permissions:
+* `log`, `tmp` and `data` folders and subfolders needs read and write permissions:
 ```
 user@server:~# chmod 777 -R log
+user@server:~# chmod 777 -R tmp
+user@server:~# chmod 777 -R data
 ```
 * Run `composer` to install the project dependencies:
 ```
@@ -45,8 +47,8 @@ The API has the following public methods:
 
 |Method name|API endpoint|HTTP method|Input|
 |-----------|------------|-----------|-----|
-|Search films|search/simple|POST|[Simple Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/simple.search.schema.json)|
-|Advanced search films|search/advanced|POST|[Advanced Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/advanced.search.schema.json)|
+|Search films|searches/simple|POST|[Simple Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/simple.search.schema.json)|
+|Advanced search films|searches/advanced|POST|[Advanced Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/advanced.search.schema.json)|
 |Get film|films/:id|GET|URL parameter (:id)|
 |Get genres|genres|GET|-|
 |Get countries|countries|GET|-|
@@ -55,7 +57,7 @@ The API has the following public methods:
 
 ### Simple search
 ```
-http://<server_domain_api>/search/simple
+http://<server_domain_api>/searches/simple
 ```
 
 INPUT
@@ -86,7 +88,7 @@ OUTPUT
 
 ### Advanced search
 ```
-http://<server_domain_api>/search/advanced
+http://<server_domain_api>/searches/advanced
 ```
 
 INPUT
