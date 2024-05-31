@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
 use DOMDocument;
-use DOMNode;
 use DOMNodeList;
 use DOMXPath;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SearchResults;
@@ -34,23 +33,38 @@ final class AdvancedSearchParser extends AbstractParser
     private function getResultData(DOMNodeList $node, int $itemNumber): SingleSearchResult
     {
         $dom = new DOMDocument();
-
         $dom->appendChild($dom->importNode($node->item($itemNumber), true));
-
         $domXpath = new DOMXPath($dom);
 
-        $titleResult = $domXpath->query(XpathCons::SEARCH_TITLE);
-        $idResult    = $domXpath->query(XpathCons::SEARCH_ID);
-        $yearResult  = $domXpath->query(XpathCons::SEARCH_YEAR_ADV);
-
-        $title = $titleResult->item(0)->nodeValue;
-        $id    = $idResult->item(0)->getAttribute('data-movie-id');
-        $year  = $yearResult->item(1)->nodeValue;
-
         $searchResult         = new SingleSearchResult();
-        $searchResult->id     = (int)trim($id);
-        $searchResult->title  = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' (' . $year . ')');
+        $searchResult->id     = $this->getFilmId($domXpath);
+        $searchResult->title  = $this->getFilmTitle($domXpath);
 
         return $searchResult;
+    }
+
+    private function getFilmTitle(DOMXPath $domXpath): string
+    {
+        $titleResult = $domXpath->query(XpathCons::SEARCH_TITLE);
+        
+        $title = $titleResult->item(0)->nodeValue;
+        $year  = $this->getFilmYear($domXpath);
+
+        return trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' (' . $year . ')');
+    }
+
+    private function getFilmId(DOMXPath $domXpath): int
+    {
+        $idResult = $domXpath->query(XpathCons::SEARCH_ID);
+        $id       = $idResult->item(0)->getAttribute('data-movie-id');
+
+        return (int)trim($id);
+    }
+
+    private function getFilmYear(DOMXPath $domXpath): string
+    {
+        $yearResult  = $domXpath->query(XpathCons::SEARCH_YEAR_ADV);
+
+        return $yearResult->item(1)->nodeValue;
     }
 }

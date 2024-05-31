@@ -32,17 +32,21 @@ abstract class AbstractParser
     protected function getData(string $query, bool $outArray = true): array|DOMNodeList
     {
         $domXpath = new DOMXPath($this->content);
+        $data     = $domXpath->query($query);
 
-        $data = $domXpath->query($query);
+        if (!$outArray) {
+            return $data;
+        }
 
-        if ($outArray) {
-            $out = [];
+        return $this->convertToArray($data);
+    }
 
-            for ($i = 0; $i < count($data); $i++) {
-                $out[] = trim($data[$i]->nodeValue);
-            }
-        } else {
-            $out = $data;
+    private function convertToArray(DOMNodeList $data): array
+    {
+        $out = [];
+
+        for ($i = 0; $i < count($data); $i++) {
+            $out[] = trim($data[$i]->nodeValue);
         }
 
         return $out;
