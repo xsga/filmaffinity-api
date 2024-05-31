@@ -6,7 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services;
 
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers\AuthHeaderValidator;
+use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers\AuthHeaderValidator;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\UserLogin;

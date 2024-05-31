@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers;
+namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers;
 
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;

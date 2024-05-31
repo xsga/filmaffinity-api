@@ -167,6 +167,7 @@ return [
 
     // Domain services.
     UrlService::class => DI\create(UrlService::class)->constructor(
+        DI\get(LoggerInterface::class),
         DI\get('filmaffinity.filmURL'),
         DI\get('filmaffinity.searchURL'),
         DI\get('filmaffinity.advancedSearchURL')

@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
-use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Impl\Helpers\AuthHeaderValidator;
+use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers\AuthHeaderValidator;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;
 
