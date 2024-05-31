@@ -46,6 +46,7 @@
         "style-fix": "phpcbf -p --standard=PSR12 src public",
         "lint": "parallel-lint --exclude vendor .",
         "analyze-errors": "psalm --output-format=console --show-info=false --no-cache",
-        "analyze-info": "psalm --output-format=console --show-info=true --no-cache"
+        "analyze-info": "psalm --output-format=console --show-info=true --no-cache",
+        "phploc": "phploc --exclude Src/Log4Php Src"
     }
 }
