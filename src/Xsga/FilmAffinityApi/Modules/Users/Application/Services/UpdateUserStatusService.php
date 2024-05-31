@@ -19,9 +19,12 @@ final class UpdateUserStatusService
     ) {
     }
 
-    public function set(int $userId, bool $newStatus): bool
+    public function set(int|string $userId, bool $newStatus): bool
     {
-        $user = $this->getUser->byId($userId);
+        $user = match (is_string($userId)) {
+            false => $this->getUser->byId($userId),
+            true => $this->getUser->byEmail($userId)
+        };
 
         $this->validateActualUserStatus($user, $newStatus);
 
