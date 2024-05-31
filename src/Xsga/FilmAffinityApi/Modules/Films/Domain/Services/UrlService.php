@@ -37,6 +37,16 @@ final class UrlService
         return $url;
     }
 
+    public function getAdvancedSearchFormUrl(): string
+    {
+        $urlArray = explode('?', $this->advancedSearchUrl);
+        $url      = $urlArray[0];
+
+        $this->logger->debug('Advanced search form URL: ' . $url);
+
+        return $url;
+    }
+
     public function getAdvancedSearchUrl(AdvancedSearchDto $advancedSearchDto): string
     {
         $url = $this->advancedSearchUrl;

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "type": "array",
-    "title": "Genres",
+    "title": "Countries",
     "additionalItems": true,
     "items": {
         "$id": "#/items",
@@ -12,18 +12,18 @@
                 "title": "The first anyOf schema",
                 "required": [
                     "code",
-                    "description"
+                    "name"
                 ],
                 "properties": {
                     "code": {
                         "$id": "#/items/anyOf/0/properties/code",
                         "type": "string",
-                        "title": "Genre"
+                        "title": "Country"
                     },
-                    "description": {
-                        "$id": "#/items/anyOf/0/properties/description",
+                    "name": {
+                        "$id": "#/items/anyOf/0/properties/name",
                         "type": "string",
-                        "title": "Genre description"
+                        "title": "country name"
                     }
                 },
                 "additionalProperties": false

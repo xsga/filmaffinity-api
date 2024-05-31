@@ -20,7 +20,7 @@ class CountryToCountryDto
     }
 
     /**
-     * @param Country[] $genres
+     * @param Country[] $countries
      * 
      * @return CountryDto[]
      */

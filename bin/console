@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Console\BackupCountriesCommand;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Console\BackupGenresCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\CreateUserCommand;
 
 chdir(realpath(dirname(__FILE__)));
@@ -19,5 +21,7 @@ $logger    = $container->get(LoggerInterface::class);
 
 $console->add($container->get(CreateUserCommand::class));
 //$console->add($container->get(ChangeUserStatusCommand::class));
+$console->add($container->get(BackupGenresCommand::class));
+$console->add($container->get(BackupCountriesCommand::class));
 
 $console->run();

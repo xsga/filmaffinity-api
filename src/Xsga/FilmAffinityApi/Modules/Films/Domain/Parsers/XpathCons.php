@@ -25,4 +25,6 @@ final class XpathCons
     public const SEARCH_YEAR_ADV = "//span[contains(@class, 'mc-year')]";
     public const SEARCH_ID = "//div[contains(@class, 'movie-card')]";
     public const SEARCH_ADV = "//div[contains(@class, 'adv-search-item')]";
+    public const COUNTRIES_FORM = "//option[@data-class = 'flag-wrapper']";
+    public const GENRES_FORM = "//option[not(@data-content)]";
 }

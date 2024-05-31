@@ -14,11 +14,16 @@ use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesService;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonCountryToCountry;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers\JsonGenreToGenre;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityGenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\JsonCountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\JsonGenresRepository;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
@@ -40,8 +45,6 @@ use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserEntityToUser;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserToNewUserEntity;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Repositories\DoctrineUsersRepository;
-
-use function DI\create;
 
 return [
     // --------------------------------------------------------------------------------------------
@@ -165,6 +168,21 @@ return [
     // FILMS MODULE.
     // --------------------------------------------------------------------------------------------
 
+    // Application services.
+    BackupGenresService::class => DI\create(BackupGenresService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(FilmAffinityGenresRepository::class),
+        DI\get('getLanguage'),
+        DI\get('resources.folder')
+    ),
+
+    BackupCountriesService::class => DI\create(BackupCountriesService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(FilmAffinityCountriesRepository::class),
+        DI\get('getLanguage'),
+        DI\get('resources.folder')
+    ),
+
     // Domain services.
     UrlService::class => DI\create(UrlService::class)->constructor(
         DI\get(LoggerInterface::class),
@@ -174,6 +192,7 @@ return [
     ),
 
     // Domain repositories.
+    /*
     GenresRepository::class => DI\create(JsonGenresRepository::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(GetSchemaService::class),
@@ -182,7 +201,15 @@ return [
         DI\get('getLanguage'),
         DI\get(JsonGenreToGenre::class)
     ),
+    */
+    GenresRepository::class => DI\create(FilmAffinityGenresRepository::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(AdvancedSearchFormParser::class)
+    ),
 
+    /*
     CountriesRepository::class => DI\create(JsonCountriesRepository::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(GetSchemaService::class),
@@ -190,6 +217,13 @@ return [
         DI\get('resources.folder'),
         DI\get('getLanguage'),
         DI\get(JsonCountryToCountry::class)
+    ),
+    */
+    CountriesRepository::class => DI\create(FilmAffinityCountriesRepository::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(AdvancedSearchFormParser::class)
     ),
 
     // --------------------------------------------------------------------------------------------
