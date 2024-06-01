@@ -8,6 +8,7 @@ use Symfony\Component\Console\Application;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Console\BackupCountriesCommand;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Console\BackupGenresCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\CreateUserCommand;
+use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\DeleteUserCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\DisableUserCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\EnableUserCommand;
 
@@ -27,5 +28,6 @@ $console->add($container->get(BackupGenresCommand::class));
 $console->add($container->get(BackupCountriesCommand::class));
 $console->add($container->get(EnableUserCommand::class));
 $console->add($container->get(DisableUserCommand::class));
+$console->add($container->get(DeleteUserCommand::class));
 
 $console->run();

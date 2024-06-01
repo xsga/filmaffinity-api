@@ -51,7 +51,7 @@ final class DoctrineUsersRepository implements UsersRepository
 
     public function getUserById(int $userId): ?User
     {
-        $userEntity = $this->getUserEntityById($this->em, $userId);
+        $userEntity = $this->getUserEntityById($userId);
 
         return match ($userEntity) {
             null => null,
@@ -145,7 +145,7 @@ final class DoctrineUsersRepository implements UsersRepository
     public function deleteUser(int $userId): bool
     {
         try {
-            $userEntity = $this->getUserEntityByIdExit($this->em, $userId);
+            $userEntity = $this->getUserEntityByIdExit($userId);
 
             $this->em->remove($userEntity);
             $this->em->flush();
@@ -157,19 +157,54 @@ final class DoctrineUsersRepository implements UsersRepository
         }
     }
 
-    private function getUserEntityById(EntityManagerInterface $em, int $userId): ?UsersEntity
+    public function deleteUserByEmail(string $userEmail): bool
     {
-        $usersRepository = $em->getRepository(UsersEntity::class);
+        try {
+            $userEntity = $this->getUserEntityByEmailExit($userEmail);
+
+            $this->em->remove($userEntity);
+            $this->em->flush();
+
+            return true;
+        } catch (Throwable $exception) {
+            $this->logger->error($exception->__toString());
+            return false;
+        }
+    }
+
+    private function getUserEntityById(int $userId): ?UsersEntity
+    {
+        $usersRepository = $this->em->getRepository(UsersEntity::class);
 
         return $usersRepository->find($userId);
     }
 
-    private function getUserEntityByIdExit(EntityManagerInterface $em, int $userId): UsersEntity
+    private function getUserEntityByIdExit(int $userId): UsersEntity
     {
-        $userEntity = $this->getUserEntityById($em, $userId);
+        $userEntity = $this->getUserEntityById($userId);
 
         if ($userEntity === null) {
             $message = "User '$userId' not found";
+            $this->logger->error($message);
+            throw new UserNotFoundException($message);
+        }
+
+        return $userEntity;
+    }
+
+    private function getUserEntityByEmail(string $userEmail): ?UsersEntity
+    {
+        $usersRepository = $this->em->getRepository(UsersEntity::class);
+
+        return $usersRepository->findOneBy(['email' => $userEmail]);
+    }
+
+    private function getUserEntityByEmailExit(string $userEmail): UsersEntity
+    {
+        $userEntity = $this->getUserEntityByEmail($userEmail);
+
+        if ($userEntity === null) {
+            $message = "User '$userEmail' not found";
             $this->logger->error($message);
             throw new UserNotFoundException($message);
         }
