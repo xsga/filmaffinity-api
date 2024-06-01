@@ -28,9 +28,6 @@ final class UsersEntity
     #[Column(name: "password", type: "string", length: 500, precision: 0, scale: 0, nullable: false, unique: false)]
     private string $password = '';
 
-    #[Column(name: "name", type: "string", length: 100, precision: 0, scale: 0, nullable: false, unique: false)]
-    private string $name = '';
-
     #[Column(name: "create_date", type: "datetime", precision: 0, scale: 0, nullable: false, unique: false)]
     private DateTime $createDate;
 
@@ -73,18 +70,6 @@ final class UsersEntity
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function setName(string $name): UsersEntity
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function setCreateDate(DateTime $createDate): UsersEntity

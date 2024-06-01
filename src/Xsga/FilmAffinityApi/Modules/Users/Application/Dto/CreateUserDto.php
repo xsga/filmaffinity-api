@@ -8,5 +8,4 @@ final class CreateUserDto
 {
     public string $email = '';
     public string $password = '';
-    public string $name = '';
 }

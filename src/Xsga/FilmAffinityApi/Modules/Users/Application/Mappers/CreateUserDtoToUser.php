@@ -23,7 +23,6 @@ final class CreateUserDtoToUser
             $userData->email,
             $userData->password,
             true,
-            $userData->name,
             true,
             new DateTime(),
             new DateTime()

@@ -16,7 +16,6 @@ final class UserEntityToUser
             $userEntity->getEmail(),
             $userEntity->getPassword(),
             false,
-            $userEntity->getName(),
             $userEntity->getStatus(),
             $userEntity->getCreateDate(),
             $userEntity->getUpdateDate()

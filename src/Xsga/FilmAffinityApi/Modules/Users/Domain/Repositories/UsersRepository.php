@@ -16,7 +16,6 @@ interface UsersRepository
     public function getUserByEmail(string $userEmail): ?User;
     public function getUserById(int $userId): ?User;
     public function createUser(User $user): int;
-    public function updateUser(User $user): bool;
     public function updatePassword(User $user): bool;
     public function updateUserStatus(User $user): bool;
     public function deleteUser(int $userId): bool;

@@ -8,7 +8,6 @@ use DateTime;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserCreateDate;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserEmail;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserId;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserName;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserPassword;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserStatus;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserUpdateDate;
@@ -18,7 +17,6 @@ final class User
     private readonly UserId $userId;
     private readonly UserEmail $email;
     private UserPassword $hashedPassword;
-    private UserName $name;
     private UserStatus $status;
     private readonly UserCreateDate $createDate;
     private UserUpdateDate $updateDate;
@@ -31,7 +29,6 @@ final class User
         string $email,
         string $password,
         bool $rawPassword,
-        string $name,
         bool $status,
         DateTime $createDate,
         DateTime $updateDate
@@ -39,7 +36,6 @@ final class User
         $this->userId         = new UserId($userId);
         $this->email          = new UserEmail($email);
         $this->hashedPassword = new UserPassword($password, $rawPassword);
-        $this->name           = new UserName($name);
         $this->status         = new UserStatus($status);
         $this->createDate     = new UserCreateDate($createDate);
         $this->updateDate     = new UserUpdateDate($updateDate);
@@ -58,11 +54,6 @@ final class User
     public function password(): string
     {
         return $this->hashedPassword->value();
-    }
-
-    public function name(): string
-    {
-        return $this->name->value();
     }
 
     public function status(): bool
@@ -84,12 +75,6 @@ final class User
     {
         $this->hashedPassword = new UserPassword($newPassword);
         $this->updateDate     = new UserUpdateDate(new DateTime());
-    }
-
-    public function updateName(string $newName): void
-    {
-        $this->name       = new UserName($newName);
-        $this->updateDate = new UserUpdateDate(new DateTime());
     }
 
     public function enable(): void

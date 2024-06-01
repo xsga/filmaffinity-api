@@ -85,18 +85,6 @@ final class CreateUserCommand extends Command
                 throw new RuntimeException('Password confirmation error');
             }
         );
-        $this->dataEntry['name'] = $this->display->ask(
-            'Enter user name',
-            null,
-            function (?string $name) {
-                $name = match (is_null($name)) {
-                    true => '',
-                    false => $name
-                };
-                $valueObject = new UserName($name);
-                return $valueObject->value();
-            }
-        );
         $this->dataEntry['continue'] = $this->display->confirm('Do you want to continue?', true);
     }
 

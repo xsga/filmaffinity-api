@@ -15,7 +15,6 @@ final class UserToNewUserEntity
 
         $userEntity->setEmail($user->email());
         $userEntity->setPassword($user->password());
-        $userEntity->setName($user->name());
         $userEntity->setCreateDate($user->createDate());
         $userEntity->setUpdateDate($user->updateDate());
         $userEntity->setStatus($user->status());

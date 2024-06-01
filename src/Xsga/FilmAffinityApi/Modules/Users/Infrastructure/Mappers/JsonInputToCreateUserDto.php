@@ -22,11 +22,6 @@ final class JsonInputToCreateUserDto
             false => ''
         };
 
-        $user->name = match (isset($userData['name'])) {
-            true => $userData['name'],
-            false => ''
-        };
-
         return $user;
     }
 }

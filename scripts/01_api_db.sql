@@ -17,7 +17,6 @@ CREATE TABLE app_users (
   id          int(11)      NOT NULL,
   email       varchar(150) NOT NULL,
   password    varchar(500) NOT NULL,
-  name        varchar(100) NOT NULL,
   create_date datetime     NOT NULL,
   update_date datetime     NOT NULL,
   status      boolean      NOT NULL
