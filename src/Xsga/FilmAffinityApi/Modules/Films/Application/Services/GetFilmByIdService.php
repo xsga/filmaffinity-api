@@ -6,29 +6,20 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\FilmDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\FilmToFilmDto;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
 final class GetFilmByIdService
 {
     public function __construct(
         private HttpClientService $httpClientService,
-        private FilmParser $parser,
-        private FilmToFilmDto $mapper,
-        private UrlService $urlService
+        private FilmsRepository $repository,
+        private FilmToFilmDto $mapper
     ) {
     }
 
     public function get(int $filmId): FilmDto
     {
-        $filmUrl     = $this->urlService->getFilmUrl($filmId);
-        $pageContent = $this->httpClientService->getPageContent($filmUrl);
-
-        $this->parser->init($pageContent);
-
-        $filmDto = $this->parser->getFilm($filmId);
-
-        return $this->mapper->convert($filmDto);
+        return $this->mapper->convert($this->repository->get($filmId));
     }
 }
