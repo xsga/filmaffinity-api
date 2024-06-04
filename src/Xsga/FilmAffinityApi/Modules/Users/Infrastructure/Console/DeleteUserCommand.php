@@ -24,6 +24,7 @@ final class DeleteUserCommand extends Command
 {
     private SymfonyStyle $display;
     private string $userEmail = '';
+    private bool $continue = false;
 
     #[Inject]
     private DeleteUserByEmailService $deleteUserByEmailService;
@@ -55,10 +56,16 @@ final class DeleteUserCommand extends Command
                 return $valueObject->value();
             }
         );
+        $this->continue = $this->display->confirm('Do you want to continue?', true);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        if (!$this->continue) {
+            $this->display->warning('Delete user command aborted');
+            return Command::SUCCESS;
+        }
+
         $this->deleteUserByEmailService->delete($this->userEmail);
         
         $this->display->success("User $this->userEmail deleted successfully");

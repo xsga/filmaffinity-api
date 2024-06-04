@@ -16,6 +16,10 @@ use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
@@ -193,11 +197,33 @@ return [
     ),
 
     // Domain repositories.
-    FilmsRepository::class => DI\create(FilmAffinityFilmsRepository::class),
-    GenresRepository::class => DI\create(FilmAffinityGenresRepository::class),
-    CountriesRepository::class => DI\create(FilmAffinityCountriesRepository::class),
-    AdvancedSearchRepository::class => DI\create(FilmAffinityAdvancedSearchRepository::class),
-    SearchRepository::class => DI\create(FilmAffinitySearchRepository::class),
+    FilmsRepository::class => DI\create(FilmAffinityFilmsRepository::class)->constructor(
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(FilmParser::class)
+    ),
+    GenresRepository::class => DI\create(FilmAffinityGenresRepository::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(AdvancedSearchFormParser::class)
+    ),
+    CountriesRepository::class => DI\create(FilmAffinityCountriesRepository::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(AdvancedSearchFormParser::class)
+    ),
+    AdvancedSearchRepository::class => DI\create(FilmAffinityAdvancedSearchRepository::class)->constructor(
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(AdvancedSearchParser::class)
+    ),
+    SearchRepository::class => DI\create(FilmAffinitySearchRepository::class)->constructor(
+        DI\get(UrlService::class),
+        DI\get(HttpClientService::class),
+        DI\get(SimpleSearchParser::class)
+    ),
     
     // --------------------------------------------------------------------------------------------
     // SHARED MODULE.

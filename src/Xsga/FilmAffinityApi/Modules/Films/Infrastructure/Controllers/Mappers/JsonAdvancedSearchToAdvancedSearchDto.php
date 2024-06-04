@@ -20,8 +20,8 @@ final class JsonAdvancedSearchToAdvancedSearchDto
         $advancedSearchDto->searchTypePhotography = $jsonData['photography'] ?? false;
         $advancedSearchDto->searchTypeSoundtrack  = $jsonData['soundtrack'] ?? false;
         $advancedSearchDto->searchTypeProducer    = $jsonData['producer'] ?? false;
-        $advancedSearchDto->searchGenre           = $jsonData['genre'] ? strtoupper($jsonData['genre']) : '';
-        $advancedSearchDto->searchCountry         = $jsonData['country'] ? strtoupper($jsonData['country']) : '';
+        $advancedSearchDto->searchGenre           = isset($jsonData['genre']) ? strtoupper($jsonData['genre']) : '';
+        $advancedSearchDto->searchCountry         = isset($jsonData['country']) ? strtoupper($jsonData['country']) : '';
         $advancedSearchDto->searchYearFrom        = $jsonData['year_from'] ?? 0;
         $advancedSearchDto->searchYearTo          = $jsonData['year_to'] ?? 0;
 
