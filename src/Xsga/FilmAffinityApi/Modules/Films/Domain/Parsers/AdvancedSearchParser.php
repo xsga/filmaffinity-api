@@ -12,11 +12,16 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class AdvancedSearchParser extends AbstractParser
 {
+    private const QUERY_ADV_SEARCH_DATA = "//div[contains(@class, 'adv-search-item')]";
+    private const QUERY_ADV_SEARCH_GET_TITLE = "//div[@class = 'mc-title']/a";
+    private const QUERY_ADV_SEARCH_GET_ID = "//div[contains(@class, 'movie-card')]";
+    private const QUERY_ADV_SEARCH_GET_YEAR = "//span[contains(@class, 'mc-year')]";
+
     public function getAdvSearchResultsDto(): SearchResults
     {
         $out = new SearchResults();
 
-        $xpathResults = $this->getData(XpathCons::SEARCH_ADV, false);
+        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_DATA, false);
         $totalResults = $xpathResults->length;
 
         $out->total = $totalResults;
@@ -36,7 +41,7 @@ final class AdvancedSearchParser extends AbstractParser
         $dom->appendChild($dom->importNode($node->item($itemNumber), true));
         $domXpath = new DOMXPath($dom);
 
-        $searchResult         = new SingleSearchResult();
+        $searchResult = new SingleSearchResult();
         $searchResult->id     = $this->getFilmId($domXpath);
         $searchResult->title  = $this->getFilmTitle($domXpath);
 
@@ -45,7 +50,7 @@ final class AdvancedSearchParser extends AbstractParser
 
     private function getFilmTitle(DOMXPath $domXpath): string
     {
-        $titleResult = $domXpath->query(XpathCons::SEARCH_TITLE);
+        $titleResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_TITLE);
         
         $title = $titleResult->item(0)->nodeValue;
         $year  = $this->getFilmYear($domXpath);
@@ -55,7 +60,7 @@ final class AdvancedSearchParser extends AbstractParser
 
     private function getFilmId(DOMXPath $domXpath): int
     {
-        $idResult = $domXpath->query(XpathCons::SEARCH_ID);
+        $idResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_ID);
         $id       = $idResult->item(0)->getAttribute('data-movie-id');
 
         return (int)trim($id);
@@ -63,7 +68,7 @@ final class AdvancedSearchParser extends AbstractParser
 
     private function getFilmYear(DOMXPath $domXpath): string
     {
-        $yearResult  = $domXpath->query(XpathCons::SEARCH_YEAR_ADV);
+        $yearResult  = $domXpath->query(self::QUERY_ADV_SEARCH_GET_YEAR);
 
         return $yearResult->item(1)->nodeValue;
     }

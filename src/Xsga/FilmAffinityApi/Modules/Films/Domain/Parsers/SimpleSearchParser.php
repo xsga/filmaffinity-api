@@ -12,36 +12,41 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class SimpleSearchParser extends AbstractParser
 {
+    private const QUERY_RESULTS_TYPE = "//meta[@property = 'og:title']";
+    private const QUERY_SINGLE_RESULT_GET_ID = "//meta[@property = 'og:url']";
+    private const QUERY_MULTIPLE_RESULTS_DATA = "//div[contains(@class, 'se-it')]";
+    private const QUERY_MULTIPLE_RESULTS_GET_TITLE = "//div[@class = 'mc-title']/a";
+    private const QUERY_MULTIPLE_RESULTS_GET_YEAR = "//div[contains(@class, 'ye-w')]";
+    private const QUERY_MULTIPLE_RESULTS_GET_ID = "//div[contains(@class, 'movie-card')]";
+
     public function getSimpleSearchResultsDto(): SearchResults
     {
-        $result = $this->getData(XpathCons::SEARCH_TYPE, false);
+        $queyResults = $this->getData(self::QUERY_RESULTS_TYPE, false);
 
-        $out = match (($result->length > 0) && ($result->item(0)->getAttribute('content') !== 'FilmAffinity')) {
-            true => $this->simpleSearchSingleResult($result),
+        $searchResults = match (
+            ($queyResults->length > 0) && ($queyResults->item(0)->getAttribute('content') !== 'FilmAffinity')
+        ) {
+            true => $this->simpleSearchSingleResult($queyResults),
             false => $this->simpleSearchMultipleResults()
         };
 
-        $this->logger->info('FilmAffinity search: ' . $out->total . ' results found');
+        $this->logger->info("FilmAffinity search: $searchResults->total results found");
 
-        return $out;
+        return $searchResults;
     }
 
     private function simpleSearchSingleResult(DOMNodeList $data): SearchResults
     {
-        $idSearch = $this->getData(XpathCons::SEARCH_ID_SINGLE, false);
+        $idSearch = $this->getData(self::QUERY_SINGLE_RESULT_GET_ID, false);
 
         $idArray = explode('/', $idSearch->item(0)->getAttribute('content'));
         $title   = $data->item(0)->getAttribute('content');
 
-        $id    = trim(str_replace('film', '', str_replace('.html', '', end($idArray))));
-        $title = trim(str_replace('  ', ' ', str_replace('   ', ' ', $title)));
-
         $searchResult        = new SingleSearchResult();
-        $searchResult->id    = (int)$id;
-        $searchResult->title = $title;
+        $searchResult->id    = (int)trim(str_replace('film', '', str_replace('.html', '', end($idArray))));
+        $searchResult->title = trim(str_replace('  ', ' ', str_replace('   ', ' ', $title)));
 
         $out = new SearchResults();
-
         $out->total     = 1;
         $out->results[] = $searchResult;
 
@@ -50,7 +55,7 @@ final class SimpleSearchParser extends AbstractParser
 
     private function simpleSearchMultipleResults(): SearchResults
     {
-        $searchResults = $this->getData(XpathCons::SEARCH_RESULTS, false);
+        $searchResults = $this->getData(self::QUERY_MULTIPLE_RESULTS_DATA, false);
 
         $out        = new SearchResults();
         $out->total = $searchResults->length;
@@ -78,7 +83,7 @@ final class SimpleSearchParser extends AbstractParser
 
     private function getTitle(DOMXPath $domXpath): string
     {
-        $titleResult = $domXpath->query(XpathCons::SEARCH_TITLE);
+        $titleResult = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_TITLE);
 
         $title = $titleResult->item(0)->nodeValue;
         $year  = $this->getYear($domXpath);
@@ -88,14 +93,14 @@ final class SimpleSearchParser extends AbstractParser
 
     private function getYear(DOMXPath $domXpath): string
     {
-        $yearResult = $domXpath->query(XpathCons::SEARCH_YEAR);
+        $yearResult = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_YEAR);
 
         return $yearResult->item(0)->nodeValue;
     }
 
     private function getId(DOMXPath $domXpath): int
     {
-        $idResult  = $domXpath->query(XpathCons::SEARCH_ID);
+        $idResult  = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_ID);
 
         return (int)trim($idResult->item(0)->getAttribute('data-movie-id'));
     }

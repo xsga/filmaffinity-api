@@ -8,6 +8,18 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 
 final class FilmParser extends AbstractParser
 {
+    private const QUERY_FILM_GET_VARIOUS = "//dd[not(@class) and not(@itemprop)]";
+    private const QUERY_FILM_GET_TITLE = "//h1[@id = 'main-title']/span[@itemprop = 'name']";
+    private const QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
+    private const QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
+    private const QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']//span[@itemprop = 'name']";
+    private const QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']";
+    private const QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
+    private const QUERY_FILM_GET_GENRES = "//dd[@class = 'card-genres']//a";
+    private const QUERY_FILM_GET_RATING = "//div[@id = 'movie-rat-avg']";
+    private const QUERY_FILM_GET_SYNOPSIS = "//dd[@class = '' and @itemprop = 'description']";
+    private const QUERY_FILM_GET_COVER = "//a[@class = 'lightbox']";
+
     public function getFilm(int $filmId): Film
     {
         $dto = new Film();
@@ -64,7 +76,7 @@ final class FilmParser extends AbstractParser
 
     private function getTitle(): string
     {
-        $data = $this->getData(XpathCons::FILM_TITLE);
+        $data = $this->getData(self::QUERY_FILM_GET_TITLE);
 
         if (!$this->validateOneResult($data, 'film title')) {
             return '';
@@ -75,7 +87,7 @@ final class FilmParser extends AbstractParser
 
     private function getYear(): string
     {
-        $data = $this->getData(XpathCons::FILM_RELEASE_DATE);
+        $data = $this->getData(self::QUERY_FILM_GET_RELEASE_DATE);
 
         if (!$this->validateOneResult($data, 'film release')) {
             return '';
@@ -86,7 +98,7 @@ final class FilmParser extends AbstractParser
 
     private function getDuration(): string
     {
-        $data = $this->getData(XpathCons::FILM_DURATION);
+        $data = $this->getData(self::QUERY_FILM_GET_DURATION);
 
         if (!$this->validateOneResult($data, 'film duration')) {
             return '';
@@ -97,7 +109,7 @@ final class FilmParser extends AbstractParser
 
     private function getDirectors(): array
     {
-        $data = $this->getData(XpathCons::FILM_DIRECTORS);
+        $data = $this->getData(self::QUERY_FILM_GET_DIRECTORS);
 
         if (!$this->validateMultipleResult($data, 'film directors')) {
             return [];
@@ -108,7 +120,7 @@ final class FilmParser extends AbstractParser
 
     private function getActors(): array
     {
-        $data = $this->getData(XpathCons::FILM_ACTORS);
+        $data = $this->getData(self::QUERY_FILM_GET_ACTORS);
 
         if (!$this->validateMultipleResult($data, 'film actors')) {
             return [];
@@ -119,7 +131,7 @@ final class FilmParser extends AbstractParser
 
     private function getProducers(): string
     {
-        $data = $this->getData(XpathCons::FILM_PRODUCERS);
+        $data = $this->getData(self::QUERY_FILM_GET_PRODUCERS);
 
         if (!$this->validateMultipleResult($data, 'film producers')) {
             return [];
@@ -130,7 +142,7 @@ final class FilmParser extends AbstractParser
 
     private function getGenres(): array
     {
-        $data = $this->getData(XpathCons::FILM_GENRES);
+        $data = $this->getData(self::QUERY_FILM_GET_GENRES);
 
         if (!$this->validateMultipleResult($data, 'film genres')) {
             return [];
@@ -141,7 +153,7 @@ final class FilmParser extends AbstractParser
 
     private function getOriginalTitle(): string
     {
-        $data = $this->getData(XpathCons::FILM_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[0])) {
             true => trim(str_replace('aka', '', $data[0])),
@@ -151,7 +163,7 @@ final class FilmParser extends AbstractParser
 
     private function getCountry(): string
     {
-        $data = $this->getData(XpathCons::FILM_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[1])) {
             true => trim(trim($data[1], chr(0xC2) . chr(0xA0))),
@@ -161,7 +173,7 @@ final class FilmParser extends AbstractParser
 
     private function getScreenplay(): string
     {
-        $data = $this->getData(XpathCons::FILM_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[2])) {
             true => trim($data[2]),
@@ -171,7 +183,7 @@ final class FilmParser extends AbstractParser
 
     private function getSoundtrack(): string
     {
-        $data = $this->getData(XpathCons::FILM_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[3])) {
             true => trim($data[3]),
@@ -181,7 +193,7 @@ final class FilmParser extends AbstractParser
 
     private function getPhotography(): string
     {
-        $data = $this->getData(XpathCons::FILM_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[4])) {
             true => trim($data[4]),
@@ -191,7 +203,7 @@ final class FilmParser extends AbstractParser
 
     private function getRating(): string
     {
-        $data = $this->getData(XpathCons::FILM_RATING);
+        $data = $this->getData(self::QUERY_FILM_GET_RATING);
 
         if (!$this->validateOneResult($data, 'film rating')) {
             return '';
@@ -202,7 +214,7 @@ final class FilmParser extends AbstractParser
 
     private function getSynopsis(): string
     {
-        $data = $this->getData(XpathCons::FILM_SYNOPSIS);
+        $data = $this->getData(self::QUERY_FILM_GET_SYNOPSIS);
 
         if (!$this->validateOneResult($data, 'film synopsis')) {
             return '';
@@ -213,7 +225,7 @@ final class FilmParser extends AbstractParser
 
     private function getCoverUrl(): string
     {
-        $data = $this->getData(XpathCons::FILM_COVER, false);
+        $data = $this->getData(self::QUERY_FILM_GET_COVER, false);
 
         if ($data->length === 0) {
             $this->logger->warning('Film cover URL not found');
@@ -225,7 +237,7 @@ final class FilmParser extends AbstractParser
 
     private function getCoverFile(): string
     {
-        $data = $this->getData(XpathCons::FILM_COVER, false);
+        $data = $this->getData(self::QUERY_FILM_GET_COVER, false);
 
         if ($data->length === 0) {
             $this->logger->warning('Film cover file not found');

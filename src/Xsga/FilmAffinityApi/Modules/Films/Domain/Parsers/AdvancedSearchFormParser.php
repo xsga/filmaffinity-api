@@ -9,12 +9,15 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
 
 final class AdvancedSearchFormParser extends AbstractParser
 {
+    private const QUERY_ADV_SEARCH_FORM_GET_GENRES = "//option[not(@data-content)]";
+    private const QUERY_ADV_SEARCH_FORM_GET_COUNTRIES = "//option[@data-class = 'flag-wrapper']";
+
     /**
      * @return Genre[]
      */
     public function getGenres(): array
     {
-        $xpathResults = $this->getData(XpathCons::GENRES_FORM, false);
+        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_FORM_GET_GENRES, false);
 
         $out = [];
 
@@ -38,7 +41,7 @@ final class AdvancedSearchFormParser extends AbstractParser
      */
     public function getCountries(): array
     {
-        $xpathResults = $this->getData(XpathCons::COUNTRIES_FORM, false);
+        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_FORM_GET_COUNTRIES, false);
 
         $out = [];
 
