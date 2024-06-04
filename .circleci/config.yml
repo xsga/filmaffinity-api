@@ -30,4 +30,4 @@ jobs:
           command: composer analyze-errors
       - run:
           name: PHPLOC info
-          command: php phploc.phar --exclude Src/Log4Php Src
+          command: php phploc.phar --exclude src/Log4Php src
