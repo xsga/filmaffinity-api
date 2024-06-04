@@ -1,0 +1,33 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: cimg/php:8.3.6
+      
+    steps:
+      - checkout
+      - run:
+          name: System update
+          command: sudo apt update
+      - run:
+          name: System upgrade
+          command: sudo apt upgrade
+      - run:
+          name: Get PHPLOC
+          command: wget https://phar.phpunit.de/phploc.phar
+      - run:
+          name: Composer install
+          command: composer install -n --prefer-dist --ignore-platform-reqs
+      - run:
+          name: Project environment settings
+          command: mv config/.env.example config/.env
+      - run:
+          name: Lint validation
+          command: composer lint
+      - run:
+          name: Analyze errors
+          command: composer analyze-errors
+      - run:
+          name: PHPLOC info
+          command: php phploc.phar --exclude Src/Log4Php Src
