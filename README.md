@@ -10,11 +10,12 @@ FilmAffinity-API is a public and non offical API wich allow you to get informati
 
 This API is written in PHP and uses Slim 4 framework.
 
-## Installation
+## Manual installation
 
 Server prerequisites:
 
 * PHP 8.3 or later.
+* PHP libraries `mbstring`,  `zip`, `gd`, `pdo_mysql`, `sockets` and `apcu` installed.
 * Apache's `mod_rewrite` and `mod_headers` modules enabled.
 * Composer
 
@@ -28,12 +29,28 @@ user@server:~# chmod 777 -R log
 user@server:~# chmod 777 -R tmp
 user@server:~# chmod 777 -R data
 ```
-* Run `composer` to install the project dependencies:
+* Run `composer install` to install the project dependencies:
 ```
 user@server:~# composer install
 ```
 * Rename `config/.env.example` to `config/.env` to activates environment settings.
-* Setup API settings in `config/.env` file.
+* Setup API settings edditing `config/.env` file.
+* Create a MySQL database and run scripts under folder `scripts` to create database structure.
+* Create a user using command `app:create-user`:
+```
+user@server:~# php .bin/console app:create-user
+```
+
+## Docker compose installation
+
+Run `docker compose` to star Docker container and inits system.
+```
+local:~# docker compose up -d
+```
+* Create a user using command `app:create-user`:
+```
+local:~# docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
+```
 
 ## API Public methods
 The API has the following public methods:
