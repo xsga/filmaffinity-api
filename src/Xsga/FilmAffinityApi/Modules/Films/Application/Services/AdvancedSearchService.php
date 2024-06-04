@@ -12,23 +12,17 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearch
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\CountryNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\GenreNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\InvalidSearchLengthException;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
-use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
 final class AdvancedSearchService
 {
     public function __construct(
         private LoggerInterface $logger,
-        private HttpClientService $httpClientService,
-        private AdvancedSearchParser $parser,
         private GenresRepository $genresRepository,
         private CountriesRepository $countriesRepository,
         private SearchResultsToSearchResultsDto $mapper,
-        private UrlService $urlService,
         private AdvSearchDtoToAdvSearch $advSearchMapper,
         private AdvancedSearchRepository $repository
     ) {

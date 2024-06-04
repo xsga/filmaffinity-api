@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Services;
 
 use Psr\Log\LoggerInterface;
-// TODO: domain object
-use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\AdvancedSearch;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Search;
 
 final class UrlService
 {
@@ -28,9 +27,9 @@ final class UrlService
         return $url;
     }
 
-    public function getSearchUrl(SearchDto $searchDto): string
+    public function getSearchUrl(Search $search): string
     {
-        $url = str_replace('{1}', $this->prepareSearchText($searchDto->searchText), $this->searchUrl);
+        $url = str_replace('{1}', $this->prepareSearchText($search->searchText), $this->searchUrl);
 
         $this->logger->debug('Search URL: ' . $url);
 

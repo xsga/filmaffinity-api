@@ -19,7 +19,7 @@ final class SimpleSearchParser extends AbstractParser
     private const QUERY_MULTIPLE_RESULTS_GET_YEAR = "//div[contains(@class, 'ye-w')]";
     private const QUERY_MULTIPLE_RESULTS_GET_ID = "//div[contains(@class, 'movie-card')]";
 
-    public function getSimpleSearchResultsDto(): SearchResults
+    public function getSimpleSearchResults(): SearchResults
     {
         $queyResults = $this->getData(self::QUERY_RESULTS_TYPE, false);
 

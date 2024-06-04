@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories;
 
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\AdvancedSearch;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SearchResults;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;

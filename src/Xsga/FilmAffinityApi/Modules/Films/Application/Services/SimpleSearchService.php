@@ -4,33 +4,24 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
-use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchResultsDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchDtoToSearch;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
-use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\SearchRepository;
 
 final class SimpleSearchService
 {
     public function __construct(
-        private LoggerInterface $logger,
-        private HttpClientService $httpClientService,
-        private SimpleSearchParser $parser,
         private SearchResultsToSearchResultsDto $mapper,
-        private UrlService $urlService
+        private SearchRepository $repository,
+        private SearchDtoToSearch $searchMapper
     ) {
     }
 
     public function search(SearchDto $searchDto): SearchResultsDto
     {
-        $searchUrl   = $this->urlService->getSearchUrl($searchDto);
-        $pageContent = $this->httpClientService->getPageContent($searchUrl);
-
-        $this->parser->init($pageContent);
-
-        $searchResults = $this->parser->getSimpleSearchResultsDto();
+        $searchResults = $this->repository->get($this->searchMapper->convert($searchDto));
 
         return $this->mapper->convert($searchResults);
     }

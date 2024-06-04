@@ -20,11 +20,13 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchReposit
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\SearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityAdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityFilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityGenresRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinitySearchRepository;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Infrastructure\Services\GuzzleHttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\GetSchemaService;
@@ -195,6 +197,7 @@ return [
     GenresRepository::class => DI\create(FilmAffinityGenresRepository::class),
     CountriesRepository::class => DI\create(FilmAffinityCountriesRepository::class),
     AdvancedSearchRepository::class => DI\create(FilmAffinityAdvancedSearchRepository::class),
+    SearchRepository::class => DI\create(FilmAffinitySearchRepository::class),
     
     // --------------------------------------------------------------------------------------------
     // SHARED MODULE.
