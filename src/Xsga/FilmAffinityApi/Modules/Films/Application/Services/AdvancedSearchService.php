@@ -7,11 +7,13 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\AdvancedSearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchResultsDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\AdvSearchDtoToAdvSearch;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\SearchResultsToSearchResultsDto;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\CountryNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\GenreNotFoundException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions\InvalidSearchLengthException;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
@@ -26,7 +28,9 @@ final class AdvancedSearchService
         private GenresRepository $genresRepository,
         private CountriesRepository $countriesRepository,
         private SearchResultsToSearchResultsDto $mapper,
-        private UrlService $urlService
+        private UrlService $urlService,
+        private AdvSearchDtoToAdvSearch $advSearchMapper,
+        private AdvancedSearchRepository $repository
     ) {
     }
 
@@ -36,12 +40,7 @@ final class AdvancedSearchService
         $this->validatesGenre($advancedSearchDto->searchGenre);
         $this->validatesCountry($advancedSearchDto->searchCountry);
 
-        $advancedSearchUrl = $this->urlService->getAdvancedSearchUrl($advancedSearchDto);
-        $pageContent       = $this->httpClientService->getPageContent($advancedSearchUrl);
-
-        $this->parser->init($pageContent);
-
-        $searchResults = $this->parser->getAdvSearchResultsDto();
+        $searchResults = $this->repository->get($this->advSearchMapper->convert($advancedSearchDto));
 
         return $this->mapper->convert($searchResults);
     }

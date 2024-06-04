@@ -6,8 +6,8 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Services;
 
 use Psr\Log\LoggerInterface;
 // TODO: domain object
-use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\AdvancedSearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\AdvancedSearch;
 
 final class UrlService
 {
@@ -47,31 +47,31 @@ final class UrlService
         return $url;
     }
 
-    public function getAdvancedSearchUrl(AdvancedSearchDto $advancedSearchDto): string
+    public function getAdvancedSearchUrl(AdvancedSearch $advancedSearch): string
     {
         $url = $this->advancedSearchUrl;
-        $url = str_replace('{1}', $this->prepareSearchText($advancedSearchDto->searchText), $url);
-        $url = str_replace('{2}', $this->getAdvancedSeartType($advancedSearchDto), $url);
-        $url = str_replace('{3}', $advancedSearchDto->searchCountry, $url);
-        $url = str_replace('{4}', $advancedSearchDto->searchGenre, $url);
-        $url = str_replace('{5}', $advancedSearchDto->searchYearFrom === 0 ? '' : $advancedSearchDto->searchYearFrom, $url);
-        $url = str_replace('{6}', $advancedSearchDto->searchYearTo === 0 ? '' : $advancedSearchDto->searchYearTo, $url);
+        $url = str_replace('{1}', $this->prepareSearchText($advancedSearch->searchText), $url);
+        $url = str_replace('{2}', $this->getAdvancedSeartType($advancedSearch), $url);
+        $url = str_replace('{3}', $advancedSearch->searchCountry, $url);
+        $url = str_replace('{4}', $advancedSearch->searchGenre, $url);
+        $url = str_replace('{5}', $advancedSearch->searchYearFrom === 0 ? '' : $advancedSearch->searchYearFrom, $url);
+        $url = str_replace('{6}', $advancedSearch->searchYearTo === 0 ? '' : $advancedSearch->searchYearTo, $url);
 
         $this->logger->debug('Advanced Search URL: ' . $url);
 
         return $url;
     }
 
-    private function getAdvancedSeartType(AdvancedSearchDto $advancedSearchDto): string
+    private function getAdvancedSeartType(AdvancedSearch $advancedSearch): string
     {
         $searchType  = '';
-        $searchType .= $advancedSearchDto->searchTypeTitle ? '&stype[]=title' : '';
-        $searchType .= $advancedSearchDto->searchTypeDirector ? '&stype[]=director' : '';
-        $searchType .= $advancedSearchDto->searchTypeCast ? '&stype[]=cast' : '';
-        $searchType .= $advancedSearchDto->searchTypeSoundtrack ? '&stype[]=music' : '';
-        $searchType .= $advancedSearchDto->searchTypeScreenplay ? '&stype[]=script' : '';
-        $searchType .= $advancedSearchDto->searchTypePhotography ? '&stype[]=photo' : '';
-        $searchType .= $advancedSearchDto->searchTypeProducer ? '&stype[]=producer' : '';
+        $searchType .= $advancedSearch->searchTypeTitle ? '&stype[]=title' : '';
+        $searchType .= $advancedSearch->searchTypeDirector ? '&stype[]=director' : '';
+        $searchType .= $advancedSearch->searchTypeCast ? '&stype[]=cast' : '';
+        $searchType .= $advancedSearch->searchTypeSoundtrack ? '&stype[]=music' : '';
+        $searchType .= $advancedSearch->searchTypeScreenplay ? '&stype[]=script' : '';
+        $searchType .= $advancedSearch->searchTypePhotography ? '&stype[]=photo' : '';
+        $searchType .= $advancedSearch->searchTypeProducer ? '&stype[]=producer' : '';
 
         if ($searchType === '') {
             $this->logger->warning('No search type found. Set the default search type: title');

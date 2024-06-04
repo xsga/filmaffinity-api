@@ -17,7 +17,7 @@ final class AdvancedSearchParser extends AbstractParser
     private const QUERY_ADV_SEARCH_GET_ID = "//div[contains(@class, 'movie-card')]";
     private const QUERY_ADV_SEARCH_GET_YEAR = "//span[contains(@class, 'mc-year')]";
 
-    public function getAdvSearchResultsDto(): SearchResults
+    public function getAdvSearchResults(): SearchResults
     {
         $out = new SearchResults();
 

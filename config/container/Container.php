@@ -16,10 +16,12 @@ use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
+use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityAdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityFilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityGenresRepository;
@@ -192,6 +194,7 @@ return [
     FilmsRepository::class => DI\create(FilmAffinityFilmsRepository::class),
     GenresRepository::class => DI\create(FilmAffinityGenresRepository::class),
     CountriesRepository::class => DI\create(FilmAffinityCountriesRepository::class),
+    AdvancedSearchRepository::class => DI\create(FilmAffinityAdvancedSearchRepository::class),
     
     // --------------------------------------------------------------------------------------------
     // SHARED MODULE.
