@@ -78,16 +78,16 @@ The API has the following public methods:
 
 System provides some console commands:
 
-|Command|Command name|
+|Command|Command description|
 |-------|------------|
-`app:create-user`|Create user|
-`app:delete-user`|Delete user|
-`app:disable-user`|Disable user|
-`app:enable-user`|Enable user|
-`app:`|Get hashed password|
-`app:get-token`|Get token|
-`app:`|FilmAffinity countries backup|
-`app:`|FilmAffinity genres backup|
+`app:create-user`|Create a new user|
+`app:delete-user`|Delete a user|
+`app:disable-user`|Disable a user|
+`app:enable-user`|Enable a user|
+`app:get-password`|Get hashed password|
+`app:get-token`|Get JWT user token|
+`app:backup-countries`|FilmAffinity countries backup (store in `data/backup` folder)|
+`app:backup-genres`|FilmAffinity genres backup (store in `data/backup` folder)|
 
 To run a command in a docker environment, run the following command locally:
 ```
