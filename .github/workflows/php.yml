@@ -1,10 +1,13 @@
-name: PHP Composer
+name: FilmAffinityAPI build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ master ]
+    branches: [ "master" ]
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -12,32 +15,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, zip, gd, pdo_mysql, sockets
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate Composer configuration
+      run: composer validate --strict
+
+    - name: Get Composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
     - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+        restore-keys: ${{ runner.os }}-composer-
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Install project dependencies
+      run: composer install --prefer-dist --no-progress --ignore-platform-reqs
 
     - name: Prepare config file
       run: cp config/.env.example config/.env
       
     - name: Run PHP Lint
       run: composer lint
+    
+    - name: Analyze code
+      run: composer analyze-errors
     
     #- name: Run test suite
     #  run: composer tests

@@ -1,7 +1,6 @@
 Options +FollowSymLinks
 IndexIgnore */*
 
-# Turn on the RewriteEngine
 RewriteEngine On
 
 Header always set Access-Control-Allow-Origin "*"

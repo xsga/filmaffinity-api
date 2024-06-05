@@ -1,0 +1,236 @@
+[
+    {
+        "code": 2000,
+        "http": 500,
+        "description": {
+            "en": "Error connecting to FilmAffinity website",
+            "spa": "Error conectando a la web de FilmAffinity",
+            "ca": "Error connectant a la web de FilmAffinity"
+        }
+    },
+    {
+        "code": 2001,
+        "http": 500,
+        "description": {
+            "en": "Search text lenght not valid",
+            "spa": "El texto de búsqueda no tiene una longitud válida",
+            "ca": "El text de cerca no té una longitud vàlida"
+        }
+    },
+    {
+        "code": 2002,
+        "http": 500,
+        "description": {
+            "en": "Genre code not valid",
+            "spa": "El codigo de género no es válido",
+            "ca": "El codi de gènere no és vàlid"
+        }
+    },
+    {
+        "code": 2003,
+        "http": 500,
+        "description": {
+            "en": "Country code not valid",
+            "spa": "El codigo de país no es válido",
+            "ca": "El codi de país no és vàlid"
+        }
+    },
+    {
+        "code": 1000,
+        "http": 500,
+        "description": {
+            "en": "Internal system error",
+            "spa": "Error interno del servidor",
+            "ca": "Error intern del servidor"
+        }
+    },
+    {
+        "code": 1002,
+        "http": 400,
+        "description": {
+            "en": "Error validating authorization header, empty header",
+            "spa": "Error al validar la cabecera de autorización, cabecera vacía",
+            "ca": "Error al validar la capçalera d'autorització, capçalera buida"
+        }
+    },
+    {
+        "code": 1003,
+        "http": 405,
+        "description": {
+            "en": "HTTP request method not valid",
+            "spa": "El método de la petición HTTP no es válido",
+            "ca": "El mètode de la petició HTTP no és vàlid"
+        }
+    },
+    {
+        "code": 1004,
+        "http": 404,
+        "description": {
+            "en": "API resource not found",
+            "spa": "Recurso de la API no encontrado",
+            "ca": "Recurs de la API no trobat"
+        }
+    },
+    {
+        "code": 1005,
+        "http": 404,
+        "description": {
+            "en": "User '{1}' doesn't exist in the system",
+            "spa": "El usuario '{1}' no existe en el sistema",
+            "ca": "L'usuari '{1}' no existeix en el sistema"
+        }
+    },
+    {
+        "code": 1006,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is not active",
+            "spa": "El usuario '{1}' no está activo",
+            "ca": "L'usuari '{1}' no està actiu"
+        }
+    },
+    {
+        "code": 1007,
+        "http": 500,
+        "description": {
+            "en": "User name or password incorrects",
+            "spa": "Nombre de usuario o contrasenya incorrectos",
+            "ca": "Nom d'usuari o contrassenya incorrectes"
+        }
+    },
+    {
+        "code": 1008,
+        "http": 500,
+        "description": {
+            "en": "Error applying application security",
+            "spa": "Error aplicando la seguridad de la aplicación",
+            "ca": "Error aplicant la seguretat de l'aplicació"
+        }
+    },
+    {
+        "code": 1009,
+        "http": 500,
+        "description": {
+            "en": "The 'getToken' resource is not available. API security type must be 'token'",
+            "spa": "El recurso 'getToken' no està disponible. El tipo de seguridad de la API debe ser 'token'",
+            "ca": "El recurs 'getToken' no está disponible. El tipus de seguretat de la API ha de ser 'token'"
+        }
+    },
+    {
+        "code": 1010,
+        "http": 400,
+        "description": {
+            "en": "Error validating request body against schema '{1}'",
+            "spa": "Error validando el cuerpo de la petición contra el esquema '{1}'",
+            "ca": "Error validant el cos de la petició contra l'esquema '{1}'"
+        }
+    },
+    {
+        "code": 1011,
+        "http": 404,
+        "description": {
+            "en": "JSON schema '{1}' not found or it's empty",
+            "spa": "Esquema JSON '{1}' no encontrado o está vacío",
+            "ca": "Esquema JSON '{1}' no trobat o està buit"
+        }
+    },
+    {
+        "code": 1012,
+        "http": 500,
+        "description": {
+            "en": "Error updating user '{1}'",
+            "spa": "Error actualizando el usuario '{1}'",
+            "ca": "Error actualitzant l'usuari '{1}'"
+        }
+    },
+    {
+        "code": 1013,
+        "http": 500,
+        "description": {
+            "en": "Error creating user '{1}'",
+            "spa": "Error creando el usuario '{1}'",
+            "ca": "Error creant l'usuari '{1}'"
+        }
+    },
+    {
+        "code": 1015,
+        "http": 500,
+        "description": {
+            "en": "User password has not a valid format",
+            "spa": "La contraseña del usuario no tiene un formato válido",
+            "ca": "La contrasenya de l'usuari no té un format vàlid"
+        }
+    },
+    {
+        "code": 1016,
+        "http": 500,
+        "description": {
+            "en": "Email '{1}' has not a valid format",
+            "spa": "El correo electronico '{1}' no tiene un formato válido",
+            "ca": "El correu electrònic '{1}' no té un format vàlid"
+        }
+    },
+    {
+        "code": 1018,
+        "http": 500,
+        "description": {
+            "en": "User name '{1}' has not a valid format",
+            "spa": "El nombre de usuario '{1}' no tiene un formato válido",
+            "ca": "El nom d'usuari '{1}' no té un format vàlid"
+        }
+    },
+    {
+        "code": 1021,
+        "http": 500,
+        "description": {
+            "en": "Error getting the route contex on Slim middleware",
+            "spa": "Error obteniendo el contexto de la ruta en el middleware de Slim",
+            "ca": "Error obtenint el context de la ruta en el middleware de Slim"
+        }
+    },
+    {
+        "code": 1022,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' already exists",
+            "spa": "El usuario '{1}' ya existe",
+            "ca": "L'usuari '{1}' ja existeix"
+        }
+    },
+    {
+        "code": 1023,
+        "http": 404,
+        "description": {
+            "en": "Error with code '{1}' not found",
+            "spa": "Error con código '{1}' no encontrado",
+            "ca": "Error amb codi '{1}' no trobat"
+        }
+    },
+    {
+        "code": 1050,
+        "http": 500,
+        "description": {
+            "en": "Code '{1}' has not a valid length",
+            "spa": "El código '{1}' no tiene una longitud válida",
+            "ca": "El codi '{1}' no té una longitud vàlida"
+        }
+    },
+    {
+        "code": 1051,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is already disabled",
+            "spa": "El usuario '{1}' ya está deshabilitado",
+            "ca": "L'usuari '{1}' ja està deshabilitat"
+        }
+    },
+    {
+        "code": 1052,
+        "http": 500,
+        "description": {
+            "en": "User '{1}' is already enabled",
+            "spa": "El usuario '{1}' ya está habilitado",
+            "ca": "L'usuari '{1}' ja està habilitat"
+        }
+    }
+]

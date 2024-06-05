@@ -1,0 +1,5 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/php:8.3",
+    "features": {
+    }
+  }

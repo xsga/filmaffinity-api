@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "array",
+    "title": "Genres",
+    "additionalItems": true,
+    "items": {
+        "$id": "#/items",
+        "anyOf": [
+            {
+                "$id": "#/items/anyOf/0",
+                "type": "object",
+                "title": "The first anyOf schema",
+                "required": [
+                    "code",
+                    "description"
+                ],
+                "properties": {
+                    "code": {
+                        "$id": "#/items/anyOf/0/properties/code",
+                        "type": "string",
+                        "title": "Genre"
+                    },
+                    "description": {
+                        "$id": "#/items/anyOf/0/properties/description",
+                        "type": "string",
+                        "title": "Genre description"
+                    }
+                },
+                "additionalProperties": false
+            }
+        ]
+    }
+}

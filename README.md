@@ -1,69 +1,118 @@
 # filmaffinity-API
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v5.0.0)
-[![Workflow Status](https://img.shields.io/github/workflow/status/xsga/filmaffinity-api/PHP%20Composer)](https://github.com/xsga/filmaffinity-api/actions?query=workflow%3A%22PHP+Composer%22)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v6.0.0)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
 
 This API is written in PHP and uses Slim 4 framework.
 
-## Installation
 
-Server prerequisites:
+## Install with Docker Compose
 
-* PHP 8.0 or later.
+Prerequisites:
+
+* Docker.
+* Docker Desktop (optional)
+
+Instructions:
+
+* Run `docker compose` to star Docker container and inits system.
+```
+docker compose up -d
+```
+* Create a user using command `app:create-user`:
+```
+docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
+```
+
+
+## Manual installation
+
+Prerequisites:
+
+* PHP 8.3 or later.
+* PHP libraries `mbstring`,  `zip`, `gd`, `pdo_mysql`, `sockets` and `apcu` installed.
 * Apache's `mod_rewrite` and `mod_headers` modules enabled.
 * Composer
 
-Install instructions:
+Instructions:
 
 * Unzip the API files in an empty folder in your server.
 * Make sure that the HTTP shared folder match with the API `public` folder.
-* `log` folder needs read and write permissions:
+* `log`, `tmp` and `data` folders and subfolders needs read and write permissions:
 ```
-user@server:~# chmod 777 -R log
+chmod 777 -R log
+chmod 777 -R tmp
+chmod 777 -R data
 ```
-* Run `composer` to install the project dependencies:
+* Run `composer install` to install the project dependencies:
 ```
-user@server:~# composer install
+composer install
 ```
 * Rename `config/.env.example` to `config/.env` to activates environment settings.
-* Setup API settings in `config/.env` file.
+* Setup API settings edditing `config/.env` file.
+* Create a MySQL database and run scripts under folder `scripts` to create database structure.
+* Create a user using command `app:create-user`:
+```
+php .bin/console app:create-user
+```
 
-## API Public methods
+
+## API public methods
+
 The API has the following public methods:
 
-* Search films.
-* Advanced search films.
-* Get film information.
-* Get genres.
-* Get countries.
+|Method name|HTTP method|API endpoint|Body|
+|-----------|-----------|------------|----|
+|Simple films search|POST|searches/simple|Y|
+|Advanced films search|POST|searches/advanced|Y|
+|Get film information|GET|films/:id|URL parameter (:id)|
+|Get genres|GET|genres|-|
+|Get countries|GET|countries|-|
 
 
-|Method name|API endpoint|HTTP method|Input|
-|-----------|------------|-----------|-----|
-|Search films|search/simple|POST|[Simple Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/simple.search.schema.json)|
-|Advanced search films|search/advanced|POST|[Advanced Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/advanced.search.schema.json)|
-|Get film|films/:id|GET|URL parameter (:id)|
-|Get genres|genres|GET|-|
-|Get countries|countries|GET|-|
+## Console commands
 
-## Basic usage
+System provides some Symfony console commands:
 
-### Simple search
+|Command|Command description|
+|-------|------------|
+`app:create-user`|Create a new user|
+`app:delete-user`|Delete a user|
+`app:disable-user`|Disable a user|
+`app:enable-user`|Enable a user|
+`app:get-password`|Get hashed password|
+`app:get-token`|Get JWT user token|
+`app:backup-countries`|FilmAffinity countries backup (store in `data/backup` folder)|
+`app:backup-genres`|FilmAffinity genres backup (store in `data/backup` folder)|
+
+To executes a command, run the following command:
 ```
-http://<server_domain_api>/search/simple
+php .bin/console <COMMAND>
 ```
 
-INPUT
+In a docker environment, execute it into container:
+```
+docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
+```
+
+## API basic usage examples
+
+### Simple films search
+**URL**
+```
+[GET] http://<server_domain_api>/searches/simple
+```
+
+**INPUT**
 ```json
 {"text": "pulp fiction"}
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -84,12 +133,13 @@ OUTPUT
 }
 ```
 
-### Advanced search
+### Advanced films search
+**URL**
 ```
-http://<server_domain_api>/search/advanced
+[POST] http://<server_domain_api>/searches/advanced
 ```
 
-INPUT
+**INPUT**
 ```json
 {
   "text": "pulp fiction",
@@ -98,7 +148,7 @@ INPUT
 }
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -116,11 +166,12 @@ OUTPUT
 ```
 
 ### Get film information
+**URL**
 ```
-http://<server_domain_api>/films/160882
+[GET] http://<server_domain_api>/films/160882
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -148,12 +199,12 @@ OUTPUT
 ```
 
 ### Get genres
-
+**URL**
 ```
-http://<server_domain_api>/genres
+[GET] http://<server_domain_api>/genres
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -180,12 +231,12 @@ OUTPUT
 ```
 
 ### Get countries
-
+**URL**
 ```
-http://<server_domain_api>/countries
+[GET] http://<server_domain_api>/countries
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
