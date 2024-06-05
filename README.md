@@ -10,65 +10,77 @@ FilmAffinity-API is a public and non offical API wich allow you to get informati
 
 This API is written in PHP and uses Slim 4 framework.
 
+
+## Install with Docker Compose
+
+Prerequisites:
+
+* Docker.
+* Docker Desktop (optional)
+
+Instructions:
+
+* Run `docker compose` to star Docker container and inits system.
+```
+docker compose up -d
+```
+* Create a user using command `app:create-user`:
+```
+docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
+```
+
+
 ## Manual installation
 
-Server prerequisites:
+Prerequisites:
 
 * PHP 8.3 or later.
 * PHP libraries `mbstring`,  `zip`, `gd`, `pdo_mysql`, `sockets` and `apcu` installed.
 * Apache's `mod_rewrite` and `mod_headers` modules enabled.
 * Composer
 
-Install instructions:
+Instructions:
 
 * Unzip the API files in an empty folder in your server.
 * Make sure that the HTTP shared folder match with the API `public` folder.
 * `log`, `tmp` and `data` folders and subfolders needs read and write permissions:
 ```
-user@server:~# chmod 777 -R log
-user@server:~# chmod 777 -R tmp
-user@server:~# chmod 777 -R data
+chmod 777 -R log
+chmod 777 -R tmp
+chmod 777 -R data
 ```
 * Run `composer install` to install the project dependencies:
 ```
-user@server:~# composer install
+composer install
 ```
 * Rename `config/.env.example` to `config/.env` to activates environment settings.
 * Setup API settings edditing `config/.env` file.
 * Create a MySQL database and run scripts under folder `scripts` to create database structure.
 * Create a user using command `app:create-user`:
 ```
-user@server:~# php .bin/console app:create-user
+php .bin/console app:create-user
 ```
 
-## Docker compose installation
 
-Run `docker compose` to star Docker container and inits system.
-```
-local:~# docker compose up -d
-```
-* Create a user using command `app:create-user`:
-```
-local:~# docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
-```
 
 ## API Public methods
 The API has the following public methods:
 
-* Search films.
-* Advanced search films.
+* Simple films search.
+* Advanced films search.
 * Get film information.
 * Get genres.
 * Get countries.
 
 
-|Method name|API endpoint|HTTP method|Input|
-|-----------|------------|-----------|-----|
-|Search films|searches/simple|POST|[Simple Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/simple.search.schema.json)|
-|Advanced search films|searches/advanced|POST|[Advanced Search JSON](https://github.com/xsga/filmaffinity-api/blob/master/src/Xsga/FilmAffinityApi/Resources/Schemas/Api/Input/advanced.search.schema.json)|
-|Get film|films/:id|GET|URL parameter (:id)|
-|Get genres|genres|GET|-|
-|Get countries|countries|GET|-|
+
+|Method name|HTTP method|API endpoint|Body|
+|-----------|-----------|------------|----|
+|Simple films search|POST|searches/simple|Y|
+|Advanced films search|POST|searches/advanced|Y|
+|Get film information|GET|films/:id|URL parameter (:id)|
+|Get genres|GET|genres|-|
+|Get countries|GET|countries|-|
 
 ## Basic usage
 
