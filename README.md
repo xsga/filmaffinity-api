@@ -94,7 +94,7 @@ To executes a command, run the following command:
 php .bin/console <COMMAND>
 ```
 
-In a non environment, execute it into container:
+In a docker environment, execute it into container:
 ```
 docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```
