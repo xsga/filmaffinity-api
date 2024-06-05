@@ -76,7 +76,7 @@ The API has the following public methods:
 
 ## Console commands
 
-System provides some console commands:
+System provides some Symfony console commands:
 
 |Command|Command description|
 |-------|------------|
@@ -89,14 +89,14 @@ System provides some console commands:
 `app:backup-countries`|FilmAffinity countries backup (store in `data/backup` folder)|
 `app:backup-genres`|FilmAffinity genres backup (store in `data/backup` folder)|
 
-To run a command in a docker environment, run the following command locally:
-```
-docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
-```
-
-To run a command in a non docker environment, run the following command:
+To executes a command, run the following command:
 ```
 php .bin/console <COMMAND>
+```
+
+In a non environment, execute it into container:
+```
+docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```
 
 ## API basic usage examples
