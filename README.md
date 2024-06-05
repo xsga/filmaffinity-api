@@ -1,9 +1,8 @@
 # filmaffinity-API
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF?style=flat)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
 [![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v6.0.0)
-[![Workflow Status](https://img.shields.io/github/workflow/status/xsga/filmaffinity-api/PHP%20Composer)](https://github.com/xsga/filmaffinity-api/actions?query=workflow%3A%22PHP+Composer%22)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
@@ -62,17 +61,9 @@ php .bin/console app:create-user
 ```
 
 
+## API public methods
 
-## API Public methods
 The API has the following public methods:
-
-* Simple films search.
-* Advanced films search.
-* Get film information.
-* Get genres.
-* Get countries.
-
-
 
 |Method name|HTTP method|API endpoint|Body|
 |-----------|-----------|------------|----|
@@ -82,19 +73,46 @@ The API has the following public methods:
 |Get genres|GET|genres|-|
 |Get countries|GET|countries|-|
 
-## Basic usage
 
-### Simple search
+## Console commands
+
+System provides some console commands:
+
+|Command|Command name|
+|-------|------------|
+`app:create-user`|Create user|
+`app:delete-user`|Delete user|
+`app:disable-user`|Disable user|
+`app:enable-user`|Enable user|
+`app:`|Get hashed password|
+`app:get-token`|Get token|
+`app:`|FilmAffinity countries backup|
+`app:`|FilmAffinity genres backup|
+
+To run a command in a docker environment, run the following command locally:
 ```
-http://<server_domain_api>/searches/simple
+docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```
 
-INPUT
+To run a command in a non docker environment, run the following command:
+```
+php .bin/console <COMMAND>
+```
+
+## API basic usage examples
+
+### Simple films search
+**URL**
+```
+[GET] http://<server_domain_api>/searches/simple
+```
+
+**INPUT**
 ```json
 {"text": "pulp fiction"}
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -115,12 +133,13 @@ OUTPUT
 }
 ```
 
-### Advanced search
+### Advanced films search
+**URL**
 ```
-http://<server_domain_api>/searches/advanced
+[POST] http://<server_domain_api>/searches/advanced
 ```
 
-INPUT
+**INPUT**
 ```json
 {
   "text": "pulp fiction",
@@ -129,7 +148,7 @@ INPUT
 }
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -147,11 +166,12 @@ OUTPUT
 ```
 
 ### Get film information
+**URL**
 ```
-http://<server_domain_api>/films/160882
+[GET] http://<server_domain_api>/films/160882
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -179,12 +199,12 @@ OUTPUT
 ```
 
 ### Get genres
-
+**URL**
 ```
-http://<server_domain_api>/genres
+[GET] http://<server_domain_api>/genres
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
@@ -211,12 +231,12 @@ OUTPUT
 ```
 
 ### Get countries
-
+**URL**
 ```
-http://<server_domain_api>/countries
+[GET] http://<server_domain_api>/countries
 ```
 
-OUTPUT
+**OUTPUT**
 ```json
 {
   "status": "OK",
