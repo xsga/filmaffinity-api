@@ -23,7 +23,6 @@ $console   = $container->get(Application::class);
 $logger    = $container->get(LoggerInterface::class);
 
 $console->add($container->get(CreateUserCommand::class));
-//$console->add($container->get(ChangeUserStatusCommand::class));
 $console->add($container->get(BackupGenresCommand::class));
 $console->add($container->get(BackupCountriesCommand::class));
 $console->add($container->get(EnableUserCommand::class));
