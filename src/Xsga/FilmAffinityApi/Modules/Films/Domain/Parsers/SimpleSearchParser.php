@@ -24,7 +24,8 @@ final class SimpleSearchParser extends AbstractParser
         $queyResults = $this->getData(self::QUERY_RESULTS_TYPE, false);
 
         $searchResults = match (
-            ($queyResults->length > 0) && ($queyResults->item(0)->getAttribute('content') !== 'FilmAffinity')
+            ($queyResults->length > 0) && 
+            ($queyResults->item(0)->attributes->getNamedItem('content')->nodeValue !== 'FilmAffinity')
         ) {
             true => $this->simpleSearchSingleResult($queyResults),
             false => $this->simpleSearchMultipleResults()
@@ -39,8 +40,8 @@ final class SimpleSearchParser extends AbstractParser
     {
         $idSearch = $this->getData(self::QUERY_SINGLE_RESULT_GET_ID, false);
 
-        $idArray = explode('/', $idSearch->item(0)->getAttribute('content'));
-        $title   = $data->item(0)->getAttribute('content');
+        $idArray = explode('/', $idSearch->item(0)->attributes->getNamedItem('content')->nodeValue);
+        $title   = $data->item(0)->attributes->getNamedItem('content')->nodeValue;
 
         $searchResult        = new SingleSearchResult();
         $searchResult->id    = (int)trim(str_replace('film', '', str_replace('.html', '', end($idArray))));
@@ -102,6 +103,6 @@ final class SimpleSearchParser extends AbstractParser
     {
         $idResult  = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_ID);
 
-        return (int)trim($idResult->item(0)->getAttribute('data-movie-id'));
+        return (int)trim($idResult->item(0)->attributes->getNamedItem('data-movie-id')->nodeValue);
     }
 }

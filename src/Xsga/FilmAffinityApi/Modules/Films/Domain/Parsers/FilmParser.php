@@ -233,11 +233,8 @@ final class FilmParser extends AbstractParser
             $this->logger->warning('Film cover URL not found');
             return '';
         }
-
-        $xpath = new DOMXPath(new DOMDocument());
-        $href  = $xpath->evaluate("string(./a/@href)", $data->item(0));
-
-        return trim($href);
+        
+        return trim($data->item(0)->attributes->getNamedItem('href')->nodeValue);
     }
 
     private function getCoverFile(): string
@@ -249,10 +246,7 @@ final class FilmParser extends AbstractParser
             return '';
         }
 
-        $xpath = new DOMXPath(new DOMDocument());
-        $href  = $xpath->evaluate("string(./a/@href)", $data->item(0));
-
-        $coverUrl      = trim($href);
+        $coverUrl      = trim($data->item(0)->attributes->getNamedItem('href')->nodeValue);
         $coverUrlArray = explode('/', $coverUrl);
         $coverFile     = end($coverUrlArray);
 
