@@ -16,7 +16,7 @@ use Xsga\FilmAffinityApi\Modules\Users\Application\Services\GetTokenService;
     name: 'app:get-token',
     description: 'Creates a new token.',
     hidden: false,
-    aliases: ['app:get-password']
+    aliases: ['app:get-token']
 )]
 final class GetTokenCommand extends Command
 {
@@ -52,7 +52,7 @@ final class GetTokenCommand extends Command
 
         $this->display->newLine();
         $this->display->text($token);
-        $this->display->success("Hashed password created successfully");
+        $this->display->success("Token created successfully");
 
         return Command::SUCCESS;
     }
