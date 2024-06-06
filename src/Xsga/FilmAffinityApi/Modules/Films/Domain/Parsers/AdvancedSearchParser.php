@@ -61,7 +61,7 @@ final class AdvancedSearchParser extends AbstractParser
     private function getFilmId(DOMXPath $domXpath): int
     {
         $idResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_ID);
-        $id       = $idResult->item(0)->attributes->getNamedItem('data-movie-id')->nodeValue;
+        $id       = $idResult->item(0)?->attributes?->getNamedItem('data-movie-id')?->nodeValue;
 
         return (int)trim($id);
     }
