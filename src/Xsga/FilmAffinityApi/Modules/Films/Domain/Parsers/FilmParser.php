@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
+use DOMDocument;
+use DOMXPath;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 
 final class FilmParser extends AbstractParser
@@ -134,7 +136,7 @@ final class FilmParser extends AbstractParser
         $data = $this->getData(self::QUERY_FILM_GET_PRODUCERS);
 
         if (!$this->validateMultipleResult($data, 'film producers')) {
-            return [];
+            return '';
         }
 
         return implode(' ', $data);
@@ -232,7 +234,10 @@ final class FilmParser extends AbstractParser
             return '';
         }
 
-        return trim($data->item(0)->getAttribute('href'));
+        $xpath = new DOMXPath(new DOMDocument());
+        $href  = $xpath->evaluate("string(./a/@href)", $data->item(0));
+
+        return trim($href);
     }
 
     private function getCoverFile(): string
@@ -244,7 +249,10 @@ final class FilmParser extends AbstractParser
             return '';
         }
 
-        $coverUrl      = trim($data->item(0)->getAttribute('href'));
+        $xpath = new DOMXPath(new DOMDocument());
+        $href  = $xpath->evaluate("string(./a/@href)", $data->item(0));
+
+        $coverUrl      = trim($href);
         $coverUrlArray = explode('/', $coverUrl);
         $coverFile     = end($coverUrlArray);
 
