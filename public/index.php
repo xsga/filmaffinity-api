@@ -12,10 +12,8 @@ $requestId = uniqid();
 bootstrap();
 
 $container = getDIContainer();
-$logger    = $container->get(LoggerInterface::class);
 $slimApp   = getSlimApp($container, filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN), $_ENV['URL_PATH']);
-
-getRoutes($slimApp);
+$logger    = $container->get(LoggerInterface::class);
 
 $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'METHOD_NOT_FOUND';
 $requestUri    = $_SERVER['REQUEST_URI'] ?? 'URI_NOT_FOUND';
