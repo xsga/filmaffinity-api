@@ -82,26 +82,6 @@ final class DoctrineUsersRepository implements UsersRepository
         }
     }
 
-    public function updateUser(User $user): bool
-    {
-        try {
-            $query = $this->em->createQueryBuilder();
-
-            $query->update(UsersEntity::class, 'u');
-            $query->set('u.name', ':userName');
-            $query->set('u.updateDate', ':userUpdateDate');
-            $query->setParameter(':userName', $user->name());
-            $query->setParameter(':userUpdateDate', $user->updateDate()->format('Y-m-d H:i:s'));
-            $query->where('u.userId = ' . $user->userId());
-            $query->getQuery()->execute();
-
-            return true;
-        } catch (Throwable $exception) {
-            $this->logger->error($exception->__toString());
-            return false;
-        }
-    }
-
     public function updatePassword(User $user): bool
     {
         try {
