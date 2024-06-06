@@ -23,6 +23,12 @@ Instructions:
 ```
 docker compose up -d
 ```
+* Run `composer install` to install the project dependencies:
+```
+composer install
+```
+* Rename `config/.env.example` to `config/.env` to activates environment settings.
+* Setup API settings edditing `config/.env` file.
 * Create a user using command `app:create-user`:
 ```
 docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
