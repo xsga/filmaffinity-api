@@ -67,12 +67,7 @@ final class DoctrineUsersRepository implements UsersRepository
             $this->em->persist($userEntity);
             $this->em->flush();
 
-            $userId = $userEntity->getUserId();
-
-            return match (is_null($userId)) {
-                true => -1,
-                false => $userId
-            };
+            return $userEntity->getUserId() ?? -1;
         } catch (Throwable $exception) {
             $this->logger->error($exception->__toString());
             return match ($exception->getCode()) {

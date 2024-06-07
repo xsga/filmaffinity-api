@@ -75,12 +75,7 @@ final class SecurityMiddleware implements MiddlewareInterface
             throw new RouteContextException($errorMsg, 1021);
         }
 
-        $routeName = $route->getName();
-
-        return match (is_null($routeName)) {
-            false => $routeName,
-            true => ''
-        };
+        return $route->getName() ?? '';
     }
 
     private function isNonSecuredRequest(string $routeName): bool
