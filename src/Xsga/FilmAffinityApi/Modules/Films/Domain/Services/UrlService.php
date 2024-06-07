@@ -53,8 +53,8 @@ final class UrlService
         $url = str_replace('{2}', $this->getAdvancedSeartType($advancedSearch), $url);
         $url = str_replace('{3}', $advancedSearch->searchCountry, $url);
         $url = str_replace('{4}', $advancedSearch->searchGenre, $url);
-        $url = str_replace('{5}', $advancedSearch->searchYearFrom === 0 ? '' : $advancedSearch->searchYearFrom, $url);
-        $url = str_replace('{6}', $advancedSearch->searchYearTo === 0 ? '' : $advancedSearch->searchYearTo, $url);
+        $url = str_replace('{5}', $advancedSearch->searchYearFrom === 0 ? '' : (string)$advancedSearch->searchYearFrom, $url);
+        $url = str_replace('{6}', $advancedSearch->searchYearTo === 0 ? '' : (string)$advancedSearch->searchYearTo, $url);
 
         $this->logger->debug('Advanced Search URL: ' . $url);
 
@@ -72,7 +72,7 @@ final class UrlService
         $searchType .= $advancedSearch->searchTypePhotography ? '&stype[]=photo' : '';
         $searchType .= $advancedSearch->searchTypeProducer ? '&stype[]=producer' : '';
 
-        if ($searchType === '') {
+        if (empty($searchType)) {
             $this->logger->warning('No search type found. Set the default search type: title');
             $searchType = '&stype[]=title';
         }

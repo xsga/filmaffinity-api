@@ -70,6 +70,6 @@ final class AdvancedSearchParser extends AbstractParser
     {
         $yearResult  = $domXpath->query(self::QUERY_ADV_SEARCH_GET_YEAR);
 
-        return $yearResult->item(1)->nodeValue;
+        return $yearResult->item(1)->nodeValue ?? '';
     }
 }

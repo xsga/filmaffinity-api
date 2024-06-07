@@ -12,7 +12,7 @@ $requestId = uniqid();
 bootstrap();
 
 $container = getDIContainer();
-$slimApp   = getSlimApp($container, filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN), $_ENV['URL_PATH']);
+$slimApp   = getSlimApp($container);
 $logger    = $container->get(LoggerInterface::class);
 
 $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'METHOD_NOT_FOUND';
