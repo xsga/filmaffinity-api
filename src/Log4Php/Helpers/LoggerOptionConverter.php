@@ -54,7 +54,7 @@ class LoggerOptionConverter
             return $value;
         }
 
-        if (is_numeric($value) && ($value === (int)$value)) {
+        if (is_numeric($value)) {
             return (int)$value;
         }
 
@@ -67,8 +67,8 @@ class LoggerOptionConverter
             return $value;
         }
 
-        if (is_numeric($value) && ($value === (int)$value) && ($value > 0)) {
-            return $value;
+        if (is_numeric($value) && ($value > 0)) {
+            return (int)$value;
         }
 
         $log = 'Given value [' . var_export($value, true) . '] cannot be converted to a positive integer.';

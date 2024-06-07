@@ -7,7 +7,7 @@ use Exception;
 class LoggerLoggingEvent
 {
     private static float $startTime = 0.0;
-    private ?Logger $logger = null;
+    private ?Logger $logger;
     private string $categoryName;
     private ?string $ndc;
     private bool $ndcLookupRequired = true;

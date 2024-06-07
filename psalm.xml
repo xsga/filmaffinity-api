@@ -9,8 +9,6 @@
     <projectFiles>
         <directory name="src/Xsga" />
         <directory name="public" />
-        <ignoreFiles>
-            <directory name="vendor" />
-        </ignoreFiles>
+        <directory name="config" />
     </projectFiles>
 </psalm>
