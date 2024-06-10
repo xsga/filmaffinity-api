@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\Mappers;
+namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Mappers;
 
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
 

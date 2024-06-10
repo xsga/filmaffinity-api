@@ -45,7 +45,7 @@ class FilmToFilmDto
         $out = [];
 
         foreach ($genres as $genre) {
-            $out[] = $genre->name;
+            $out[] = $genre->name();
         }
 
         return $out;

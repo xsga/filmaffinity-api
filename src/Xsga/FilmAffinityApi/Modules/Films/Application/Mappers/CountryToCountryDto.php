@@ -13,8 +13,8 @@ class CountryToCountryDto
     {
         $countryDto = new CountryDto();
 
-        $countryDto->code = $country->code;
-        $countryDto->name = $country->name;
+        $countryDto->code = $country->code();
+        $countryDto->name = $country->name();
 
         return $countryDto;
     }

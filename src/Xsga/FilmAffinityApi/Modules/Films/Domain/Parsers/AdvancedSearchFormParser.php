@@ -26,9 +26,10 @@ final class AdvancedSearchFormParser extends AbstractParser
                 continue;
             }
 
-            $genre = new Genre();
-            $genre->code = $element->getAttribute('value');
-            $genre->description = trim($element->nodeValue);
+            $genre = new Genre(
+                $element->getAttribute('value'),
+                trim($element->nodeValue)
+            );
 
             $out[] = $genre;
         }
@@ -46,10 +47,11 @@ final class AdvancedSearchFormParser extends AbstractParser
         $out = [];
 
         foreach ($xpathResults as $element) {
-            $country = new Country();
-            $country->code = $element->getAttribute('value');
-            $country->name = trim($element->nodeValue);
-
+            $country = new Country(
+                $element->getAttribute('value'),
+                trim($element->nodeValue)
+            );
+            
             $out[] = $country;
         }
         

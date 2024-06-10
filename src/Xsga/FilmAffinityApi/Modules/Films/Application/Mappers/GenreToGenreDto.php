@@ -13,8 +13,8 @@ class GenreToGenreDto
     {
         $genreDto = new GenreDto();
 
-        $genreDto->code        = $genre->code;
-        $genreDto->description = $genre->description;
+        $genreDto->code = $genre->code();
+        $genreDto->name = $genre->name();
 
         return $genreDto;
     }

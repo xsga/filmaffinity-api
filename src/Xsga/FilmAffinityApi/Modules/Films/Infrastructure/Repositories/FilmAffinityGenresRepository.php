@@ -44,7 +44,7 @@ final class FilmAffinityGenresRepository implements GenresRepository
     public function get(string $code): ?Genre
     {
         foreach ($this->getAll() as $genre) {
-            if (strtoupper($genre->code) === strtoupper($code)) {
+            if (strtoupper($genre->code()) === strtoupper($code)) {
                 return $genre;
             }
         }

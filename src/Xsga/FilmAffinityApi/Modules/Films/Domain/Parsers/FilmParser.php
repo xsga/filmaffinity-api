@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
-use DOMDocument;
 use DOMNode;
-use DOMXPath;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\GenreTopic;
@@ -165,11 +163,12 @@ final class FilmParser extends AbstractParser
 
     private function getGenre(DOMNode $item): Genre
     {
-        $url = trim($item?->attributes?->getNamedItem('href')?->nodeValue);
+        $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
             
-        $genre = new Genre();
-        $genre->code   = substr($url, strpos($url, 'genre=') + 6, strpos($url, '&') - strpos($url, 'genre=') - 6);
-        $genre->name   = trim($item?->nodeValue);
+        $genre = new Genre(
+            substr($url, strpos($url, 'genre=') + 6, strpos($url, '&') - strpos($url, 'genre=') - 6),
+            trim($item->nodeValue)
+        );
 
         return $genre;
     }
@@ -192,11 +191,11 @@ final class FilmParser extends AbstractParser
 
     private function getGenreTopic(DOMNode $item): GenreTopic
     {
-        $url = trim($item?->attributes?->getNamedItem('href')?->nodeValue);
+        $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
             
         $genreTopic = new GenreTopic();
         $genreTopic->id   = (int)substr($url, strpos($url, 'topic=') + 6, strpos($url, '&') - strpos($url, 'topic=') - 6);
-        $genreTopic->name = trim($item?->nodeValue);
+        $genreTopic->name = trim($item->nodeValue);
 
         return $genreTopic;
     }
