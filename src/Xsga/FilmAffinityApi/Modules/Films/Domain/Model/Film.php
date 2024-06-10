@@ -15,12 +15,17 @@ class Film
     public string $coverFile = '';
     public string $rating = '';
     public string $country = '';
-    public array $directors = [];
     public string $screenplay = '';
     public string $soundtrack = '';
     public string $photography = '';
     public array $cast = [];
     public string $producer = '';
+    public string $synopsis = '';
+    
+    /**
+     * @var Director[]
+     */
+    public array $directors = [];
 
     /**
      * @var Genre[]
@@ -31,6 +36,4 @@ class Film
      * @var GenreTopic[]
      */
     public array $genreTopics = [];
-
-    public string $synopsis = '';
 }
