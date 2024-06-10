@@ -193,10 +193,11 @@ final class FilmParser extends AbstractParser
     {
         $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
             
-        $genreTopic = new GenreTopic();
-        $genreTopic->id   = (int)substr($url, strpos($url, 'topic=') + 6, strpos($url, '&') - strpos($url, 'topic=') - 6);
-        $genreTopic->name = trim($item->nodeValue);
-
+        $genreTopic = new GenreTopic(
+            (int)substr($url, strpos($url, 'topic=') + 6, strpos($url, '&') - strpos($url, 'topic=') - 6),
+            trim($item->nodeValue)
+        );
+        
         return $genreTopic;
     }
 
