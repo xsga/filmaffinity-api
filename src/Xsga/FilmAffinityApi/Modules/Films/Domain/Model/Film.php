@@ -21,6 +21,16 @@ class Film
     public string $photography = '';
     public array $cast = [];
     public string $producer = '';
+
+    /**
+     * @var Genre[]
+     */
     public array $genres = [];
+
+    /**
+     * @var GenreTopic[]
+     */
+    public array $genreTopics = [];
+
     public string $synopsis = '';
 }

@@ -22,5 +22,6 @@ class FilmDto
     public array $cast = [];
     public string $producer = '';
     public array $genres = [];
+    public array $genreTopics = [];
     public string $synopsis = '';
 }

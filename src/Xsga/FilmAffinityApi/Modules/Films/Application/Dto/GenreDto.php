@@ -7,5 +7,5 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Dto;
 class GenreDto
 {
     public string $code = '';
-    public string $description = '';
+    public string $name = '';
 }
