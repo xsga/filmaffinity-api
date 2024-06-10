@@ -9,8 +9,8 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
 
 final class AdvancedSearchFormParser extends AbstractParser
 {
-    private const QUERY_ADV_SEARCH_FORM_GET_GENRES = "//option[not(@data-content)]";
-    private const QUERY_ADV_SEARCH_FORM_GET_COUNTRIES = "//option[@data-class = 'flag-wrapper']";
+    private const string QUERY_ADV_SEARCH_FORM_GET_GENRES = "//option[not(@data-content)]";
+    private const string QUERY_ADV_SEARCH_FORM_GET_COUNTRIES = "//option[@data-class = 'flag-wrapper']";
 
     /**
      * @return Genre[]

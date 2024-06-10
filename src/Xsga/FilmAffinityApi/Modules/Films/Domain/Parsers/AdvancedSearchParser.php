@@ -12,10 +12,10 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class AdvancedSearchParser extends AbstractParser
 {
-    private const QUERY_ADV_SEARCH_DATA = "//div[contains(@class, 'adv-search-item')]";
-    private const QUERY_ADV_SEARCH_GET_TITLE = "//div[@class = 'mc-title']/a";
-    private const QUERY_ADV_SEARCH_GET_ID = "//div[contains(@class, 'movie-card')]";
-    private const QUERY_ADV_SEARCH_GET_YEAR = "//span[contains(@class, 'mc-year')]";
+    private const string QUERY_ADV_SEARCH_DATA = "//div[contains(@class, 'adv-search-item')]";
+    private const string QUERY_ADV_SEARCH_GET_TITLE = "//div[@class = 'mc-title']/a";
+    private const string QUERY_ADV_SEARCH_GET_ID = "//div[contains(@class, 'movie-card')]";
+    private const string QUERY_ADV_SEARCH_GET_YEAR = "//span[contains(@class, 'mc-year')]";
 
     public function getAdvSearchResults(): SearchResults
     {

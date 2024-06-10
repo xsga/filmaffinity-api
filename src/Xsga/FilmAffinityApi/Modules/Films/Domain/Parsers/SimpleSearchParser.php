@@ -12,12 +12,12 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class SimpleSearchParser extends AbstractParser
 {
-    private const QUERY_RESULTS_TYPE = "//meta[@property = 'og:title']";
-    private const QUERY_SINGLE_RESULT_GET_ID = "//meta[@property = 'og:url']";
-    private const QUERY_MULTIPLE_RESULTS_DATA = "//div[contains(@class, 'se-it')]";
-    private const QUERY_MULTIPLE_RESULTS_GET_TITLE = "//div[@class = 'mc-title']/a";
-    private const QUERY_MULTIPLE_RESULTS_GET_YEAR = "//div[contains(@class, 'ye-w')]";
-    private const QUERY_MULTIPLE_RESULTS_GET_ID = "//div[contains(@class, 'movie-card')]";
+    private const string QUERY_RESULTS_TYPE = "//meta[@property = 'og:title']";
+    private const string QUERY_SINGLE_RESULT_GET_ID = "//meta[@property = 'og:url']";
+    private const string QUERY_MULTIPLE_RESULTS_DATA = "//div[contains(@class, 'se-it')]";
+    private const string QUERY_MULTIPLE_RESULTS_GET_TITLE = "//div[@class = 'mc-title']/a";
+    private const string QUERY_MULTIPLE_RESULTS_GET_YEAR = "//div[contains(@class, 'ye-w')]";
+    private const string QUERY_MULTIPLE_RESULTS_GET_ID = "//div[contains(@class, 'movie-card')]";
 
     public function getSimpleSearchResults(): SearchResults
     {

@@ -10,17 +10,17 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 
 final class FilmParser extends AbstractParser
 {
-    private const QUERY_FILM_GET_VARIOUS = "//dd[not(@class) and not(@itemprop)]";
-    private const QUERY_FILM_GET_TITLE = "//h1[@id = 'main-title']/span[@itemprop = 'name']";
-    private const QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
-    private const QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
-    private const QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']//span[@itemprop = 'name']";
-    private const QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']";
-    private const QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
-    private const QUERY_FILM_GET_GENRES = "//dd[@class = 'card-genres']//a";
-    private const QUERY_FILM_GET_RATING = "//div[@id = 'movie-rat-avg']";
-    private const QUERY_FILM_GET_SYNOPSIS = "//dd[@class = '' and @itemprop = 'description']";
-    private const QUERY_FILM_GET_COVER = "//a[@class = 'lightbox']";
+    private const string QUERY_FILM_GET_VARIOUS = "//dd[not(@class) and not(@itemprop)]";
+    private const string QUERY_FILM_GET_TITLE = "//h1[@id = 'main-title']/span[@itemprop = 'name']";
+    private const string QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
+    private const string QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
+    private const string QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']//span[@itemprop = 'name']";
+    private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']";
+    private const string QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
+    private const string QUERY_FILM_GET_GENRES = "//dd[@class = 'card-genres']//a";
+    private const string QUERY_FILM_GET_RATING = "//div[@id = 'movie-rat-avg']";
+    private const string QUERY_FILM_GET_SYNOPSIS = "//dd[@class = '' and @itemprop = 'description']";
+    private const string QUERY_FILM_GET_COVER = "//a[@class = 'lightbox']";
 
     public function getFilm(int $filmId): Film
     {
