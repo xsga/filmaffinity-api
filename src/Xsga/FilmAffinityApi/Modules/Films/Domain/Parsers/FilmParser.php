@@ -6,6 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
 use DOMElement;
 use DOMNode;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Actor;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
@@ -18,7 +19,7 @@ final class FilmParser extends AbstractParser
     private const string QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
     private const string QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
     private const string QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']/a";
-    private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']";
+    private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']/a";
     private const string QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
     private const string QUERY_FILM_GET_GENRES = "//span[@itemprop = 'genre']/a";
     private const string QUERY_FILM_GET_GENRE_TOPICS = "//dd[@class = 'card-genres']/a";
@@ -142,15 +143,32 @@ final class FilmParser extends AbstractParser
         return $director;
     }
 
+    /**
+     * @return Actor[]
+     */
     private function getActors(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_ACTORS);
+        $data = $this->getData(self::QUERY_FILM_GET_ACTORS, false);
 
-        if (!$this->validateMultipleResult($data, 'film actors')) {
-            return [];
+        $out = [];
+
+        foreach ($data as $item) {
+            $out[] = $this->getActor($item);
         }
 
-        return array_map('trim', $data);
+        return $out;
+    }
+
+    private function getActor(DOMElement $item): Actor
+    {
+        $url = trim($item->getAttribute('href'));
+
+        $actor = new Actor(
+            (int)substr($url, strpos($url, 'name-id=') + 8, -1),
+            trim($item->nodeValue)
+        );
+
+        return $actor;
     }
 
     private function getProducers(): string

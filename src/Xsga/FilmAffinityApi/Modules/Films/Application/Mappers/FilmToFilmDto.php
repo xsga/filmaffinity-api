@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Films\Application\Mappers;
 
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\FilmDto;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Actor;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
@@ -29,7 +30,7 @@ class FilmToFilmDto
         $filmDto->screenplay    = $film->screenplay;
         $filmDto->soundtrack    = $film->soundtrack;
         $filmDto->photography   = $film->photography;
-        $filmDto->cast          = $film->cast;
+        $filmDto->cast          = $this->getActors($film->cast);
         $filmDto->producer      = $film->producer;
         $filmDto->genres        = $this->getGenres($film->genres);
         $filmDto->genreTopics   = $this->getGenreTopics($film->genreTopics);
@@ -47,6 +48,20 @@ class FilmToFilmDto
 
         foreach ($directors as $director) {
             $out[] = $director->name();
+        }
+
+        return $out;
+    }
+
+    /**
+     * @param Actor[] $actors
+     */
+    private function getActors(array $actors) : array
+    {
+        $out = [];
+
+        foreach ($actors as $actor) {
+            $out[] = $actor->name();
         }
 
         return $out;

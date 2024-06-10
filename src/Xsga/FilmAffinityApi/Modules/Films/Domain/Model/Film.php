@@ -18,9 +18,13 @@ class Film
     public string $screenplay = '';
     public string $soundtrack = '';
     public string $photography = '';
-    public array $cast = [];
     public string $producer = '';
     public string $synopsis = '';
+
+    /**
+     * @var Actor[]
+     */
+    public array $cast = [];
     
     /**
      * @var Director[]
