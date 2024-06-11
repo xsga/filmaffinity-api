@@ -2,7 +2,7 @@
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v6.0.0)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v6.0.1)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
@@ -198,7 +198,8 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
     "photography": "Andrzej Sekula",
     "cast": ["John Travolta", "Samuel L. Jackson", "Uma Thurman", "Bruce Willis", "Ving Rhames", "Harvey Keitel", "Tim Roth", "Amanda Plummer", "María de Medeiros", "Eric Stoltz", "Rosanna Arquette", "Christopher Walken", "Paul Calderon", "Bronagh Gallagher", "Peter Greene", "Stephen Hibbert", "Angela Jones", "Phil LaMarr", "Robert Ruth", "Julia Sweeney", "Quentin Tarantino", "Frank Whaley", "Duane Whitaker", "Steve Buscemi", "Burr Steers"],
     "producer": "Miramax, Band Apart, Jersey Films. Lawrence Bender",
-    "genres": ["Thriller", "Crimen", "Historias cruzadas", "Película de culto", "Comedia negra"],
+    "genres": ["Thriller"],
+    "genreTopics": ["Crimen", "Historias cruzadas", "Película de culto", "Comedia negra"],
     "synopsis": "Jules y Vincent, dos asesinos a sueldo con no demasiadas luces, trabajan para el gángster Marsellus Wallace. Vincent le confiesa a Jules que Marsellus le ha pedido que cuide de Mia, su atractiva mujer. Jules le recomienda prudencia porque es muy peligroso sobrepasarse con la novia del jefe. Cuando llega la hora de trabajar, ambos deben ponerse \"manos a la obra\". Su misión: recuperar un misterioso maletín."
   }
 }
