@@ -31,14 +31,14 @@ final class FilmAffinityGenresRepository implements GenresRepository
 
         $this->parser->init($pageContent);
 
-        $countries = $this->parser->getGenres();
+        $genres = $this->parser->getGenres();
 
-        if (empty($countries)) {
+        if (empty($genres)) {
             $this->logger->error('Error loading genres from FilmAffinity');
             return [];
         }
 
-        return $countries;
+        return $genres;
     }
 
     public function get(string $code): ?Genre
