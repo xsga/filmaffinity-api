@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
-use DOMElement;
-use DOMNode;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Actor;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Country;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\GenreTopic;
 
 final class FilmParser extends AbstractParser
 {
@@ -21,41 +14,10 @@ final class FilmParser extends AbstractParser
     private const string QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
     private const string QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
     private const string QUERY_FILM_GET_COUNTRY = "//img[@class = 'nflag']";
-    private const string QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']/a";
-    private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']/a";
     private const string QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
-    private const string QUERY_FILM_GET_GENRES = "//span[@itemprop = 'genre']/a";
-    private const string QUERY_FILM_GET_GENRE_TOPICS = "//dd[@class = 'card-genres']/a";
     private const string QUERY_FILM_GET_RATING = "//div[@id = 'movie-rat-avg']";
     private const string QUERY_FILM_GET_SYNOPSIS = "//dd[@class = '' and @itemprop = 'description']";
-    private const string QUERY_FILM_GET_COVER = "//a[@class = 'lightbox']";
-
-    public function getFilm(int $filmId): Film
-    {
-        $film = new Film();
-
-        $film->filmAfinityId = $filmId;
-        $film->title         = $this->getTitle();
-        $film->originalTitle = $this->getOriginalTitle();
-        $film->year          = $this->getYear();
-        $film->duration      = $this->getDuration();
-        $film->country       = $this->getCountry();
-        $film->directors     = $this->getDirectors();
-        $film->screenplay    = $this->getScreenplay();
-        $film->soundtrack    = $this->getSoundtrack();
-        $film->photography   = $this->getPhotography();
-        $film->cast          = $this->getActors();
-        $film->producer      = $this->getProducers();
-        $film->genres        = $this->getGenres();
-        $film->genreTopics   = $this->getGenreTopics();
-        $film->rating        = $this->getRating();
-        $film->synopsis      = $this->getSynopsis();
-        $film->coverUrl      = $this->getCoverUrl();
-        $film->coverFile     = $this->getCoverFile();
-
-        return $film;
-    }
-
+    
     private function validateOneResult(array $results, string $element): bool
     {
         $resultsCount = count($results);
@@ -85,7 +47,7 @@ final class FilmParser extends AbstractParser
         return true;
     }
 
-    private function getTitle(): string
+    public function getTitle(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_TITLE);
 
@@ -96,7 +58,7 @@ final class FilmParser extends AbstractParser
         return trim($data[0]);
     }
 
-    private function getYear(): string
+    public function getYear(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_RELEASE_DATE);
 
@@ -107,7 +69,7 @@ final class FilmParser extends AbstractParser
         return trim($data[0]);
     }
 
-    private function getDuration(): string
+    public function getDuration(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_DURATION);
 
@@ -118,63 +80,7 @@ final class FilmParser extends AbstractParser
         return trim(str_replace('min.', '', $data[0]));
     }
 
-    /**
-     * @return Director[]
-     */
-    private function getDirectors(): array
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_DIRECTORS, false);
-
-        $out = [];
-
-        foreach ($data as $item) {
-            $out[] = $this->getDirector($item);
-        }
-
-        return $out;
-    }
-
-    private function getDirector(DOMElement $item): Director
-    {
-        $url = trim($item->getAttribute('href'));
-
-        $director = new Director(
-            (int)substr($url, strpos($url, 'name-id=') + 8, -1),
-            trim($item->nodeValue)
-        );
-
-        return $director;
-    }
-
-    /**
-     * @return Actor[]
-     */
-    private function getActors(): array
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_ACTORS, false);
-
-        $out = [];
-
-        foreach ($data as $item) {
-            $out[] = $this->getActor($item);
-        }
-
-        return $out;
-    }
-
-    private function getActor(DOMElement $item): Actor
-    {
-        $url = trim($item->getAttribute('href'));
-
-        $actor = new Actor(
-            (int)substr($url, strpos($url, 'name-id=') + 8, -1),
-            trim($item->nodeValue)
-        );
-
-        return $actor;
-    }
-
-    private function getProducers(): string
+    public function getProducers(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_PRODUCERS);
 
@@ -185,63 +91,7 @@ final class FilmParser extends AbstractParser
         return implode(' ', $data);
     }
 
-    /**
-     * @return Genre[]
-     */
-    private function getGenres(): array
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_GENRES, false);
-
-        $out = [];
-
-        foreach ($data as $item) {
-            $out[] = $this->getGenre($item);
-        }
-
-        return $out;
-    }
-
-    private function getGenre(DOMNode $item): Genre
-    {
-        $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
-            
-        $genre = new Genre(
-            substr($url, strpos($url, 'genre=') + 6, strpos($url, '&') - strpos($url, 'genre=') - 6),
-            trim($item->nodeValue)
-        );
-
-        return $genre;
-    }
-
-    /**
-     * @return GenreTopic[]
-     */
-    private function getGenreTopics(): array
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_GENRE_TOPICS, false);
-
-        $out = [];
-
-        foreach ($data as $item) {
-            $out[] = $this->getGenreTopic($item);
-        }
-
-        return $out;
-    }
-
-    private function getGenreTopic(DOMNode $item): GenreTopic
-    {
-        $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
-            
-        $genreTopic = new GenreTopic(
-            (int)substr($url, strpos($url, 'topic=') + 6, strpos($url, '&') - strpos($url, 'topic=') - 6),
-            trim($item->nodeValue)
-        );
-        
-        return $genreTopic;
-    }
-
-    private function getOriginalTitle(): string
+    public function getOriginalTitle(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_ORIGINAL_TITLE);
 
@@ -251,7 +101,7 @@ final class FilmParser extends AbstractParser
         };
     }
 
-    private function getCountry(): Country
+    public function getCountry(): Country
     {
         $data = $this->getData(self::QUERY_FILM_GET_COUNTRY, false);
 
@@ -264,7 +114,7 @@ final class FilmParser extends AbstractParser
         return new Country($countryCode, $data->item(0)->attributes->getNamedItem('alt')->nodeValue);
     }
 
-    private function getScreenplay(): string
+    public function getScreenplay(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
@@ -274,7 +124,7 @@ final class FilmParser extends AbstractParser
         };
     }
 
-    private function getSoundtrack(): string
+    public function getSoundtrack(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
@@ -284,7 +134,7 @@ final class FilmParser extends AbstractParser
         };
     }
 
-    private function getPhotography(): string
+    public function getPhotography(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
@@ -294,7 +144,7 @@ final class FilmParser extends AbstractParser
         };
     }
 
-    private function getRating(): string
+    public function getRating(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_RATING);
 
@@ -305,7 +155,7 @@ final class FilmParser extends AbstractParser
         return trim($data[0]);
     }
 
-    private function getSynopsis(): string
+    public function getSynopsis(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_SYNOPSIS);
 
@@ -314,33 +164,5 @@ final class FilmParser extends AbstractParser
         }
 
         return trim(str_replace('(FILMAFFINITY)', '', $data[0]));
-    }
-
-    private function getCoverUrl(): string
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_COVER, false);
-
-        if ($data->length === 0) {
-            $this->logger->warning('Film cover URL not found');
-            return '';
-        }
-        
-        return trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue);
-    }
-
-    private function getCoverFile(): string
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_COVER, false);
-
-        if ($data->length === 0) {
-            $this->logger->warning('Film cover file not found');
-            return '';
-        }
-
-        $coverUrl      = trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue);
-        $coverUrlArray = explode('/', $coverUrl);
-        $coverFile     = end($coverUrlArray);
-
-        return $coverFile;
     }
 }

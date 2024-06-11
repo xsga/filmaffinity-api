@@ -11,8 +11,6 @@ class Film
     public string $originalTitle = '';
     public string $year = '';
     public string $duration = '';
-    public string $coverUrl = '';
-    public string $coverFile = '';
     public string $rating = '';
     public Country $country;
     public string $screenplay = '';
@@ -20,6 +18,8 @@ class Film
     public string $photography = '';
     public string $producer = '';
     public string $synopsis = '';
+
+    public Cover $cover;
 
     /**
      * @var Actor[]

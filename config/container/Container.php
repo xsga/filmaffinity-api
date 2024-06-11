@@ -18,6 +18,10 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesServi
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCastParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCoverParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmDirectorsParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmGenresParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
@@ -200,7 +204,11 @@ return [
     FilmsRepository::class => DI\create(FilmAffinityFilmsRepository::class)->constructor(
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(FilmParser::class)
+        DI\get(FilmParser::class),
+        DI\get(FilmCastParser::class),
+        DI\get(FilmCoverParser::class),
+        DI\get(FilmDirectorsParser::class),
+        DI\get(FilmGenresParser::class)
     ),
     GenresRepository::class => DI\create(FilmAffinityGenresRepository::class)->constructor(
         DI\get(LoggerInterface::class),

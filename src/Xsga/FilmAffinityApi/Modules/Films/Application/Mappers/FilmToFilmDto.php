@@ -22,8 +22,8 @@ class FilmToFilmDto
         $filmDto->originalTitle = $film->originalTitle;
         $filmDto->year          = $film->year;
         $filmDto->duration      = $film->duration;
-        $filmDto->coverUrl      = $film->coverUrl;
-        $filmDto->coverFile     = $film->coverFile;
+        $filmDto->coverUrl      = $film->cover->url();
+        $filmDto->coverFile     = $film->cover->fileName();
         $filmDto->rating        = $film->rating;
         $filmDto->country       = $film->country->name();
         $filmDto->directors     = $this->getDirectors($film->directors);
