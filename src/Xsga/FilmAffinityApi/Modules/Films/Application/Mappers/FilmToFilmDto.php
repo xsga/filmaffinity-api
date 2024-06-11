@@ -25,7 +25,7 @@ class FilmToFilmDto
         $filmDto->coverUrl      = $film->coverUrl;
         $filmDto->coverFile     = $film->coverFile;
         $filmDto->rating        = $film->rating;
-        $filmDto->country       = $film->country;
+        $filmDto->country       = $film->country->name();
         $filmDto->directors     = $this->getDirectors($film->directors);
         $filmDto->screenplay    = $film->screenplay;
         $filmDto->soundtrack    = $film->soundtrack;

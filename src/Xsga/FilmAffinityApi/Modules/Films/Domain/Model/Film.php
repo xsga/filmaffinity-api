@@ -14,7 +14,7 @@ class Film
     public string $coverUrl = '';
     public string $coverFile = '';
     public string $rating = '';
-    public string $country = '';
+    public Country $country;
     public string $screenplay = '';
     public string $soundtrack = '';
     public string $photography = '';

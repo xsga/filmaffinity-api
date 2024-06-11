@@ -7,6 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 use DOMElement;
 use DOMNode;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Actor;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Country;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
@@ -14,10 +15,12 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\GenreTopic;
 
 final class FilmParser extends AbstractParser
 {
-    private const string QUERY_FILM_GET_VARIOUS = "//dd[not(@class) and not(@itemprop)]";
+    private const string QUERY_FILM_GET_VARIOUS = "//dd[not(@class) and not(@itemprop)]/div";
     private const string QUERY_FILM_GET_TITLE = "//h1[@id = 'main-title']/span[@itemprop = 'name']";
+    private const string QUERY_FILM_GET_ORIGINAL_TITLE = "//dd[not(@class) and not(@itemprop)]";
     private const string QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
     private const string QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
+    private const string QUERY_FILM_GET_COUNTRY = "//img[@class = 'nflag']";
     private const string QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']/a";
     private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']/a";
     private const string QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
@@ -240,7 +243,7 @@ final class FilmParser extends AbstractParser
 
     private function getOriginalTitle(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_ORIGINAL_TITLE);
 
         return match (isset($data[0])) {
             true => trim(str_replace('aka', '', $data[0])),
@@ -248,22 +251,25 @@ final class FilmParser extends AbstractParser
         };
     }
 
-    private function getCountry(): string
+    private function getCountry(): Country
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getData(self::QUERY_FILM_GET_COUNTRY, false);
 
-        return match (isset($data[1])) {
-            true => trim(trim($data[1], chr(0xC2) . chr(0xA0))),
-            false => ''
-        };
+        $url          = $data->item(0)->attributes->getNamedItem('src')->nodeValue;
+        $urlArray     = explode('/', $url);
+        $flagImg      = end($urlArray);
+        $flagImgArray = explode('.', $flagImg);
+        $countryCode  = $flagImgArray[0];
+
+        return new Country($countryCode, $data->item(0)->attributes->getNamedItem('alt')->nodeValue);
     }
 
     private function getScreenplay(): string
     {
         $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[2])) {
-            true => trim($data[2]),
+        return match (isset($data[0])) {
+            true => trim($data[0]),
             false => ''
         };
     }
@@ -272,8 +278,8 @@ final class FilmParser extends AbstractParser
     {
         $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[3])) {
-            true => trim($data[3]),
+        return match (isset($data[1])) {
+            true => trim($data[1]),
             false => ''
         };
     }
@@ -282,8 +288,8 @@ final class FilmParser extends AbstractParser
     {
         $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[4])) {
-            true => trim($data[4]),
+        return match (isset($data[2])) {
+            true => trim($data[2]),
             false => ''
         };
     }
