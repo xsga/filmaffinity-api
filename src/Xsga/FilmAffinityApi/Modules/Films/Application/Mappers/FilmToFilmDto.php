@@ -17,24 +17,24 @@ class FilmToFilmDto
     {
         $filmDto = new FilmDto();
 
-        $filmDto->filmAfinityId = $film->filmAfinityId->value();
-        $filmDto->title         = $film->title->value();
-        $filmDto->originalTitle = $film->originalTitle->value();
-        $filmDto->year          = $film->year->value();
-        $filmDto->duration      = $film->duration;
-        $filmDto->coverUrl      = $film->cover->url();
-        $filmDto->coverFile     = $film->cover->fileName();
-        $filmDto->rating        = $film->rating;
-        $filmDto->country       = $film->country->name();
-        $filmDto->directors     = $this->getDirectors($film->directors);
-        $filmDto->screenplay    = $film->screenplay;
-        $filmDto->soundtrack    = $film->soundtrack;
-        $filmDto->photography   = $film->photography;
-        $filmDto->cast          = $this->getActors($film->cast);
-        $filmDto->producer      = $film->producer;
-        $filmDto->genres        = $this->getGenres($film->genres);
-        $filmDto->genreTopics   = $this->getGenreTopics($film->genreTopics);
-        $filmDto->synopsis      = $film->synopsis;
+        $filmDto->filmAfinityId = $film->id();
+        $filmDto->title         = $film->title();
+        $filmDto->originalTitle = $film->originalTitle();
+        $filmDto->year          = $film->year();
+        $filmDto->duration      = $film->duration();
+        $filmDto->coverUrl      = $film->cover()->url();
+        $filmDto->coverFile     = $film->cover()->fileName();
+        $filmDto->rating        = $film->rating();
+        $filmDto->country       = $film->country()->name();
+        $filmDto->directors     = $this->getDirectors($film->directors());
+        $filmDto->screenplay    = $film->screenplay();
+        $filmDto->soundtrack    = $film->soundtrack();
+        $filmDto->photography   = $film->photography();
+        $filmDto->cast          = $this->getActors($film->cast());
+        $filmDto->producer      = $film->producer();
+        $filmDto->genres        = $this->getGenres($film->genres());
+        $filmDto->genreTopics   = $this->getGenreTopics($film->genreTopics());
+        $filmDto->synopsis      = $film->synopsis();
 
         return $filmDto;
     }

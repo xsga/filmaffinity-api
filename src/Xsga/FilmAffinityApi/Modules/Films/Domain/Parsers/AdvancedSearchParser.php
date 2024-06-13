@@ -24,18 +24,21 @@ final class AdvancedSearchParser extends AbstractParser
 
     public function getAdvSearchResults(): SearchResults
     {
-        $out = new SearchResults();
-
         $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_DATA, false);
         $totalResults = $xpathResults->length;
 
-        $out->total = $totalResults;
-
-        for ($i = 0; $i < $totalResults; $i++) {
-            $out->results[] = $this->getResultData($xpathResults, $i);
-        }
-
         $this->logger->info("FilmAffinity search: $totalResults results found");
+
+        return new SearchResults($totalResults, $this->getResults($xpathResults));
+    }
+
+    private function getResults(DOMNodeList $results): array
+    {
+        $out = [];
+
+        for ($i = 0; $i < $results->length; $i++) {
+            $out[] = $this->getResultData($results, $i);
+        }
 
         return $out;
     }
@@ -70,12 +73,12 @@ final class AdvancedSearchParser extends AbstractParser
         return $title;
     }
 
-    private function getFilmYear(DOMXPath $domXpath): string
+    private function getFilmYear(DOMXPath $domXpath): int
     {
         $yearResult  = $domXpath->query(self::QUERY_ADV_SEARCH_GET_YEAR);
         $year        = $yearResult->item(1)->nodeValue ?? '';
 
-        return trim($year);
+        return (int)trim($year);
     }
 
     /**

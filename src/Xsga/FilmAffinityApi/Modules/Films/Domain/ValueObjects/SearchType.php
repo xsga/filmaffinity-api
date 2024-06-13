@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects;
 
-final class FilmYear
+final class SearchType
 {
-    private int $value;
+    protected bool $value;
 
-    public function __construct(int $year)
+    public function __construct(bool $type)
     {
-        $this->value = $year;
+        $this->value = $type;
     }
 
-    public function value(): int
+    public function value(): bool
     {
         return $this->value;
     }

@@ -29,7 +29,7 @@ final class UrlService
 
     public function getSearchUrl(Search $search): string
     {
-        $url = str_replace('{1}', $this->prepareSearchText($search->searchText), $this->searchUrl);
+        $url = str_replace('{1}', $this->prepareSearchText($search->text()), $this->searchUrl);
 
         $this->logger->debug("Search URL: $url");
 
@@ -49,12 +49,12 @@ final class UrlService
     public function getAdvancedSearchUrl(AdvancedSearch $advancedSearch): string
     {
         $url = $this->advancedSearchUrl;
-        $url = str_replace('{1}', $this->prepareSearchText($advancedSearch->searchText), $url);
+        $url = str_replace('{1}', $this->prepareSearchText($advancedSearch->text()), $url);
         $url = str_replace('{2}', $this->getAdvancedSearchType($advancedSearch), $url);
-        $url = str_replace('{3}', $advancedSearch->searchCountry, $url);
-        $url = str_replace('{4}', $advancedSearch->searchGenre, $url);
-        $url = str_replace('{5}', $advancedSearch->searchYearFrom === 0 ? '' : (string)$advancedSearch->searchYearFrom, $url);
-        $url = str_replace('{6}', $advancedSearch->searchYearTo === 0 ? '' : (string)$advancedSearch->searchYearTo, $url);
+        $url = str_replace('{3}', $advancedSearch->countryCode(), $url);
+        $url = str_replace('{4}', $advancedSearch->genreCode(), $url);
+        $url = str_replace('{5}', $advancedSearch->yearFrom() === 0 ? '' : (string)$advancedSearch->yearFrom(), $url);
+        $url = str_replace('{6}', $advancedSearch->yearTo() === 0 ? '' : (string)$advancedSearch->yearTo(), $url);
 
         $this->logger->debug("Advanced Search URL: $url");
 
@@ -64,13 +64,13 @@ final class UrlService
     private function getAdvancedSearchType(AdvancedSearch $advancedSearch): string
     {
         $searchType  = '';
-        $searchType .= $advancedSearch->searchTypeTitle ? '&stype[]=title' : '';
-        $searchType .= $advancedSearch->searchTypeDirector ? '&stype[]=director' : '';
-        $searchType .= $advancedSearch->searchTypeCast ? '&stype[]=cast' : '';
-        $searchType .= $advancedSearch->searchTypeSoundtrack ? '&stype[]=music' : '';
-        $searchType .= $advancedSearch->searchTypeScreenplay ? '&stype[]=script' : '';
-        $searchType .= $advancedSearch->searchTypePhotography ? '&stype[]=photo' : '';
-        $searchType .= $advancedSearch->searchTypeProducer ? '&stype[]=producer' : '';
+        $searchType .= $advancedSearch->typeTitle() ? '&stype[]=title' : '';
+        $searchType .= $advancedSearch->typeDirector() ? '&stype[]=director' : '';
+        $searchType .= $advancedSearch->typeCast() ? '&stype[]=cast' : '';
+        $searchType .= $advancedSearch->typeSoundtrack() ? '&stype[]=music' : '';
+        $searchType .= $advancedSearch->typeScreenplay() ? '&stype[]=script' : '';
+        $searchType .= $advancedSearch->typePhotography() ? '&stype[]=photo' : '';
+        $searchType .= $advancedSearch->typeProducer() ? '&stype[]=producer' : '';
 
         if (empty($searchType)) {
             $this->logger->warning('No search type found. Set the default search type: title');

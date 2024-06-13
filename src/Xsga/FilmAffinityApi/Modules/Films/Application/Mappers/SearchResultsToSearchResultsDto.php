@@ -15,8 +15,8 @@ class SearchResultsToSearchResultsDto
     public function convert(SearchResults $searchResults): SearchResultsDto
     {
         $searchResultsDto = new SearchResultsDto();
-        $searchResultsDto->total   = $searchResults->total;
-        $searchResultsDto->results = $this->convertSingleSearchResult($searchResults->results);
+        $searchResultsDto->total   = $searchResults->total();
+        $searchResultsDto->results = $this->convertSingleSearchResult($searchResults->results());
 
         return $searchResultsDto;
     }

@@ -30,7 +30,7 @@ final class GetSimpleSearchResultsService
             false => $this->getMultiplesResults()
         };
 
-        $this->logger->info("FilmAffinity search: $searchResults->total results found");
+        $this->logger->info('FilmAffinity search: ' . $searchResults->total() . 'results found');
 
         return $searchResults;
     }
@@ -47,19 +47,14 @@ final class GetSimpleSearchResultsService
             $this->filmDirectorsParser->getDirectors()
         );
 
-        $searchResults = new SearchResults();
-        $searchResults->total   = 1;
-        $searchResults->results = [$singleResult];
-
-        return $searchResults;
+        return new SearchResults(1, [$singleResult]);
     }
 
     private function getMultiplesResults(): SearchResults
     {
-        $searchResults = new SearchResults();
-        $searchResults->total   = $this->simpleSearchParser->getMultiplesResultsTotal();
-        $searchResults->results = $this->simpleSearchParser->getMultiplesResults();
-
-        return $searchResults;
+        return new SearchResults(
+            $this->simpleSearchParser->getMultiplesResultsTotal(),
+            $this->simpleSearchParser->getMultiplesResults()
+        );
     }
 }

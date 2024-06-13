@@ -40,7 +40,7 @@
         },
         "year": {
             "$id": "#/properties/year",
-            "type": "string",
+            "type": "integer",
             "title": "Film release year"
         },
         "duration": {

@@ -55,26 +55,26 @@ final class FilmParser extends AbstractParser
         return trim($data[0]);
     }
 
-    public function getYear(): string
+    public function getYear(): int
     {
         $data = $this->getData(self::QUERY_FILM_GET_RELEASE_DATE);
 
         if (!$this->validateOneResult($data, 'film release')) {
-            return '';
+            return 0;
         }
 
-        return trim($data[0]);
+        return (int)trim($data[0]);
     }
 
-    public function getDuration(): string
+    public function getDuration(): int
     {
         $data = $this->getData(self::QUERY_FILM_GET_DURATION);
 
         if (!$this->validateOneResult($data, 'film duration')) {
-            return '';
+            return 0;
         }
 
-        return trim(str_replace('min.', '', $data[0]));
+        return (int)trim(str_replace('min.', '', $data[0]));
     }
 
     public function getProducers(): string

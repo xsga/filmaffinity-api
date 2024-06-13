@@ -22,7 +22,7 @@ class SingleSearchResult
     /**
      * @param Director[] $directors
      */
-    public function __construct(int $id, string $title, string $year, array $directors)
+    public function __construct(int $id, string $title, int $year, array $directors)
     {
         $this->id        = new FilmId($id);
         $this->title     = new FilmTitle($title);
@@ -40,7 +40,7 @@ class SingleSearchResult
         return $this->title->value();
     }
 
-    public function year(): string
+    public function year(): int
     {
         return $this->year->value();
     }

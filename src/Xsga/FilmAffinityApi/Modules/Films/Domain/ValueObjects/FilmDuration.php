@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects;
 
-final class FilmYear
+final class FilmDuration
 {
     private int $value;
 
-    public function __construct(int $year)
+    public function __construct(int $duration)
     {
-        $this->value = $year;
+        $this->value = $duration;
     }
 
     public function value(): int

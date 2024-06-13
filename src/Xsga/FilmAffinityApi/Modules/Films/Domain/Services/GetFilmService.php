@@ -11,9 +11,6 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCoverParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmDirectorsParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmGenresParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmId;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmTitle;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmYear;
 
 final class GetFilmService
 {
@@ -41,26 +38,24 @@ final class GetFilmService
 
     private function getFilm(int $filmId): Film
     {
-        $film = new Film();
-
-        $film->filmAfinityId = new FilmId($filmId);
-        $film->title         = new FilmTitle($this->filmParser->getTitle());
-        $film->originalTitle = new FilmTitle($this->filmParser->getOriginalTitle());
-        $film->year          = new FilmYear($this->filmParser->getYear());
-        $film->duration      = $this->filmParser->getDuration();
-        $film->country       = $this->countryParser->getCountry();
-        $film->directors     = $this->directorsParser->getDirectors();
-        $film->screenplay    = $this->filmParser->getScreenplay();
-        $film->soundtrack    = $this->filmParser->getSoundtrack();
-        $film->photography   = $this->filmParser->getPhotography();
-        $film->cast          = $this->castParser->getCast();
-        $film->producer      = $this->filmParser->getProducers();
-        $film->genres        = $this->genresParser->getGenres();
-        $film->genreTopics   = $this->genresParser->getGenreTopics();
-        $film->rating        = $this->filmParser->getRating();
-        $film->synopsis      = $this->filmParser->getSynopsis();
-        $film->cover         = $this->coverParser->getCover();
-
-        return $film;
+        return new Film(
+            $filmId,
+            $this->filmParser->getTitle(),
+            $this->filmParser->getOriginalTitle(),
+            $this->filmParser->getYear(),
+            $this->filmParser->getDuration(),
+            $this->filmParser->getRating(),
+            $this->countryParser->getCountry(),
+            $this->filmParser->getScreenplay(),
+            $this->filmParser->getSoundtrack(),
+            $this->filmParser->getPhotography(),
+            $this->filmParser->getProducers(),
+            $this->filmParser->getSynopsis(),
+            $this->coverParser->getCover(),
+            $this->castParser->getCast(),
+            $this->directorsParser->getDirectors(),
+            $this->genresParser->getGenres(),
+            $this->genresParser->getGenreTopics()
+        );
     }
 }

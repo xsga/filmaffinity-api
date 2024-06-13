@@ -44,7 +44,7 @@
                             },
                             "year": {
                                 "$id": "#/properties/results/items/anyOf/0/properties/year",
-                                "type": "string",
+                                "type": "integer",
                                 "title": "The film release year"
                             },
                             "directors": {

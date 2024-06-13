@@ -96,13 +96,13 @@ final class SimpleSearchParser extends AbstractParser
         return $title;
     }
 
-    private function getYear(DOMXPath $domXpath): string
+    private function getYear(DOMXPath $domXpath): int
     {
         $yearResult = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_YEAR);
 
         $year = $yearResult->item(0)->nodeValue ?? '';
 
-        return trim($year);
+        return (int)trim($year);
     }
 
     /**
