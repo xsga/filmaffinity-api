@@ -23,7 +23,7 @@ class SearchResultsToSearchResultsDto
 
     /**
      * @param SingleSearchResult[] $singleSearchResults
-     * 
+     *
      * @return SingleSearchResultDto[]
      */
     private function convertSingleSearchResult(array $singleSearchResults): array

@@ -14,7 +14,7 @@ final class FilmParser extends AbstractParser
     private const string QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
     private const string QUERY_FILM_GET_RATING = "//div[@id = 'movie-rat-avg']";
     private const string QUERY_FILM_GET_SYNOPSIS = "//dd[@class = '' and @itemprop = 'description']";
-    
+
     private function validateOneResult(array $results, string $element): bool
     {
         $resultsCount = count($results);

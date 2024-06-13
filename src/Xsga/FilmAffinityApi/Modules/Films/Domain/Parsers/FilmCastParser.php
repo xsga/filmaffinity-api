@@ -12,7 +12,7 @@ final class FilmCastParser extends AbstractParser
     private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']/a";
 
     private string $urlPattern = 'name-id=';
-    
+
     /**
      * @return Actor[]
      */

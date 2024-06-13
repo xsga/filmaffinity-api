@@ -30,7 +30,7 @@ final class AdvancedSearchFormParser extends AbstractParser
         }
 
         $this->logger->info('FilmAffinity genres: ' . count($out) . ' results found');
-        
+
         return $out;
     }
 
@@ -48,7 +48,7 @@ final class AdvancedSearchFormParser extends AbstractParser
         }
 
         $this->logger->info('FilmAffinity countries: ' . count($out) . ' results found');
-        
+
         return $out;
     }
 }

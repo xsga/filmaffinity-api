@@ -67,7 +67,7 @@ final class DeleteUserCommand extends Command
         }
 
         $this->deleteUserByEmailService->delete($this->userEmail);
-        
+
         $this->display->success("User $this->userEmail deleted successfully");
 
         return Command::SUCCESS;

@@ -59,7 +59,7 @@ final class DisableUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->userStatusService->set($this->userEmail, false);
-        
+
         $this->display->success("User $this->userEmail disabled successfully");
 
         return Command::SUCCESS;

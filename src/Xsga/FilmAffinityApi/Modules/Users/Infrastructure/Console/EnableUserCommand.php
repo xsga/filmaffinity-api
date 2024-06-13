@@ -59,7 +59,7 @@ final class EnableUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->userStatusService->set($this->userEmail, true);
-        
+
         $this->display->success("User $this->userEmail enabled successfully");
 
         return Command::SUCCESS;

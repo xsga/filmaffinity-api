@@ -12,7 +12,7 @@ final class FilmDirectorsParser extends AbstractParser
     private const string QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']/a";
 
     private string $urlPattern = 'name-id=';
-    
+
     /**
      * @return Director[]
      */

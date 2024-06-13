@@ -15,7 +15,7 @@ final class FilmGenresParser extends AbstractParser
 
     private string $urlGenre = 'genre=';
     private string $urlTopic = 'topic=';
-    
+
     /**
      * @return Genre[]
      */
@@ -35,7 +35,7 @@ final class FilmGenresParser extends AbstractParser
     private function getGenre(DOMNode $item): Genre
     {
         $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
-        
+
         $genreCode = substr(
             $url,
             strpos($url, $this->urlGenre) + strlen($this->urlGenre),
@@ -65,7 +65,7 @@ final class FilmGenresParser extends AbstractParser
     private function getGenreTopic(DOMNode $item): GenreTopic
     {
         $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
-        
+
         $genreTopicId = (int)substr(
             $url,
             strpos($url, $this->urlTopic) + strlen($this->urlTopic),

@@ -25,7 +25,7 @@ class Film
      * @var Actor[]
      */
     public array $cast = [];
-    
+
     /**
      * @var Director[]
      */

@@ -9,7 +9,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Cover;
 final class FilmCoverParser extends AbstractParser
 {
     private const string QUERY_FILM_GET_COVER = "//a[@class = 'lightbox']";
-    
+
     public function getCover(): Cover
     {
         return new Cover($this->getCoverUrl(), $this->getCoverFileName());
@@ -23,7 +23,7 @@ final class FilmCoverParser extends AbstractParser
             $this->logger->warning('Film cover URL not found');
             return '';
         }
-        
+
         return trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue);
     }
 

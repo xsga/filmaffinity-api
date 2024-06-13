@@ -20,7 +20,7 @@ class CountryToCountryDto
 
     /**
      * @param Country[] $countries
-     * 
+     *
      * @return CountryDto[]
      */
     public function convertArray(array $countries): array

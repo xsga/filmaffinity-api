@@ -59,5 +59,5 @@ final class GetFilmService
         $film->cover         = $this->coverParser->getCover();
 
         return $film;
-    }    
+    }
 }

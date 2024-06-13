@@ -42,7 +42,7 @@ class FilmToFilmDto
     /**
      * @param Director[] $directors
      */
-    private function getDirectors(array $directors) : array
+    private function getDirectors(array $directors): array
     {
         $out = [];
 
@@ -56,7 +56,7 @@ class FilmToFilmDto
     /**
      * @param Actor[] $actors
      */
-    private function getActors(array $actors) : array
+    private function getActors(array $actors): array
     {
         $out = [];
 
@@ -70,7 +70,7 @@ class FilmToFilmDto
     /**
      * @param Genre[] $genres
      */
-    private function getGenres(array $genres) : array
+    private function getGenres(array $genres): array
     {
         $out = [];
 
@@ -84,7 +84,7 @@ class FilmToFilmDto
     /**
      * @param GenreTopic[] $genreTopics
      */
-    private function getGenreTopics(array $genreTopics) : array
+    private function getGenreTopics(array $genreTopics): array
     {
         $out = [];
 

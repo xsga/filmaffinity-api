@@ -67,7 +67,7 @@ final class AdvancedSearchParser extends AbstractParser
     {
         $titleResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_TITLE);
         $title       = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $titleResult->item(0)->nodeValue))));
-        
+
         return $title;
     }
 
@@ -85,7 +85,7 @@ final class AdvancedSearchParser extends AbstractParser
     private function getFilmDirectors(DOMXPath $domXpath): array
     {
         $directorsResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_DIRECTORS);
-        
+
         $out = [];
 
         foreach ($directorsResult as $director) {

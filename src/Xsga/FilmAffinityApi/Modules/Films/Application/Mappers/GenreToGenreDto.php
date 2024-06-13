@@ -20,7 +20,7 @@ class GenreToGenreDto
 
     /**
      * @param Genre[] $genres
-     * 
+     *
      * @return GenreDto[]
      */
     public function convertArray(array $genres): array

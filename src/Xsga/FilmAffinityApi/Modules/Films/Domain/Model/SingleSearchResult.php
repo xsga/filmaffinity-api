@@ -9,7 +9,7 @@ class SingleSearchResult
     public int $id = 0;
     public string $title = '';
     public string $year = '';
-    
+
     /**
      * @return Director[]
      */
