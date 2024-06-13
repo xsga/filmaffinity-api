@@ -8,4 +8,6 @@ class SingleSearchResultDto
 {
     public int $id = 0;
     public string $title = '';
+    public string $year = '';
+    public array $directors;
 }
