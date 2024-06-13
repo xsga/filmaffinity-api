@@ -9,7 +9,6 @@ use DOMElement;
 use DOMNodeList;
 use DOMXPath;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SearchResults;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class SimpleSearchParser extends AbstractParser

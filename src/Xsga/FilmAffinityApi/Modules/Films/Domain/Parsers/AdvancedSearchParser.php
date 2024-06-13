@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
 use DOMDocument;
+use DOMElement;
 use DOMNodeList;
 use DOMXPath;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SearchResults;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
@@ -16,6 +18,9 @@ final class AdvancedSearchParser extends AbstractParser
     private const string QUERY_ADV_SEARCH_GET_TITLE = "//div[@class = 'mc-title']/a";
     private const string QUERY_ADV_SEARCH_GET_ID = "//div[contains(@class, 'movie-card')]";
     private const string QUERY_ADV_SEARCH_GET_YEAR = "//span[contains(@class, 'mc-year')]";
+    private const string QUERY_ADV_SEARCH_GET_DIRECTORS = "//div[contains(@class, 'mc-director')]//a";
+
+    private string $urlPattern = 'name-id=';
 
     public function getAdvSearchResults(): SearchResults
     {
@@ -42,20 +47,12 @@ final class AdvancedSearchParser extends AbstractParser
         $domXpath = new DOMXPath($dom);
 
         $searchResult = new SingleSearchResult();
-        $searchResult->id     = $this->getFilmId($domXpath);
-        $searchResult->title  = $this->getFilmTitle($domXpath);
+        $searchResult->id        = $this->getFilmId($domXpath);
+        $searchResult->title     = $this->getFilmTitle($domXpath);
+        $searchResult->year      = $this->getFilmYear($domXpath);
+        $searchResult->directors = $this->getFilmDirectors($domXpath);
 
         return $searchResult;
-    }
-
-    private function getFilmTitle(DOMXPath $domXpath): string
-    {
-        $titleResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_TITLE);
-        
-        $title = $titleResult->item(0)->nodeValue;
-        $year  = $this->getFilmYear($domXpath);
-
-        return trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $title))) . ' (' . $year . ')');
     }
 
     private function getFilmId(DOMXPath $domXpath): int
@@ -66,10 +63,45 @@ final class AdvancedSearchParser extends AbstractParser
         return (int)trim($id);
     }
 
+    private function getFilmTitle(DOMXPath $domXpath): string
+    {
+        $titleResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_TITLE);
+        $title       = trim(str_replace('  ', ' ', trim(str_replace('   ', ' ', $titleResult->item(0)->nodeValue))));
+        
+        return $title;
+    }
+
     private function getFilmYear(DOMXPath $domXpath): string
     {
         $yearResult  = $domXpath->query(self::QUERY_ADV_SEARCH_GET_YEAR);
+        $year        = $yearResult->item(1)->nodeValue ?? '';
 
-        return $yearResult->item(1)->nodeValue ?? '';
+        return trim($year);
+    }
+
+    /**
+     * @return Director[]
+     */
+    private function getFilmDirectors(DOMXPath $domXpath): array
+    {
+        $directorsResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_DIRECTORS);
+        
+        $out = [];
+
+        foreach ($directorsResult as $director) {
+            $out[] = $this->getDirector($director);
+        }
+
+        return $out;
+    }
+
+    private function getDirector(DOMElement $item): Director
+    {
+        $url = trim($item->getAttribute('href'));
+
+        $directorId   = (int)substr($url, strpos($url, $this->urlPattern) + strlen($this->urlPattern), -1);
+        $directorName = trim($item->nodeValue);
+
+        return new Director($directorId, $directorName);
     }
 }

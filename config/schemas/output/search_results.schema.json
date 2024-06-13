@@ -27,7 +27,9 @@
                         "title": "Single search result",
                         "required": [
                             "id",
-                            "title"
+                            "title",
+                            "year",
+                            "directors"
                         ],
                         "properties": {
                             "id": {
@@ -39,6 +41,27 @@
                                 "$id": "#/properties/results/items/anyOf/0/properties/title",
                                 "type": "string",
                                 "title": "The film title"
+                            },
+                            "year": {
+                                "$id": "#/properties/results/items/anyOf/0/properties/year",
+                                "type": "string",
+                                "title": "The film release year"
+                            },
+                            "directors": {
+                                "$id": "#/properties/results/items/anyOf/0/properties/directors",
+                                "type": "array",
+                                "title": "Film directors array",
+                                "additionalItems": false,
+                                "items": {
+                                    "$id": "/properties/results/items/anyOf/0/properties/directors/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "/properties/results/items/anyOf/0/properties/directors/items/anyOf/0",
+                                            "type": "string",
+                                            "title": "Director name"
+                                        }
+                                    ]
+                                }
                             }
                         },
                         "additionalProperties": false
