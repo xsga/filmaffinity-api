@@ -25,6 +25,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\SearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetFilmService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetSimpleSearchResultsService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityAdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
@@ -222,7 +223,7 @@ return [
     SearchRepository::class => DI\create(FilmAffinitySearchRepository::class)->constructor(
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(SimpleSearchParser::class)
+        DI\get(GetSimpleSearchResultsService::class)
     ),
     
     // --------------------------------------------------------------------------------------------
