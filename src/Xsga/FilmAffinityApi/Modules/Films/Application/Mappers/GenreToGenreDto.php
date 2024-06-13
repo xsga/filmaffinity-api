@@ -12,7 +12,6 @@ class GenreToGenreDto
     public function convert(Genre $genre): GenreDto
     {
         $genreDto = new GenreDto();
-
         $genreDto->code = $genre->code();
         $genreDto->name = $genre->name();
 

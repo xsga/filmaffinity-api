@@ -14,7 +14,6 @@ class SearchResultsToSearchResultsDto
     public function convert(SearchResults $searchResults): SearchResultsDto
     {
         $searchResultsDto = new SearchResultsDto();
-
         $searchResultsDto->total   = $searchResults->total;
         $searchResultsDto->results = $this->convertSingleSearchResult($searchResults->results);
 
@@ -31,13 +30,18 @@ class SearchResultsToSearchResultsDto
         $out = [];
 
         foreach ($singleSearchResults as $singleSearchResult) {
-            $singleSearchResultDto        = new SingleSearchResultDto();
-            $singleSearchResultDto->id    = $singleSearchResult->id;
-            $singleSearchResultDto->title = $singleSearchResult->title;
-
-            $out[] = $singleSearchResultDto;
+            $out[] = $this->getSingleSearchResultDto($singleSearchResult);
         }
 
         return $out;
+    }
+
+    private function getSingleSearchResultDto(SingleSearchResult $singleSearchResult): SingleSearchResultDto
+    {
+        $singleSearchResultDto = new SingleSearchResultDto();
+        $singleSearchResultDto->id    = $singleSearchResult->id;
+        $singleSearchResultDto->title = $singleSearchResult->title;
+
+        return $singleSearchResultDto;
     }
 }

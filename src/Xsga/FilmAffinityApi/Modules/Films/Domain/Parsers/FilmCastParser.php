@@ -10,6 +10,8 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Actor;
 final class FilmCastParser extends AbstractParser
 {
     private const string QUERY_FILM_GET_ACTORS = "//li[@itemprop = 'actor']/a";
+
+    private string $urlPattern = 'name-id=';
     
     /**
      * @return Actor[]
@@ -31,11 +33,9 @@ final class FilmCastParser extends AbstractParser
     {
         $url = trim($item->getAttribute('href'));
 
-        $actor = new Actor(
-            (int)substr($url, strpos($url, 'name-id=') + 8, -1),
-            trim($item->nodeValue)
-        );
+        $actorId   = (int)substr($url, strpos($url, $this->urlPattern) + strlen($this->urlPattern), -1);
+        $actorName = trim($item->nodeValue);
 
-        return $actor;
+        return new Actor($actorId, $actorName);
     }
 }

@@ -6,6 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Services;
 
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCastParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCountryParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCoverParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmDirectorsParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmGenresParser;
@@ -18,7 +19,8 @@ final class GetFilmService
         private FilmCastParser $castParser,
         private FilmCoverParser $coverParser,
         private FilmDirectorsParser $directorsParser,
-        private FilmGenresParser $genresParser
+        private FilmGenresParser $genresParser,
+        private FilmCountryParser $countryParser
     ) {
     }
 
@@ -29,6 +31,7 @@ final class GetFilmService
         $this->coverParser->init($pageContent);
         $this->directorsParser->init($pageContent);
         $this->genresParser->init($pageContent);
+        $this->countryParser->init($pageContent);
 
         return $this->getFilm($filmId);
     }
@@ -42,7 +45,7 @@ final class GetFilmService
         $film->originalTitle = $this->filmParser->getOriginalTitle();
         $film->year          = $this->filmParser->getYear();
         $film->duration      = $this->filmParser->getDuration();
-        $film->country       = $this->filmParser->getCountry();
+        $film->country       = $this->countryParser->getCountry();
         $film->directors     = $this->directorsParser->getDirectors();
         $film->screenplay    = $this->filmParser->getScreenplay();
         $film->soundtrack    = $this->filmParser->getSoundtrack();

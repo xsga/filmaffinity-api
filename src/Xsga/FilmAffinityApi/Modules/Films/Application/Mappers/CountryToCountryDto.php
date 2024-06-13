@@ -12,7 +12,6 @@ class CountryToCountryDto
     public function convert(Country $country): CountryDto
     {
         $countryDto = new CountryDto();
-
         $countryDto->code = $country->code();
         $countryDto->name = $country->name();
 

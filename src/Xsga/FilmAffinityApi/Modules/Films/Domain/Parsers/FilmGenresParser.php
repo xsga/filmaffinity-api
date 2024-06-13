@@ -12,6 +12,9 @@ final class FilmGenresParser extends AbstractParser
 {
     private const string QUERY_FILM_GET_GENRES = "//span[@itemprop = 'genre']/a";
     private const string QUERY_FILM_GET_GENRE_TOPICS = "//dd[@class = 'card-genres']/a";
+
+    private string $urlGenre = 'genre=';
+    private string $urlTopic = 'topic=';
     
     /**
      * @return Genre[]
@@ -32,13 +35,15 @@ final class FilmGenresParser extends AbstractParser
     private function getGenre(DOMNode $item): Genre
     {
         $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
-            
-        $genre = new Genre(
-            substr($url, strpos($url, 'genre=') + 6, strpos($url, '&') - strpos($url, 'genre=') - 6),
-            trim($item->nodeValue)
+        
+        $genreCode = substr(
+            $url,
+            strpos($url, $this->urlGenre) + strlen($this->urlGenre),
+            strpos($url, '&') - strpos($url, $this->urlGenre) - strlen($this->urlGenre)
         );
+        $genreName = trim($item->nodeValue);
 
-        return $genre;
+        return new Genre($genreCode, $genreName);
     }
 
     /**
@@ -60,12 +65,14 @@ final class FilmGenresParser extends AbstractParser
     private function getGenreTopic(DOMNode $item): GenreTopic
     {
         $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
-            
-        $genreTopic = new GenreTopic(
-            (int)substr($url, strpos($url, 'topic=') + 6, strpos($url, '&') - strpos($url, 'topic=') - 6),
-            trim($item->nodeValue)
-        );
         
-        return $genreTopic;
+        $genreTopicId = (int)substr(
+            $url,
+            strpos($url, $this->urlTopic) + strlen($this->urlTopic),
+            strpos($url, '&') - strpos($url, $this->urlTopic) - strlen($this->urlTopic)
+        );
+        $genreTopicName = trim($item->nodeValue);
+
+        return new GenreTopic($genreTopicId, $genreTopicName);
     }
 }

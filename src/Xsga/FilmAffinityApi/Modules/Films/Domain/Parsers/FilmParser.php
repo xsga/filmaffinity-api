@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers;
 
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Country;
-
 final class FilmParser extends AbstractParser
 {
     private const string QUERY_FILM_GET_VARIOUS = "//dd[not(@class) and not(@itemprop)]/div";
@@ -13,7 +11,6 @@ final class FilmParser extends AbstractParser
     private const string QUERY_FILM_GET_ORIGINAL_TITLE = "//dd[not(@class) and not(@itemprop)]";
     private const string QUERY_FILM_GET_RELEASE_DATE = "//dd[@itemprop = 'datePublished']";
     private const string QUERY_FILM_GET_DURATION = "//dd[@itemprop = 'duration']";
-    private const string QUERY_FILM_GET_COUNTRY = "//img[@class = 'nflag']";
     private const string QUERY_FILM_GET_PRODUCERS = "//dd[@class = 'card-producer']//span";
     private const string QUERY_FILM_GET_RATING = "//div[@id = 'movie-rat-avg']";
     private const string QUERY_FILM_GET_SYNOPSIS = "//dd[@class = '' and @itemprop = 'description']";
@@ -99,19 +96,6 @@ final class FilmParser extends AbstractParser
             true => trim(str_replace('aka', '', $data[0])),
             false => ''
         };
-    }
-
-    public function getCountry(): Country
-    {
-        $data = $this->getData(self::QUERY_FILM_GET_COUNTRY, false);
-
-        $url          = $data->item(0)->attributes->getNamedItem('src')->nodeValue;
-        $urlArray     = explode('/', $url);
-        $flagImg      = end($urlArray);
-        $flagImgArray = explode('.', $flagImg);
-        $countryCode  = $flagImgArray[0];
-
-        return new Country($countryCode, $data->item(0)->attributes->getNamedItem('alt')->nodeValue);
     }
 
     public function getScreenplay(): string

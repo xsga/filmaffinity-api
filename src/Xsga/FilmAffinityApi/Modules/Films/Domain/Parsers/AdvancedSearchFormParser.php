@@ -26,13 +26,10 @@ final class AdvancedSearchFormParser extends AbstractParser
                 continue;
             }
 
-            $genre = new Genre(
-                $element->getAttribute('value'),
-                trim($element->nodeValue)
-            );
-
-            $out[] = $genre;
+            $out[] = new Genre($element->getAttribute('value'), trim($element->nodeValue));
         }
+
+        $this->logger->info('FilmAffinity genres: ' . count($out) . ' results found');
         
         return $out;
     }
@@ -47,13 +44,10 @@ final class AdvancedSearchFormParser extends AbstractParser
         $out = [];
 
         foreach ($xpathResults as $element) {
-            $country = new Country(
-                $element->getAttribute('value'),
-                trim($element->nodeValue)
-            );
-            
-            $out[] = $country;
+            $out[] = new Country($element->getAttribute('value'), trim($element->nodeValue));
         }
+
+        $this->logger->info('FilmAffinity countries: ' . count($out) . ' results found');
         
         return $out;
     }

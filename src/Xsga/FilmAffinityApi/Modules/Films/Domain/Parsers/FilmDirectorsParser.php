@@ -10,6 +10,8 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
 final class FilmDirectorsParser extends AbstractParser
 {
     private const string QUERY_FILM_GET_DIRECTORS = "//span[@itemprop = 'director']/a";
+
+    private string $urlPattern = 'name-id=';
     
     /**
      * @return Director[]
@@ -31,11 +33,9 @@ final class FilmDirectorsParser extends AbstractParser
     {
         $url = trim($item->getAttribute('href'));
 
-        $director = new Director(
-            (int)substr($url, strpos($url, 'name-id=') + 8, -1),
-            trim($item->nodeValue)
-        );
+        $directorId   = (int)substr($url, strpos($url, $this->urlPattern) + strlen($this->urlPattern), -1);
+        $directorName = trim($item->nodeValue);
 
-        return $director;
+        return new Director($directorId, $directorName);
     }
 }
