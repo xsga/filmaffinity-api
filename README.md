@@ -2,7 +2,7 @@
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v6.0.1)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.0.0)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
@@ -128,11 +128,15 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
     "results": [
       {
         "id": 160882,
-        "title": "Pulp Fiction (1994)"
+        "title": "Pulp Fiction",
+        "year": 1994,
+        "directors": ["Quentin Taratino"]
       },
       {
         "id": 991349,
-        "title": "8 Bit Cinema: Pulp Fiction (C) (2014)"
+        "title": "8 Bit Cinema: Pulp Fiction",
+        "year": 2014,
+        "directors": ["David Dutton"]
       }
     ]
   }
@@ -164,7 +168,9 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
     "results": [
       {
         "id": 160882,
-        "title": "Pulp Fiction (1994)"
+        "title": "Pulp Fiction",
+        "year": 1994,
+        "directors": ["Quentin Taratino"]
       }
     ]
   }
@@ -186,8 +192,8 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
     "filmAfinityId": "160882",
     "title": "Pulp Fiction",
     "originalTitle": "Pulp Fiction",
-    "year": "1994",
-    "duration": "153",
+    "year": 1994,
+    "duration": 153,
     "coverUrl": "https://pics.filmaffinity.com/pulp_fiction-210382116-large.jpg",
     "coverFile": "pulp_fiction-210382116-large.jpg",
     "rating": "8,6",
