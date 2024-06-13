@@ -40,10 +40,10 @@ class SearchResultsToSearchResultsDto
     private function getSingleSearchResultDto(SingleSearchResult $singleSearchResult): SingleSearchResultDto
     {
         $singleSearchResultDto = new SingleSearchResultDto();
-        $singleSearchResultDto->id        = $singleSearchResult->id;
-        $singleSearchResultDto->title     = $singleSearchResult->title;
-        $singleSearchResultDto->year      = $singleSearchResult->year;
-        $singleSearchResultDto->directors = $this->getDirectors($singleSearchResult->directors);
+        $singleSearchResultDto->id        = $singleSearchResult->id();
+        $singleSearchResultDto->title     = $singleSearchResult->title();
+        $singleSearchResultDto->year      = $singleSearchResult->year();
+        $singleSearchResultDto->directors = $this->getDirectors($singleSearchResult->directors());
 
         return $singleSearchResultDto;
     }

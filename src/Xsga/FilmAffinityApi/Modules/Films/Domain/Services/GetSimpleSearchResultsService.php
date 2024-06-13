@@ -40,11 +40,12 @@ final class GetSimpleSearchResultsService
         $this->filmParser->init($pageContent);
         $this->filmDirectorsParser->init($pageContent);
 
-        $singleResult = new SingleSearchResult();
-        $singleResult->id        = $this->simpleSearchParser->getSingleResultId();
-        $singleResult->title     = $this->filmParser->getTitle();
-        $singleResult->year      = $this->filmParser->getYear();
-        $singleResult->directors = $this->filmDirectorsParser->getDirectors();
+        $singleResult = new SingleSearchResult(
+            $this->simpleSearchParser->getSingleResultId(),
+            $this->filmParser->getTitle(),
+            $this->filmParser->getYear(),
+            $this->filmDirectorsParser->getDirectors()
+        );
 
         $searchResults = new SearchResults();
         $searchResults->total   = 1;

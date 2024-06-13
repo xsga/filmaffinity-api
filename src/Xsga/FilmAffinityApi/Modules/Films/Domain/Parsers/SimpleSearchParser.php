@@ -72,13 +72,12 @@ final class SimpleSearchParser extends AbstractParser
 
         $domXpath = new DOMXPath($dom);
 
-        $searchResult = new SingleSearchResult();
-        $searchResult->id        = $this->getId($domXpath);
-        $searchResult->title     = $this->getTitle($domXpath);
-        $searchResult->year      = $this->getYear($domXpath);
-        $searchResult->directors = $this->getDirectors($domXpath);
-
-        return $searchResult;
+        return new SingleSearchResult(
+            $this->getId($domXpath),
+            $this->getTitle($domXpath),
+            $this->getYear($domXpath),
+            $this->getDirectors($domXpath)
+        );
     }
 
     private function getId(DOMXPath $domXpath): int

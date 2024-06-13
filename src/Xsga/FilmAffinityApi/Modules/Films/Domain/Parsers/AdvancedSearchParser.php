@@ -46,13 +46,12 @@ final class AdvancedSearchParser extends AbstractParser
         $dom->appendChild($dom->importNode($node->item($itemNumber), true));
         $domXpath = new DOMXPath($dom);
 
-        $searchResult = new SingleSearchResult();
-        $searchResult->id        = $this->getFilmId($domXpath);
-        $searchResult->title     = $this->getFilmTitle($domXpath);
-        $searchResult->year      = $this->getFilmYear($domXpath);
-        $searchResult->directors = $this->getFilmDirectors($domXpath);
-
-        return $searchResult;
+        return new SingleSearchResult(
+            $this->getFilmId($domXpath),
+            $this->getFilmTitle($domXpath),
+            $this->getFilmYear($domXpath),
+            $this->getFilmDirectors($domXpath)
+        );
     }
 
     private function getFilmId(DOMXPath $domXpath): int

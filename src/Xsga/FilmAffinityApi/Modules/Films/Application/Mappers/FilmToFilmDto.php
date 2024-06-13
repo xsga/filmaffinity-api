@@ -17,10 +17,10 @@ class FilmToFilmDto
     {
         $filmDto = new FilmDto();
 
-        $filmDto->filmAfinityId = $film->filmAfinityId;
-        $filmDto->title         = $film->title;
-        $filmDto->originalTitle = $film->originalTitle;
-        $filmDto->year          = $film->year;
+        $filmDto->filmAfinityId = $film->filmAfinityId->value();
+        $filmDto->title         = $film->title->value();
+        $filmDto->originalTitle = $film->originalTitle->value();
+        $filmDto->year          = $film->year->value();
         $filmDto->duration      = $film->duration;
         $filmDto->coverUrl      = $film->cover->url();
         $filmDto->coverFile     = $film->cover->fileName();

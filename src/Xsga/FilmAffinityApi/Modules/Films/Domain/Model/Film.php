@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Model;
 
+use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmId;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmTitle;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmYear;
+
 class Film
 {
-    public int $filmAfinityId = 0;
-    public string $title = '';
-    public string $originalTitle = '';
-    public string $year = '';
+    public FilmId $filmAfinityId;
+    public FilmTitle $title;
+    public FilmTitle $originalTitle = '';
+    public FilmYear $year;
     public string $duration = '';
     public string $rating = '';
     public Country $country;

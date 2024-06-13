@@ -11,6 +11,9 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmCoverParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmDirectorsParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmGenresParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmId;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmTitle;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmYear;
 
 final class GetFilmService
 {
@@ -40,10 +43,10 @@ final class GetFilmService
     {
         $film = new Film();
 
-        $film->filmAfinityId = $filmId;
-        $film->title         = $this->filmParser->getTitle();
-        $film->originalTitle = $this->filmParser->getOriginalTitle();
-        $film->year          = $this->filmParser->getYear();
+        $film->filmAfinityId = new FilmId($filmId);
+        $film->title         = new FilmTitle($this->filmParser->getTitle());
+        $film->originalTitle = new FilmTitle($this->filmParser->getOriginalTitle());
+        $film->year          = new FilmYear($this->filmParser->getYear());
         $film->duration      = $this->filmParser->getDuration();
         $film->country       = $this->countryParser->getCountry();
         $film->directors     = $this->directorsParser->getDirectors();
