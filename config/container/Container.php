@@ -18,7 +18,6 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesServi
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
@@ -69,7 +68,6 @@ return [
 
     // ENVIRONMENT.
     'getLanguage' => $_ENV['LANGUAGE'],
-    'getEnvironment' => $_ENV['ENVIRONMENT'],
     'getErrorDetail' => filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN),
     'getUrlPath' => $_ENV['URL_PATH'],
     'getJwtSecretKey' => $_ENV['JWT_SECRET_KEY'],
@@ -80,8 +78,6 @@ return [
             'token' => SecurityTypes::TOKEN
         };
     },
-    //'getDateMask' => $_ENV['DATE_MASK'],
-    //'getDateTimeMask' => $_ENV['DATETIME_MASK'],
     'getDateMask' => 'd/m/Y',
     'getDateTimeMask' => 'd/m/Y H:i:s',
     'database.info' => [
@@ -110,12 +106,7 @@ return [
     // ENTITY MANAGER.
     // --------------------------------------------------------------------------------------------
     EntityManagerInterface::class => function (ContainerInterface $container) {
-        $isDevMode = match ($container->get('getEnvironment')) {
-            'dev' => true,
-            'pro' => false,
-            default => true
-        };
-
+        $isDevMode   = true;
         $entityPaths = $container->get('entity.folders');
         $proxyPath   = $container->get('entities.proxy.folder');
         $connection  = DriverManager::getConnection($container->get('database.info'));
