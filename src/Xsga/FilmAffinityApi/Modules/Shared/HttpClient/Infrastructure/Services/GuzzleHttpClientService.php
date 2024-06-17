@@ -14,8 +14,7 @@ final class GuzzleHttpClientService implements HttpClientService
 {
     public function __construct(
         private LoggerInterface $logger,
-        private Client $client,
-        private string $baseUrl
+        private Client $client
     ) {
     }
 
@@ -24,7 +23,7 @@ final class GuzzleHttpClientService implements HttpClientService
         $statusCode = 0;
 
         try {
-            $response = $this->client->get($this->baseUrl . $url);
+            $response = $this->client->get($url);
             $statusCode = $response->getStatusCode();
         } catch (Throwable $exception) {
             $statusCode = $exception->getCode();

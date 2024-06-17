@@ -29,7 +29,7 @@ composer install
 ```
 * Rename `config/.env.example` to `config/.env` to activates environment settings.
 * Setup API settings edditing `config/.env` file.
-* Use test user (email `test@test.com` and password `Test123!`) or create a user using command `app:create-user`:
+* Use test user (email `test@test.com` and password `test`) or create a user using command `app:create-user`:
 ```
 docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
 ```

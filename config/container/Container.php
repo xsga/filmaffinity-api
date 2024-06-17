@@ -167,14 +167,12 @@ return [
 
     // Application services.
     BackupGenresService::class => DI\create(BackupGenresService::class)->constructor(
-        DI\get(LoggerInterface::class),
         DI\get(FilmAffinityGenresRepository::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
     ),
 
     BackupCountriesService::class => DI\create(BackupCountriesService::class)->constructor(
-        DI\get(LoggerInterface::class),
         DI\get(FilmAffinityCountriesRepository::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
@@ -183,6 +181,7 @@ return [
     // Domain services.
     UrlService::class => DI\create(UrlService::class)->constructor(
         DI\get(LoggerInterface::class),
+        DI\get('filmaffinity.getBaseURL'),
         DI\get('filmaffinity.filmURL'),
         DI\get('filmaffinity.searchURL'),
         DI\get('filmaffinity.advancedSearchURL')
@@ -244,8 +243,7 @@ return [
     // HTTP CLIENT application services.
     HttpClientService::class => DI\create(GuzzleHttpClientService::class)->constructor(
         DI\get(LoggerInterface::class),
-        DI\get(Client::class),
-        DI\get('filmaffinity.getBaseURL')
+        DI\get(Client::class)
     ),
 
     // SLIM middleware.

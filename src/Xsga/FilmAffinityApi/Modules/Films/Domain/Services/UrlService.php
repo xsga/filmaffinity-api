@@ -12,6 +12,7 @@ final class UrlService
 {
     public function __construct(
         private LoggerInterface $logger,
+        private string $baseUrl,
         private string $filmUrl,
         private string $searchUrl,
         private string $advancedSearchUrl
@@ -24,7 +25,7 @@ final class UrlService
 
         $this->logger->debug("Film URL: $url");
 
-        return $url;
+        return $this->baseUrl . $url;
     }
 
     public function getSearchUrl(Search $search): string
@@ -33,7 +34,7 @@ final class UrlService
 
         $this->logger->debug("Search URL: $url");
 
-        return $url;
+        return $this->baseUrl . $url;
     }
 
     public function getAdvancedSearchFormUrl(): string
@@ -43,7 +44,7 @@ final class UrlService
 
         $this->logger->debug("Advanced search form URL: $url");
 
-        return $url;
+        return $this->baseUrl . $url;
     }
 
     public function getAdvancedSearchUrl(AdvancedSearch $advancedSearch): string
@@ -58,7 +59,7 @@ final class UrlService
 
         $this->logger->debug("Advanced Search URL: $url");
 
-        return $url;
+        return $this->baseUrl . $url;
     }
 
     private function getAdvancedSearchType(AdvancedSearch $advancedSearch): string
