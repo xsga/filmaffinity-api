@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 use Throwable;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
-use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Domain\Exceptions\FilmAffinityWebsiteException;
+use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Domain\Exceptions\ConnectionException;
 
 final class GuzzleHttpClientService implements HttpClientService
 {
@@ -30,9 +30,9 @@ final class GuzzleHttpClientService implements HttpClientService
         }
 
         if ($statusCode !== 200) {
-            $errorMsg = 'Error connecting to FilmAffinity website';
+            $errorMsg = "Error connecting to website: $url";
             $this->logger->error($errorMsg);
-            throw new FilmAffinityWebsiteException($errorMsg, 2000);
+            throw new ConnectionException($errorMsg, 2000);
         }
 
         return (string)$response->getBody();

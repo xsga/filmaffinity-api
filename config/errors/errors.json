@@ -3,8 +3,8 @@
         "code": 2000,
         "http": 500,
         "description": {
-            "en": "Error connecting to FilmAffinity website",
-            "spa": "Error conectando a la web de FilmAffinity"
+            "en": "Error connecting website",
+            "spa": "Error conectando a la web"
         }
     },
     {
