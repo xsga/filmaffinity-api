@@ -22,7 +22,7 @@ RUN curl -L https://phar.phpunit.de/phploc.phar > /usr/local/bin/phploc \
 
 # Setup application folder.
 RUN mkdir -p /opt/app/public
-RUN ln -s /opt/app/public /var/www/html
+RUN ln -s /opt/app/public /var/www/html/app
 
 # Configure PHP.
 COPY config/etc/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
