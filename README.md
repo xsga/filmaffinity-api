@@ -28,11 +28,12 @@ docker compose up -d
 composer install
 ```
 * Rename `config/.env.example` to `config/.env` to activates environment settings.
-* Setup API settings edditing `config/.env` file.
+* Setup API settings edditing `config/.env` file (don't change `URL_PATH` and database variables).
 * Use test user (email `test@test.com` and password `test`) or create a user using command `app:create-user`:
 ```
 docker exec -it filmaffinityapi-web-server php .bin/console app:create-user
 ```
+* FilmAffinityAPI is available at the following URL: `http://localhost/app`
 
 
 ## Manual installation
