@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # System dependencies.
 RUN apt-get update \
-    && apt-get install -y sendmail libpng-dev libzip-dev zlib1g-dev libonig-dev gcc make autoconf
+    && apt-get install -y sendmail libpng-dev libzip-dev zlib1g-dev libonig-dev
 
 # PHP libraries.
 RUN pecl install apcu xdebug
