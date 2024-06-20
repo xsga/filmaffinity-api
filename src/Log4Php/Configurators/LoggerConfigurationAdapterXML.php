@@ -21,7 +21,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 
         $this->parseConfiguration($xml);
 
-        if (isset($xml->root)) {
+        if (!empty($xml->root)) {
             $this->parseRootLogger($xml->root);
         }
 
@@ -94,7 +94,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
             $appender['threshold'] = $this->getAttributeValue($node, 'threshold');
         }
 
-        if (isset($node->layout)) {
+        if (!empty($node->layout)) {
             $appender['layout'] = $this->parseLayout($node->layout);
         }
 
@@ -144,7 +144,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     {
         $logger = [];
 
-        if (isset($node->level)) {
+        if (!empty($node->level)) {
             $logger['level'] = $this->getAttributeValue($node->level, 'value');
         }
 
@@ -164,7 +164,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
             return;
         }
 
-        if (isset($node->level)) {
+        if (!empty($node->level)) {
             $logger['level'] = $this->getAttributeValue($node->level, 'value');
         }
 

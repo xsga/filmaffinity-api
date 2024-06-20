@@ -11,10 +11,6 @@ class SearchDtoToSearch
 {
     public function convert(SearchDto $searchDto): Search
     {
-        $search = new Search();
-
-        $search->searchText = $searchDto->searchText;
-
-        return $search;
+        return new Search($searchDto->searchText);
     }
 }

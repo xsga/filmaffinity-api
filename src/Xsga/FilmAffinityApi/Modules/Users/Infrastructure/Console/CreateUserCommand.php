@@ -13,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Services\CreateUserService;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserEmail;
-use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserName;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserPassword;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\JsonInputToCreateUserDto;
 

@@ -28,7 +28,7 @@ services:
         ports: 
             - "80:80"
         volumes:
-            - .:/opt/filmaffinityapi
+            - .:/opt/app
         restart: unless-stopped
         depends_on:
             - mysql-server

@@ -44,7 +44,7 @@ final class FilmAffinityCountriesRepository implements CountriesRepository
     public function get(string $code): ?Country
     {
         foreach ($this->getAll() as $country) {
-            if ($country->code === $code) {
+            if ($country->code() === $code) {
                 return $country;
             }
         }

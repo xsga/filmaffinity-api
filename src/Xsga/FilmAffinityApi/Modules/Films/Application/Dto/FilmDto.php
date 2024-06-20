@@ -9,8 +9,8 @@ class FilmDto
     public int $filmAfinityId = 0;
     public string $title = '';
     public string $originalTitle = '';
-    public string $year = '';
-    public string $duration = '';
+    public int $year = 0;
+    public int $duration = 0;
     public string $coverUrl = '';
     public string $coverFile = '';
     public string $rating = '';
@@ -22,5 +22,6 @@ class FilmDto
     public array $cast = [];
     public string $producer = '';
     public array $genres = [];
+    public array $genreTopics = [];
     public string $synopsis = '';
 }

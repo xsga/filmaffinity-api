@@ -11,6 +11,8 @@ use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\CreateUserCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\DeleteUserCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\DisableUserCommand;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\EnableUserCommand;
+use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\GetHashedPasswordCommand;
+use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\GetTokenCommand;
 
 chdir(realpath(dirname(__FILE__)));
 
@@ -28,5 +30,7 @@ $console->add($container->get(BackupCountriesCommand::class));
 $console->add($container->get(EnableUserCommand::class));
 $console->add($container->get(DisableUserCommand::class));
 $console->add($container->get(DeleteUserCommand::class));
+$console->add($container->get(GetHashedPasswordCommand::class));
+$console->add($container->get(GetTokenCommand::class));
 
 $console->run();

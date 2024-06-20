@@ -9,7 +9,6 @@ function loadEnvironmentSettings(): void
     $settings = Dotenv::createMutable(getPathTo('config'));
     $settings->safeLoad();
 
-    $settings->required('ENVIRONMENT')->allowedValues(['dev', 'pro']);
     $settings->required('URL_PATH');
     $settings->required('ERROR_DETAIL')->isBoolean();
     $settings->required('LANGUAGE')->allowedValues(['spa', 'en']);

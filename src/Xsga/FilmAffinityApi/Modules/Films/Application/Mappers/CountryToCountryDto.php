@@ -12,16 +12,15 @@ class CountryToCountryDto
     public function convert(Country $country): CountryDto
     {
         $countryDto = new CountryDto();
-
-        $countryDto->code = $country->code;
-        $countryDto->name = $country->name;
+        $countryDto->code = $country->code();
+        $countryDto->name = $country->name();
 
         return $countryDto;
     }
 
     /**
      * @param Country[] $countries
-     * 
+     *
      * @return CountryDto[]
      */
     public function convertArray(array $countries): array

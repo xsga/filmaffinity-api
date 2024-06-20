@@ -12,16 +12,15 @@ class GenreToGenreDto
     public function convert(Genre $genre): GenreDto
     {
         $genreDto = new GenreDto();
-
-        $genreDto->code        = $genre->code;
-        $genreDto->description = $genre->description;
+        $genreDto->code = $genre->code();
+        $genreDto->name = $genre->name();
 
         return $genreDto;
     }
 
     /**
      * @param Genre[] $genres
-     * 
+     *
      * @return GenreDto[]
      */
     public function convertArray(array $genres): array

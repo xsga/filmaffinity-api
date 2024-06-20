@@ -11,21 +11,19 @@ class AdvSearchDtoToAdvSearch
 {
     public function convert(AdvancedSearchDto $advSearchDto): AdvancedSearch
     {
-        $advSearch = new AdvancedSearch();
-
-        $advSearch->searchText            = $advSearchDto->searchText;
-        $advSearch->searchTypeTitle       = $advSearchDto->searchTypeTitle;
-        $advSearch->searchTypeDirector    = $advSearchDto->searchTypeDirector;
-        $advSearch->searchTypeCast        = $advSearchDto->searchTypeCast;
-        $advSearch->searchTypeScreenplay  = $advSearchDto->searchTypeScreenplay;
-        $advSearch->searchTypePhotography = $advSearchDto->searchTypePhotography;
-        $advSearch->searchTypeSoundtrack  = $advSearchDto->searchTypeSoundtrack;
-        $advSearch->searchTypeProducer    = $advSearchDto->searchTypeProducer;
-        $advSearch->searchCountry         = $advSearchDto->searchCountry;
-        $advSearch->searchGenre           = $advSearchDto->searchGenre;
-        $advSearch->searchYearFrom        = $advSearchDto->searchYearFrom;
-        $advSearch->searchYearTo          = $advSearchDto->searchYearTo;
-
-        return $advSearch;
+        return new AdvancedSearch(
+            $advSearchDto->searchText,
+            $advSearchDto->searchTypeTitle,
+            $advSearchDto->searchTypeDirector,
+            $advSearchDto->searchTypeCast,
+            $advSearchDto->searchTypeScreenplay,
+            $advSearchDto->searchTypePhotography,
+            $advSearchDto->searchTypeSoundtrack,
+            $advSearchDto->searchTypeProducer,
+            $advSearchDto->searchCountry === '' ? null : $advSearchDto->searchCountry,
+            $advSearchDto->searchGenre === '' ? null : $advSearchDto->searchGenre,
+            $advSearchDto->searchYearFrom === 0 ? null : $advSearchDto->searchYearFrom,
+            $advSearchDto->searchYearTo === 0 ? null : $advSearchDto->searchYearTo
+        );
     }
 }

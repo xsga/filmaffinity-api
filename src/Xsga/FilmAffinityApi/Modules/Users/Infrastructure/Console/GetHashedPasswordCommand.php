@@ -20,6 +20,7 @@ use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserPassword;
 final class GetHashedPasswordCommand extends Command
 {
     private SymfonyStyle $display;
+    private bool $strictMode = false;
     private string $hashedPassword = '';
 
     protected function configure(): void
@@ -36,6 +37,14 @@ final class GetHashedPasswordCommand extends Command
     {
         $this->display->title('GET-HASHED-PASSWORD command');
         $this->display->text('Use this command to create a new hashed password.');
+
+        $this->strictMode = $this->display->confirm('Do you want to use pattern validation?', false);
+
+        if (!$this->strictMode) {
+            $this->hashedPassword = $this->display->askHidden('Enter password');
+            $this->hashedPassword = password_hash($this->hashedPassword, PASSWORD_DEFAULT, ['cost' => 10]);
+            return;
+        }
 
         $this->hashedPassword = $this->display->askHidden(
             'Enter password',

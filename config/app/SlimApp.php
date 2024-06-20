@@ -24,5 +24,8 @@ function getSlimApp(ContainerInterface $container): App
     $errorMiddleware = $app->addErrorMiddleware($container->get('getErrorDetail'), true, true);
     $errorMiddleware->setDefaultErrorHandler(ErrorHandler::class);
 
+    // Load routes.
+    getRoutes($app);
+
     return $app;
 }

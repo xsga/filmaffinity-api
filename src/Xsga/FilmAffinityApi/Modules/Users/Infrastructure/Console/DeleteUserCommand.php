@@ -11,7 +11,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Services\DeleteUserByEmailService;
-use Xsga\FilmAffinityApi\Modules\Users\Application\Services\UpdateUserStatusService;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\ValueObjects\UserEmail;
 
 #[AsCommand(
@@ -67,7 +66,7 @@ final class DeleteUserCommand extends Command
         }
 
         $this->deleteUserByEmailService->delete($this->userEmail);
-        
+
         $this->display->success("User $this->userEmail deleted successfully");
 
         return Command::SUCCESS;

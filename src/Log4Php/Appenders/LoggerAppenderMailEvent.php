@@ -110,7 +110,7 @@ class LoggerAppenderMailEvent extends LoggerAppender
 
     public function getTo(): string
     {
-        return $this->to;
+        return $this->to ?? '';
     }
 
     public function setDry(bool $dry): void

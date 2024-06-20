@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # System dependencies.
 RUN apt-get update \
-    && apt-get install -y sendmail libpng-dev libzip-dev zlib1g-dev libonig-dev gcc make autoconf
+    && apt-get install -y sendmail libpng-dev libzip-dev zlib1g-dev libonig-dev
 
 # PHP libraries.
 RUN pecl install apcu xdebug
@@ -21,8 +21,8 @@ RUN curl -L https://phar.phpunit.de/phploc.phar > /usr/local/bin/phploc \
     && chmod +x /usr/local/bin/phploc
 
 # Setup application folder.
-RUN mkdir -p /opt/filmaffinityapi/public
-RUN ln -s /opt/filmaffinityapi/public /var/www/html/filmaffinityapi
+RUN mkdir -p /opt/app/public
+RUN ln -s /opt/app/public /var/www/html/app
 
 # Configure PHP.
 COPY config/etc/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
@@ -31,4 +31,4 @@ COPY config/etc/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Working directory.
-WORKDIR /opt/filmaffinityapi
+WORKDIR /opt/app

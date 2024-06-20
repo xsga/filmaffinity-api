@@ -67,38 +67,13 @@ final class DoctrineUsersRepository implements UsersRepository
             $this->em->persist($userEntity);
             $this->em->flush();
 
-            $userId = $userEntity->getUserId();
-
-            return match (is_null($userId)) {
-                true => -1,
-                false => $userId
-            };
+            return $userEntity->getUserId() ?? -1;
         } catch (Throwable $exception) {
             $this->logger->error($exception->__toString());
             return match ($exception->getCode()) {
                 1062 => 0,
                 default => -1
             };
-        }
-    }
-
-    public function updateUser(User $user): bool
-    {
-        try {
-            $query = $this->em->createQueryBuilder();
-
-            $query->update(UsersEntity::class, 'u');
-            $query->set('u.name', ':userName');
-            $query->set('u.updateDate', ':userUpdateDate');
-            $query->setParameter(':userName', $user->name());
-            $query->setParameter(':userUpdateDate', $user->updateDate()->format('Y-m-d H:i:s'));
-            $query->where('u.userId = ' . $user->userId());
-            $query->getQuery()->execute();
-
-            return true;
-        } catch (Throwable $exception) {
-            $this->logger->error($exception->__toString());
-            return false;
         }
     }
 

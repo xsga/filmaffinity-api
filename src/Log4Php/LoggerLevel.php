@@ -158,7 +158,7 @@ class LoggerLevel
 
     private static function strLevel(int|string $arg, LoggerLevel $defaultLevel = null): ?LoggerLevel
     {
-        return match (strtoupper($arg)) {
+        return match (strtoupper((string)$arg)) {
             'ALL' => static::getLevelAll(),
             'TRACE' => static::getLevelTrace(),
             'DEBUG' => static::getLevelDebug(),

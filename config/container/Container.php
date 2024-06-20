@@ -18,13 +18,13 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesServi
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\FilmParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\SimpleSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\SearchRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetFilmService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetSimpleSearchResultsService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityAdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
@@ -68,7 +68,6 @@ return [
 
     // ENVIRONMENT.
     'getLanguage' => $_ENV['LANGUAGE'],
-    'getEnvironment' => $_ENV['ENVIRONMENT'],
     'getErrorDetail' => filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN),
     'getUrlPath' => $_ENV['URL_PATH'],
     'getJwtSecretKey' => $_ENV['JWT_SECRET_KEY'],
@@ -79,8 +78,6 @@ return [
             'token' => SecurityTypes::TOKEN
         };
     },
-    //'getDateMask' => $_ENV['DATE_MASK'],
-    //'getDateTimeMask' => $_ENV['DATETIME_MASK'],
     'getDateMask' => 'd/m/Y',
     'getDateTimeMask' => 'd/m/Y H:i:s',
     'database.info' => [
@@ -109,12 +106,7 @@ return [
     // ENTITY MANAGER.
     // --------------------------------------------------------------------------------------------
     EntityManagerInterface::class => function (ContainerInterface $container) {
-        $isDevMode = match ($container->get('getEnvironment')) {
-            'dev' => true,
-            'pro' => false,
-            default => true
-        };
-
+        $isDevMode   = true;
         $entityPaths = $container->get('entity.folders');
         $proxyPath   = $container->get('entities.proxy.folder');
         $connection  = DriverManager::getConnection($container->get('database.info'));
@@ -175,14 +167,12 @@ return [
 
     // Application services.
     BackupGenresService::class => DI\create(BackupGenresService::class)->constructor(
-        DI\get(LoggerInterface::class),
         DI\get(FilmAffinityGenresRepository::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
     ),
 
     BackupCountriesService::class => DI\create(BackupCountriesService::class)->constructor(
-        DI\get(LoggerInterface::class),
         DI\get(FilmAffinityCountriesRepository::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
@@ -191,6 +181,7 @@ return [
     // Domain services.
     UrlService::class => DI\create(UrlService::class)->constructor(
         DI\get(LoggerInterface::class),
+        DI\get('filmaffinity.getBaseURL'),
         DI\get('filmaffinity.filmURL'),
         DI\get('filmaffinity.searchURL'),
         DI\get('filmaffinity.advancedSearchURL')
@@ -200,7 +191,7 @@ return [
     FilmsRepository::class => DI\create(FilmAffinityFilmsRepository::class)->constructor(
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(FilmParser::class)
+        DI\get(GetFilmService::class)
     ),
     GenresRepository::class => DI\create(FilmAffinityGenresRepository::class)->constructor(
         DI\get(LoggerInterface::class),
@@ -222,7 +213,7 @@ return [
     SearchRepository::class => DI\create(FilmAffinitySearchRepository::class)->constructor(
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(SimpleSearchParser::class)
+        DI\get(GetSimpleSearchResultsService::class)
     ),
     
     // --------------------------------------------------------------------------------------------
@@ -252,8 +243,7 @@ return [
     // HTTP CLIENT application services.
     HttpClientService::class => DI\create(GuzzleHttpClientService::class)->constructor(
         DI\get(LoggerInterface::class),
-        DI\get(Client::class),
-        DI\get('filmaffinity.getBaseURL')
+        DI\get(Client::class)
     ),
 
     // SLIM middleware.

@@ -9,8 +9,8 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
 
 final class AdvancedSearchFormParser extends AbstractParser
 {
-    private const QUERY_ADV_SEARCH_FORM_GET_GENRES = "//option[not(@data-content)]";
-    private const QUERY_ADV_SEARCH_FORM_GET_COUNTRIES = "//option[@data-class = 'flag-wrapper']";
+    private const string QUERY_ADV_SEARCH_FORM_GET_GENRES = "//option[not(@data-content)]";
+    private const string QUERY_ADV_SEARCH_FORM_GET_COUNTRIES = "//option[@data-class = 'flag-wrapper']";
 
     /**
      * @return Genre[]
@@ -26,13 +26,11 @@ final class AdvancedSearchFormParser extends AbstractParser
                 continue;
             }
 
-            $genre = new Genre();
-            $genre->code = $element->getAttribute('value');
-            $genre->description = trim($element->nodeValue);
-
-            $out[] = $genre;
+            $out[] = new Genre($element->getAttribute('value'), trim($element->nodeValue));
         }
-        
+
+        $this->logger->info('FilmAffinity genres: ' . count($out) . ' results found');
+
         return $out;
     }
 
@@ -46,13 +44,11 @@ final class AdvancedSearchFormParser extends AbstractParser
         $out = [];
 
         foreach ($xpathResults as $element) {
-            $country = new Country();
-            $country->code = $element->getAttribute('value');
-            $country->name = trim($element->nodeValue);
-
-            $out[] = $country;
+            $out[] = new Country($element->getAttribute('value'), trim($element->nodeValue));
         }
-        
+
+        $this->logger->info('FilmAffinity countries: ' . count($out) . ' results found');
+
         return $out;
     }
 }

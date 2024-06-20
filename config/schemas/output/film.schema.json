@@ -19,6 +19,7 @@
         "cast",
         "producer",
         "genres",
+        "genreTopics",
         "synopsis"
     ],
     "properties": {
@@ -39,7 +40,7 @@
         },
         "year": {
             "$id": "#/properties/year",
-            "type": "string",
+            "type": "integer",
             "title": "Film release year"
         },
         "duration": {
@@ -131,6 +132,22 @@
                         "$id": "#/properties/genres/items/anyOf/0",
                         "type": "string",
                         "title": "Film genre name"
+                    }
+                ]
+            }
+        },
+        "genreTopics": {
+            "$id": "#/properties/genreTopics",
+            "type": "array",
+            "title": "Film genres topics array",
+            "additionalItems": false,
+            "items": {
+                "$id": "#/properties/genreTopics/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/genreTopics/items/anyOf/0",
+                        "type": "string",
+                        "title": "Film genre topic name"
                     }
                 ]
             }

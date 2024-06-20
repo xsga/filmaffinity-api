@@ -26,7 +26,7 @@ class LoggerConfigurationAdapterPHP implements LoggerConfigurationAdapter
             throw new LoggerException('Error parsing configuration: ' . $error['message']);
         }
 
-        if (empty($config)) {
+        if ($config === '') {
             throw new LoggerException('Invalid configuration: empty configuration array.');
         }
 

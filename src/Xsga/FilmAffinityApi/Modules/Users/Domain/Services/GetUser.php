@@ -21,26 +21,24 @@ final class GetUser
     {
         $user = $this->usersRepository->getUserById($userId);
 
-        $this->validateUserSearch($user, (string)$userId);
-
-        return $user;
+        return $this->validateUserSearch($user, (string)$userId);
     }
 
     public function byEmail(string $userEmail): User
     {
         $user = $this->usersRepository->getUserByEmail($userEmail);
 
-        $this->validateUserSearch($user, $userEmail);
-
-        return $user;
+        return $this->validateUserSearch($user, $userEmail);
     }
 
-    private function validateUserSearch(?User $user, string $criteriaValue): void
+    private function validateUserSearch(?User $user, string $criteriaValue): User
     {
-        if ($user === null) {
+        if (is_null($user)) {
             $errorMsg = "User '$criteriaValue' not found";
             $this->logger->error($errorMsg);
             throw new UserNotFoundException($errorMsg, 1005, null, [1 => $criteriaValue]);
         }
+
+        return $user;
     }
 }
