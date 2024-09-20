@@ -11,20 +11,18 @@ use Xsga\FilmAffinityApi\Modules\Users\Application\Services\GetTokenService;
 
 final class GetTokenController extends AbstractController
 {
+    private const string SCHEMA_NAME = 'get.token.schema';
+
     public function __construct(private GetTokenService $getToken)
     {
     }
 
     public function __invoke(Request $request, Response $response): Response
     {
-        $this->validateJson((string)$request->getBody(), 'get.token.schema');
+        $this->validateJson((string)$request->getBody(), self::SCHEMA_NAME);
 
-        $body = $request->getParsedBody();
+        $body = (array)$request->getParsedBody();
 
-        // TODO: custom response.
-        $token          = [];
-        $token['token'] = $this->getToken->get($body['user'], $body['password']);
-
-        return $this->writeResponse($response, $token);
+        return $this->writeResponse($response, $this->getToken->get($body['user'], $body['password']));
     }
 }

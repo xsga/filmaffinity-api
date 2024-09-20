@@ -12,7 +12,7 @@ use Xsga\FilmAffinityApi\Modules\Shared\Api\Infrastructure\Controllers\AbstractC
 
 final class SimpleSearchController extends AbstractController
 {
-    private string $schema = 'simple.search.schema';
+    private const string SCHEMA_NAME = 'simple.search.schema';
 
     public function __construct(
         private SimpleSearchService $simpleSearchService,
@@ -22,7 +22,7 @@ final class SimpleSearchController extends AbstractController
 
     public function __invoke(Request $request, Response $response): Response
     {
-        $this->validateJson((string)$request->getBody(), $this->schema);
+        $this->validateJson((string)$request->getBody(), self::SCHEMA_NAME);
 
         $searchDto = $this->inputToSearchDto->convert($request->getParsedBody());
 
