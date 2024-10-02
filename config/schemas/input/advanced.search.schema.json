@@ -7,31 +7,31 @@
             "type": "string",
             "title": "Text to search"
         },
-        "title": {
+        "search_in_title": {
             "type": "boolean",
             "title": "Title flag"
         },
-        "director": {
+        "search_in_director": {
             "type": "boolean",
             "title": "Director flag"
         },
-        "cast": {
+        "search_in_cast": {
             "type": "boolean",
             "title": "Cast flag"
         },
-        "screenplay": {
+        "search_in_screenplay": {
             "type": "boolean",
             "title": "Screenplay flag"
         },
-        "photography": {
+        "search_in_photography": {
             "type": "boolean",
             "title": "Photography flag"
         },
-        "soundtrack": {
+        "search_in_soundtrack": {
             "type": "boolean",
             "title": "Soundtrack flag"
         },
-        "producer": {
+        "search_in_producer": {
             "type": "boolean",
             "title": "Producer flag"
         },
@@ -52,5 +52,5 @@
             "title": "Film release year to"
         }
     },
-    "required": [ "text" ]
+    "required": [ "text", "search_in_title", "search_in_director", "search_in_cast", "search_in_screenplay", "search_in_photography", "search_in_soundtrack", "search_in_producer", "country", "genre", "year_from", "year_to"]
 }

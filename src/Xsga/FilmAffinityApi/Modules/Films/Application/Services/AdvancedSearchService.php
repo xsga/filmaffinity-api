@@ -18,6 +18,8 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 
 final class AdvancedSearchService
 {
+    private const int MAX_LENGHT = 3;
+
     public function __construct(
         private LoggerInterface $logger,
         private GenresRepository $genresRepository,
@@ -41,7 +43,7 @@ final class AdvancedSearchService
 
     private function validatesSearchTextLength(string $searchText): void
     {
-        if (strlen($searchText) < 3) {
+        if (strlen($searchText) < self::MAX_LENGHT) {
             $errorMsg = 'Search text lenght not valid';
             $this->logger->error($errorMsg);
             throw new InvalidSearchLengthException($errorMsg, 2001);
@@ -54,12 +56,10 @@ final class AdvancedSearchService
             return;
         }
 
-        $genre = $this->genresRepository->get($searchGenre);
-
-        if (is_null($genre)) {
-            $errorMsg = 'Genre code not valid';
+        if (is_null($this->genresRepository->get($searchGenre))) {
+            $errorMsg = "Genre code '$searchGenre' not valid";
             $this->logger->error($errorMsg);
-            throw new GenreNotFoundException($errorMsg, 2002);
+            throw new GenreNotFoundException($errorMsg, 2002, null, [1 => $searchGenre]);
         }
     }
 
@@ -69,12 +69,10 @@ final class AdvancedSearchService
             return;
         }
 
-        $country = $this->countriesRepository->get($searchCountry);
-
-        if (is_null($country)) {
-            $errorMsg = 'Country code not valid';
+        if (is_null($this->countriesRepository->get($searchCountry))) {
+            $errorMsg = "Country code '$searchCountry' not valid";
             $this->logger->error($errorMsg);
-            throw new CountryNotFoundException($errorMsg, 2003);
+            throw new CountryNotFoundException($errorMsg, 2003, null, [1 => $searchCountry]);
         }
     }
 }

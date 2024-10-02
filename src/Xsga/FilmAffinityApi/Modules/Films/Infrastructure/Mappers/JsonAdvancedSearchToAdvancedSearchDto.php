@@ -13,15 +13,15 @@ final class JsonAdvancedSearchToAdvancedSearchDto
         $advancedSearchDto = new AdvancedSearchDto();
 
         $advancedSearchDto->searchText            = $jsonData['text'];
-        $advancedSearchDto->searchTypeTitle       = $jsonData['title'] ?? false;
-        $advancedSearchDto->searchTypeDirector    = $jsonData['director'] ?? false;
-        $advancedSearchDto->searchTypeCast        = $jsonData['cast'] ?? false;
-        $advancedSearchDto->searchTypeScreenplay  = $jsonData['screenplay'] ?? false;
-        $advancedSearchDto->searchTypePhotography = $jsonData['photography'] ?? false;
-        $advancedSearchDto->searchTypeSoundtrack  = $jsonData['soundtrack'] ?? false;
-        $advancedSearchDto->searchTypeProducer    = $jsonData['producer'] ?? false;
-        $advancedSearchDto->searchGenre           = isset($jsonData['genre']) ? strtoupper($jsonData['genre']) : '';
-        $advancedSearchDto->searchCountry         = isset($jsonData['country']) ? strtoupper($jsonData['country']) : '';
+        $advancedSearchDto->searchTypeTitle       = $jsonData['search_in_title'];
+        $advancedSearchDto->searchTypeDirector    = $jsonData['search_in_director'];
+        $advancedSearchDto->searchTypeCast        = $jsonData['search_in_cast'];
+        $advancedSearchDto->searchTypeScreenplay  = $jsonData['search_in_screenplay'];
+        $advancedSearchDto->searchTypePhotography = $jsonData['search_in_photography'];
+        $advancedSearchDto->searchTypeSoundtrack  = $jsonData['search_in_soundtrack'];
+        $advancedSearchDto->searchTypeProducer    = $jsonData['search_in_producer'];
+        $advancedSearchDto->searchGenre           = strtoupper($jsonData['genre']);
+        $advancedSearchDto->searchCountry         = strtoupper($jsonData['country']);
         $advancedSearchDto->searchYearFrom        = $jsonData['year_from'] ?? 0;
         $advancedSearchDto->searchYearTo          = $jsonData['year_to'] ?? 0;
 

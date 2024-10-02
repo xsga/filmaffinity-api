@@ -76,7 +76,7 @@ The API has the following public methods:
 |-----------|-----------|------------|----|
 |Simple films search|POST|searches/simple|Y|
 |Advanced films search|POST|searches/advanced|Y|
-|Get film information|GET|films/:id|URL parameter (:id)|
+|Get film information|GET|films/:id|-|
 |Get genres|GET|genres|-|
 |Get countries|GET|countries|-|
 
@@ -154,6 +154,15 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```json
 {
   "text": "pulp fiction",
+  "search_in_title": true,
+  "search_in_director": false,
+  "search_in_cast": false,
+  "search_in_screenplay": false,
+  "search_in_photography": false,
+  "search_in_soundtrack": false,
+  "search_in_producer": false,
+  "country": "",
+  "genre": "",
   "year_from": 1992,
   "year_to": 2000
 }
