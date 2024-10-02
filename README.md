@@ -2,7 +2,7 @@
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.0.0)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.1.0)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
@@ -74,8 +74,8 @@ The API has the following public methods:
 
 |Method name|HTTP method|API endpoint|Body|
 |-----------|-----------|------------|----|
-|Simple films search|POST|searches/simple|Y|
-|Advanced films search|POST|searches/advanced|Y|
+|Simple films search|POST|searches/simple|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/simple.search.schema.json)|
+|Advanced films search|POST|searches/advanced|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/advanced.search.schema.json)|
 |Get film information|GET|films/:id|-|
 |Get genres|GET|genres|-|
 |Get countries|GET|countries|-|
