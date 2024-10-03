@@ -17,7 +17,7 @@ final class AdvancedSearchFormParser extends AbstractParser
      */
     public function getGenres(): array
     {
-        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_FORM_GET_GENRES, false);
+        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_FORM_GET_GENRES);
 
         $out = [];
 
@@ -39,7 +39,7 @@ final class AdvancedSearchFormParser extends AbstractParser
      */
     public function getCountries(): array
     {
-        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_FORM_GET_COUNTRIES, false);
+        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_FORM_GET_COUNTRIES);
 
         $out = [];
 

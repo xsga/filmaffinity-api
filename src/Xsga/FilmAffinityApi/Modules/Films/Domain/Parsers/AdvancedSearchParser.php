@@ -24,7 +24,7 @@ final class AdvancedSearchParser extends AbstractParser
 
     public function getAdvSearchResults(): SearchResults
     {
-        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_DATA, false);
+        $xpathResults = $this->getData(self::QUERY_ADV_SEARCH_DATA);
         $totalResults = $xpathResults->length;
 
         $this->logger->info("FilmAffinity search: $totalResults results found");

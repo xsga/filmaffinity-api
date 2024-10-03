@@ -21,7 +21,7 @@ final class FilmGenresParser extends AbstractParser
      */
     public function getGenres(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_GENRES, false);
+        $data = $this->getData(self::QUERY_FILM_GET_GENRES);
 
         $out = [];
 
@@ -51,7 +51,7 @@ final class FilmGenresParser extends AbstractParser
      */
     public function getGenreTopics(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_GENRE_TOPICS, false);
+        $data = $this->getData(self::QUERY_FILM_GET_GENRE_TOPICS);
 
         $out = [];
 

@@ -17,7 +17,7 @@ final class FilmCoverParser extends AbstractParser
 
     private function getCoverUrl(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_COVER, false);
+        $data = $this->getData(self::QUERY_FILM_GET_COVER);
 
         if ($data->length === 0) {
             $this->logger->warning('Film cover URL not found');
@@ -29,7 +29,7 @@ final class FilmCoverParser extends AbstractParser
 
     private function getCoverFileName(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_COVER, false);
+        $data = $this->getData(self::QUERY_FILM_GET_COVER);
 
         if ($data->length === 0) {
             $this->logger->warning('Film cover file not found');

@@ -18,7 +18,7 @@ final class FilmDirectorsParser extends AbstractParser
      */
     public function getDirectors(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_DIRECTORS, false);
+        $data = $this->getData(self::QUERY_FILM_GET_DIRECTORS);
 
         $out = [];
 

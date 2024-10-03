@@ -18,7 +18,7 @@ final class FilmCastParser extends AbstractParser
      */
     public function getCast(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_ACTORS, false);
+        $data = $this->getData(self::QUERY_FILM_GET_ACTORS;
 
         $out = [];
 

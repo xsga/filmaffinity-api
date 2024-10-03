@@ -46,7 +46,7 @@ final class FilmParser extends AbstractParser
 
     public function getTitle(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_TITLE);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_TITLE);
 
         if (!$this->validateOneResult($data, 'film title')) {
             return '';
@@ -57,7 +57,7 @@ final class FilmParser extends AbstractParser
 
     public function getYear(): int
     {
-        $data = $this->getData(self::QUERY_FILM_GET_RELEASE_DATE);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_RELEASE_DATE);
 
         if (!$this->validateOneResult($data, 'film release')) {
             return 0;
@@ -68,7 +68,7 @@ final class FilmParser extends AbstractParser
 
     public function getDuration(): int
     {
-        $data = $this->getData(self::QUERY_FILM_GET_DURATION);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_DURATION);
 
         if (!$this->validateOneResult($data, 'film duration')) {
             return 0;
@@ -79,7 +79,7 @@ final class FilmParser extends AbstractParser
 
     public function getProducers(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_PRODUCERS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_PRODUCERS);
 
         if (!$this->validateMultipleResult($data, 'film producers')) {
             return '';
@@ -90,7 +90,7 @@ final class FilmParser extends AbstractParser
 
     public function getOriginalTitle(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_ORIGINAL_TITLE);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_ORIGINAL_TITLE);
 
         return match (isset($data[0])) {
             true => trim(str_replace('aka', '', $data[0])),
@@ -100,7 +100,7 @@ final class FilmParser extends AbstractParser
 
     public function getScreenplay(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[0])) {
             true => trim($data[0]),
@@ -110,7 +110,7 @@ final class FilmParser extends AbstractParser
 
     public function getSoundtrack(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[1])) {
             true => trim($data[1]),
@@ -120,7 +120,7 @@ final class FilmParser extends AbstractParser
 
     public function getPhotography(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
         return match (isset($data[2])) {
             true => trim($data[2]),
@@ -130,7 +130,7 @@ final class FilmParser extends AbstractParser
 
     public function getRating(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_RATING);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_RATING);
 
         if (!$this->validateOneResult($data, 'film rating')) {
             return '';
@@ -141,7 +141,7 @@ final class FilmParser extends AbstractParser
 
     public function getSynopsis(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_SYNOPSIS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_SYNOPSIS);
 
         if (!$this->validateOneResult($data, 'film synopsis')) {
             return '';

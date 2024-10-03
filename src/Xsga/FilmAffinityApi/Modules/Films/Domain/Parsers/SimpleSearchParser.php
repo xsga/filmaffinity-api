@@ -25,7 +25,7 @@ final class SimpleSearchParser extends AbstractParser
 
     public function isSingleResult(): bool
     {
-        $queyResults = $this->getData(self::QUERY_RESULTS_TYPE, false);
+        $queyResults = $this->getData(self::QUERY_RESULTS_TYPE);
 
         if (($queyResults->length > 0) && ($queyResults->item(0)?->attributes?->getNamedItem('content')?->nodeValue !== 'FilmAffinity')) {
             return true;
@@ -36,7 +36,7 @@ final class SimpleSearchParser extends AbstractParser
 
     public function getSingleResultId(): int
     {
-        $idSearch = $this->getData(self::QUERY_SINGLE_RESULT_GET_ID, false);
+        $idSearch = $this->getData(self::QUERY_SINGLE_RESULT_GET_ID);
         $idArray  = explode('/', $idSearch->item(0)?->attributes?->getNamedItem('content')?->nodeValue);
 
         return (int)trim(str_replace('film', '', str_replace('.html', '', end($idArray))));
@@ -44,7 +44,7 @@ final class SimpleSearchParser extends AbstractParser
 
     public function getMultiplesResultsTotal(): int
     {
-        $searchResults = $this->getData(self::QUERY_MULTIPLE_RESULTS_DATA, false);
+        $searchResults = $this->getData(self::QUERY_MULTIPLE_RESULTS_DATA);
 
         return $searchResults->length;
     }
@@ -54,7 +54,7 @@ final class SimpleSearchParser extends AbstractParser
      */
     public function getMultiplesResults(): array
     {
-        $searchResults = $this->getData(self::QUERY_MULTIPLE_RESULTS_DATA, false);
+        $searchResults = $this->getData(self::QUERY_MULTIPLE_RESULTS_DATA);
 
         $out = [];
 
