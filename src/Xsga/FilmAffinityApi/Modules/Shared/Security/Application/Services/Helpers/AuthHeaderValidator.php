@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers;
 
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 
 final class AuthHeaderValidator
 {
-    public function __construct(private LoggerInterface $logger)
+    public function __construct()
     {
     }
 

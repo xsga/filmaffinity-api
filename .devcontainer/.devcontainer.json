@@ -1,5 +1,11 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/php:8.3",
-    "features": {
+  "image": "mcr.microsoft.com/devcontainers/php:8.3",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "gruntfuggly.todo-tree",
+        "vscode-icons-team.vscode-icons"
+      ]
     }
   }
+}

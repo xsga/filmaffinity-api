@@ -25,8 +25,6 @@ final class TokenSecurityService
 
     public function apply(string $authHeader): ?UserDataTokenDto
     {
-        $this->logger->debug('Applying TOKEN security');
-
         try {
             $authToken     = $this->authHeaderValidator->validate($authHeader, SecurityTypes::TOKEN);
             $userDataToken = $this->getUserDataToken($authToken);
