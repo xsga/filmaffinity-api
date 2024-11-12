@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
-use Log4Php\Logger;
+use Psr\Log\LoggerInterface;
 use Throwable;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
 
 final class BackupCountriesService
 {
     public function __construct(
-        private Logger $logger,
+        private LoggerInterface $logger,
         private FilmAffinityCountriesRepository $repository,
         private string $language,
         private string $destinationPath

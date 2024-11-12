@@ -184,12 +184,14 @@ return [
 
     // Application services.
     BackupGenresService::class => DI\create(BackupGenresService::class)->constructor(
+        DI\get(LoggerInterface::class),
         DI\get(FilmAffinityGenresRepository::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
     ),
 
     BackupCountriesService::class => DI\create(BackupCountriesService::class)->constructor(
+        DI\get(LoggerInterface::class),
         DI\get(FilmAffinityCountriesRepository::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
