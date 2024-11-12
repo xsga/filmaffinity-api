@@ -21,8 +21,6 @@ final class GetAllErrorsService
      */
     public function get(): array
     {
-        $errors = $this->repository->getAllErrors();
-
-        return $this->mapper->convertArray($errors);
+        return $this->mapper->convertArray($this->repository->getAllErrors());
     }
 }

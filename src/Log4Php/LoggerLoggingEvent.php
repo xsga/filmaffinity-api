@@ -35,7 +35,7 @@ class LoggerLoggingEvent
         }
 
         if (($logger instanceof Logger)) {
-            $this->logger       = $logger;
+            $this->logger = $logger;
             $this->categoryName = $logger->getName();
             return;
         }
@@ -120,7 +120,7 @@ class LoggerLoggingEvent
     {
         if ($this->ndcLookupRequired) {
             $this->ndcLookupRequired = false;
-            $this->ndc               = LoggerNDC::get();
+            $this->ndc = LoggerNDC::get();
         }
 
         return $this->ndc;

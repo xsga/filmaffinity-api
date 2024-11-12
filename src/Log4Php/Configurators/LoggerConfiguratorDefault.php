@@ -76,10 +76,8 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
             throw new LoggerException("File not found at [$url].");
         }
 
-        $namespace = 'Log4Php\\Configurators\\';
-
         $type         = $this->getConfigType($url);
-        $adapterClass = $namespace . $this->adapters[$type];
+        $adapterClass = 'Log4Php\\Configurators\\' . $this->adapters[$type];
         $adapter      = new $adapterClass();
 
         return $adapter->convert($url);
@@ -198,15 +196,12 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
 
     private function configureAppender(string $name, array $config): void
     {
-        $namespace = 'Log4Php\\Appenders\\';
-
-        $class = $config['class'];
-        if (empty($class)) {
+        if (empty($config['class'])) {
             $this->warn("No class given for appender [$name]. Skipping appender definition.");
             return;
         }
 
-        $class = $namespace . $class;
+        $class = 'Log4Php\\Appenders\\' . $config['class'];
 
         if (!class_exists($class)) {
             $log  = "Invalid class [$class ] given for appender [$name]. ";
@@ -242,7 +237,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
                 return;
             }
 
-            $log  = 'Invalid threshold value [' . $config['threshold'] . '] specified for appender [' . $name . ']. ';
+            $log  = 'Invalid threshold value [' . $config['threshold'] . "] specified for appender [$name]. ";
             $log .= 'Ignoring threshold definition.';
             $this->warn($log);
         }
@@ -273,16 +268,14 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
 
     private function createAppenderLayout(LoggerAppender $appender, array $config): void
     {
-        $name  = $appender->getName();
-        $class = $config['class'];
+        $name = $appender->getName();
 
-        if (empty($class)) {
+        if (empty($config['class'])) {
             $this->warn("Layout class not specified for appender [$name]. Reverting to default layout.");
             return;
         }
 
-        $namespace = 'Log4Php\\Layouts\\';
-        $class     = $namespace . $class;
+        $class = 'Log4Php\\Layouts\\' . $config['class'];
 
         if (!class_exists($class)) {
             $log = "Nonexistent layout class [$class] specified for appender [$name]. Reverting to default layout";
@@ -359,7 +352,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
                 return;
             }
 
-            $log  = 'Invalid level value [' . $config['level'] . '] specified for logger [' . $loggerName . '].';
+            $log  = 'Invalid level value [' . $config['level'] . "] specified for logger [$loggerName].";
             $log .= ' Ignoring level definition.';
             $this->warn($log);
         }
@@ -386,7 +379,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
                 $logger->setAdditivity($additivity);
             } catch (\Exception $ex) {
                 $log  = 'Invalid additivity value [' . $config['additivity'] . '] specified for logger ';
-                $log .= '[' . $loggerName . ']. Ignoring additivity setting.';
+                $log .= "[$loggerName]. Ignoring additivity setting.";
                 $this->warn($log);
             }
         }

@@ -9,10 +9,6 @@ use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 
 final class AuthHeaderValidator
 {
-    public function __construct()
-    {
-    }
-
     public function validate(string $authHeader, SecurityTypes $type): string
     {
         $authArray = explode(' ', $authHeader);

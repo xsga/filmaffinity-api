@@ -22,7 +22,6 @@ class LoggerThrowableInformation
     {
         if (empty($this->throwableArray)) {
             $renderer = new LoggerRendererException();
-
             $this->throwableArray = explode("\n", $renderer->render($this->throwable));
         }
 

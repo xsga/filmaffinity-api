@@ -19,27 +19,27 @@ final class UpdateUserStatusService
     ) {
     }
 
-    public function set(int|string $userId, bool $newStatus): bool
+    public function set(int $userId, bool $newStatus): bool
     {
-        $user = match (is_string($userId)) {
-            false => $this->getUser->byId($userId),
-            true => $this->getUser->byEmail($userId)
-        };
+        $user = $this->getUser->byId($userId);
 
         $this->validateActualUserStatus($user, $newStatus);
+        $this->changeUserStatus($user, $newStatus);
 
+        $userUpdateStatus = $this->usersRepository->updateUserStatus($user);
+        $this->validateUserUpdate($userUpdateStatus, $user->email());
+
+        return true;
+    }
+
+    private function changeUserStatus(User $user, bool $newStatus): User
+    {
         match ($newStatus) {
             true => $user->enable(),
             false => $user->disable()
         };
 
-        $userUpdateStatus = $this->usersRepository->updateUserStatus($user);
-
-        $this->validateUserUpdate($userUpdateStatus, $user->email());
-
-        $this->logger->info("User '" . $user->email() . "' status updated successfully");
-
-        return true;
+        return $user;
     }
 
     private function validateActualUserStatus(User $user, bool $newStatus): void
@@ -66,5 +66,7 @@ final class UpdateUserStatusService
             $this->logger->error($errorMsg);
             throw new UpdateUserException($errorMsg, 1012, null, [1 => $userEmail]);
         }
+
+        $this->logger->info("User '$userEmail' status updated successfully");
     }
 }

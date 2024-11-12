@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Logging\Middleware;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
@@ -69,6 +70,7 @@ return [
     // ENVIRONMENT.
     'getLanguage' => $_ENV['LANGUAGE'],
     'getErrorDetail' => filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN),
+    'getLogSQL' => filter_var($_ENV['LOG_SQL'], FILTER_VALIDATE_BOOLEAN),
     'getUrlPath' => $_ENV['URL_PATH'],
     'getJwtSecretKey' => $_ENV['JWT_SECRET_KEY'],
     'getJwtLifetime' => (int)$_ENV['JWT_LIFETIME'],
@@ -109,10 +111,15 @@ return [
         $isDevMode   = true;
         $entityPaths = $container->get('entity.folders');
         $proxyPath   = $container->get('entities.proxy.folder');
-        $connection  = DriverManager::getConnection($container->get('database.info'));
-
+        
         $config = ORMSetup::createAttributeMetadataConfiguration($entityPaths, $isDevMode, $proxyPath, null);
         $config->setAutoGenerateProxyClasses($isDevMode);
+
+        if ($container->get('getLogSQL')) {
+            $config->setMiddlewares([$container->get(Middleware::class)]);
+        }
+
+        $connection  = DriverManager::getConnection($container->get('database.info'), $config);
 
         return new EntityManager($connection, $config);
     },
@@ -126,8 +133,17 @@ return [
         }
         return Logger::getRootLogger();
     },
+    'logger-cli' => function (ContainerInterface $container) {
+        if (!Logger::isInitialized()) {
+            Logger::configure($container->get('logger.config.folder') . 'log4php-cli.xml');
+        }
+        return Logger::getRootLogger();
+    },
     LoggerInterface::class => function (ContainerInterface $container): LoggerInterface {
-        $logger = $container->get(Logger::class);
+        $logger = match (php_sapi_name()) {
+            'cli' => $container->get('logger-cli'),
+            default => $container->get(Logger::class)
+        };
         return new LoggerWrapper($logger);
     },
 
@@ -149,6 +165,7 @@ return [
     // USERS MODULE.
     // --------------------------------------------------------------------------------------------
 
+    // Application mappers.
     UserToUserDto::class => DI\create(UserToUserDto::class)->constructor(
         DI\get('getDateTimeMask')
     ),

@@ -55,7 +55,8 @@ final class BasicSecurityService
 
     private function getUserDataToken(User $user): UserDataTokenDto
     {
-        $userDataToken           = new UserDataTokenDto();
+        $userDataToken = new UserDataTokenDto();
+
         $userDataToken->userId   = $user->userId();
         $userDataToken->email    = $user->email();
         $userDataToken->password = $user->password();

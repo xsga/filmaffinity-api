@@ -10,11 +10,10 @@ class LoggerReflectionUtils
     {
     }
 
-    public static function setPropertiesByObject(object $obj, array $properties, string $prefix): mixed
+    public static function setPropertiesByObject(object $obj, array $properties, string $prefix): void
     {
         $pSetter = new LoggerReflectionUtils($obj);
-
-        return $pSetter->setProperties($properties, $prefix);
+        $pSetter->setProperties($properties, $prefix);
     }
 
     public function setProperties(array $properties, string $prefix): void
@@ -52,8 +51,8 @@ class LoggerReflectionUtils
         $method = 'set' . ucfirst($name);
 
         if (!method_exists($this->obj, $method)) {
-            $msg  = 'Error setting log4php property ' . $name . ' to ' . $value . ': no method ' . $method;
-            $msg .= ' in class ' . get_class($this->obj);
+            $class = get_class($this->obj);
+            $msg = "Error setting log4php property $name to $value: no method $method in class $class";
             throw new RuntimeException($msg);
         }
 

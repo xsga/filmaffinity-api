@@ -35,8 +35,6 @@ final class ErrorHandler implements ErrorHandlerInterface
         bool $logErrors,
         bool $logErrorDetails
     ): Response {
-        $this->logger->debug('Init ERROR HANDLER');
-
         $error       = $this->getError->byCode($this->getErrorCode($exception));
         $response    = new Psr7Response($error->httpCode());
         $responseDto = $this->getResponseDto($error, $response->getReasonPhrase(), $exception, $displayErrorDetails);
@@ -45,7 +43,6 @@ final class ErrorHandler implements ErrorHandlerInterface
 
         $this->logger->error('ERROR ' . $error->code() . ': ' . $exception->getMessage());
         $this->logger->error($exception->__toString());
-        $this->logger->debug('End ERROR HANDLER');
 
         return $response;
     }

@@ -72,7 +72,6 @@ class LoggerOptionConverter
         }
 
         $log = 'Given value [' . var_export($value, true) . '] cannot be converted to a positive integer.';
-
         throw new LoggerException($log);
     }
 
@@ -124,7 +123,7 @@ class LoggerOptionConverter
             return (int)$size;
         }
 
-        throw new LoggerException('Given value [' . $value . '] cannot be converted to a file size.');
+        throw new LoggerException("Given value [$value] cannot be converted to a file size.");
     }
 
     public static function toStringEx(mixed $value): string

@@ -4,14 +4,14 @@ namespace Log4Php;
 
 class LoggerLevel
 {
-    public const int OFF = 2147483647;
+    public const int OFF   = 2147483647;
     public const int FATAL = 50000;
     public const int ERROR = 40000;
-    public const int WARN = 30000;
-    public const int INFO = 20000;
+    public const int WARN  = 30000;
+    public const int INFO  = 20000;
     public const int DEBUG = 10000;
     public const int TRACE = 5000;
-    public const int ALL = -2147483647;
+    public const int ALL   = -2147483647;
 
     private static array $levelMap = [];
 
@@ -144,29 +144,29 @@ class LoggerLevel
     private static function intLevel(int|string $arg, LoggerLevel $defaultLevel = null): ?LoggerLevel
     {
         return match ($arg) {
-            static::ALL => static::getLevelAll(),
+            static::ALL   => static::getLevelAll(),
             static::TRACE => static::getLevelTrace(),
             static::DEBUG => static::getLevelDebug(),
-            static::INFO => static::getLevelInfo(),
-            static::WARN => static::getLevelWarn(),
+            static::INFO  => static::getLevelInfo(),
+            static::WARN  => static::getLevelWarn(),
             static::ERROR => static::getLevelError(),
             static::FATAL => static::getLevelFatal(),
-            static::OFF => static::getLevelOff(),
-            default => $defaultLevel
+            static::OFF   => static::getLevelOff(),
+            default       => $defaultLevel
         };
     }
 
     private static function strLevel(int|string $arg, LoggerLevel $defaultLevel = null): ?LoggerLevel
     {
         return match (strtoupper((string)$arg)) {
-            'ALL' => static::getLevelAll(),
+            'ALL'   => static::getLevelAll(),
             'TRACE' => static::getLevelTrace(),
             'DEBUG' => static::getLevelDebug(),
-            'INFO' => static::getLevelInfo(),
-            'WARN' => static::getLevelWarn(),
+            'INFO'  => static::getLevelInfo(),
+            'WARN'  => static::getLevelWarn(),
             'ERROR' => static::getLevelError(),
             'FATAL' => static::getLevelFatal(),
-            'OFF' => static::getLevelOff(),
+            'OFF'   => static::getLevelOff(),
             default => $defaultLevel
         };
     }

@@ -17,8 +17,6 @@ final class GetAllErrorsController extends AbstractController
 
     public function __invoke(Request $request, Response $response): Response
     {
-        $errorsDto = $this->getAllErrorsService->get();
-
-        return $this->writeResponse($response, $errorsDto);
+        return $this->writeResponse($response, $this->getAllErrorsService->get());
     }
 }
