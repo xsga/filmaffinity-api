@@ -17,8 +17,6 @@ final class GetFilmByIdController extends AbstractController
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $filmId = (int)$args['id'];
-
-        return $this->writeResponse($response, $this->getFilmByIdService->get($filmId));
+        return $this->writeResponse($response, $this->getFilmByIdService->get((int)$args['id']));
     }
 }
