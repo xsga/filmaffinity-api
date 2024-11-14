@@ -26,13 +26,13 @@ final class BackupCountriesService
             $fileName      = "countries_$this->language.json";
 
             file_put_contents($this->destinationPath . $fileName, $countriesJson);
+
+            return true;
         } catch (Throwable $exception) {
             $this->logger->error('Error storing countries backup');
             $this->logger->error($exception->__toString());
             
             return false;
         }
-
-        return true;
     }
 }

@@ -20,8 +20,8 @@ class AdvSearchDtoToAdvSearch
             $advSearchDto->searchTypePhotography,
             $advSearchDto->searchTypeSoundtrack,
             $advSearchDto->searchTypeProducer,
-            $advSearchDto->searchCountry === '' ? null : $advSearchDto->searchCountry,
-            $advSearchDto->searchGenre === '' ? null : $advSearchDto->searchGenre,
+            $advSearchDto->searchCountryCode === '' ? null : $advSearchDto->searchCountryCode,
+            $advSearchDto->searchGenreCode === '' ? null : $advSearchDto->searchGenreCode,
             $advSearchDto->searchYearFrom === 0 ? null : $advSearchDto->searchYearFrom,
             $advSearchDto->searchYearTo === 0 ? null : $advSearchDto->searchYearTo
         );

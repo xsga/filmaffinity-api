@@ -26,13 +26,13 @@ final class BackupGenresService
             $fileName   = "genres_$this->language.json";
 
             file_put_contents($this->destinationPath . $fileName, $genresJson);
+
+            return true;
         } catch (Throwable $exception) {
             $this->logger->error('Error storing genres backup');
             $this->logger->error($exception->__toString());
             
             return false;
         }
-
-        return true;
     }
 }
