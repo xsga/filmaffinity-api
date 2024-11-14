@@ -31,7 +31,7 @@ final class BackupGenresService
         } catch (Throwable $exception) {
             $this->logger->error('Error storing genres backup');
             $this->logger->error($exception->__toString());
-            
+
             return false;
         }
     }

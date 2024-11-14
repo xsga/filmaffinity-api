@@ -21,4 +21,3 @@ final class GetUserByEmailService
         return $this->mapper->convert($this->getUser->byEmail($userEmail));
     }
 }
-

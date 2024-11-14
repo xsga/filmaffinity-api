@@ -75,8 +75,7 @@ class Film
         array $directors,
         array $genres,
         array $genreTopics
-    )
-    {
+    ) {
         $this->id            = new FilmId($id);
         $this->title         = new FilmTitle($title);
         $this->originalTitle = new FilmTitle($originalTitle);
@@ -192,5 +191,4 @@ class Film
     {
         return $this->genreTopics;
     }
-
 }

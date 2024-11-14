@@ -31,7 +31,7 @@ final class BackupCountriesService
         } catch (Throwable $exception) {
             $this->logger->error('Error storing countries backup');
             $this->logger->error($exception->__toString());
-            
+
             return false;
         }
     }

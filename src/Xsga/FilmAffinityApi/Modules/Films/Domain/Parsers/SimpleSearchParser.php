@@ -27,7 +27,10 @@ final class SimpleSearchParser extends AbstractParser
     {
         $queyResults = $this->getData(self::QUERY_RESULTS_TYPE);
 
-        if (($queyResults->length > 0) && ($queyResults->item(0)?->attributes?->getNamedItem('content')?->nodeValue !== 'FilmAffinity')) {
+        if (
+            ($queyResults->length > 0) &&
+            ($queyResults->item(0)?->attributes?->getNamedItem('content')?->nodeValue !== 'FilmAffinity')
+        ) {
             return true;
         }
 
