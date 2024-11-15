@@ -21,30 +21,19 @@ final class UrlService
 
     public function getFilmUrl(int $filmId): string
     {
-        $url = str_replace('{1}', (string)$filmId, $this->filmUrl);
-
-        $this->logger->debug("Film URL: $url");
-
-        return $this->baseUrl . $url;
+        return $this->baseUrl . str_replace('{1}', (string)$filmId, $this->filmUrl);
     }
 
     public function getSearchUrl(Search $search): string
     {
-        $url = str_replace('{1}', $this->prepareSearchText($search->text()), $this->searchUrl);
-
-        $this->logger->debug("Search URL: $url");
-
-        return $this->baseUrl . $url;
+        return $this->baseUrl . str_replace('{1}', $this->prepareSearchText($search->text()), $this->searchUrl);
     }
 
     public function getAdvancedSearchFormUrl(): string
     {
         $urlArray = explode('?', $this->advancedSearchUrl);
-        $url      = $urlArray[0];
 
-        $this->logger->debug("Advanced search form URL: $url");
-
-        return $this->baseUrl . $url;
+        return $this->baseUrl . $urlArray[0];
     }
 
     public function getAdvancedSearchUrl(AdvancedSearch $advancedSearch): string
@@ -56,8 +45,6 @@ final class UrlService
         $url = str_replace('{4}', $advancedSearch->genreCode(), $url);
         $url = str_replace('{5}', $advancedSearch->yearFrom() === 0 ? '' : (string)$advancedSearch->yearFrom(), $url);
         $url = str_replace('{6}', $advancedSearch->yearTo() === 0 ? '' : (string)$advancedSearch->yearTo(), $url);
-
-        $this->logger->debug("Advanced Search URL: $url");
 
         return $this->baseUrl . $url;
     }
@@ -83,9 +70,6 @@ final class UrlService
 
     private function prepareSearchText(string $searchText): string
     {
-        $searchText = trim($searchText);
-        $searchText = str_replace(' ', '+', $searchText);
-
-        return $searchText;
+        return str_replace(' ', '+', trim($searchText));
     }
 }

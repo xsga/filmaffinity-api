@@ -32,6 +32,22 @@
         }
     },
     {
+        "code": 2004,
+        "http": 404,
+        "description": {
+            "en": "Page not found",
+            "spa": "Página no encontrada"
+        }
+    },
+    {
+        "code": 2005,
+        "http": 404,
+        "description": {
+            "en": "Film with ID '{1}' not found",
+            "spa": "Film con ID '{1}' no encontrado"
+        }
+    },
+    {
         "code": 1000,
         "http": 500,
         "description": {

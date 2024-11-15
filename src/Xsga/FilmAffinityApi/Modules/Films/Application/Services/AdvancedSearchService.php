@@ -18,7 +18,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 
 final class AdvancedSearchService
 {
-    private const int SEARCH_TEXT_MIN_LENGTH = 3;
+    private const int SEARCH_TEXT_MIN_LENGTH = 2;
 
     public function __construct(
         private LoggerInterface $logger,
@@ -38,13 +38,15 @@ final class AdvancedSearchService
 
         $searchResults = $this->repository->get($this->advSearchMapper->convert($advancedSearchDto));
 
+        $this->logger->info('The advanced search returned ' . $searchResults->total() . ' results');
+
         return $this->searchResultsMapper->convert($searchResults);
     }
 
     private function validatesSearchTextLength(string $searchText): void
     {
         if (strlen($searchText) < self::SEARCH_TEXT_MIN_LENGTH) {
-            $errorMsg = 'Search text lenght not valid';
+            $errorMsg = 'Search text length not valid';
             $this->logger->error($errorMsg);
             throw new InvalidSearchLengthException($errorMsg, 2001);
         }
