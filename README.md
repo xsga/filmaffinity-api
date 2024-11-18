@@ -74,6 +74,7 @@ The API has the following public methods:
 
 |Method name|HTTP method|API endpoint|Body|
 |-----------|-----------|------------|----|
+|Get user token|POST|users/token|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/get.token.schema.json)|
 |Simple films search|POST|searches/simple|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/simple.search.schema.json)|
 |Advanced films search|POST|searches/advanced|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/advanced.search.schema.json)|
 |Get film information|GET|films/:id|-|
