@@ -24,7 +24,7 @@ final class FilmCoverParser extends AbstractParser
             return '';
         }
 
-        return trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue);
+        return trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue ?? '');
     }
 
     private function getCoverFileName(): string
@@ -36,7 +36,7 @@ final class FilmCoverParser extends AbstractParser
             return '';
         }
 
-        $coverUrl      = trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue);
+        $coverUrl      = trim($data->item(0)?->attributes?->getNamedItem('href')?->nodeValue ?? '');
         $coverUrlArray = explode('/', $coverUrl);
         $coverFile     = end($coverUrlArray);
 

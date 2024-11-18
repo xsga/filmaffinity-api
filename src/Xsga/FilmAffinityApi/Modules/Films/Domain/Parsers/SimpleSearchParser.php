@@ -87,25 +87,22 @@ final class SimpleSearchParser extends AbstractParser
     {
         $idResult  = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_ID);
 
-        return (int)trim($idResult->item(0)?->attributes?->getNamedItem('data-movie-id')?->nodeValue);
+        return (int)trim($idResult->item(0)?->attributes?->getNamedItem('data-movie-id')?->nodeValue ?? '');
     }
 
     private function getTitle(DOMXPath $domXpath): string
     {
         $titleResult = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_TITLE);
+        $titleText   = is_null($titleResult->item(0)->nodeValue) ? '' : $titleResult->item(0)->nodeValue;
 
-        $title = trim(str_replace('  ', ' ', str_replace('   ', ' ', $titleResult->item(0)->nodeValue)));
-
-        return $title;
+        return trim(str_replace('  ', ' ', str_replace('   ', ' ', $titleText)));
     }
 
     private function getYear(DOMXPath $domXpath): int
     {
         $yearResult = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_YEAR);
 
-        $year = $yearResult->item(0)->nodeValue ?? '';
-
-        return (int)trim($year);
+        return (int)trim($yearResult->item(0)->nodeValue ?? '');
     }
 
     /**
@@ -129,7 +126,7 @@ final class SimpleSearchParser extends AbstractParser
         $url = trim($item->getAttribute('href'));
 
         $directorId   = (int)substr($url, strpos($url, $this->urlPattern) + strlen($this->urlPattern), -1);
-        $directorName = trim($item->nodeValue);
+        $directorName = trim($item->nodeValue ?? '');
 
         return new Director($directorId, $directorName);
     }

@@ -15,7 +15,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmSynopsis;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmTitle;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmYear;
 
-class Film
+final class Film
 {
     private FilmId $id;
     private FilmTitle $title;

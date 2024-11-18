@@ -26,6 +26,8 @@ final class FilmDirectorsParser extends AbstractParser
             $out[] = $this->getDirector($item);
         }
 
+        $this->logger->debug(count($out) . ' directors found');
+
         return $out;
     }
 
@@ -34,7 +36,7 @@ final class FilmDirectorsParser extends AbstractParser
         $url = trim($item->getAttribute('href'));
 
         $directorId   = (int)substr($url, strpos($url, $this->urlPattern) + strlen($this->urlPattern), -1);
-        $directorName = trim($item->nodeValue);
+        $directorName = trim($item->nodeValue ?? '');
 
         return new Director($directorId, $directorName);
     }

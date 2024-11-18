@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Model;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\GenreCode;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\GenreName;
 
-class Genre
+final class Genre
 {
     private GenreCode $code;
     private GenreName $name;

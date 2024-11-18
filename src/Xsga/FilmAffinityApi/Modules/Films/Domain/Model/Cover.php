@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Model;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\CoverFileName;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\CoverUrl;
 
-class Cover
+final class Cover
 {
     private CoverUrl $url;
     private CoverFileName $fileName;

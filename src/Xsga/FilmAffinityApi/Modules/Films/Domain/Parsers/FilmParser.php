@@ -52,7 +52,7 @@ final class FilmParser extends AbstractParser
             return '';
         }
 
-        return trim($data[0]);
+        return trim($data[0] ?? '');
     }
 
     public function getYear(): int
@@ -63,7 +63,7 @@ final class FilmParser extends AbstractParser
             return 0;
         }
 
-        return (int)trim($data[0]);
+        return (int)trim($data[0] ?? '');
     }
 
     public function getDuration(): int
@@ -74,7 +74,7 @@ final class FilmParser extends AbstractParser
             return 0;
         }
 
-        return (int)trim(str_replace('min.', '', $data[0]));
+        return (int)trim(str_replace('min.', '', $data[0] ?? ''));
     }
 
     public function getProducers(): string
@@ -92,40 +92,28 @@ final class FilmParser extends AbstractParser
     {
         $data = $this->getDataArray(self::QUERY_FILM_GET_ORIGINAL_TITLE);
 
-        return match (isset($data[0])) {
-            true => trim(str_replace('aka', '', $data[0])),
-            false => ''
-        };
+        return trim(str_replace('aka', '', $data[0] ?? ''));
     }
 
     public function getScreenplay(): string
     {
         $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[0])) {
-            true => trim($data[0]),
-            false => ''
-        };
+        return trim($data[0] ?? '');
     }
 
     public function getSoundtrack(): string
     {
         $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[1])) {
-            true => trim($data[1]),
-            false => ''
-        };
+        return trim($data[1] ?? '');
     }
 
     public function getPhotography(): string
     {
         $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[2])) {
-            true => trim($data[2]),
-            false => ''
-        };
+        return trim($data[2] ?? '');
     }
 
     public function getRating(): string
@@ -136,7 +124,7 @@ final class FilmParser extends AbstractParser
             return '';
         }
 
-        return trim($data[0]);
+        return trim($data[0] ?? '');
     }
 
     public function getSynopsis(): string
@@ -147,6 +135,6 @@ final class FilmParser extends AbstractParser
             return '';
         }
 
-        return trim(str_replace('(FILMAFFINITY)', '', $data[0]));
+        return trim(str_replace('(FILMAFFINITY)', '', $data[0] ?? ''));
     }
 }
