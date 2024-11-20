@@ -146,6 +146,59 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```
 
 ### Advanced films search
+
+**EXAMPLE 1:** An example of an advanced search searching only for a text in the title of the film.
+
+**URL**
+```
+[POST] http://<server_domain_api>/searches/advanced
+```
+
+**INPUT**
+```json
+{
+  "text": "pulp fiction",
+  "search_in_title": true,
+  "search_in_director": false,
+  "search_in_cast": false,
+  "search_in_screenplay": false,
+  "search_in_photography": false,
+  "search_in_soundtrack": false,
+  "search_in_producer": false,
+  "country": "",
+  "genre": "",
+  "year_from": 0,
+  "year_to": 0
+}
+```
+
+**OUTPUT**
+```json
+{
+  "status": "OK",
+  "statusCode": 200,
+  "response": {
+    "total": 1,
+    "results": [
+      {
+        "id": 160882,
+        "title": "Pulp Fiction",
+        "year": 1994,
+        "directors": ["Quentin Taratino"]
+      },
+      {
+        "id": 991349,
+        "title": "8 Bit Cinema: Pulp Fiction",
+        "year": 2014,
+        "directors": ["David Dutton"]
+      }
+    ]
+  }
+}
+```
+
+**EXAMPLE 2:** another example of an advanced search searching for a text in the title of the film and between two years.
+
 **URL**
 ```
 [POST] http://<server_domain_api>/searches/advanced
