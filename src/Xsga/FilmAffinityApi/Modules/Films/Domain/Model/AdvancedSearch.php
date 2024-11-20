@@ -10,7 +10,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\GenreCode;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\SearchText;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\SearchType;
 
-class AdvancedSearch
+final class AdvancedSearch
 {
     private SearchText $text;
     private SearchType $typeTitle;

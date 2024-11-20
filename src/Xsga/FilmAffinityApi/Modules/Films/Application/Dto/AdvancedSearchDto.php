@@ -14,8 +14,8 @@ class AdvancedSearchDto
     public bool $searchTypePhotography = false;
     public bool $searchTypeSoundtrack = false;
     public bool $searchTypeProducer = false;
-    public string $searchCountry = '';
-    public string $searchGenre = '';
+    public string $searchCountryCode = '';
+    public string $searchGenreCode = '';
     public int $searchYearFrom = 0;
     public int $searchYearTo = 0;
 }

@@ -46,40 +46,40 @@ final class FilmParser extends AbstractParser
 
     public function getTitle(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_TITLE);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_TITLE);
 
         if (!$this->validateOneResult($data, 'film title')) {
             return '';
         }
 
-        return trim($data[0]);
+        return trim($data[0] ?? '');
     }
 
     public function getYear(): int
     {
-        $data = $this->getData(self::QUERY_FILM_GET_RELEASE_DATE);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_RELEASE_DATE);
 
         if (!$this->validateOneResult($data, 'film release')) {
             return 0;
         }
 
-        return (int)trim($data[0]);
+        return (int)trim($data[0] ?? '');
     }
 
     public function getDuration(): int
     {
-        $data = $this->getData(self::QUERY_FILM_GET_DURATION);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_DURATION);
 
         if (!$this->validateOneResult($data, 'film duration')) {
             return 0;
         }
 
-        return (int)trim(str_replace('min.', '', $data[0]));
+        return (int)trim(str_replace('min.', '', $data[0] ?? ''));
     }
 
     public function getProducers(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_PRODUCERS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_PRODUCERS);
 
         if (!$this->validateMultipleResult($data, 'film producers')) {
             return '';
@@ -90,63 +90,51 @@ final class FilmParser extends AbstractParser
 
     public function getOriginalTitle(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_ORIGINAL_TITLE);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_ORIGINAL_TITLE);
 
-        return match (isset($data[0])) {
-            true => trim(str_replace('aka', '', $data[0])),
-            false => ''
-        };
+        return trim(str_replace('aka', '', $data[0] ?? ''));
     }
 
     public function getScreenplay(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[0])) {
-            true => trim($data[0]),
-            false => ''
-        };
+        return trim($data[0] ?? '');
     }
 
     public function getSoundtrack(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[1])) {
-            true => trim($data[1]),
-            false => ''
-        };
+        return trim($data[1] ?? '');
     }
 
     public function getPhotography(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_VARIOUS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_VARIOUS);
 
-        return match (isset($data[2])) {
-            true => trim($data[2]),
-            false => ''
-        };
+        return trim($data[2] ?? '');
     }
 
     public function getRating(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_RATING);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_RATING);
 
         if (!$this->validateOneResult($data, 'film rating')) {
             return '';
         }
 
-        return trim($data[0]);
+        return trim($data[0] ?? '');
     }
 
     public function getSynopsis(): string
     {
-        $data = $this->getData(self::QUERY_FILM_GET_SYNOPSIS);
+        $data = $this->getDataArray(self::QUERY_FILM_GET_SYNOPSIS);
 
         if (!$this->validateOneResult($data, 'film synopsis')) {
             return '';
         }
 
-        return trim(str_replace('(FILMAFFINITY)', '', $data[0]));
+        return trim(str_replace('(FILMAFFINITY)', '', $data[0] ?? ''));
     }
 }

@@ -16,14 +16,12 @@ class LoggerRendererMap
 
     public function addRenderer(string $renderedClass, string $renderingClass): void
     {
-        $namespace = 'Log4Php\\Renderers\\';
+        $class = 'Log4Php\\Renderers\\' . $renderingClass;
 
-        if (!class_exists($namespace . $renderingClass)) {
+        if (!class_exists($class)) {
             trigger_error('log4php: Failed adding renderer. Rendering class [' . $renderingClass . '] not found.');
             return;
         }
-
-        $class = $namespace . $renderingClass;
 
         $renderer = new $class();
 

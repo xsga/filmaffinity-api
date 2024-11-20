@@ -22,8 +22,6 @@ final class BasicSecurityService
 
     public function apply(string $authHeader): ?UserDataTokenDto
     {
-        $this->logger->debug('Applying BASIC security');
-
         $basicAuthToken = $this->authHeaderValidator->validate($authHeader, SecurityTypes::BASIC);
 
         if (empty($basicAuthToken)) {
@@ -57,7 +55,8 @@ final class BasicSecurityService
 
     private function getUserDataToken(User $user): UserDataTokenDto
     {
-        $userDataToken           = new UserDataTokenDto();
+        $userDataToken = new UserDataTokenDto();
+
         $userDataToken->userId   = $user->userId();
         $userDataToken->email    = $user->email();
         $userDataToken->password = $user->password();

@@ -21,24 +21,26 @@ abstract class AbstractParser
     {
         libxml_use_internal_errors(true);
 
-        $this->content->loadHtml(htmlspecialchars_decode(
-            iconv('UTF-8', 'ISO-8859-1', htmlentities($pageContent, ENT_COMPAT, 'UTF-8')),
-            ENT_QUOTES
-        ));
+        $this->content->loadHtml(htmlspecialchars_decode(htmlentities($pageContent, ENT_COMPAT, 'UTF-8'), ENT_QUOTES));
 
         libxml_use_internal_errors(false);
     }
 
-    protected function getData(string $query, bool $outArray = true): array|DOMNodeList
+    protected function getData(string $query): DOMNodeList
+    {
+        return $this->getDOMData($query);
+    }
+
+    protected function getDataArray(string $query): array
+    {
+        return $this->convertToArray($this->getDOMData($query));
+    }
+
+    private function getDOMData(string $query): DOMNodeList
     {
         $domXpath = new DOMXPath($this->content);
-        $data     = $domXpath->query($query);
 
-        if (!$outArray) {
-            return $data;
-        }
-
-        return $this->convertToArray($data);
+        return $domXpath->query($query);
     }
 
     private function convertToArray(DOMNodeList $data): array

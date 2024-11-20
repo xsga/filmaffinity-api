@@ -18,13 +18,15 @@ final class FilmCastParser extends AbstractParser
      */
     public function getCast(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_ACTORS, false);
+        $data = $this->getData(self::QUERY_FILM_GET_ACTORS);
 
         $out = [];
 
         foreach ($data as $item) {
             $out[] = $this->getActor($item);
         }
+
+        $this->logger->debug(count($out) . ' actors found');
 
         return $out;
     }
@@ -34,7 +36,7 @@ final class FilmCastParser extends AbstractParser
         $url = trim($item->getAttribute('href'));
 
         $actorId   = (int)substr($url, strpos($url, $this->urlPattern) + strlen($this->urlPattern), -1);
-        $actorName = trim($item->nodeValue);
+        $actorName = trim($item->nodeValue ?? '');
 
         return new Actor($actorId, $actorName);
     }

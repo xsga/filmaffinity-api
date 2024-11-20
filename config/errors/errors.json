@@ -19,16 +19,32 @@
         "code": 2002,
         "http": 500,
         "description": {
-            "en": "Genre code not valid",
-            "spa": "El codigo de género no es válido"
+            "en": "Genre with code '{1}' not valid",
+            "spa": "El codigo de género '{1}' no es válido"
         }
     },
     {
         "code": 2003,
         "http": 500,
         "description": {
-            "en": "Country code not valid",
-            "spa": "El codigo de país no es válido"
+            "en": "Country with code '{1}' not valid",
+            "spa": "El codigo de país '{1}' no es válido"
+        }
+    },
+    {
+        "code": 2004,
+        "http": 404,
+        "description": {
+            "en": "Page not found",
+            "spa": "Página no encontrada"
+        }
+    },
+    {
+        "code": 2005,
+        "http": 404,
+        "description": {
+            "en": "Film with ID '{1}' not found",
+            "spa": "Film con ID '{1}' no encontrado"
         }
     },
     {

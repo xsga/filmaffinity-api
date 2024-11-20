@@ -2,7 +2,7 @@
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.0.0)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.1.0)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
@@ -74,9 +74,10 @@ The API has the following public methods:
 
 |Method name|HTTP method|API endpoint|Body|
 |-----------|-----------|------------|----|
-|Simple films search|POST|searches/simple|Y|
-|Advanced films search|POST|searches/advanced|Y|
-|Get film information|GET|films/:id|URL parameter (:id)|
+|Get user token|POST|users/token|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/get.token.schema.json)|
+|Simple films search|POST|searches/simple|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/simple.search.schema.json)|
+|Advanced films search|POST|searches/advanced|[JSON Schema](https://github.com/xsga/filmaffinity-api/blob/master/config/schemas/input/advanced.search.schema.json)|
+|Get film information|GET|films/:id|-|
 |Get genres|GET|genres|-|
 |Get countries|GET|countries|-|
 
@@ -145,6 +146,9 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```
 
 ### Advanced films search
+
+**EXAMPLE 1:** An example of an advanced search searching only for a text in the title of the film.
+
 **URL**
 ```
 [POST] http://<server_domain_api>/searches/advanced
@@ -154,6 +158,65 @@ docker exec -it filmaffinityapi-web-server php .bin/console <COMMAND>
 ```json
 {
   "text": "pulp fiction",
+  "search_in_title": true,
+  "search_in_director": false,
+  "search_in_cast": false,
+  "search_in_screenplay": false,
+  "search_in_photography": false,
+  "search_in_soundtrack": false,
+  "search_in_producer": false,
+  "country": "",
+  "genre": "",
+  "year_from": 0,
+  "year_to": 0
+}
+```
+
+**OUTPUT**
+```json
+{
+  "status": "OK",
+  "statusCode": 200,
+  "response": {
+    "total": 1,
+    "results": [
+      {
+        "id": 160882,
+        "title": "Pulp Fiction",
+        "year": 1994,
+        "directors": ["Quentin Taratino"]
+      },
+      {
+        "id": 991349,
+        "title": "8 Bit Cinema: Pulp Fiction",
+        "year": 2014,
+        "directors": ["David Dutton"]
+      }
+    ]
+  }
+}
+```
+
+**EXAMPLE 2:** another example of an advanced search searching for a text in the title of the film and between two years.
+
+**URL**
+```
+[POST] http://<server_domain_api>/searches/advanced
+```
+
+**INPUT**
+```json
+{
+  "text": "pulp fiction",
+  "search_in_title": true,
+  "search_in_director": false,
+  "search_in_cast": false,
+  "search_in_screenplay": false,
+  "search_in_photography": false,
+  "search_in_soundtrack": false,
+  "search_in_producer": false,
+  "country": "",
+  "genre": "",
   "year_from": 1992,
   "year_to": 2000
 }

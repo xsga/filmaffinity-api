@@ -21,7 +21,7 @@ use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 
 final class SecurityMiddleware implements MiddlewareInterface
 {
-    private string $getTokenRoute = 'get_token';
+    private const string GET_TOKEN_ROUTE = 'get_token';
 
     public function __construct(
         private LoggerInterface $logger,
@@ -33,18 +33,15 @@ final class SecurityMiddleware implements MiddlewareInterface
 
     public function process(Request $request, Handler $handler): Response
     {
-        $this->logger->debug('Init middleware SECURITY');
-
         $routeName = $this->getRouteName($request);
         $request   = $request->withAttribute('routeName', $routeName);
 
         if ($this->isNonSecuredRequest($routeName)) {
-            if ($routeName === $this->getTokenRoute) {
+            if ($routeName === self::GET_TOKEN_ROUTE) {
                 $this->validateSecurityType();
             }
 
             $this->logger->debug('Non secured request, not applying security');
-            $this->logger->debug('End middleware SECURITY');
 
             return $handler->handle($request);
         }
@@ -60,8 +57,6 @@ final class SecurityMiddleware implements MiddlewareInterface
 
         $request = $request->withAttribute('userDataToken', $userDataToken);
 
-        $this->logger->debug('End middleware SECURITY');
-
         return $handler->handle($request);
     }
 
@@ -70,7 +65,7 @@ final class SecurityMiddleware implements MiddlewareInterface
         $route = RouteContext::fromRequest($request)->getRoute();
 
         if (is_null($route)) {
-            $errorMsg = "Error getting Slim route context";
+            $errorMsg = "Error getting Slim route from context";
             $this->logger->error($errorMsg);
             throw new RouteContextException($errorMsg, 1021);
         }
@@ -81,7 +76,7 @@ final class SecurityMiddleware implements MiddlewareInterface
     private function isNonSecuredRequest(string $routeName): bool
     {
         return match ($routeName) {
-            $this->getTokenRoute => true,
+            self::GET_TOKEN_ROUTE => true,
             default => false
         };
     }

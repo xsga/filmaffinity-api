@@ -17,8 +17,6 @@ final class GetErrorController extends AbstractController
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $errorDto = $this->getErrorService->get((int)$args['id']);
-
-        return $this->writeResponse($response, $errorDto);
+        return $this->writeResponse($response, $this->getErrorService->get((int)$args['id']));
     }
 }

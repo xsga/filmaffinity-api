@@ -6,8 +6,8 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories;
 
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetGenresService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
@@ -17,7 +17,7 @@ final class FilmAffinityGenresRepository implements GenresRepository
         private LoggerInterface $logger,
         private UrlService $urlService,
         private HttpClientService $httpClientService,
-        private AdvancedSearchFormParser $parser
+        private GetGenresService $getGenresService
     ) {
     }
 
@@ -29,12 +29,10 @@ final class FilmAffinityGenresRepository implements GenresRepository
         $advSearchFormUrl = $this->urlService->getAdvancedSearchFormUrl();
         $pageContent      = $this->httpClientService->getPageContent($advSearchFormUrl);
 
-        $this->parser->init($pageContent);
-
-        $genres = $this->parser->getGenres();
+        $genres = $this->getGenresService->get($pageContent);
 
         if (empty($genres)) {
-            $this->logger->error('Error loading genres from FilmAffinity');
+            $this->logger->error('Error getting genres from FilmAffinity');
             return [];
         }
 

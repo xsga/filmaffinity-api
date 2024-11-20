@@ -9,5 +9,5 @@ class SingleSearchResultDto
     public int $id = 0;
     public string $title = '';
     public int $year = 0;
-    public array $directors;
+    public array $directors = [];
 }

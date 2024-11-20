@@ -18,8 +18,6 @@ final class GetErrorService
 
     public function get(int $code): ErrorDto
     {
-        $error = $this->getError->byCodeAndErrorNotFound($code);
-
-        return $this->mapper->convert($error);
+        return $this->mapper->convert($this->getError->byCodeWithErrorWhenNotFound($code));
     }
 }

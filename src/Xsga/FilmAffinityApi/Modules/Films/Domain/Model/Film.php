@@ -15,7 +15,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmSynopsis;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmTitle;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmYear;
 
-class Film
+final class Film
 {
     private FilmId $id;
     private FilmTitle $title;
@@ -75,8 +75,7 @@ class Film
         array $directors,
         array $genres,
         array $genreTopics
-    )
-    {
+    ) {
         $this->id            = new FilmId($id);
         $this->title         = new FilmTitle($title);
         $this->originalTitle = new FilmTitle($originalTitle);
@@ -192,5 +191,4 @@ class Film
     {
         return $this->genreTopics;
     }
-
 }

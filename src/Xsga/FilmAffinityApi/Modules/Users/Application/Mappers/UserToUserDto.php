@@ -19,7 +19,6 @@ final class UserToUserDto
 
         $userDto->userId     = $user->userId();
         $userDto->email      = $user->email();
-        $userDto->hashedPass = $user->password();
         $userDto->status     = $user->status();
         $userDto->createDate = $user->createDate()->format($this->dateTimeMask);
         $userDto->updateDate = $user->updateDate()->format($this->dateTimeMask);

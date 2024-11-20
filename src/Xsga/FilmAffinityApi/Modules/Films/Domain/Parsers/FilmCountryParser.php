@@ -12,12 +12,12 @@ final class FilmCountryParser extends AbstractParser
 
     public function getCountry(): Country
     {
-        $data = $this->getData(self::QUERY_FILM_GET_COUNTRY, false);
+        $data = $this->getData(self::QUERY_FILM_GET_COUNTRY);
 
         $countryCode = $this->getCountryCode($data->item(0)->attributes->getNamedItem('src')->nodeValue);
         $countryName = $data->item(0)->attributes->getNamedItem('alt')->nodeValue;
 
-        return new Country($countryCode, $countryName);
+        return new Country($countryCode, $countryName ?? '');
     }
 
     private function getCountryCode(string $url): string

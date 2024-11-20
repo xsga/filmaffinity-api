@@ -21,13 +21,15 @@ final class FilmGenresParser extends AbstractParser
      */
     public function getGenres(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_GENRES, false);
+        $data = $this->getData(self::QUERY_FILM_GET_GENRES);
 
         $out = [];
 
         foreach ($data as $item) {
             $out[] = $this->getGenre($item);
         }
+
+        $this->logger->debug(count($out) . ' genres found');
 
         return $out;
     }
@@ -51,7 +53,7 @@ final class FilmGenresParser extends AbstractParser
      */
     public function getGenreTopics(): array
     {
-        $data = $this->getData(self::QUERY_FILM_GET_GENRE_TOPICS, false);
+        $data = $this->getData(self::QUERY_FILM_GET_GENRE_TOPICS);
 
         $out = [];
 
@@ -59,19 +61,21 @@ final class FilmGenresParser extends AbstractParser
             $out[] = $this->getGenreTopic($item);
         }
 
+        $this->logger->debug(count($out) . ' genre topics found');
+
         return $out;
     }
 
     private function getGenreTopic(DOMNode $item): GenreTopic
     {
-        $url = trim($item->attributes?->getNamedItem('href')?->nodeValue);
+        $url = trim($item->attributes?->getNamedItem('href')?->nodeValue ?? '');
 
         $genreTopicId = (int)substr(
             $url,
             strpos($url, $this->urlTopic) + strlen($this->urlTopic),
             strpos($url, '&') - strpos($url, $this->urlTopic) - strlen($this->urlTopic)
         );
-        $genreTopicName = trim($item->nodeValue);
+        $genreTopicName = trim($item->nodeValue ?? '');
 
         return new GenreTopic($genreTopicId, $genreTopicName);
     }

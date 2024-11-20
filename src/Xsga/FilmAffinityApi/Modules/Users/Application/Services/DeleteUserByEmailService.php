@@ -19,20 +19,19 @@ final class DeleteUserByEmailService
     public function delete(string $userEmail): bool
     {
         $userDeleteStatus = $this->usersRepository->deleteUserByEmail($userEmail);
-
-        $this->validateUserDelete($userDeleteStatus);
-
-        $this->logger->info("User deleted successfully");
+        $this->validateUserDelete($userDeleteStatus, $userEmail);
 
         return true;
     }
 
-    private function validateUserDelete(bool $userDeleteStatus): void
+    private function validateUserDelete(bool $userDeleteStatus, string $userEmail): void
     {
         if (!$userDeleteStatus) {
             $message = "Error deleting user";
             $this->logger->error($message);
             throw new DeleteUserException($message, 1042);
         }
+
+        $this->logger->info("User '$userEmail' deleted successfully");
     }
 }

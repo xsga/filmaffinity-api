@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Model;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\CountryCode;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\CountryName;
 
-class Country
+final class Country
 {
     private CountryCode $code;
     private CountryName $name;

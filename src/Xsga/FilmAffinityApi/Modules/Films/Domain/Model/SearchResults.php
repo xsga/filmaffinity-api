@@ -6,7 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Model;
 
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\ResultsCount;
 
-class SearchResults
+final class SearchResults
 {
     private ResultsCount $total;
 

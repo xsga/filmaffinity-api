@@ -11,6 +11,7 @@ function loadEnvironmentSettings(): void
 
     $settings->required('URL_PATH');
     $settings->required('ERROR_DETAIL')->isBoolean();
+    $settings->required('LOG_SQL')->isBoolean();
     $settings->required('LANGUAGE')->allowedValues(['spa', 'en']);
     $settings->required('BASE_URL');
     $settings->required('SEARCH_URL');

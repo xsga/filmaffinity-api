@@ -16,42 +16,42 @@ class LoggerWrapper implements LoggerInterface
 
     public function emergency(string|Stringable $message, array $context = []): void
     {
-        $this->logger->fatal($message);
+        $this->logger->fatal($this->interpolate($message, $context));
     }
 
     public function alert(string|Stringable $message, array $context = []): void
     {
-        $this->logger->fatal($message);
+        $this->logger->fatal($this->interpolate($message, $context));
     }
 
     public function critical(string|Stringable $message, array $context = []): void
     {
-        $this->logger->fatal($message);
+        $this->logger->fatal($this->interpolate($message, $context));
     }
 
     public function error(string|Stringable $message, array $context = []): void
     {
-        $this->logger->error($message);
+        $this->logger->error($this->interpolate($message, $context));
     }
 
     public function warning(string|Stringable $message, array $context = []): void
     {
-        $this->logger->warn($message);
+        $this->logger->warn($this->interpolate($message, $context));
     }
 
     public function notice(string|Stringable $message, array $context = []): void
     {
-        $this->logger->info($message);
+        $this->logger->info($this->interpolate($message, $context));
     }
 
     public function info(string|Stringable $message, array $context = []): void
     {
-        $this->logger->info($message);
+        $this->logger->info($this->interpolate($message, $context));
     }
 
     public function debug(string|Stringable $message, array $context = []): void
     {
-        $this->logger->debug($message);
+        $this->logger->debug($this->interpolate($message, $context));
     }
 
     public function log(mixed $level, string|Stringable $message, array $context = []): void
@@ -73,6 +73,26 @@ class LoggerWrapper implements LoggerInterface
 
         $level = LoggerLevel::toLevel($levels[$level]);
 
-        $this->logger->log($level, $message);
+        $this->logger->log($level, $this->interpolate($message, $context));
+    }
+
+    private function interpolate($message, array $context = []): string
+    {
+        $replace = [];
+
+        foreach ($context as $key => $value) {
+            if (!is_array($value) && (!is_object($value) || method_exists($value, '__toString'))) {
+                $replace['{' . $key . '}'] = $value;
+            }
+            if (is_array($value)) {
+                $concatValue = ' ';
+                foreach ($value as $subKey => $subValue) {
+                    $concatValue .= "$subKey => $subValue ";
+                }
+                $replace['{' . $key . '}'] = "[$concatValue]";
+            }
+        }
+
+        return strtr($message, $replace);
     }
 }

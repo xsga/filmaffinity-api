@@ -18,11 +18,13 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 
 final class AdvancedSearchService
 {
+    private const int SEARCH_TEXT_MIN_LENGTH = 2;
+
     public function __construct(
         private LoggerInterface $logger,
         private GenresRepository $genresRepository,
         private CountriesRepository $countriesRepository,
-        private SearchResultsToSearchResultsDto $mapper,
+        private SearchResultsToSearchResultsDto $searchResultsMapper,
         private AdvSearchDtoToAdvSearch $advSearchMapper,
         private AdvancedSearchRepository $repository
     ) {
@@ -31,50 +33,48 @@ final class AdvancedSearchService
     public function search(AdvancedSearchDto $advancedSearchDto): SearchResultsDto
     {
         $this->validatesSearchTextLength($advancedSearchDto->searchText);
-        $this->validatesGenre($advancedSearchDto->searchGenre);
-        $this->validatesCountry($advancedSearchDto->searchCountry);
+        $this->validatesGenre($advancedSearchDto->searchGenreCode);
+        $this->validatesCountry($advancedSearchDto->searchCountryCode);
 
         $searchResults = $this->repository->get($this->advSearchMapper->convert($advancedSearchDto));
 
-        return $this->mapper->convert($searchResults);
+        $this->logger->info('The advanced search returned ' . $searchResults->total() . ' results');
+
+        return $this->searchResultsMapper->convert($searchResults);
     }
 
     private function validatesSearchTextLength(string $searchText): void
     {
-        if (strlen($searchText) < 3) {
-            $errorMsg = 'Search text lenght not valid';
+        if (strlen($searchText) < self::SEARCH_TEXT_MIN_LENGTH) {
+            $errorMsg = 'Search text length not valid';
             $this->logger->error($errorMsg);
             throw new InvalidSearchLengthException($errorMsg, 2001);
         }
     }
 
-    private function validatesGenre(string $searchGenre): void
+    private function validatesGenre(string $searchGenreCode): void
     {
-        if (empty($searchGenre)) {
+        if (empty($searchGenreCode)) {
             return;
         }
 
-        $genre = $this->genresRepository->get($searchGenre);
-
-        if (is_null($genre)) {
-            $errorMsg = 'Genre code not valid';
+        if (is_null($this->genresRepository->get($searchGenreCode))) {
+            $errorMsg = "Genre with code '$searchGenreCode' not valid";
             $this->logger->error($errorMsg);
-            throw new GenreNotFoundException($errorMsg, 2002);
+            throw new GenreNotFoundException($errorMsg, 2002, null, [1 => $searchGenreCode]);
         }
     }
 
-    private function validatesCountry(string $searchCountry): void
+    private function validatesCountry(string $searchCountryCode): void
     {
-        if (empty($searchCountry)) {
+        if (empty($searchCountryCode)) {
             return;
         }
 
-        $country = $this->countriesRepository->get($searchCountry);
-
-        if (is_null($country)) {
-            $errorMsg = 'Country code not valid';
+        if (is_null($this->countriesRepository->get($searchCountryCode))) {
+            $errorMsg = "Country with code '$searchCountryCode' not valid";
             $this->logger->error($errorMsg);
-            throw new CountryNotFoundException($errorMsg, 2003);
+            throw new CountryNotFoundException($errorMsg, 2003, null, [1 => $searchCountryCode]);
         }
     }
 }

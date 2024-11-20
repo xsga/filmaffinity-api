@@ -26,18 +26,8 @@ final class GetFilmService
 
     public function get(int $filmId, string $pageContent): Film
     {
-        $this->filmParser->init($pageContent);
-        $this->castParser->init($pageContent);
-        $this->coverParser->init($pageContent);
-        $this->directorsParser->init($pageContent);
-        $this->genresParser->init($pageContent);
-        $this->countryParser->init($pageContent);
+        $this->initParsers($pageContent);
 
-        return $this->getFilm($filmId);
-    }
-
-    private function getFilm(int $filmId): Film
-    {
         return new Film(
             $filmId,
             $this->filmParser->getTitle(),
@@ -57,5 +47,15 @@ final class GetFilmService
             $this->genresParser->getGenres(),
             $this->genresParser->getGenreTopics()
         );
+    }
+
+    private function initParsers(string $pageContent): void
+    {
+        $this->filmParser->init($pageContent);
+        $this->castParser->init($pageContent);
+        $this->coverParser->init($pageContent);
+        $this->directorsParser->init($pageContent);
+        $this->genresParser->init($pageContent);
+        $this->countryParser->init($pageContent);
     }
 }

@@ -113,8 +113,7 @@ class LoggerAppenderSyslog extends LoggerAppender
                 if (defined($constant)) {
                     $value |= constant($constant);
                 } else {
-                    $log  = 'log4php: Invalid syslog option provided: $option. ';
-                    $log .= 'Whole option string: ' . $this->option . '.';
+                    $log = "log4php: Invalid syslog option provided: $option. Whole option string: $this->option.";
                     trigger_error($log, E_USER_WARNING);
                 }
             }
@@ -131,7 +130,7 @@ class LoggerAppenderSyslog extends LoggerAppender
                 return constant($constant);
             }
 
-            trigger_error('log4php: Invalid syslog facility provided: ' . $this->facility . '.', E_USER_WARNING);
+            trigger_error("log4php: Invalid syslog facility provided: $this->facility.", E_USER_WARNING);
         }
 
         return '';
@@ -145,7 +144,7 @@ class LoggerAppenderSyslog extends LoggerAppender
                 return constant($constant);
             }
 
-            trigger_error('log4php: Invalid syslog priority provided: ' . $this->priority . '.', E_USER_WARNING);
+            trigger_error("log4php: Invalid syslog priority provided: $this->priority.", E_USER_WARNING);
         }
 
         return null;

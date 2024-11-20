@@ -22,12 +22,12 @@ final class GetError
         return $this->repository->getError($code);
     }
 
-    public function byCodeAndErrorNotFound(int $code): Error
+    public function byCodeWithErrorWhenNotFound(int $code): Error
     {
         $error = $this->repository->getError($code);
 
         if ($error === null) {
-            $message = "Error '$code' not found";
+            $message = "Error with code '$code' not found";
             $this->logger->error($message);
             throw new ErrorNotFoundException($message, 1023, null, [1 => $code]);
         }

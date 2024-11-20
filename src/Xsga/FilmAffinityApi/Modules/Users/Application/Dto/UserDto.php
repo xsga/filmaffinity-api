@@ -8,7 +8,6 @@ class UserDto
 {
     public int $userId = 0;
     public string $email = '';
-    public string $hashedPass = '';
     public bool $status = true;
     public string $createDate = '';
     public string $updateDate = '';

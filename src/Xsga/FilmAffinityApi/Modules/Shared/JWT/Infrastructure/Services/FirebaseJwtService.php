@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 use UnexpectedValueException;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
-use Xsga\FilmAffinityApi\Modules\Users\Application\Dto\UserDto;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 
 final class FirebaseJwtService implements JWTService
 {
@@ -28,7 +28,7 @@ final class FirebaseJwtService implements JWTService
     ) {
     }
 
-    public function get(UserDto $userDto): string
+    public function get(User $user): string
     {
         $timestamp = time();
 
@@ -36,9 +36,9 @@ final class FirebaseJwtService implements JWTService
             'iat'      => $timestamp,
             'exp'      => $timestamp + $this->tokenLifetime,
             'userData' => [
-                'id'       => $userDto->userId,
-                'email'    => $userDto->email,
-                'password' => $userDto->hashedPass
+                'id'       => $user->userId(),
+                'email'    => $user->email(),
+                'password' => $user->password()
             ]
         ];
 

@@ -25,10 +25,7 @@ final class UpdatePasswordService
         $user->updatePassword($userData->newPassword);
 
         $passwordUpdateStatus = $this->usersRepository->updatePassword($user);
-
         $this->validateUserUpdate($passwordUpdateStatus, $user->email());
-
-        $this->logger->info("User '" . $user->email() . "' updated successfully");
 
         return true;
     }
@@ -40,5 +37,7 @@ final class UpdatePasswordService
             $this->logger->error($errorMsg);
             throw new UpdateUserException($errorMsg, 1012, null, [1 => $userEmail]);
         }
+
+        $this->logger->info("User '$userEmail' updated successfully");
     }
 }

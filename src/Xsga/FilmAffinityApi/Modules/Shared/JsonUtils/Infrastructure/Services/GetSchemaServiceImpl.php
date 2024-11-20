@@ -38,7 +38,7 @@ final class GetSchemaServiceImpl implements GetSchemaService
 
         $schemaContent = file_get_contents($fileLocation);
 
-        if (empty($schemaContent)) {
+        if ($schemaContent === '') {
             $this->logger->error("Schema file empty");
             return false;
         }

@@ -101,19 +101,16 @@ class LoggerPatternParser
             throw new LoggerException('Invalid keyword "%$word" in converison pattern. Ignoring keyword.');
         }
 
-        $converterClass = $this->converterMap[$word];
-
-        $namespace      = 'Log4Php\\Pattern\\';
-        $converterClass = $namespace . $converterClass;
+        $converterClass = 'Log4Php\\Pattern\\' . $this->converterMap[$word];
 
         if (!class_exists($converterClass)) {
-            throw new LoggerException('Class "' . $converterClass . '" does not exist.');
+            throw new LoggerException("Class '$converterClass' does not exist.");
         }
 
         $converter = new $converterClass($info, $option);
 
         if (!($converter instanceof LoggerPatternConverter)) {
-            throw new LoggerException('Class "' . $converterClass . '" is not an instance of LoggerPatternConverter.');
+            throw new LoggerException("Class '$converterClass' is not an instance of LoggerPatternConverter.");
         }
 
         return $converter;
@@ -150,8 +147,8 @@ class LoggerPatternParser
         $parts = explode('.', $modifiers);
 
         if (!empty($parts[0])) {
-            $minPart       = (int)$parts[0];
-            $info->min     = abs($minPart);
+            $minPart   = (int)$parts[0];
+            $info->min = abs($minPart);
 
             if ($minPart > 0) {
                 $info->padLeft = true;
@@ -161,8 +158,8 @@ class LoggerPatternParser
         }
 
         if (!empty($parts[1])) {
-            $maxPart        = (int)$parts[1];
-            $info->max      = abs($maxPart);
+            $maxPart   = (int)$parts[1];
+            $info->max = abs($maxPart);
 
             if ($maxPart < 0) {
                 $info->trimLeft = true;

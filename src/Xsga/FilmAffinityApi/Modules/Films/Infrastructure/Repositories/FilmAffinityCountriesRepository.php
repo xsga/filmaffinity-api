@@ -6,8 +6,8 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories;
 
 use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Country;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetCountriesService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 
@@ -17,7 +17,7 @@ final class FilmAffinityCountriesRepository implements CountriesRepository
         private LoggerInterface $logger,
         private UrlService $urlService,
         private HttpClientService $httpClientService,
-        private AdvancedSearchFormParser $parser
+        private GetCountriesService $getCountriesService
     ) {
     }
 
@@ -29,12 +29,10 @@ final class FilmAffinityCountriesRepository implements CountriesRepository
         $advSearchFormUrl = $this->urlService->getAdvancedSearchFormUrl();
         $pageContent      = $this->httpClientService->getPageContent($advSearchFormUrl);
 
-        $this->parser->init($pageContent);
-
-        $countries = $this->parser->getCountries();
+        $countries = $this->getCountriesService->get($pageContent);
 
         if (empty($countries)) {
-            $this->logger->error('Error loading countries from FilmAffinity');
+            $this->logger->error('Error getting countries from FilmAffinity');
             return [];
         }
 

@@ -8,7 +8,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmId;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmTitle;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\FilmYear;
 
-class SingleSearchResult
+final class SingleSearchResult
 {
     private FilmId $id;
     private FilmTitle $title;

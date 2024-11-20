@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Model;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\DirectorId;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\ValueObjects\DirectorName;
 
-class Director
+final class Director
 {
     private DirectorId $id;
     private DirectorName $name;
