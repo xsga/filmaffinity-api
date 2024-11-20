@@ -26,7 +26,10 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\GenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\SearchRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetAdvancedSearchResultsService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetCountriesService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetFilmService;
+use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetGenresService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\GetSimpleSearchResultsService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Services\UrlService;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityAdvancedSearchRepository;
@@ -220,18 +223,18 @@ return [
         DI\get(LoggerInterface::class),
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(AdvancedSearchFormParser::class)
+        DI\get(GetGenresService::class)
     ),
     CountriesRepository::class => DI\create(FilmAffinityCountriesRepository::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(AdvancedSearchFormParser::class)
+        DI\get(GetCountriesService::class)
     ),
     AdvancedSearchRepository::class => DI\create(FilmAffinityAdvancedSearchRepository::class)->constructor(
         DI\get(UrlService::class),
         DI\get(HttpClientService::class),
-        DI\get(AdvancedSearchParser::class)
+        DI\get(GetAdvancedSearchResultsService::class)
     ),
     SearchRepository::class => DI\create(FilmAffinitySearchRepository::class)->constructor(
         DI\get(UrlService::class),
