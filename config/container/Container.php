@@ -15,6 +15,8 @@ use Psr\Log\LoggerInterface;
 use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\CountryToCountryDto;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\GenreToGenreDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
@@ -186,6 +188,7 @@ return [
     BackupGenresService::class => DI\create(BackupGenresService::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(FilmAffinityGenresRepository::class),
+        DI\get(GenreToGenreDto::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
     ),
@@ -193,6 +196,7 @@ return [
     BackupCountriesService::class => DI\create(BackupCountriesService::class)->constructor(
         DI\get(LoggerInterface::class),
         DI\get(FilmAffinityCountriesRepository::class),
+        DI\get(CountryToCountryDto::class),
         DI\get('getLanguage'),
         DI\get('backup.folder')
     ),

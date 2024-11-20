@@ -6,6 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
 use Psr\Log\LoggerInterface;
 use Throwable;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\GenreToGenreDto;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityGenresRepository;
 
 final class BackupGenresService
@@ -13,6 +14,7 @@ final class BackupGenresService
     public function __construct(
         private LoggerInterface $logger,
         private FilmAffinityGenresRepository $repository,
+        private GenreToGenreDto $mapper,
         private string $language,
         private string $destinationPath
     ) {
@@ -22,7 +24,7 @@ final class BackupGenresService
     {
         try {
             $genres     = $this->repository->getAll();
-            $genresJson = json_encode($genres);
+            $genresJson = json_encode($this->mapper->convertArray($genres));
             $fileName   = "genres_$this->language.json";
 
             file_put_contents($this->destinationPath . $fileName, $genresJson);

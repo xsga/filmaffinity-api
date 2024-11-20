@@ -6,6 +6,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Services;
 
 use Psr\Log\LoggerInterface;
 use Throwable;
+use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\CountryToCountryDto;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityCountriesRepository;
 
 final class BackupCountriesService
@@ -13,6 +14,7 @@ final class BackupCountriesService
     public function __construct(
         private LoggerInterface $logger,
         private FilmAffinityCountriesRepository $repository,
+        private CountryToCountryDto $mapper,
         private string $language,
         private string $destinationPath
     ) {
@@ -22,7 +24,7 @@ final class BackupCountriesService
     {
         try {
             $countries     = $this->repository->getAll();
-            $countriesJson = json_encode($countries);
+            $countriesJson = json_encode($this->mapper->convertArray($countries));
             $fileName      = "countries_$this->language.json";
 
             file_put_contents($this->destinationPath . $fileName, $countriesJson);
