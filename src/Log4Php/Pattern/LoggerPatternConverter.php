@@ -11,7 +11,7 @@ abstract class LoggerPatternConverter
     protected ?LoggerFormattingInfo $formattingInfo;
     protected ?string $option;
 
-    public function __construct(LoggerFormattingInfo $formattingInfo = null, string $option = null)
+    public function __construct(?LoggerFormattingInfo $formattingInfo = null, ?string $option = null)
     {
         $this->formattingInfo = $formattingInfo;
         $this->option         = $option;
@@ -36,7 +36,7 @@ abstract class LoggerPatternConverter
 
         $fi = $this->formattingInfo;
 
-        if (($string === '') || is_null($string)) {
+        if ($string === '' || $string === null) {
             if ($fi->min > 0) {
                 $sbuf .= str_repeat(' ', $fi->min);
             }

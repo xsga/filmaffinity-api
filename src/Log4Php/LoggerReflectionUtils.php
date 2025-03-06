@@ -24,7 +24,7 @@ class LoggerReflectionUtils
 
         foreach ($properties as $key => $value) {
             if (strpos($key, $prefix) === 0) {
-                if (strpos($key, '.', ($len + 1)) > 0) {
+                if (strpos($key, '.', $len + 1) > 0) {
                     continue;
                 }
 

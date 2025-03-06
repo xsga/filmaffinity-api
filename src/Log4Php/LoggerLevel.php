@@ -132,7 +132,7 @@ class LoggerLevel
         return $this->level;
     }
 
-    public static function toLevel(int|string $arg, LoggerLevel $defaultLevel = null): ?LoggerLevel
+    public static function toLevel(int|string $arg, ?LoggerLevel $defaultLevel = null): ?LoggerLevel
     {
         if (is_int($arg)) {
             return static::intLevel($arg, $defaultLevel);
@@ -141,7 +141,7 @@ class LoggerLevel
         return static::strLevel($arg, $defaultLevel);
     }
 
-    private static function intLevel(int|string $arg, LoggerLevel $defaultLevel = null): ?LoggerLevel
+    private static function intLevel(int|string $arg, ?LoggerLevel $defaultLevel = null): ?LoggerLevel
     {
         return match ($arg) {
             static::ALL   => static::getLevelAll(),
@@ -156,7 +156,7 @@ class LoggerLevel
         };
     }
 
-    private static function strLevel(int|string $arg, LoggerLevel $defaultLevel = null): ?LoggerLevel
+    private static function strLevel(int|string $arg, ?LoggerLevel $defaultLevel = null): ?LoggerLevel
     {
         return match (strtoupper((string)$arg)) {
             'ALL'   => static::getLevelAll(),

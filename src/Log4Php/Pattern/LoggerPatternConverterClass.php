@@ -12,7 +12,7 @@ class LoggerPatternConverterClass extends LoggerPatternConverter
 
     public function activateOptions(): void
     {
-        if (!is_null($this->option) && is_numeric($this->option) && ($this->option >= 0)) {
+        if ($this->option !== null && is_numeric($this->option) && $this->option >= 0) {
             $this->length = (int)$this->option;
         }
     }

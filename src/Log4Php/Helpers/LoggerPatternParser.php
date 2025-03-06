@@ -118,7 +118,7 @@ class LoggerPatternParser
 
     private function addToChain(LoggerPatternConverter $converter): void
     {
-        if (is_null($this->head)) {
+        if ($this->head === null) {
             $this->head = $converter;
             $this->tail = $this->head;
             return;

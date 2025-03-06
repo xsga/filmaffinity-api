@@ -2,6 +2,7 @@
 
 namespace Log4Php\Configurators;
 
+use Exception;
 use Log4Php\LoggerConfigurator;
 use Log4Php\LoggerHierarchy;
 use Log4Php\LoggerException;
@@ -45,7 +46,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $this->doConfigure($hierarchy, $config);
     }
 
-    public function parse(string|array $input): array
+    public function parse(string|array|null $input): array
     {
         if (empty($input)) {
             return static::$defaultConfiguration;
@@ -89,11 +90,11 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $ext  = strtolower($info['extension']);
 
         $format = match ($ext) {
-            'xml' => static::FORMAT_XML,
-            'ini' => static::FORMAT_INI,
+            'xml'        => static::FORMAT_XML,
+            'ini'        => static::FORMAT_INI,
             'properties' => static::FORMAT_INI,
-            'php' => static::FORMAT_PHP,
-            default => ''
+            'php'        => static::FORMAT_PHP,
+            default      => ''
         };
 
         if ($format === '') {
@@ -377,7 +378,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
             try {
                 $additivity = LoggerOptionConverter::toBooleanEx($config['additivity']);
                 $logger->setAdditivity($additivity);
-            } catch (\Exception $ex) {
+            } catch (Exception) {
                 $log  = 'Invalid additivity value [' . $config['additivity'] . '] specified for logger ';
                 $log .= "[$loggerName]. Ignoring additivity setting.";
                 $this->warn($log);

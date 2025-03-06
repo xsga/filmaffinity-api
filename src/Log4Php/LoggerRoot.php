@@ -4,7 +4,7 @@ namespace Log4Php;
 
 class LoggerRoot extends Logger
 {
-    public function __construct(LoggerLevel $level = null)
+    public function __construct(?LoggerLevel $level = null)
     {
         parent::__construct('root');
 
@@ -20,7 +20,7 @@ class LoggerRoot extends Logger
         return $this->getLevel();
     }
 
-    public function setLevel(LoggerLevel $level = null): void
+    public function setLevel(?LoggerLevel $level = null): void
     {
         if (isset($level)) {
             parent::setLevel($level);
