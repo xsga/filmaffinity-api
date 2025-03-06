@@ -24,7 +24,7 @@ final class GetError
 
     public function byCodeWithErrorWhenNotFound(int $code): Error
     {
-        $error = $this->repository->getError($code);
+        $error = $this->byCode($code);
 
         if ($error === null) {
             $message = "Error with code '$code' not found";

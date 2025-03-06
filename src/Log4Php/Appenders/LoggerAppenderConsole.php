@@ -32,7 +32,7 @@ class LoggerAppenderConsole extends LoggerAppender
     public function close(): void
     {
         if ($this->closed !== true) {
-            if (!is_null($this->fp) && ($this->layout !== null)) {
+            if ($this->fp !== null && $this->layout !== null) {
                 fwrite($this->fp, $this->layout->getFooter() ?? '');
                 fclose($this->fp);
             }
@@ -43,7 +43,7 @@ class LoggerAppenderConsole extends LoggerAppender
 
     public function append(LoggerLoggingEvent $event): void
     {
-        if (is_resource($this->fp) && ($this->layout !== null)) {
+        if (is_resource($this->fp) && $this->layout !== null) {
             fwrite($this->fp, $this->layout->format($event));
         }
     }

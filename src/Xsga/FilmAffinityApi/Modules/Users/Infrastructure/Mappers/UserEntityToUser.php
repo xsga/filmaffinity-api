@@ -24,7 +24,7 @@ final class UserEntityToUser
 
     private function getUserId(?int $userId): int
     {
-        return $userId ?? 0;
+        return $userId === null ? 0 : $userId;
     }
 
     /**

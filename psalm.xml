@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <psalm
     errorLevel="4"
+    ensureOverrideAttribute="false"
     resolveFromConfigFile="true"
     allowStringToStandInForClass="true"
     findUnusedBaselineEntry="false"
@@ -15,5 +16,6 @@
     </projectFiles>
     <issueHandlers>
         <InternalProperty errorLevel="info" />
+        <PropertyNotSetInConstructor errorLevel="suppress" />
     </issueHandlers>
 </psalm>

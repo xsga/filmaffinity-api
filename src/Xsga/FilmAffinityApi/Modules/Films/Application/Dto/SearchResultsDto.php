@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Application\Dto;
 
-class SearchResultsDto
+final class SearchResultsDto
 {
     public int $total = 0;
 

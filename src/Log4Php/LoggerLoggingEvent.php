@@ -23,9 +23,9 @@ class LoggerLoggingEvent
         protected LoggerLevel $level,
         private mixed $message,
         ?int $timeStamp = null,
-        Exception $throwable = null
+        ?Exception $throwable = null
     ) {
-        $this->timeStamp = match (is_null($timeStamp)) {
+        $this->timeStamp = match ($timeStamp === null) {
             true => microtime(true),
             false => $timeStamp
         };
@@ -50,7 +50,7 @@ class LoggerLoggingEvent
 
     public function getLocationInformation(): LoggerLocationInfo
     {
-        if (is_null($this->locationInfo)) {
+        if ($this->locationInfo === null) {
             $locationInfo = [];
             $trace        = debug_backtrace();
             $prevHop      = null;
@@ -126,7 +126,7 @@ class LoggerLoggingEvent
         return $this->ndc;
     }
 
-    public function getMDC($key): string
+    public function getMDC(string $key): string
     {
         return LoggerMDC::get($key);
     }
@@ -138,7 +138,7 @@ class LoggerLoggingEvent
 
     public function getRenderedMessage(): string
     {
-        if (empty($this->renderedMessage) && !is_null($this->message)) {
+        if (empty($this->renderedMessage) && $this->message !== null) {
             $this->setRenderedMessage();
         }
 
@@ -177,7 +177,7 @@ class LoggerLoggingEvent
 
     public function getThreadName(): mixed
     {
-        if (is_null($this->threadName)) {
+        if ($this->threadName === null) {
             $this->threadName = (string)getmypid();
         }
 

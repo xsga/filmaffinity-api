@@ -34,19 +34,23 @@ abstract class AbstractController
         }
     }
 
-    final protected function writeResponse(
-        Response $response,
-        mixed $data,
-        int $statusCode = 200
-    ): Response {
+    final protected function writeResponse(Response $response, mixed $data, int $statusCode = 200): Response
+    {
+        $responseDto = $this->getApiResponseDto($data, $statusCode);
+
+        $response->getBody()->write(json_encode($responseDto, JSON_UNESCAPED_UNICODE));
+
+        return $response;
+    }
+
+    private function getApiResponseDto(mixed $data, int $statusCode): ApiResponseDto
+    {
         $responseDto = new ApiResponseDto();
 
         $responseDto->status     = 'OK';
         $responseDto->statusCode = $statusCode;
         $responseDto->response   = $data;
 
-        $response->getBody()->write(json_encode($responseDto, JSON_UNESCAPED_UNICODE));
-
-        return $response;
+        return $responseDto;
     }
 }

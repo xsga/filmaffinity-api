@@ -13,8 +13,8 @@ use Slim\Exception\HttpNotFoundException;
 use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Response as Psr7Response;
 use Throwable;
-use Xsga\FilmAffinityApi\Modules\Errors\Domain\Model\Error;
-use Xsga\FilmAffinityApi\Modules\Errors\Domain\Services\GetError;
+use Xsga\FilmAffinityApi\Modules\Errors\Application\Dto\ErrorDto;
+use Xsga\FilmAffinityApi\Modules\Errors\Application\Services\GetErrorService;
 use Xsga\FilmAffinityApi\Modules\Shared\Api\Application\Dto\ApiErrorDetailDto;
 use Xsga\FilmAffinityApi\Modules\Shared\Api\Application\Dto\ApiErrorDto;
 use Xsga\FilmAffinityApi\Modules\Shared\Api\Application\Dto\ApiResponseDto;
@@ -24,7 +24,7 @@ final class ErrorHandler implements ErrorHandlerInterface
 {
     public function __construct(
         private LoggerInterface $logger,
-        private GetError $getError
+        private GetErrorService $getErrorService
     ) {
     }
 
@@ -35,13 +35,13 @@ final class ErrorHandler implements ErrorHandlerInterface
         bool $logErrors,
         bool $logErrorDetails
     ): Response {
-        $error       = $this->getError->byCode($this->getErrorCode($exception));
-        $response    = new Psr7Response($error->httpCode());
+        $error       = $this->getErrorService->get($this->getErrorCode($exception));
+        $response    = new Psr7Response($error->httpCode);
         $responseDto = $this->getResponseDto($error, $response->getReasonPhrase(), $exception, $displayErrorDetails);
 
         $response->getBody()->write(json_encode($responseDto, JSON_UNESCAPED_UNICODE));
 
-        $this->logger->error('ERROR ' . $error->code() . ': ' . $exception->getMessage());
+        $this->logger->error("ERROR $error->code: " . $exception->getMessage());
         $this->logger->error($exception->__toString());
 
         return $response;
@@ -63,7 +63,7 @@ final class ErrorHandler implements ErrorHandlerInterface
     }
 
     private function getResponseDto(
-        Error $error,
+        ErrorDto $error,
         string $responseReasonPhrase,
         Throwable $exception,
         bool $displayErrorDetails
@@ -71,7 +71,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         $responseDto = new ApiResponseDto();
 
         $responseDto->status     = 'ERROR - ' . $responseReasonPhrase;
-        $responseDto->statusCode = $error->httpCode();
+        $responseDto->statusCode = $error->httpCode;
         $responseDto->response   = match ($displayErrorDetails) {
             true => $this->getErrorDetailDto($error, $exception),
             false => $this->getErrorDto($error, $exception)
@@ -80,12 +80,12 @@ final class ErrorHandler implements ErrorHandlerInterface
         return $responseDto;
     }
 
-    private function getErrorDetailDto(Error $error, Throwable $exception): ApiErrorDetailDto
+    private function getErrorDetailDto(ErrorDto $error, Throwable $exception): ApiErrorDetailDto
     {
         $errorDetailDto = new ApiErrorDetailDto();
 
-        $errorDetailDto->code    = $error->code();
-        $errorDetailDto->message = $this->getParsedMessage($error->message(), $exception);
+        $errorDetailDto->code    = $error->code;
+        $errorDetailDto->message = $this->getParsedMessage($error->message, $exception);
         $errorDetailDto->file    = $exception->getFile();
         $errorDetailDto->line    = $exception->getLine();
         $errorDetailDto->trace   = $exception->__toString();
@@ -93,12 +93,12 @@ final class ErrorHandler implements ErrorHandlerInterface
         return $errorDetailDto;
     }
 
-    private function getErrorDto(Error $error, Throwable $exception): ApiErrorDto
+    private function getErrorDto(ErrorDto $error, Throwable $exception): ApiErrorDto
     {
         $errorDto = new ApiErrorDto();
 
-        $errorDto->code    = $error->code();
-        $errorDto->message = $this->getParsedMessage($error->message(), $exception);
+        $errorDto->code    = $error->code;
+        $errorDto->message = $this->getParsedMessage($error->message, $exception);
 
         return $errorDto;
     }
@@ -107,7 +107,7 @@ final class ErrorHandler implements ErrorHandlerInterface
     {
         if ($exception instanceof GenericException) {
             foreach ($exception->getParams() as $key => $value) {
-                $message = str_replace('{' . $key . '}', (string)$value, $message);
+                $message = str_replace('{' . (string)$key . '}', (string)$value, $message);
             }
         }
 

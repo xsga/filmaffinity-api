@@ -47,7 +47,7 @@ class LoggerHierarchy
                 foreach ($nodes as $node) {
                     $parentNode = $firstNode . $node;
 
-                    if (isset($this->loggers[$parentNode]) && ($parentNode !== $name)) {
+                    if (isset($this->loggers[$parentNode]) && $parentNode !== $name) {
                         $logger->setParent($this->loggers[$parentNode]);
                     }
 

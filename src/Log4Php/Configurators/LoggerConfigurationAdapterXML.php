@@ -7,8 +7,6 @@ use SimpleXMLElement;
 
 class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 {
-    public const string SCHEMA_PATH = '/../Xml/log4php.xsd';
-
     private array $config = [
         'appenders' => [],
         'loggers'   => [],

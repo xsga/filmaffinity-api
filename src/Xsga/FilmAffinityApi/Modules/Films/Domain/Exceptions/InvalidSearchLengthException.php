@@ -6,6 +6,6 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions;
 
 use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
-class InvalidSearchLengthException extends GenericException
+final class InvalidSearchLengthException extends GenericException
 {
 }

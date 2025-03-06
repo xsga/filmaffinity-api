@@ -1,4 +1,4 @@
-FROM php:8.3.6-apache
+FROM php:8.4.4-apache
 
 ARG DEBIAN_FRONTEND=noninteractive
 

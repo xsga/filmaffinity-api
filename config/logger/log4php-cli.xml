@@ -5,7 +5,7 @@
     <layout class="LoggerLayoutPattern">
       <param name="conversionPattern" value="%date{Y-m-d H:i:s} [%5pid] [%-5level] [%-30class{0}] [%4line] - %msg%n" />
     </layout>
-    <param name="file" value="../Log/log_cli-%s.log" />
+    <param name="file" value="../log/log_cli-%s.log" />
     <param name="datePattern" value="Ymd" />
   </appender>
 

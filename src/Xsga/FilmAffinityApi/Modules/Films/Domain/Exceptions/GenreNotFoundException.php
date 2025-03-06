@@ -6,6 +6,6 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Domain\Exceptions;
 
 use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
-class GenreNotFoundException extends GenericException
+final class GenreNotFoundException extends GenericException
 {
 }

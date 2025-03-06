@@ -22,7 +22,7 @@ final class GetTokenService
         $user  = $this->userLogin->login($email, $password);
         $token = $this->jwt->get($user);
 
-        $this->logger->info("Token for user '$email' generated successfully");
+        $this->logger->debug("Token for user '$email' generated successfully");
 
         return $token;
     }

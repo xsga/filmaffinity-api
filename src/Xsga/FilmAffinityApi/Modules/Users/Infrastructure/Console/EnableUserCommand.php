@@ -50,11 +50,7 @@ final class EnableUserCommand extends Command
             'Enter user e-mail',
             null,
             function (?string $email) {
-                $email = match (is_null($email)) {
-                    true => '',
-                    false => $email
-                };
-                $valueObject = new UserEmail($email);
+                $valueObject = new UserEmail($email === null ? '' : $email);
                 return $valueObject->value();
             }
         );

@@ -15,10 +15,10 @@ final class SimpleSearchParser extends AbstractParser
 {
     private const string QUERY_RESULTS_TYPE = "//meta[@property = 'og:title']";
     private const string QUERY_SINGLE_RESULT_GET_ID = "//meta[@property = 'og:url']";
-    private const string QUERY_MULTIPLE_RESULTS_DATA = "//div[contains(@class, 'se-it')]";
-    private const string QUERY_MULTIPLE_RESULTS_GET_TITLE = "//div[@class = 'mc-title']/a";
-    private const string QUERY_MULTIPLE_RESULTS_GET_YEAR = "//div[contains(@class, 'ye-w')]";
-    private const string QUERY_MULTIPLE_RESULTS_GET_ID = "//div[contains(@class, 'movie-card')]";
+    private const string QUERY_MULTIPLE_RESULTS_DATA = "//div[@class = 'fa-card']";
+    private const string QUERY_MULTIPLE_RESULTS_GET_TITLE = "//div[contains(@class, 'mc-title')]/a[contains(@class, 'd-none')]";
+    private const string QUERY_MULTIPLE_RESULTS_GET_YEAR = "//span[contains(@class, 'mc-year')]";
+    private const string QUERY_MULTIPLE_RESULTS_GET_ID = "//div[contains(@class, 'movie-card') and not(contains(@class, 'movie-card-templates'))]";
     private const string QUERY_MULTIPLE_RESULTS_GET_DIRECTORS = "//div[contains(@class, 'mc-director')]//a";
 
     private string $urlPattern = 'name-id=';
@@ -93,6 +93,7 @@ final class SimpleSearchParser extends AbstractParser
     private function getTitle(DOMXPath $domXpath): string
     {
         $titleResult = $domXpath->query(self::QUERY_MULTIPLE_RESULTS_GET_TITLE);
+
         $titleText   = is_null($titleResult->item(0)->nodeValue) ? '' : $titleResult->item(0)->nodeValue;
 
         return trim(str_replace('  ', ' ', str_replace('   ', ' ', $titleText)));

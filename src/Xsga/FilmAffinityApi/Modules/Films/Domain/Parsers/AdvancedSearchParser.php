@@ -14,8 +14,8 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
 final class AdvancedSearchParser extends AbstractParser
 {
-    private const string QUERY_ADV_SEARCH_DATA = "//div[contains(@class, 'adv-search-item')]";
-    private const string QUERY_ADV_SEARCH_GET_TITLE = "//div[@class = 'mc-title']/a";
+    private const string QUERY_ADV_SEARCH_DATA = "//div[@class = 'fa-card']";
+    private const string QUERY_ADV_SEARCH_GET_TITLE = "//div[contains(@class, 'mc-title')]/a[contains(@class, 'd-none')]";
     private const string QUERY_ADV_SEARCH_GET_ID = "//div[contains(@class, 'movie-card')]";
     private const string QUERY_ADV_SEARCH_GET_YEAR = "//span[contains(@class, 'mc-year')]";
     private const string QUERY_ADV_SEARCH_GET_DIRECTORS = "//div[contains(@class, 'mc-director')]//a";
@@ -68,15 +68,15 @@ final class AdvancedSearchParser extends AbstractParser
     private function getFilmTitle(DOMXPath $domXpath): string
     {
         $titleResult = $domXpath->query(self::QUERY_ADV_SEARCH_GET_TITLE);
-        $title       = str_replace('  ', ' ', trim(str_replace('   ', ' ', $titleResult->item(0)->nodeValue)));
+        $title       = str_replace('  ', ' ', trim(str_replace('   ', ' ', $titleResult->item(0)->nodeValue ?? '')));
 
-        return trim($title ?? '');
+        return trim($title);
     }
 
     private function getFilmYear(DOMXPath $domXpath): int
     {
         $yearResult  = $domXpath->query(self::QUERY_ADV_SEARCH_GET_YEAR);
-        $year        = $yearResult->item(1)->nodeValue ?? '';
+        $year        = $yearResult->item(0)->nodeValue ?? '';
 
         return (int)trim($year);
     }

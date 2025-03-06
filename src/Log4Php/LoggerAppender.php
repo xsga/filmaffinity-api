@@ -116,9 +116,9 @@ abstract class LoggerAppender extends LoggerConfigurable
         return $this->threshold;
     }
 
-    public function setThreshold(LoggerLevel|string $threshold): void
+    public function setThreshold(LoggerLevel $threshold): void
     {
-        $this->setLevel('threshold', (string)$threshold);
+        $this->setLevel('threshold', $threshold);
     }
 
     public function isAsSevereAsThreshold(LoggerLevel $level): bool
@@ -144,7 +144,7 @@ abstract class LoggerAppender extends LoggerConfigurable
 
     protected function warn(mixed $message): void
     {
-        $id = get_class($this) . (empty($this->name) ? '' : ':' . $this->name);
+        $id = get_class($this) . (empty($this->name) ? '' : ": $this->name");
         trigger_error("log4php: [$id]: $message", E_USER_WARNING);
     }
 }

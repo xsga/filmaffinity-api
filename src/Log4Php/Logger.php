@@ -29,44 +29,44 @@ class Logger
         return $this->parent;
     }
 
-    public function trace(mixed $message, Exception $throwable = null): void
+    public function trace(mixed $message, ?Exception $throwable = null): void
     {
         $this->log(LoggerLevel::getLevelTrace(), $message, $throwable);
     }
 
-    public function debug(mixed $message, Exception $throwable = null): void
+    public function debug(mixed $message, ?Exception $throwable = null): void
     {
         $this->log(LoggerLevel::getLevelDebug(), $message, $throwable);
     }
 
-    public function info(mixed $message, Exception $throwable = null): void
+    public function info(mixed $message, ?Exception $throwable = null): void
     {
         $this->log(LoggerLevel::getLevelInfo(), $message, $throwable);
     }
 
-    public function warn(mixed $message, Exception $throwable = null): void
+    public function warn(mixed $message, ?Exception $throwable = null): void
     {
         $this->log(LoggerLevel::getLevelWarn(), $message, $throwable);
     }
 
-    public function error(mixed $message, Exception $throwable = null): void
+    public function error(mixed $message, ?Exception $throwable = null): void
     {
         $this->log(LoggerLevel::getLevelError(), $message, $throwable);
     }
 
-    public function fatal(mixed $message, Exception $throwable = null): void
+    public function fatal(mixed $message, ?Exception $throwable = null): void
     {
         $this->log(LoggerLevel::getLevelFatal(), $message, $throwable);
     }
 
-    public function log(LoggerLevel $level, mixed $message, Exception $throwable = null): void
+    public function log(LoggerLevel $level, mixed $message, ?Exception $throwable = null): void
     {
         if ($this->isEnabledFor($level)) {
             $event = new LoggerLoggingEvent($this->fqcn, $this, $level, $message, null, $throwable);
             $this->callAppenders($event);
         }
 
-        if (!is_null($this->parent) && $this->getAdditivity()) {
+        if ($this->parent !== null && $this->getAdditivity()) {
             if (isset($event)) {
                 $this->parent->logEvent($event);
                 return;
@@ -81,7 +81,7 @@ class Logger
             $this->callAppenders($event);
         }
 
-        if (!is_null($this->parent) && $this->getAdditivity()) {
+        if ($this->parent !== null && $this->getAdditivity()) {
             $this->parent->logEvent($event);
         }
     }
@@ -98,7 +98,7 @@ class Logger
         $event = new LoggerLoggingEvent($fqcn, $this, $level, $message, null, $throwable);
         $this->callAppenders($event);
 
-        if (!is_null($this->parent) && $this->getAdditivity()) {
+        if ($this->parent !== null && $this->getAdditivity()) {
             $this->parent->logEvent($event);
         }
     }
@@ -208,7 +208,7 @@ class Logger
         return $this->level;
     }
 
-    public function setLevel(LoggerLevel $level = null): void
+    public function setLevel(?LoggerLevel $level = null): void
     {
         $this->level = $level;
     }
@@ -225,7 +225,7 @@ class Logger
 
     public static function getHierarchy(): LoggerHierarchy
     {
-        if (is_null(static::$hierarchy)) {
+        if (static::$hierarchy === null) {
             $loggerRoot = new LoggerRoot();
             static::$hierarchy = new LoggerHierarchy($loggerRoot);
         }
@@ -274,8 +274,8 @@ class Logger
     }
 
     public static function configure(
-        string|array $configuration = null,
-        string|LoggerConfigurator $configurator = null
+        string|array|null $configuration = null,
+        string|LoggerConfigurator|null $configurator = null
     ): void {
         static::resetConfiguration();
         $configurator = static::getConfigurator($configurator);
@@ -283,7 +283,7 @@ class Logger
         static::$initialized = true;
     }
 
-    private static function getConfigurator(string|LoggerConfigurator $configurator = null): mixed
+    private static function getConfigurator(string|LoggerConfigurator|null $configurator = null): LoggerConfigurator
     {
         if ($configurator === null) {
             return new LoggerConfiguratorDefault();

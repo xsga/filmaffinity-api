@@ -11,7 +11,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Film;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\GenreTopic;
 
-class FilmToFilmDto
+final class FilmToFilmDto
 {
     public function convert(Film $film): FilmDto
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Application\Dto;
 
-class FilmDto
+final class FilmDto
 {
     public int $filmAfinityId = 0;
     public string $title = '';

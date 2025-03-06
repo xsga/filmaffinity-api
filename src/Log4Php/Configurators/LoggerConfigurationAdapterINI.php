@@ -6,13 +6,13 @@ use Log4Php\LoggerException;
 
 class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
 {
-    public const string ROOT_LOGGER_NAME = 'root';
-    public const string ADDITIVITY_PREFIX = 'log4php.additivity.';
-    public const string THRESHOLD_PREFIX = 'log4php.threshold';
+    public const string ROOT_LOGGER_NAME   = 'root';
+    public const string ADDITIVITY_PREFIX  = 'log4php.additivity.';
+    public const string THRESHOLD_PREFIX   = 'log4php.threshold';
     public const string ROOT_LOGGER_PREFIX = 'log4php.rootLogger';
-    public const string LOGGER_PREFIX = 'log4php.logger.';
-    public const string APPENDER_PREFIX = 'log4php.appender.';
-    public const string RENDERER_PREFIX = 'log4php.renderer.';
+    public const string LOGGER_PREFIX      = 'log4php.logger.';
+    public const string APPENDER_PREFIX    = 'log4php.appender.';
+    public const string RENDERER_PREFIX    = 'log4php.renderer.';
 
     private array $config = [];
 

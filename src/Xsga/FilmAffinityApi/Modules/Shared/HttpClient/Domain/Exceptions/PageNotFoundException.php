@@ -6,6 +6,6 @@ namespace Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Domain\Exceptions;
 
 use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
-class PageNotFoundException extends GenericException
+final class PageNotFoundException extends GenericException
 {
 }

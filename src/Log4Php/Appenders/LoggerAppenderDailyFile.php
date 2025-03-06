@@ -39,7 +39,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
         parent::append($event);
     }
 
-    protected function getDate(float $timestamp = null): string
+    protected function getDate(?float $timestamp = null): string
     {
         return date($this->datePattern, (int)$timestamp);
     }
