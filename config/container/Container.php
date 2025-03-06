@@ -19,8 +19,6 @@ use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\CountryToCountryDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Mappers\GenreToGenreDto;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupCountriesService;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Services\BackupGenresService;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchFormParser;
-use Xsga\FilmAffinityApi\Modules\Films\Domain\Parsers\AdvancedSearchParser;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\AdvancedSearchRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\CountriesRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Repositories\FilmsRepository;
@@ -63,31 +61,33 @@ return [
     // --------------------------------------------------------------------------------------------
 
     // FOLDERS.
-    'root.folder' => getPathTo(),
-    'entity.folders' => [getPathTo('src#Xsga#FilmAffinityApi#Modules#Shared#Persistence#Infrastructure#Doctrine')],
-    'schema.folder' => getPathTo('config#schemas#input'),
-    'backup.folder' => getPathTo('data#backup'),
+    'root.folder'           => getPathTo(),
+    'entity.folders'        => [
+        getPathTo('src#Xsga#FilmAffinityApi#Modules#Shared#Persistence#Infrastructure#Doctrine'),
+    ],
+    'schema.folder'         => getPathTo('config#schemas#input'),
+    'backup.folder'         => getPathTo('data#backup'),
     'entities.proxy.folder' => getPathTo('tmp#doctrine-proxies'),
-    'logger.config.folder' => getPathTo('config#logger'),
-    'errors.folder' => getPathTo('config#errors'),
-    'cache.folder' => getPathTo('tmp#cache'),
+    'logger.config.folder'  => getPathTo('config#logger'),
+    'errors.folder'         => getPathTo('config#errors'),
+    'cache.folder'          => getPathTo('tmp#cache'),
 
     // ENVIRONMENT.
-    'getLanguage' => $_ENV['LANGUAGE'],
-    'getErrorDetail' => filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN),
-    'getLogSQL' => filter_var($_ENV['LOG_SQL'], FILTER_VALIDATE_BOOLEAN),
-    'getUrlPath' => $_ENV['URL_PATH'],
-    'getJwtSecretKey' => $_ENV['JWT_SECRET_KEY'],
-    'getJwtLifetime' => (int)$_ENV['JWT_LIFETIME'],
-    'getSecurityType' => function () {
+    'env.language'       => $_ENV['LANGUAGE'],
+    'env.error.detail'   => filter_var($_ENV['ERROR_DETAIL'], FILTER_VALIDATE_BOOLEAN),
+    'env.log.sql'        => filter_var($_ENV['LOG_SQL'], FILTER_VALIDATE_BOOLEAN),
+    'env.url.path'       => $_ENV['URL_PATH'],
+    'env.jwt.secret.key' => $_ENV['JWT_SECRET_KEY'],
+    'env.jwt.lifetime'   => (int)$_ENV['JWT_LIFETIME'],
+    'env.security.type'  => function (): SecurityTypes {
         return match ($_ENV['SECURITY_TYPE']) {
             'basic' => SecurityTypes::BASIC,
             'token' => SecurityTypes::TOKEN
         };
     },
-    'getDateMask' => 'd/m/Y',
-    'getDateTimeMask' => 'd/m/Y H:i:s',
-    'database.info' => [
+    'env.date.mask'     => 'd/m/Y',
+    'env.datetime.mask' => 'd/m/Y H:i:s',
+    'env.database.info' => [
         'driver'   => 'pdo_mysql',
         'dbname'   => $_ENV['DB_SCHEMA'],
         'user'     => $_ENV['DB_USER'],
@@ -98,12 +98,12 @@ return [
     ],
 
     // FILMAFFINITY.
-    'filmaffinity.baseURL' => $_ENV['BASE_URL'],
-    'filmaffinity.searchURL' => $_ENV['SEARCH_URL'],
+    'filmaffinity.baseURL'           => $_ENV['BASE_URL'],
+    'filmaffinity.searchURL'         => $_ENV['SEARCH_URL'],
     'filmaffinity.advancedSearchURL' => $_ENV['ADV_SEARCH_URL'],
-    'filmaffinity.filmURL' => $_ENV['FILM_URL'],
-    'filmaffinity.getBaseURL' => function (ContainerInterface $container): string {
-        return match (strtolower($container->get('getLanguage'))) {
+    'filmaffinity.filmURL'           => $_ENV['FILM_URL'],
+    'filmaffinity.getBaseURL'        => function (ContainerInterface $container): string {
+        return match (strtolower($container->get('env.language'))) {
             'spa' => $container->get('filmaffinity.baseURL') . 'es/',
             'en' => $container->get('filmaffinity.baseURL') . 'us/'
         };
@@ -112,7 +112,7 @@ return [
     // --------------------------------------------------------------------------------------------
     // ENTITY MANAGER.
     // --------------------------------------------------------------------------------------------
-    EntityManagerInterface::class => function (ContainerInterface $container) {
+    EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
         $isDevMode   = true;
         $entityPaths = $container->get('entity.folders');
         $proxyPath   = $container->get('entities.proxy.folder');
@@ -120,11 +120,11 @@ return [
         $config = ORMSetup::createAttributeMetadataConfiguration($entityPaths, $isDevMode, $proxyPath, null);
         $config->setAutoGenerateProxyClasses($isDevMode);
 
-        if ($container->get('getLogSQL')) {
+        if ($container->get('env.log.sql')) {
             $config->setMiddlewares([$container->get(Middleware::class)]);
         }
 
-        $connection  = DriverManager::getConnection($container->get('database.info'), $config);
+        $connection  = DriverManager::getConnection($container->get('env.database.info'), $config);
 
         return new EntityManager($connection, $config);
     },
@@ -132,19 +132,19 @@ return [
     // --------------------------------------------------------------------------------------------
     // LOGGER.
     // --------------------------------------------------------------------------------------------
-    Logger::class => function (ContainerInterface $container) {
+    Logger::class => function (ContainerInterface $container): Logger {
         if (!Logger::isInitialized()) {
             Logger::configure($container->get('logger.config.folder') . 'log4php.xml');
         }
         return Logger::getRootLogger();
     },
-    'logger-cli' => function (ContainerInterface $container) {
+    'logger-cli' => function (ContainerInterface $container): Logger {
         if (!Logger::isInitialized()) {
             Logger::configure($container->get('logger.config.folder') . 'log4php-cli.xml');
         }
         return Logger::getRootLogger();
     },
-    LoggerInterface::class => function (ContainerInterface $container): LoggerInterface {
+    LoggerInterface::class => function (ContainerInterface $container): LoggerWrapper {
         $logger = match (php_sapi_name()) {
             'cli' => $container->get('logger-cli'),
             default => $container->get(Logger::class)
@@ -162,7 +162,7 @@ return [
         DI\get(GetSchemaService::class),
         DI\get(JsonLoaderService::class),
         DI\get('errors.folder'),
-        DI\get('getLanguage'),
+        DI\get('env.language'),
         DI\get(JsonErrorToError::class)
     ),
 
@@ -172,7 +172,7 @@ return [
 
     // Application mappers.
     UserToUserDto::class => DI\create(UserToUserDto::class)->constructor(
-        DI\get('getDateTimeMask')
+        DI\get('env.datetime.mask')
     ),
 
     // Domain repositories.
@@ -192,7 +192,7 @@ return [
         DI\get(LoggerInterface::class),
         DI\get(FilmAffinityGenresRepository::class),
         DI\get(GenreToGenreDto::class),
-        DI\get('getLanguage'),
+        DI\get('env.language'),
         DI\get('backup.folder')
     ),
 
@@ -200,7 +200,7 @@ return [
         DI\get(LoggerInterface::class),
         DI\get(FilmAffinityCountriesRepository::class),
         DI\get(CountryToCountryDto::class),
-        DI\get('getLanguage'),
+        DI\get('env.language'),
         DI\get('backup.folder')
     ),
 
@@ -262,8 +262,8 @@ return [
     // JWT application services.
     JWTService::class => DI\create(FirebaseJwtService::class)->constructor(
         DI\get(LoggerInterface::class),
-        DI\get('getJwtSecretKey'),
-        DI\get('getJwtLifetime')
+        DI\get('env.jwt.secret.key'),
+        DI\get('env.jwt.lifetime')
     ),
 
     // HTTP CLIENT application services.
@@ -277,6 +277,6 @@ return [
         DI\get(LoggerInterface::class),
         DI\get(BasicSecurityService::class),
         DI\get(TokenSecurityService::class),
-        DI\get('getSecurityType')
+        DI\get('env.security.type')
     ),
 ];

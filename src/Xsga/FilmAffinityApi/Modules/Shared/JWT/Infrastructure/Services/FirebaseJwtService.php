@@ -12,6 +12,7 @@ use Firebase\JWT\JWT as FirebaseJWT;
 use Firebase\JWT\Key;
 use Firebase\JWT\SignatureInvalidException;
 use Psr\Log\LoggerInterface;
+use stdClass;
 use UnexpectedValueException;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
@@ -50,28 +51,33 @@ final class FirebaseJwtService implements JWTService
         try {
             $jwtObj = FirebaseJWT::decode($token, new Key($this->secretKey, self::ALGORITHM));
 
-            $userTokenData = new UserDataTokenDto();
-
-            $userTokenData->userId = match (isset($jwtObj->userData->id)) {
-                true => $jwtObj->userData->id,
-                false => ''
-            };
-
-            $userTokenData->email = match (isset($jwtObj->userData->email)) {
-                true => $jwtObj->userData->email,
-                false => ''
-            };
-
-            $userTokenData->password = match (isset($jwtObj->userData->password)) {
-                true => $jwtObj->userData->password,
-                false => ''
-            };
-
-            return $userTokenData;
+            return $this->getUserTokenFromJwtObj($jwtObj);
         } catch (Exception $exception) {
             $this->logError($exception);
             return null;
         }
+    }
+
+    private function getUserTokenFromJwtObj(stdClass $jwtObj): UserDataTokenDto
+    {
+        $userTokenData = new UserDataTokenDto();
+
+        $userTokenData->userId = match (isset($jwtObj->userData->id)) {
+            true => $jwtObj->userData->id,
+            false => ''
+        };
+
+        $userTokenData->email = match (isset($jwtObj->userData->email)) {
+            true => $jwtObj->userData->email,
+            false => ''
+        };
+
+        $userTokenData->password = match (isset($jwtObj->userData->password)) {
+            true => $jwtObj->userData->password,
+            false => ''
+        };
+
+        return $userTokenData;
     }
 
     private function logError(Exception $exception): void

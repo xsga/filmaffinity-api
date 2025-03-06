@@ -66,7 +66,7 @@ final class JsonLoaderServiceImpl implements JsonLoaderService
 
     private function validate(string $fileName, string $jsonFile, ?object $schema): bool
     {
-        if (is_null($schema)) {
+        if ($schema === null) {
             return true;
         }
 

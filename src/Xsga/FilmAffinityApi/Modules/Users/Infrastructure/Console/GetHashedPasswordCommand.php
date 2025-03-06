@@ -49,11 +49,7 @@ final class GetHashedPasswordCommand extends Command
         $this->hashedPassword = $this->display->askHidden(
             'Enter password',
             function (?string $password) {
-                $password = match (is_null($password)) {
-                    true => '',
-                    false => $password
-                };
-                $valueObject = new UserPassword($password);
+                $valueObject = new UserPassword($password === null ? '' : $password);
                 return $valueObject->value();
             }
         );

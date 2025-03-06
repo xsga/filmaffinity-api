@@ -32,9 +32,9 @@ final class DoctrineUsersRepository implements UsersRepository
         $usersRepository = $this->em->getRepository(UsersEntity::class);
         $searchResult    = $usersRepository->findAll();
 
-        return match ($searchResult) {
-            null => [],
-            default => $this->userEntityToModelMapper->convertArray($searchResult)
+        return match (empty($searchResult)) {
+            true => [],
+            false => $this->userEntityToModelMapper->convertArray($searchResult)
         };
     }
 

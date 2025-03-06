@@ -64,7 +64,7 @@ final class SecurityMiddleware implements MiddlewareInterface
     {
         $route = RouteContext::fromRequest($request)->getRoute();
 
-        if (is_null($route)) {
+        if ($route === null) {
             $errorMsg = "Error getting Slim route from context";
             $this->logger->error($errorMsg);
             throw new RouteContextException($errorMsg, 1021);

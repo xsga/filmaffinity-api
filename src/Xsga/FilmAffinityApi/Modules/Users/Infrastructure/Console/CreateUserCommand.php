@@ -52,32 +52,21 @@ final class CreateUserCommand extends Command
             'Enter user e-mail',
             null,
             function (?string $email) {
-                $email = match (is_null($email)) {
-                    true => '',
-                    false => $email
-                };
-                $valueObject = new UserEmail($email);
+                $valueObject = new UserEmail($email === null ? '' : $email);
                 return $valueObject->value();
             }
         );
         $this->dataEntry['password'] = $this->display->askHidden(
             'Enter user password',
             function (?string $password) {
-                $password = match (is_null($password)) {
-                    true => '',
-                    false => $password
-                };
-                $valueObject = new UserPassword($password);
+                $valueObject = new UserPassword($password === null ? '' : $password);
                 return $password;
             }
         );
         $this->dataEntry['passwordR'] = $this->display->askHidden(
             'Repeat user password',
             function (?string $pass) {
-                $passwordR = match (is_null($pass)) {
-                    true => '',
-                    false => $pass
-                };
+                $passwordR = $pass === null ? '' : $pass;
                 if ($passwordR === $this->dataEntry['password'] && $passwordR !== '') {
                     return $passwordR;
                 }
