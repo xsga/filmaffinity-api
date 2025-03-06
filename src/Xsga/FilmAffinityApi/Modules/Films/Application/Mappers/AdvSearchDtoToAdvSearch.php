@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Mappers;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\AdvancedSearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\AdvancedSearch;
 
-class AdvSearchDtoToAdvSearch
+final class AdvSearchDtoToAdvSearch
 {
     public function convert(AdvancedSearchDto $advSearchDto): AdvancedSearch
     {

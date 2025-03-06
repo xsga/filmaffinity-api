@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Films\Application\Dto;
 
-class AdvancedSearchDto
+final class AdvancedSearchDto
 {
     public string $searchText = '';
     public bool $searchTypeTitle = false;

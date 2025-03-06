@@ -10,7 +10,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Director;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SearchResults;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\SingleSearchResult;
 
-class SearchResultsToSearchResultsDto
+final class SearchResultsToSearchResultsDto
 {
     public function convert(SearchResults $searchResults): SearchResultsDto
     {

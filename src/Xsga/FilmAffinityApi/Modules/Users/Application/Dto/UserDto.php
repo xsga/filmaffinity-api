@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Xsga\FilmAffinityApi\Modules\Users\Application\Dto;
 
-class UserDto
+final class UserDto
 {
     public int $userId = 0;
     public string $email = '';

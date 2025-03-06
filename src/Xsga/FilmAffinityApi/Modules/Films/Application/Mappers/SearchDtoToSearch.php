@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Mappers;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\SearchDto;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Search;
 
-class SearchDtoToSearch
+final class SearchDtoToSearch
 {
     public function convert(SearchDto $searchDto): Search
     {

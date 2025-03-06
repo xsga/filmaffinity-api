@@ -6,9 +6,9 @@ namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services;
 
 use Psr\Log\LoggerInterface;
 use Throwable;
-use Xsga\BlackBirdPhp\Modules\Shared\Security\Application\Services\Helpers\GetAuthHeaderToken;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
+use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers\GetAuthHeaderToken;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\Exceptions\InvalidAuthHeaderException;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;

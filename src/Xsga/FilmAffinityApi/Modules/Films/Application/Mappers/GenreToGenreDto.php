@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Mappers;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\GenreDto;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Genre;
 
-class GenreToGenreDto
+final class GenreToGenreDto
 {
     public function convert(Genre $genre): GenreDto
     {

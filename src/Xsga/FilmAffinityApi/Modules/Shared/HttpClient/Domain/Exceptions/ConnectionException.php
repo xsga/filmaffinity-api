@@ -6,6 +6,6 @@ namespace Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Domain\Exceptions;
 
 use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
-class ConnectionException extends GenericException
+final class ConnectionException extends GenericException
 {
 }

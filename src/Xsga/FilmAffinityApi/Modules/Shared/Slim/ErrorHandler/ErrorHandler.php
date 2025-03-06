@@ -107,7 +107,7 @@ final class ErrorHandler implements ErrorHandlerInterface
     {
         if ($exception instanceof GenericException) {
             foreach ($exception->getParams() as $key => $value) {
-                $message = str_replace('{' . $key . '}', (string)$value, $message);
+                $message = str_replace('{' . (string)$key . '}', (string)$value, $message);
             }
         }
 

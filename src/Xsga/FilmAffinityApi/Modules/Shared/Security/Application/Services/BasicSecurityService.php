@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services;
 
 use Psr\Log\LoggerInterface;
-use Xsga\BlackBirdPhp\Modules\Shared\Security\Application\Services\Helpers\GetAuthHeaderToken;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\BasicUserTokenDto;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
+use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers\GetAuthHeaderToken;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\UserLogin;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Xsga\BlackBirdPhp\Modules\Shared\Security\Application\Services\Helpers;
+namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers;
 
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\Exceptions\InvalidAuthHeaderException;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;

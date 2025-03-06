@@ -7,7 +7,7 @@ namespace Xsga\FilmAffinityApi\Modules\Films\Application\Mappers;
 use Xsga\FilmAffinityApi\Modules\Films\Application\Dto\CountryDto;
 use Xsga\FilmAffinityApi\Modules\Films\Domain\Model\Country;
 
-class CountryToCountryDto
+final class CountryToCountryDto
 {
     public function convert(Country $country): CountryDto
     {

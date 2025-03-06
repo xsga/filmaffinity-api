@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/php:8.3.6
+      - image: cimg/php:8.4.4
       
     steps:
       - checkout
