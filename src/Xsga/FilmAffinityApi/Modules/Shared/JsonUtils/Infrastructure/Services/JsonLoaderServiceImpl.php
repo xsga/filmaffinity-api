@@ -42,14 +42,20 @@ final class JsonLoaderServiceImpl implements JsonLoaderService
 
         $jsonFile = file_get_contents($fileLocation);
 
+        if ($jsonFile === false) {
+            $this->logger->error("Error reading JSON file '$fileLocation'");
+            return $this->getEmptyOutput();
+        }
+
         if (!$this->validate($fileName, $jsonFile, $schema)) {
             return $this->getEmptyOutput();
         }
 
+        /** @var array|object|null $content */
         $content = json_decode($jsonFile, $this->outputArray);
 
-        if (empty($content)) {
-            $this->logger->error("JSON file '$fileLocation' it's empty");
+        if ($content === null) {
+            $this->logger->warning("JSON file '$fileLocation' it's empty");
             return $this->getEmptyOutput();
         }
 

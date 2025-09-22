@@ -35,7 +35,8 @@
       "src/Xsga/FilmAffinityApi/Bootstrap/GetPath.php",
       "config/app/SlimApp.php",
       "config/env/Settings.php",
-      "config/routes/Routes.php"
+      "config/routes/Routes.php",
+      "config/commands/Commands.php"
     ],
     "psr-4": {
       "Xsga\\FilmAffinityApi\\": "src/Xsga/FilmAffinityApi/",

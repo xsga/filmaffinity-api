@@ -12,6 +12,10 @@ use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;
 
 final class UpdateUserStatusService
 {
+    private const int ERROR_USER_ENABLED = 1052;
+    private const int ERROR_USER_DISABLED = 1051;
+    private const int ERROR_UPDATING_USER = 1012;
+
     public function __construct(
         private LoggerInterface $logger,
         private UsersRepository $usersRepository,
@@ -51,12 +55,12 @@ final class UpdateUserStatusService
         if ($newStatus) {
             $errorMsg = "User '" . $user->email() . "' is already enabled";
             $this->logger->error($errorMsg);
-            throw new UpdateUserException($errorMsg, 1052, null, [1 => $user->email()]);
+            throw new UpdateUserException($errorMsg, self::ERROR_USER_ENABLED, null, [1 => $user->email()]);
         }
 
         $errorMsg = "User '" . $user->email() . "' is already disabled";
         $this->logger->error($errorMsg);
-        throw new UpdateUserException($errorMsg, 1051, null, [1 => $user->email()]);
+        throw new UpdateUserException($errorMsg, self::ERROR_USER_DISABLED, null, [1 => $user->email()]);
     }
 
     private function validateUserUpdate(bool $userUpdateStatus, string $userEmail): void
@@ -64,7 +68,7 @@ final class UpdateUserStatusService
         if (!$userUpdateStatus) {
             $errorMsg = "Error updating the status of '$userEmail' user";
             $this->logger->error($errorMsg);
-            throw new UpdateUserException($errorMsg, 1012, null, [1 => $userEmail]);
+            throw new UpdateUserException($errorMsg, self::ERROR_UPDATING_USER, null, [1 => $userEmail]);
         }
 
         $this->logger->info("User '$userEmail' status updated successfully");

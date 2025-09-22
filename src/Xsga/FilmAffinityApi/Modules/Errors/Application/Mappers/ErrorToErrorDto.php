@@ -27,12 +27,9 @@ final class ErrorToErrorDto
      */
     public function convertArray(array $errors): array
     {
-        $out = [];
-
-        foreach ($errors as $error) {
-            $out[] = $this->convert($error);
-        }
-
-        return $out;
+        return array_map(
+            fn(Error $error): ErrorDto => $this->convert($error),
+            $errors
+        );
     }
 }

@@ -13,8 +13,8 @@ final class JsonInputToUpdatePasswordDto
         $updatePasswordDto = new UpdatePasswordDto();
 
         $updatePasswordDto->userId       = $userId;
-        $updatePasswordDto->oldPassword  = $userData['oldPassword'];
-        $updatePasswordDto->newPassword  = $userData['newPassword'];
+        $updatePasswordDto->oldPassword  = (string)$userData['oldPassword'];
+        $updatePasswordDto->newPassword  = (string)$userData['newPassword'];
 
         return $updatePasswordDto;
     }

@@ -10,23 +10,30 @@ use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Domain\Exceptions\JsonSchemaEx
 
 final class GetSchemaServiceImpl implements GetSchemaService
 {
+    private const int ERROR_JSON_SCHEMA_NOT_FOUND = 1011;
+
+    /** @param string[] $locations */
     public function __construct(
         private LoggerInterface $logger,
-        private string $location
+        private array $locations
     ) {
     }
 
-    public function get(string $schemaName): string
+    public function get(string $schemaName): object
     {
-        $schemaContent = $this->getContent($this->location . $schemaName . '.json');
+        foreach ($this->locations as $location) {
+            $schemaContent = $this->getContent("$location$schemaName.json");
 
-        if (is_string($schemaContent)) {
-            return $schemaContent;
+            if ($schemaContent === false) {
+                continue;
+            }
+
+            return $this->getSchema($schemaName, $schemaContent);
         }
 
         $errorMsg = "Error loading JSON schema file '$schemaName'";
         $this->logger->error($errorMsg);
-        throw new JsonSchemaException($errorMsg, 1011, null, [1 => $schemaName]);
+        throw new JsonSchemaException($errorMsg, self::ERROR_JSON_SCHEMA_NOT_FOUND, null, [1 => $schemaName]);
     }
 
     private function getContent(string $fileLocation): string|false
@@ -44,5 +51,19 @@ final class GetSchemaServiceImpl implements GetSchemaService
         }
 
         return $schemaContent;
+    }
+
+    private function getSchema(string $schemaName, string $schemaContent): object
+    {
+        /** @var object|null $schema */
+        $schema = json_decode($schemaContent);
+
+        if ($schema === null) {
+            $errorMsg = "Error decoding schema JSON file '$schemaName'";
+            $this->logger->error($errorMsg);
+            throw new JsonSchemaException($errorMsg, self::ERROR_JSON_SCHEMA_NOT_FOUND, null, [1 => $schemaName]);
+        }
+
+        return $schema;
     }
 }

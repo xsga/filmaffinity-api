@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services;
 
 use Psr\Log\LoggerInterface;
+use stdClass;
 use Throwable;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Dto\UserDataTokenDto;
@@ -19,7 +20,8 @@ final class TokenSecurityService
         private LoggerInterface $logger,
         private JWTService $jwtService,
         private GetUser $getUser,
-        private GetAuthHeaderToken $getAuthHeaderToken
+        private GetAuthHeaderToken $getAuthHeaderToken,
+        private string $secretKey
     ) {
     }
 
@@ -40,13 +42,24 @@ final class TokenSecurityService
 
     private function getUserDataToken(string $authToken): UserDataTokenDto
     {
-        $userDataToken = $this->jwtService->decode($authToken);
+        $jwtObj = $this->jwtService->decode($this->secretKey, $authToken);
 
-        if ($userDataToken === null) {
+        if ($jwtObj === null) {
             throw new InvalidAuthHeaderException('JWT token not valid');
         }
 
-        return $userDataToken;
+        return $this->getUserTokenFromJwtObj($jwtObj);
+    }
+
+    private function getUserTokenFromJwtObj(stdClass $jwtObj): UserDataTokenDto
+    {
+        $userTokenData = new UserDataTokenDto();
+
+        $userTokenData->userId   = (int)$jwtObj->id;
+        $userTokenData->email    = (string)$jwtObj->email;
+        $userTokenData->password = (string)$jwtObj->password;
+
+        return $userTokenData;
     }
 
     private function validateTokenData(UserDataTokenDto $userDataToken): void

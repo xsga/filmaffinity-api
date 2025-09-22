@@ -13,7 +13,7 @@ function getSlimApp(ContainerInterface $container): App
     // Slim app.
     AppFactory::setContainer($container);
     $app = AppFactory::create();
-    $app->setBasePath($container->get('env.url.path'));
+    $app->setBasePath((string)$container->get('env.url.path'));
 
     // Middlewares.
     $app->add(SecurityMiddleware::class);
@@ -21,11 +21,11 @@ function getSlimApp(ContainerInterface $container): App
     $app->addBodyParsingMiddleware();
 
     // Error handler.
-    $errorMiddleware = $app->addErrorMiddleware($container->get('env.error.detail'), true, true);
+    $errorMiddleware = $app->addErrorMiddleware((bool)$container->get('env.error.detail'), true, true);
     $errorMiddleware->setDefaultErrorHandler(ErrorHandler::class);
 
-    // Load routes.
-    getRoutes($app);
+    // Routes.
+    loadRoutes($app);
 
     return $app;
 }

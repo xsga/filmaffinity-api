@@ -8,9 +8,7 @@ use Xsga\FilmAffinityApi\Modules\Errors\Domain\Model\Error;
 
 interface ErrorsRepository
 {
-    /**
-     * @return Error[]
-     */
+    /** @return Error[] */
     public function getAllErrors(): array;
 
     public function getError(int $code): ?Error;

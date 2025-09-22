@@ -10,7 +10,7 @@ use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\GetFilmByIdCon
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Controllers\SimpleSearchController;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Controllers\GetTokenController;
 
-function getRoutes(App $slimApp): App
+function loadRoutes(App $slimApp): App
 {
     $slimApp->post('/searches/simple', SimpleSearchController::class)->setName('simple_search');
     $slimApp->post('/searches/advanced', AdvancedSearchController::class)->setName('advanced_search');

@@ -16,6 +16,9 @@ use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserToNewUserEntit
 
 final class DoctrineUsersRepository implements UsersRepository
 {
+    private const int MYSQL_INTEGRITY_CONSTRAINT_ERROR_NUMBER = 1062;
+    private const string DB_DATETIME_MASK = 'Y-m-d H:i:s';
+
     public function __construct(
         private LoggerInterface $logger,
         private EntityManagerInterface $em,
@@ -24,9 +27,7 @@ final class DoctrineUsersRepository implements UsersRepository
     ) {
     }
 
-    /**
-     * @return User[]
-     */
+    /** @return User[] */
     public function getAllUsers(): array
     {
         $usersRepository = $this->em->getRepository(UsersEntity::class);
@@ -71,7 +72,7 @@ final class DoctrineUsersRepository implements UsersRepository
         } catch (Throwable $exception) {
             $this->logger->error($exception->__toString());
             return match ($exception->getCode()) {
-                1062 => 0,
+                self::MYSQL_INTEGRITY_CONSTRAINT_ERROR_NUMBER => 0,
                 default => -1
             };
         }
@@ -86,7 +87,7 @@ final class DoctrineUsersRepository implements UsersRepository
             $query->set('u.password', ':userPassword');
             $query->set('u.updateDate', ':userUpdateDate');
             $query->setParameter(':userPassword', $user->password());
-            $query->setParameter(':userUpdateDate', $user->updateDate()->format('Y-m-d H:i:s'));
+            $query->setParameter(':userUpdateDate', $user->updateDate()->format(self::DB_DATETIME_MASK));
             $query->where('u.userId = ' . $user->userId());
             $query->getQuery()->execute();
 
@@ -106,7 +107,7 @@ final class DoctrineUsersRepository implements UsersRepository
             $query->set('u.status', ':userStatus');
             $query->set('u.updateDate', ':userUpdateDate');
             $query->setParameter(':userStatus', $user->status());
-            $query->setParameter(':userUpdateDate', $user->updateDate()->format('Y-m-d H:i:s'));
+            $query->setParameter(':userUpdateDate', $user->updateDate()->format(self::DB_DATETIME_MASK));
             $query->where('u.userId = ' . $user->userId());
             $query->getQuery()->execute();
 

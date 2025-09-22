@@ -22,9 +22,13 @@ use Xsga\FilmAffinityApi\Modules\Shared\Exceptions\GenericException;
 
 final class ErrorHandler implements ErrorHandlerInterface
 {
+    private const int ERROR_GENERIC = 1000;
+    private const int ERROR_HTTP_REQUEST_METHOD_NOT_VALID = 1003;
+    private const int ERROR_API_RESOURCE_NOT_FOUND = 1004;
+
     public function __construct(
         private LoggerInterface $logger,
-        private GetErrorService $getErrorService
+        private GetErrorService $getError
     ) {
     }
 
@@ -35,13 +39,20 @@ final class ErrorHandler implements ErrorHandlerInterface
         bool $logErrors,
         bool $logErrorDetails
     ): Response {
-        $error       = $this->getErrorService->get($this->getErrorCode($exception));
+        $error       = $this->getError->get($this->getErrorCode($exception));
         $response    = new Psr7Response($error->httpCode);
         $responseDto = $this->getResponseDto($error, $response->getReasonPhrase(), $exception, $displayErrorDetails);
 
-        $response->getBody()->write(json_encode($responseDto, JSON_UNESCAPED_UNICODE));
+        $responseJson = json_encode($responseDto, JSON_UNESCAPED_UNICODE);
 
-        $this->logger->error("ERROR $error->code: " . $exception->getMessage());
+        if ($responseJson === false) {
+            $this->logger->error("Error encoding JSON response: " . json_last_error_msg());
+            $responseJson = '';
+        }
+
+        $response->getBody()->write($responseJson);
+
+        $this->logger->error(sprintf("ERROR $error->code: %s", $exception->getMessage()));
         $this->logger->error($exception->__toString());
 
         return $response;
@@ -50,14 +61,14 @@ final class ErrorHandler implements ErrorHandlerInterface
     private function getErrorCode(Throwable $exception): int
     {
         $errorCode = match (true) {
-            $exception instanceof HttpInternalServerErrorException => 1000,
-            $exception instanceof HttpMethodNotAllowedException => 1003,
-            $exception instanceof HttpNotFoundException => 1004,
+            $exception instanceof HttpInternalServerErrorException => self::ERROR_GENERIC,
+            $exception instanceof HttpMethodNotAllowedException => self::ERROR_HTTP_REQUEST_METHOD_NOT_VALID,
+            $exception instanceof HttpNotFoundException => self::ERROR_API_RESOURCE_NOT_FOUND,
             default => (int)$exception->getCode()
         };
 
         return match ($errorCode) {
-            0 => 1000,
+            0 => self::ERROR_GENERIC,
             default => $errorCode
         };
     }
@@ -70,7 +81,7 @@ final class ErrorHandler implements ErrorHandlerInterface
     ): ApiResponseDto {
         $responseDto = new ApiResponseDto();
 
-        $responseDto->status     = 'ERROR - ' . $responseReasonPhrase;
+        $responseDto->status     = "ERROR - $responseReasonPhrase";
         $responseDto->statusCode = $error->httpCode;
         $responseDto->response   = match ($displayErrorDetails) {
             true => $this->getErrorDetailDto($error, $exception),
@@ -107,7 +118,7 @@ final class ErrorHandler implements ErrorHandlerInterface
     {
         if ($exception instanceof GenericException) {
             foreach ($exception->getParams() as $key => $value) {
-                $message = str_replace('{' . (string)$key . '}', (string)$value, $message);
+                $message = str_replace('{' . (string)$key . '}', $value, $message);
             }
         }
 

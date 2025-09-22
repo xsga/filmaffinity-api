@@ -21,9 +21,7 @@ final class User
     private readonly UserCreateDate $createDate;
     private UserUpdateDate $updateDate;
 
-    /**
-     * @param Role[] $roles
-     */
+    /** @param Role[] $roles */
     public function __construct(
         int $userId,
         string $email,

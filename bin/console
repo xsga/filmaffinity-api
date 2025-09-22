@@ -5,14 +5,6 @@ declare(strict_types=1);
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Application;
-use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Console\BackupCountriesCommand;
-use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Console\BackupGenresCommand;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\CreateUserCommand;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\DeleteUserCommand;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\DisableUserCommand;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\EnableUserCommand;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\GetHashedPasswordCommand;
-use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Console\GetTokenCommand;
 
 chdir(realpath(dirname(__FILE__)));
 
@@ -21,16 +13,9 @@ require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . D
 bootstrap();
 
 $container = getDIContainer();
-$console   = $container->get(Application::class);
-$logger    = $container->get(LoggerInterface::class);
 
-$console->add($container->get(CreateUserCommand::class));
-$console->add($container->get(BackupGenresCommand::class));
-$console->add($container->get(BackupCountriesCommand::class));
-$console->add($container->get(EnableUserCommand::class));
-$console->add($container->get(DisableUserCommand::class));
-$console->add($container->get(DeleteUserCommand::class));
-$console->add($container->get(GetHashedPasswordCommand::class));
-$console->add($container->get(GetTokenCommand::class));
+$logger = $container->get(LoggerInterface::class);
+$logger->info(sprintf("COMMAND petition %s : %s", uniqid(), $argv[1] ?? 'NO_COMMAND'));
 
+$console = $container->get(Application::class);
 $console->run();

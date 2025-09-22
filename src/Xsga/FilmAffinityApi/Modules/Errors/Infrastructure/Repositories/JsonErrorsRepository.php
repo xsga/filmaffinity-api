@@ -13,8 +13,8 @@ use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\JsonLoade
 
 final class JsonErrorsRepository implements ErrorsRepository
 {
-    private string $errorsFilename = 'errors.json';
-    private string $errorsSchemaName = 'errors.schema';
+    private const string ERRORS_FILENAME = 'errors.json';
+    private const string ERRORS_SCHEMA_NAME = 'errors.schema';
 
     public function __construct(
         private LoggerInterface $logger,
@@ -26,16 +26,10 @@ final class JsonErrorsRepository implements ErrorsRepository
     ) {
     }
 
-    /**
-     * @return Error[]
-     */
+    /** @return Error[] */
     public function getAllErrors(): array
     {
-        $errors = $this->jsonLoader->toArray(
-            $this->errorsPath,
-            $this->errorsFilename,
-            json_decode($this->schema->get($this->errorsSchemaName))
-        );
+        $errors = $this->loadErrorsFile(self::ERRORS_FILENAME);
 
         if (empty($errors)) {
             $this->logger->error('Error loading errors files');
@@ -60,13 +54,21 @@ final class JsonErrorsRepository implements ErrorsRepository
         return null;
     }
 
+    private function loadErrorsFile(string $filename): array
+    {
+        return $this->jsonLoader->toArray(
+            $this->errorsPath,
+            $filename,
+            $this->schema->get(self::ERRORS_SCHEMA_NAME)
+        );
+    }
+
     private function validateErrors(array $errors): void
     {
-        $errorCodes = [];
-
-        foreach ($errors as $error) {
-            $errorCodes[] = $error['code'];
-        }
+        $errorCodes = array_map(
+            fn(array $error): string => (string)$error['code'],
+            $errors
+        );
 
         foreach (array_count_values($errorCodes) as $errorCode => $totalCodeItems) {
             if ($totalCodeItems > 1) {

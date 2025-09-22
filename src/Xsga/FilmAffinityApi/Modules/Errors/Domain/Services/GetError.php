@@ -11,6 +11,8 @@ use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
 
 final class GetError
 {
+    private const int ERROR_ACCOUNT_NOT_FOUND = 1023;
+
     public function __construct(
         private LoggerInterface $logger,
         private ErrorsRepository $repository,
@@ -29,7 +31,7 @@ final class GetError
         if ($error === null) {
             $message = "Error with code '$code' not found";
             $this->logger->error($message);
-            throw new ErrorNotFoundException($message, 1023, null, [1 => $code]);
+            throw new ErrorNotFoundException($message, self::ERROR_ACCOUNT_NOT_FOUND, null, [1 => $code]);
         }
 
         return $error;
