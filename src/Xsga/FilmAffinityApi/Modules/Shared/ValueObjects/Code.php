@@ -11,6 +11,8 @@ abstract class Code
     private const int MAX_LENGTH = 50;
     private const int MIN_LENGTH = 2;
 
+    private const int ERROR_NOT_VALID_LENGTH = 1050;
+
     protected readonly string $value;
 
     public function __construct(string $code)
@@ -23,7 +25,12 @@ abstract class Code
     private function validateLength(string $code): void
     {
         if (strlen($code) < self::MIN_LENGTH || strlen($code) > self::MAX_LENGTH) {
-            throw new InvalidCodeException("Code '$code' has not a valid length", 1050, null, [1 => $code]);
+            throw new InvalidCodeException(
+                "Code '$code' has not a valid length",
+                self::ERROR_NOT_VALID_LENGTH,
+                null,
+                [1 => $code]
+            );
         }
     }
 

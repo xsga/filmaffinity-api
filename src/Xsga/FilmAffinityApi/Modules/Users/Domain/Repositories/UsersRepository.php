@@ -8,9 +8,7 @@ use Xsga\FilmAffinityApi\Modules\Users\Domain\Model\User;
 
 interface UsersRepository
 {
-    /**
-     * @return User[]
-     */
+    /** @return User[] */
     public function getAllUsers(): array;
 
     public function getUserByEmail(string $userEmail): ?User;

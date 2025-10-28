@@ -10,6 +10,8 @@ use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 
 final class DeleteUserByEmailService
 {
+    private const int ERROR_DELETING_USER = 1042;
+
     public function __construct(
         private LoggerInterface $logger,
         private UsersRepository $usersRepository
@@ -29,7 +31,7 @@ final class DeleteUserByEmailService
         if (!$userDeleteStatus) {
             $message = "Error deleting user";
             $this->logger->error($message);
-            throw new DeleteUserException($message, 1042);
+            throw new DeleteUserException($message, self::ERROR_DELETING_USER);
         }
 
         $this->logger->info("User '$userEmail' deleted successfully");

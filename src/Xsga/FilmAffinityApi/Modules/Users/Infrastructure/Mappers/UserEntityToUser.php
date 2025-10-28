@@ -34,12 +34,9 @@ final class UserEntityToUser
      */
     public function convertArray(array $userEntities): array
     {
-        $out = [];
-
-        foreach ($userEntities as $userEntity) {
-            $out[] = $this->convert($userEntity);
-        }
-
-        return $out;
+        return array_map(
+            fn(UsersEntity $entity): User => $this->convert($entity),
+            $userEntities
+        );
     }
 }

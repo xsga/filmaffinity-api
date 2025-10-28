@@ -17,17 +17,12 @@ final class JsonErrorToError
         );
     }
 
-    /**
-     * @return Error[]
-     */
+    /** @return Error[] */
     public function convertArray(array $errorsData, string $language): array
     {
-        $out = [];
-
-        foreach ($errorsData as $errorData) {
-            $out[] = $this->convert($errorData, $language);
-        }
-
-        return $out;
+        return array_map(
+            fn(array $item) => $this->convert($item, $language),
+            $errorsData
+        );
     }
 }

@@ -6,22 +6,20 @@ use Psr\Log\LoggerInterface;
 
 require_once realpath(dirname(__FILE__, 2)) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-$startTime = microtime(true);
-$requestId = uniqid();
+$startTime     = microtime(true);
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'METHOD_NOT_FOUND';
+$requestUri    = $_SERVER['REQUEST_URI'] ?? 'URI_NOT_FOUND';
 
 bootstrap();
 
 $container = getDIContainer();
-$slimApp   = getSlimApp($container);
 $logger    = $container->get(LoggerInterface::class);
 
-$requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'METHOD_NOT_FOUND';
-$requestUri    = $_SERVER['REQUEST_URI'] ?? 'URI_NOT_FOUND';
+$logger->info("$requestMethod => $requestUri (start petition)");
 
-$logger->info("API petition $requestId : $requestMethod - $requestUri");
-
+$slimApp = getSlimApp($container);
 $slimApp->run();
 
 $execTimeInSeconds = number_format((microtime(true) - $startTime), 2);
 
-$logger->info("API petition $requestId : executed in $execTimeInSeconds seconds");
+$logger->info("$requestMethod => $requestUri (executed in $execTimeInSeconds seconds)");

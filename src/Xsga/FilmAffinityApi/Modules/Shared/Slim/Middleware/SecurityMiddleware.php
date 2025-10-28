@@ -21,7 +21,12 @@ use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 
 final class SecurityMiddleware implements MiddlewareInterface
 {
-    private const string GET_TOKEN_ROUTE = 'get_token';
+    private const string GET_TOKEN_ROUTE   = 'get_token';
+
+    private const int ERROR_GETTING_ROUTE = 1021;
+    private const int ERROR_TOKEN_RESOURCE = 1009;
+    private const int ERROR_AUTH_HEADER = 1002;
+    private const int ERROR_SECURITY = 1008;
 
     public function __construct(
         private LoggerInterface $logger,
@@ -67,7 +72,7 @@ final class SecurityMiddleware implements MiddlewareInterface
         if ($route === null) {
             $errorMsg = "Error getting Slim route from context";
             $this->logger->error($errorMsg);
-            throw new RouteContextException($errorMsg, 1021);
+            throw new RouteContextException($errorMsg, self::ERROR_GETTING_ROUTE);
         }
 
         return $route->getName() ?? '';
@@ -86,7 +91,7 @@ final class SecurityMiddleware implements MiddlewareInterface
         if ($this->securityType !== SecurityTypes::TOKEN) {
             $errorMsg = "The 'getToken' resource is not available. API security type must be 'token'";
             $this->logger->error($errorMsg);
-            throw new ApiResourceDisabledException($errorMsg, 1009);
+            throw new ApiResourceDisabledException($errorMsg, self::ERROR_TOKEN_RESOURCE);
         }
     }
 
@@ -95,18 +100,19 @@ final class SecurityMiddleware implements MiddlewareInterface
         if (empty($request->getHeader('Authorization'))) {
             $errorMsg = 'Error validating authorization header, not found';
             $this->logger->error($errorMsg);
-            throw new AuthHeaderNotFoundException($errorMsg, 1002);
+            throw new AuthHeaderNotFoundException($errorMsg, self::ERROR_AUTH_HEADER);
         }
 
         return $request->getHeader('Authorization')[0];
     }
 
+    /** @psalm-assert UserDataTokenDto $userDataToken */
     private function validateUserDataToken(?UserDataTokenDto $userDataToken): void
     {
         if ($userDataToken === null) {
             $errorMsg = "Error applying application security";
             $this->logger->error($errorMsg);
-            throw new SecurityException($errorMsg, 1008);
+            throw new SecurityException($errorMsg, self::ERROR_SECURITY);
         }
     }
 }

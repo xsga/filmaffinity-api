@@ -8,6 +8,8 @@ use Xsga\FilmAffinityApi\Modules\Shared\ValueObjects\Exceptions\InvalidEmailExce
 
 abstract class Email
 {
+    private const int ERROR_EMAIL_NOT_VALID = 1016;
+
     protected string $value;
 
     public function __construct(string $email)
@@ -20,7 +22,12 @@ abstract class Email
     private function validateFormat(string $email): void
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-            throw new InvalidEmailException("Email '$email' has not a valid format", 1016, null, [1 => $email]);
+            throw new InvalidEmailException(
+                "Email '$email' has not a valid format",
+                self::ERROR_EMAIL_NOT_VALID,
+                null,
+                [1 => $email]
+            );
         }
     }
 

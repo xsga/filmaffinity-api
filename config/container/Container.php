@@ -12,6 +12,8 @@ use Log4Php\Logger;
 use Log4Php\LoggerWrapper;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Xsga\FilmAffinityApi\Modules\Errors\Domain\Repositories\ErrorsRepository;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Mappers\JsonErrorToError;
 use Xsga\FilmAffinityApi\Modules\Errors\Infrastructure\Repositories\JsonErrorsRepository;
@@ -46,11 +48,15 @@ use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Infrastructure\Services\Swagge
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Application\Services\JWTService;
 use Xsga\FilmAffinityApi\Modules\Shared\JWT\Infrastructure\Services\FirebaseJwtService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\BasicSecurityService;
+use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\Helpers\GetAuthHeaderToken;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Application\Services\TokenSecurityService;
 use Xsga\FilmAffinityApi\Modules\Shared\Security\Domain\SecurityTypes;
 use Xsga\FilmAffinityApi\Modules\Shared\Slim\Middleware\SecurityMiddleware;
 use Xsga\FilmAffinityApi\Modules\Users\Application\Mappers\UserToUserDto;
+use Xsga\FilmAffinityApi\Modules\Users\Application\Services\GetTokenService;
 use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\GetUser;
+use Xsga\FilmAffinityApi\Modules\Users\Domain\Services\UserLogin;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserEntityToUser;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Mappers\UserToNewUserEntity;
 use Xsga\FilmAffinityApi\Modules\Users\Infrastructure\Repositories\DoctrineUsersRepository;
@@ -113,18 +119,26 @@ return [
     // ENTITY MANAGER.
     // --------------------------------------------------------------------------------------------
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
-        $isDevMode   = true;
+        $isDevMode = true;
+
+        /** @var string[] $entityPaths */
         $entityPaths = $container->get('entity.folders');
-        $proxyPath   = $container->get('entities.proxy.folder');
-        
+        $proxyPath   = (string)$container->get('entities.proxy.folder');
+
         $config = ORMSetup::createAttributeMetadataConfiguration($entityPaths, $isDevMode, $proxyPath, null);
         $config->setAutoGenerateProxyClasses($isDevMode);
 
         if ($container->get('env.log.sql')) {
-            $config->setMiddlewares([$container->get(Middleware::class)]);
+            /** @var Middleware $loggerMiddleware */
+            $loggerMiddleware = $container->get(Middleware::class);
+            $config->setMiddlewares([$loggerMiddleware]);
         }
 
-        $connection  = DriverManager::getConnection($container->get('env.database.info'), $config);
+        /** @var string[] $params */
+        $params = $container->get('env.database.info');
+
+        /** @psalm-suppress MixedArgumentTypeCoercion */
+        $connection = DriverManager::getConnection($params, $config);
 
         return new EntityManager($connection, $config);
     },
@@ -134,22 +148,40 @@ return [
     // --------------------------------------------------------------------------------------------
     Logger::class => function (ContainerInterface $container): Logger {
         if (!Logger::isInitialized()) {
-            Logger::configure($container->get('logger.config.folder') . 'log4php.xml');
+            $loggerConfigFolder = (string)$container->get('logger.config.folder');
+            Logger::configure($loggerConfigFolder . 'log4php.xml');
         }
         return Logger::getRootLogger();
     },
     'logger-cli' => function (ContainerInterface $container): Logger {
+        $loggerConfigFolder = (string)$container->get('logger.config.folder');
         if (!Logger::isInitialized()) {
-            Logger::configure($container->get('logger.config.folder') . 'log4php-cli.xml');
+            Logger::configure($loggerConfigFolder . 'log4php-cli.xml');
         }
         return Logger::getRootLogger();
     },
     LoggerInterface::class => function (ContainerInterface $container): LoggerWrapper {
+        /** @var Logger $logger */
         $logger = match (php_sapi_name()) {
             'cli' => $container->get('logger-cli'),
             default => $container->get(Logger::class)
         };
         return new LoggerWrapper($logger);
+    },
+
+    // --------------------------------------------------------------------------------------------
+    // CONSOLE.
+    // --------------------------------------------------------------------------------------------
+    Application::class => function (ContainerInterface $container): Application {
+        $application = new Application();
+
+        foreach (getCommands() as $command) {
+            /** @var Command $commandInstance */
+            $commandInstance = $container->get($command);
+            $application->add($commandInstance);
+        }
+
+        return $application;
     },
 
     // --------------------------------------------------------------------------------------------
@@ -181,6 +213,15 @@ return [
         DI\get(EntityManagerInterface::class),
         DI\get(UserEntityToUser::class),
         DI\get(UserToNewUserEntity::class)
+    ),
+
+    // Application services.
+    GetTokenService::class => DI\create(GetTokenService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(UserLogin::class),
+        DI\get(JWTService::class),
+        DI\get('env.jwt.secret.key'),
+        DI\get('env.jwt.lifetime')
     ),
 
     // --------------------------------------------------------------------------------------------
@@ -249,7 +290,7 @@ return [
     // JSON UTILS application services.
     GetSchemaService::class => DI\create(GetSchemaServiceImpl::class)->constructor(
         DI\get(LoggerInterface::class),
-        DI\get('schema.folder')
+        [DI\get('schema.folder')]
     ),
     JsonLoaderService::class => DI\create(JsonLoaderServiceImpl::class)->constructor(
         DI\get(LoggerInterface::class),
@@ -261,9 +302,7 @@ return [
 
     // JWT application services.
     JWTService::class => DI\create(FirebaseJwtService::class)->constructor(
-        DI\get(LoggerInterface::class),
-        DI\get('env.jwt.secret.key'),
-        DI\get('env.jwt.lifetime')
+        DI\get(LoggerInterface::class)
     ),
 
     // HTTP CLIENT application services.
@@ -278,5 +317,14 @@ return [
         DI\get(BasicSecurityService::class),
         DI\get(TokenSecurityService::class),
         DI\get('env.security.type')
+    ),
+
+    // SECURITY services.
+    TokenSecurityService::class => DI\create(TokenSecurityService::class)->constructor(
+        DI\get(LoggerInterface::class),
+        DI\get(JWTService::class),
+        DI\get(GetUser::class),
+        DI\get(GetAuthHeaderToken::class),
+        DI\get('env.jwt.secret.key')
     ),
 ];

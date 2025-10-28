@@ -33,12 +33,9 @@ final class UserToUserDto
      */
     public function convertArray(array $users): array
     {
-        $out = [];
-
-        foreach ($users as $user) {
-            $out[] = $this->convert($user);
-        }
-
-        return $out;
+        return array_map(
+            fn(User $user): UserDto => $this->convert($user),
+            $users
+        );
     }
 }

@@ -7,11 +7,11 @@ use DI\ContainerBuilder;
 
 function getDIContainer(): Container
 {
-    $applicationDef = getPathTo('config#container') . 'Container.php';
+    $containerPath = getPathTo('config#container');
 
     $builder = new ContainerBuilder();
     $builder->useAttributes(true);
-    $builder->addDefinitions($applicationDef);
+    $builder->addDefinitions($containerPath . 'Container.php');
 
     return $builder->build();
 }

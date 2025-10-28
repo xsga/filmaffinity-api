@@ -12,15 +12,8 @@ final class JsonInputToCreateUserDto
     {
         $user = new CreateUserDto();
 
-        $user->email = match (isset($userData['email'])) {
-            true => $userData['email'],
-            false => ''
-        };
-
-        $user->password = match (isset($userData['password'])) {
-            true => $userData['password'],
-            false => ''
-        };
+        $user->email    = (string)$userData['email'];
+        $user->password = (string)$userData['password'];
 
         return $user;
     }

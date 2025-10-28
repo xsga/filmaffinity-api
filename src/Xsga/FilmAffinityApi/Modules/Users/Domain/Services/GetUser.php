@@ -11,6 +11,8 @@ use Xsga\FilmAffinityApi\Modules\Users\Domain\Repositories\UsersRepository;
 
 final class GetUser
 {
+    private const int ERROR_USER_NOT_FOUND = 1005;
+
     public function __construct(
         private LoggerInterface $logger,
         private UsersRepository $usersRepository
@@ -33,10 +35,10 @@ final class GetUser
 
     private function validateUserSearch(?User $user, string $criteriaValue): User
     {
-        if (is_null($user)) {
+        if ($user === null) {
             $errorMsg = "User '$criteriaValue' not found";
             $this->logger->error($errorMsg);
-            throw new UserNotFoundException($errorMsg, 1005, null, [1 => $criteriaValue]);
+            throw new UserNotFoundException($errorMsg, self::ERROR_USER_NOT_FOUND, null, [1 => $criteriaValue]);
         }
 
         return $user;

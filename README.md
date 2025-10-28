@@ -1,14 +1,58 @@
 # filmaffinity-API
 
 [![Language](https://img.shields.io/github/languages/top/xsga/filmaffinity-api)](https://php.net/)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF?style=flat)](https://php.net/)
-[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.1.0)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.4-8892BF?style=flat)](https://php.net/)
+[![Latest version](https://img.shields.io/github/v/release/xsga/filmaffinity-api)](https://github.com/xsga/filmaffinity-api/releases/tag/v7.2.0)
 [![License](https://img.shields.io/github/license/xsga/filmaffinity-api)](https://opensource.org/licenses/MIT)
 
 FilmAffinity-API is a public and non offical API wich allow you to get information about films from [FilmAffinity](http://filmaffinity.com "FilmAffinity Home") website. You can search films and get their complet  information, including cast, synopsis and cover.
 
 This API is written in PHP and uses Slim 4 framework.
 
+
+### ⚠️ IMPORTANT NOTE: FilmAffinity Anti-Bot Protection ###
+
+FilmAffinity currently implements anti-bot protection (Cloudflare or similar services like Akamai) that requires JavaScript execution and dynamically generated session cookies. This means:
+
+- The FilmAffinity server does not return the real HTML content directly
+- Instead, it serves a challenge page that your browser solves by executing JavaScript
+- Session cookies are generated dynamically only after solving the challenge
+- HTTP clients without a JavaScript engine (Guzzle, cURL, etc.) receive only the error/challenge page
+
+**This is why web scrapers and API clients that don't execute JavaScript fail to retrieve film data from FilmAffinity.** To work around this limitation, you would need to use tools like:
+- Puppeteer or Playwright (Node.js)
+- Selenium or Playwright (Python)
+- Headless browser solutions with JavaScript rendering capabilities
+- Third-party scraping services: [Prerender.io](https://prerender.io), [ScraperAPI](https://www.scraperapi.com), [Apify](https://apify.com), or similar services that handle JavaScript rendering and bot protection challenges
+
+
+## Technology Stack & Dependencies
+
+**Core Framework & HTTP:**
+- [Slim 4](https://www.slimframework.com/) - Lightweight PHP microframework
+- [Guzzle HTTP Client](https://docs.guzzlephp.org/) - PHP HTTP client for making requests
+
+**Database & ORM:**
+- [Doctrine ORM](https://www.doctrine-project.org/projects/orm.html) - Object-Relational Mapping
+- MySQL database
+
+**Dependency Injection & Configuration:**
+- [PHP-DI](https://php-di.org/) - Container for dependency injection
+- [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) - Environment variables management
+
+**Authentication & Security:**
+- [Firebase JWT](https://github.com/firebase/php-jwt) - JWT token handling for API authentication
+
+**Validation & Schema:**
+- [Swaggest JSON Schema](https://github.com/swaggest/json-schema) - JSON schema validation
+
+**Console & Commands:**
+- [Symfony Console](https://symfony.com/doc/current/components/console.html) - CLI commands framework
+
+**Caching:**
+- [Symfony Cache](https://symfony.com/doc/current/components/cache.html) - Application caching
+
+---
 
 ## Install with Docker Compose
 
