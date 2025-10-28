@@ -37,7 +37,6 @@ use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityC
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityFilmsRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinityGenresRepository;
 use Xsga\FilmAffinityApi\Modules\Films\Infrastructure\Repositories\FilmAffinitySearchRepository;
-use Xsga\FilmAffinityApi\Modules\Shared\Api\Domain\EnvironmentTypes;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Application\Services\HttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\HttpClient\Infrastructure\Services\GuzzleHttpClientService;
 use Xsga\FilmAffinityApi\Modules\Shared\JsonUtils\Application\Services\GetSchemaService;
@@ -120,11 +119,7 @@ return [
     // ENTITY MANAGER.
     // --------------------------------------------------------------------------------------------
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
-        $isDevMode = match ($container->get('env.environment')) {
-            EnvironmentTypes::DEVELOPMENT->value => true,
-            EnvironmentTypes::PRODUCTION->value  => false,
-            default => true
-        };
+        $isDevMode = true;
 
         /** @var string[] $entityPaths */
         $entityPaths = $container->get('entity.folders');
@@ -295,7 +290,7 @@ return [
     // JSON UTILS application services.
     GetSchemaService::class => DI\create(GetSchemaServiceImpl::class)->constructor(
         DI\get(LoggerInterface::class),
-        DI\get('schema.folder')
+        [DI\get('schema.folder')]
     ),
     JsonLoaderService::class => DI\create(JsonLoaderServiceImpl::class)->constructor(
         DI\get(LoggerInterface::class),

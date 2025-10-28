@@ -29,7 +29,7 @@ final class SimpleSearchParser extends AbstractParser
 
         if (
             ($queyResults->length > 0) &&
-            ($queyResults->item(0)?->attributes?->getNamedItem('content')?->nodeValue !== 'FilmAffinity')
+            (str_contains((string)$queyResults->item(0)?->attributes?->getNamedItem('content')?->nodeValue, 'Resultados para') === false)
         ) {
             return true;
         }
